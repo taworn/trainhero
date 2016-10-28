@@ -1,10 +1,6 @@
 
 extends Panel
 
-# member variables here, example:
-# var a=2
-# var b="textvar"
-
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
@@ -20,5 +16,5 @@ func _on_ItemList_item_activated(index):
 	var list = get_node("ItemList")
 	list.release_focus()
 	list.hide()
-	get_tree().change_scene("res://map.tscn")
+	get_tree().change_scene("res://test.tscn")
 

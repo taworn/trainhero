@@ -12,7 +12,8 @@ A training for a game's hero.
  - github.com - to host this project
  - google.com - to search every time when you want to learn any new things
  - stackoverflow.com - good community
- - www.spriters-resource.com - provide graphics, thank to KOH
+ - gnu.org/software/freefont - provide free font
+ - www.spriters-resource.com - provide graphics, thank to WaxPoetic, Shurlock
  - www.sounds-resource.com - provide sounds, thank to
  - Final Fantasy and Dragon Quest to made me to be a programmer :)
 
