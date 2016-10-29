@@ -38,15 +38,34 @@ func _input(event):
 			posMap.x = round(pos.x / 32)
 			posMap.y = round(pos.y / 32)
 			var id = tileMap.get_cell(posMap.x - 1, posMap.y - 1)
-			print(id)
 			var nodeName = tileSet.tile_get_name(id)
-			print(nodeName)
 			if passable.has(nodeName):
 				if passable[nodeName]:
 					hero.set_pos(pos)
+					check_script(pos)
 		else:
 			if Input.is_action_pressed("ui_cancel"):
 				get_tree().change_scene("res://title.tscn")
+
+func check_script(pos):
+	var scripts = currentScene.get_node("Scripts")
+	var count = scripts.get_child_count()
+	var found = false
+	var i = 0
+	while i < count:
+		var o = scripts.get_child(i)
+		var r = Rect2(o.get_pos(), o.get_size())
+		if r.has_point(pos):
+			found = true
+			break
+		i = i + 1
+	if found:
+		var nodeName = scripts.get_child(i).get_name()
+		var name = currentScene.goto(nodeName)
+		if name != null:
+			print("warp to ")
+			print(name)
+			get_tree().change_scene("res://" + name + ".tscn")
 
 func set_current_scene(scene):
 	currentScene = scene

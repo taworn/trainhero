@@ -24,7 +24,29 @@ collision/bounce = 0.0
 collision/layers = 1
 collision/mask = 1
 occluder/light_mask = 1
-tile_data = IntArray( 65537, 0, 65538, 0, 65539, 0, 65540, 0, 65541, 0, 131073, 1, 131074, 0, 131075, 0, 131076, 0, 131077, 1, 196609, 1, 196610, 1, 196611, 0, 196612, 1, 196613, 1, 262145, 1, 262146, 1, 262147, 1, 262148, 1, 262149, 1 )
+tile_data = IntArray( 65537, 0, 65538, 0, 65539, 0, 65540, 0, 65541, 0, 65542, 0, 65543, 0, 131073, 1, 131074, 0, 131075, 0, 131076, 0, 131077, 1, 131078, 0, 131079, 0, 196609, 1, 196610, 1, 196611, 0, 196612, 1, 196613, 1, 262145, 1, 262146, 1, 262147, 1, 262148, 1, 262149, 1 )
+
+[node name="Scripts" type="Control" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+
+[node name="Town0" type="Control" parent="Scripts"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 224.0
+margin/top = 32.0
+margin/right = 256.0
+margin/bottom = 96.0
 
 [node name="Hero" parent="." instance=ExtResource( 3 )]
 
