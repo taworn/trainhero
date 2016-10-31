@@ -3,6 +3,16 @@ extends Node2D
 
 const STEP = 32
 
+var screen_size = {
+	"x": Globals.get("display/width"),
+	"y": Globals.get("display/height")
+}
+
+var half_screen_size = {
+	"x": screen_size.x >> 1,
+	"y": screen_size.y >> 1
+}
+
 var passable = {
 	"Grass0": 1
 }
@@ -42,6 +52,7 @@ func _input(event):
 			if passable.has(nodeName):
 				if passable[nodeName]:
 					hero.set_pos(pos)
+					center_screen()
 					check_script(pos)
 		else:
 			if Input.is_action_pressed("ui_cancel"):
@@ -71,6 +82,12 @@ func set_current_scene(scene):
 	currentScene = scene
 	if currentScene != null:
 		hero = currentScene.get_node("Hero")
+		center_screen()
 	else:
 		hero = null
+
+func center_screen():
+	var p = hero.get_pos()
+	var q = Vector2(half_screen_size.x - p.x, half_screen_size.y - p.y)
+	currentScene.set_pos(q)
 
