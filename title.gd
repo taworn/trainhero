@@ -1,14 +1,14 @@
 
 extends Panel
 
+var party = null
+
 func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
+	party = get_node("/root/party")
 	var list = get_node("ItemList")
 	list.add_item("New Game", null)
-	list.add_item("Save Data #1", null)
-	list.add_item("Save Data #2", null)
-	list.add_item("Save Data #3", null)
+	list.add_item("Save Game #0", null)
+	list.add_item("Save Game #1", null)
 	list.select(0)
 	list.grab_focus()
 
@@ -16,5 +16,10 @@ func _on_ItemList_item_activated(index):
 	var list = get_node("ItemList")
 	list.release_focus()
 	list.hide()
-	get_tree().change_scene("res://test.tscn")
+	if index == 0:
+		party.start_game()
+	elif index == 1:
+		party.load_game("user://game-0.save")
+	elif index == 2:
+		party.load_game("user://game-1.save")
 
