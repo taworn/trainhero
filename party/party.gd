@@ -41,6 +41,9 @@ var nextPos = null
 var distance = null
 var timeUsed = 0
 
+# move to next scene
+var nextScenePos = null
+
 func set_current_scene(scene):
 	currentScene = scene
 	if currentScene != null:
@@ -49,6 +52,10 @@ func set_current_scene(scene):
 		scripting = false
 		tileMap = currentScene.get_node("Camera/TileMap")
 		tileSet = tileMap.get_tileset()
+		if nextScenePos != null:
+			var pos = pixel_to_map(nextScenePos)
+			pos = map_to_pixel(pos)
+			hero.set_pos(pos)
 		center_screen()
 	else:
 		hero = null
@@ -150,12 +157,15 @@ func check_script():
 		i = i + 1
 	if found:
 		var nodeName = scripts.get_child(i).get_name()
-		var name = currentScene.goto(nodeName)
-		if name != null:
-			print("warp to ")
-			print(name)
-			get_tree().change_scene("res://" + name + ".tscn")
+		var node = currentScene.goto(nodeName)
+		if node != null:
+			print("warp to ", node.map, " (", node.x, ",", node.y, ")")
+			get_tree().change_scene("res://" + node.map + ".tscn")
+			nextScenePos = Vector2(node.x, node.y)
 
 func pixel_to_map(pixelPos):
 	return Vector2(round(pixelPos.x / STEP_X), round(pixelPos.y / STEP_Y))
+
+func map_to_pixel(mapPos):
+	return Vector2((mapPos.x - 1) * STEP_X + (STEP_X >> 1), (mapPos.y - 1) * STEP_Y + (STEP_Y >> 1))
 

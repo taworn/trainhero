@@ -2,7 +2,7 @@
 extends Node2D
 
 var warp = {
-	"Town0": "test"
+	"Town0": {"map":"test", "x":992, "y":160},
 }
 
 func _ready():

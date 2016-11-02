@@ -63,7 +63,7 @@ margin/bottom = 320.0
 
 [node name="Hero" parent="Camera" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 96, 96 )
+transform/pos = Vector2( 224, 96 )
 animation = "down"
 
 
