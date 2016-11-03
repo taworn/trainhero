@@ -143,6 +143,9 @@ func center_screen():
 	var p = hero.get_pos()
 	var q = Vector2(half_screen_size.x - p.x, half_screen_size.y - p.y)
 	currentScene.get_node("Camera").set_pos(q)
+	var background = currentScene.get_node("CanvasLayer/ParallaxBackground/ParallaxLayer/Background")
+	if background != null:
+		background.set_pos(Vector2(q.x / 8, q.y / 32))
 
 func check_script():
 	var scripts = currentScene.get_node("Camera/Scripts")
