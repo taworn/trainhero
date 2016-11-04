@@ -74,10 +74,7 @@ margin/bottom = 40.0
 
 [node name="NPCMap" type="Node2D" parent="Camera"]
 
-[node name="Hero" parent="Camera" instance=ExtResource( 2 )]
-
-transform/pos = Vector2( 96, 96 )
-animation = "down"
+[node name="Group" parent="Camera" instance=ExtResource( 2 )]
 
 [node name="UI" type="Container" parent="."]
 
