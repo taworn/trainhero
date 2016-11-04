@@ -1,0 +1,85 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://tilesets/world.tres" type="TileSet" id=1]
+[ext_resource path="res://party/hero.tscn" type="PackedScene" id=2]
+
+[node name="Root" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+layer = -1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
+
+layer = -1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+scroll/offset = Vector2( 0, 0 )
+scroll/base_offset = Vector2( 0, 0 )
+scroll/base_scale = Vector2( 1, 1 )
+scroll/limit_begin = Vector2( 0, 0 )
+scroll/limit_end = Vector2( 0, 0 )
+scroll/ignore_camera_zoom = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
+
+motion/scale = Vector2( 1, 1 )
+motion/offset = Vector2( 0, 0 )
+motion/mirroring = Vector2( 0, 0 )
+
+[node name="Background" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer"]
+
+[node name="Camera" type="Node2D" parent="."]
+
+[node name="TileMap" type="TileMap" parent="Camera"]
+
+mode = 0
+tile_set = ExtResource( 1 )
+cell/size = Vector2( 64, 64 )
+cell/quadrant_size = 16
+cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = false
+collision/use_kinematic = false
+collision/friction = 1.0
+collision/bounce = 0.0
+collision/layers = 1
+collision/mask = 1
+occluder/light_mask = 1
+tile_data = IntArray( 0, 0, 1, 0, 2, 0, 65536, 0, 65537, 0, 65538, 0, 131072, 0, 131073, 0, 131074, 0 )
+
+[node name="WarpMap" type="Control" parent="Camera"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
+
+[node name="NPCMap" type="Node2D" parent="Camera"]
+
+[node name="Hero" parent="Camera" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 96, 96 )
+animation = "down"
+
+[node name="Container" type="Container" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 64.0
+margin/bottom = 64.0
+
+
