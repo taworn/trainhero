@@ -60,31 +60,44 @@ func _ready():
 	npcMap = get_node("../NPCMap")
 	walking = false
 	scripting = false
+
 	set_pos(Vector2(party.state.x, party.state.y))
+	if party.back_fade != null:
+		set_animation(party.back_fade)
 	center_screen()
+	get_node("../../UI/Title").set_hidden(!party.new)
+	party.new = false
+
 	set_process_input(true)
 	set_process(true)
 
 func _input(event):
 	if !walking && !scripting:
 		if Input.is_action_pressed("ui_accept"):
+			key_pressed()
+			party.back_fade = get_animation()
 			get_tree().change_scene("res://menu.tscn")
 		elif Input.is_action_pressed("ui_cancel"):
+			key_pressed()
 			get_tree().change_scene("res://title.tscn")
 
 func _process(delta):
 	if !walking && !scripting:
 		distance = null
 		if Input.is_action_pressed("ui_left"):
+			key_pressed()
 			distance = Vector2(-STEP_X, 0)
 			set_animation("left")
 		elif Input.is_action_pressed("ui_right"):
+			key_pressed()
 			distance = Vector2(STEP_X, 0)
 			set_animation("right")
 		elif Input.is_action_pressed("ui_up"):
+			key_pressed()
 			distance = Vector2(0, -STEP_Y)
 			set_animation("up")
 		elif Input.is_action_pressed("ui_down"):
+			key_pressed()
 			distance = Vector2(0, STEP_Y)
 			set_animation("down")
 		if distance != null:
@@ -102,6 +115,9 @@ func _process(delta):
 		walk(delta)
 	elif scripting:
 		pass
+
+func key_pressed():
+	get_node("../../UI/Title").set_hidden(true)
 
 func walk(delta):
 	var finish = false
@@ -172,6 +188,7 @@ func check_script():
 			if node != null:
 				var pos = Vector2(node.x, node.y)
 				pos = map_to_pixel(pixel_to_map(pos))
+				party.back_fade = get_animation()
 				party.warp_to(pos.x, pos.y, node.map)
 
 func pixel_to_map(pixelPos):
@@ -179,4 +196,7 @@ func pixel_to_map(pixelPos):
 
 func map_to_pixel(mapPos):
 	return Vector2((mapPos.x - 1) * STEP_X + (STEP_X >> 1), (mapPos.y - 1) * STEP_Y + (STEP_Y >> 1))
+
+func set_current_scene(scene):
+	currentScene = scene
 

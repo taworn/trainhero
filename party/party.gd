@@ -3,6 +3,9 @@ extends Node2D
 
 var state = {}  # current state
 
+var new = false  # is change scene or go back
+var back_fade = null
+
 func start_game():
 	state = {
 		# level, experience and gold
@@ -68,6 +71,8 @@ func start_game():
 	state.x = 96
 	state.y = 96
 	state.map = "maps/test0"
+	new = true
+	back_fade = null
 	print("started, state=", state)
 	get_tree().change_scene("res://" + state.map + ".tscn")
 
@@ -86,6 +91,8 @@ func load_game(fileName):
 	if (!f.eof_reached()):
 	    state.parse_json(f.get_line())
 	f.close()
+	new = true
+	back_fade = null
 	print("loaded, state=", state)
 	get_tree().change_scene("res://" + state.map + ".tscn")
 
@@ -96,6 +103,7 @@ func warp_to(x, y, map):
 	state.x = x
 	state.y = y
 	state.map = map
+	new = true
 	print("warp to, map=", state.map, " (", state.x, ", ", state.y, ")")
 	get_tree().change_scene("res://" + state.map + ".tscn")
 
