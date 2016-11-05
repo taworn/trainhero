@@ -6,11 +6,13 @@ const MOVE_LEFT = 2
 const MOVE_RIGHT = 3
 const MOVE_UP = 4
 
-var npc = null       # is hero
-var animate = null   # animated graphics
-var tile_map = null  # tile map
-var tile_set = null  # tile set
-
+var npc = null         # is hero
+var animate = null     # animated graphics
+var tile_map = null    # tile map
+var tile_set = null    # tile set
+var movable = false    # check it is a movable
+var same_tile = false  # check it move is same tile only
+var tile_check = null  # tile to check if same_tile is true
 var walking = false    # is walking?
 var scripting = false  # is scripting?
 
@@ -24,11 +26,19 @@ func _init(instance):
 	animate = instance.get_node("Animate")
 	tile_map = instance.get_node("../../TileMap")
 	tile_set = tile_map.get_tileset()
+	if instance.get_node("Movable"):
+		movable = true
+	elif instance.get_node("SameTile"):
+		movable = true
+		same_tile = true
+		var map_pos = constants.pixel_to_map(npc.get_pos())
+		tile_check = tile_map.get_cell(map_pos.x - 1, map_pos.y - 1)
+		print(tile_check)
 	walking = false
 	scripting = false
 
 func _process(delta):
-	if !walking && !scripting:
+	if movable && !walking && !scripting:
 		distance = null
 		var a = ai_walk()
 		if a == MOVE_DOWN:
@@ -48,6 +58,8 @@ func _process(delta):
 			next_pos = Vector2(pos.x + distance.x, pos.y + distance.y)
 			var map_pos = constants.pixel_to_map(next_pos)
 			var id = tile_map.get_cell(map_pos.x - 1, map_pos.y - 1)
+			if same_tile && tile_check != id:
+				return
 			var name = tile_set.tile_get_name(id)
 			if constants.passable_walk.has(name):
 				if constants.passable_walk[name]:
