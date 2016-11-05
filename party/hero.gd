@@ -48,8 +48,12 @@ func _input(event):
 	if !walking && !scripting:
 		if Input.is_action_pressed("ui_accept"):
 			key_pressed()
-			party.back_fade = hero.get_animation()
-			get_tree().change_scene("res://menu.tscn")
+			var npc = detect_hit()
+			if npc != null:
+				talk(npc)
+			else:
+				party.back_fade = hero.get_animation()
+				get_tree().change_scene("res://menu.tscn")
 		elif Input.is_action_pressed("ui_cancel"):
 			key_pressed()
 			get_tree().change_scene("res://title.tscn")
@@ -180,4 +184,7 @@ func detect_hit():
 		return npc_map.get_child(i)
 	else:
 		return null
+
+func talk(npc):
+	print("talk with ", npc.get_name())
 
