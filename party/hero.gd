@@ -76,7 +76,7 @@ func _process(delta):
 		if distance != null:
 			var pos = hero.get_pos()
 			next_pos = Vector2(pos.x + distance.x, pos.y + distance.y)
-			var map_pos = pixel_to_map(next_pos)
+			var map_pos = constants.pixel_to_map(next_pos)
 			var id = tile_map.get_cell(map_pos.x - 1, map_pos.y - 1)
 			var name = tile_set.tile_get_name(id)
 			if constants.passable_walk.has(name):
@@ -160,13 +160,7 @@ func check_script():
 			var node = current_scene.warps[name]
 			if node != null:
 				var pos = Vector2(node.x, node.y)
-				pos = map_to_pixel(pixel_to_map(pos))
+				pos = constants.map_to_pixel(constants.pixel_to_map(pos))
 				party.back_fade = hero.get_animation()
 				party.warp_to(pos.x, pos.y, node.map)
-
-func pixel_to_map(pixel_pos):
-	return Vector2(round(pixel_pos.x / constants.STEP_X), round(pixel_pos.y / constants.STEP_Y))
-
-func map_to_pixel(map_pos):
-	return Vector2((map_pos.x - 1) * constants.STEP_X + (constants.STEP_X >> 1), (map_pos.y - 1) * constants.STEP_Y + (constants.STEP_Y >> 1))
 

@@ -30,3 +30,9 @@ var passable_sail = {
 	"Water0": 1,
 }
 
+func pixel_to_map(pixel_pos):
+	return Vector2(round(pixel_pos.x / STEP_X), round(pixel_pos.y / STEP_Y))
+
+func map_to_pixel(map_pos):
+	return Vector2((map_pos.x - 1) * STEP_X + (STEP_X >> 1), (map_pos.y - 1) * STEP_Y + (STEP_Y >> 1))
+
