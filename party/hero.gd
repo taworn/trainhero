@@ -81,9 +81,10 @@ func _process(delta):
 			var name = tile_set.tile_get_name(id)
 			if constants.passable_walk.has(name):
 				if constants.passable_walk[name]:
-					time_used = 0
-					walking = true
-					hero.set_frame(0)
+					if detect_hit() == null:
+						time_used = 0
+						walking = true
+						hero.set_frame(0)
 	elif walking:
 		walk(delta)
 	elif scripting:
@@ -163,4 +164,20 @@ func check_script():
 				pos = constants.map_to_pixel(constants.pixel_to_map(pos))
 				party.back_fade = hero.get_animation()
 				party.warp_to(pos.x, pos.y, node.map)
+
+func detect_hit():
+	var found = false
+	var count = npc_map.get_child_count()
+	var i = 0
+	while i < count:
+		var npc = npc_map.get_child(i).npc
+		var pos = npc.detect_hit()
+		if next_pos.x == pos.x && next_pos.y == pos.y:
+			found = true
+			break
+		i = i + 1
+	if found:
+		return npc_map.get_child(i)
+	else:
+		return null
 

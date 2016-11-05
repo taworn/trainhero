@@ -112,6 +112,12 @@ func walk(delta):
 		walking = false
 		animate.set_frame(0)
 
+func detect_hit():
+	if !walking:
+		return npc.get_pos()
+	else:
+		return next_pos
+
 func ai_walk():
 	var i = randi() % 100
 	if i > 95:
