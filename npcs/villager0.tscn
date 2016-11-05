@@ -1,0 +1,26 @@
+[gd_scene load_steps=11 format=1]
+
+[ext_resource path="res://npcs/villager0.gd" type="Script" id=1]
+[ext_resource path="res://npcs/villager0/l0.png" type="Texture" id=2]
+[ext_resource path="res://npcs/villager0/l1.png" type="Texture" id=3]
+[ext_resource path="res://npcs/villager0/r0.png" type="Texture" id=4]
+[ext_resource path="res://npcs/villager0/r1.png" type="Texture" id=5]
+[ext_resource path="res://npcs/villager0/u0.png" type="Texture" id=6]
+[ext_resource path="res://npcs/villager0/u1.png" type="Texture" id=7]
+[ext_resource path="res://npcs/villager0/d0.png" type="Texture" id=8]
+[ext_resource path="res://npcs/villager0/d1.png" type="Texture" id=9]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ { "frames":[ ExtResource( 2 ), ExtResource( 3 ) ], "loop":true, "name":"left", "speed":5.0 }, { "frames":[ ExtResource( 4 ), ExtResource( 5 ) ], "loop":true, "name":"right", "speed":5.0 }, { "frames":[ ExtResource( 6 ), ExtResource( 7 ) ], "loop":true, "name":"up", "speed":5.0 }, { "frames":[ ExtResource( 8 ) ], "loop":true, "name":"default", "speed":5.0 }, { "frames":[ ExtResource( 8 ), ExtResource( 9 ) ], "loop":true, "name":"down", "speed":5.0 } ]
+
+[node name="Villager0" type="Node2D"]
+
+script/script = ExtResource( 1 )
+
+[node name="Animate" type="AnimatedSprite" parent="."]
+
+frames = SubResource( 1 )
+animation = "default"
+
+
