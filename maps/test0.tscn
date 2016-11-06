@@ -26,13 +26,21 @@ margin/bottom = 320.0
 
 [node name="Villager0" parent="Camera/NPCMap" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 96, 352 )
-
-[node name="Movable" type="Node2D" parent="Camera/NPCMap/Villager0"]
+transform/pos = Vector2( 544, 288 )
 
 [node name="Villager1" parent="Camera/NPCMap" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 544, 288 )
+transform/pos = Vector2( 96, 352 )
+
+[node name="Movable" type="Node2D" parent="Camera/NPCMap/Villager1"]
+
+[node name="Villager2" parent="Camera/NPCMap" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 96, 288 )
+
+[node name="Movable" type="Node2D" parent="Camera/NPCMap/Villager2"]
+
+transform/pos = Vector2( 0, 88 )
 
 [node name="King" parent="Camera/NPCMap" instance=ExtResource( 4 )]
 
@@ -43,5 +51,9 @@ transform/pos = Vector2( 480, 544 )
 [node name="Title" parent="UI"]
 
 text = "Test 0"
+
+[node name="Container" parent="UI"]
+
+visibility/visible = false
 
 

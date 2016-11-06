@@ -8,8 +8,8 @@ var camera = null      # camera to set position (x, y)
 var hero = null        # is hero
 var tile_map = null    # tile map
 var tile_set = null    # tile set
-var warp_map = null    # a map to find warp zone
-var npc_map = null     # a map to find NPC
+var warp_map = null    # a map to find warp zones
+var npc_map = null     # a map to find NPCs
 var container = null   # a container UI
 
 var walking = false    # is walking?
@@ -61,10 +61,10 @@ func _input(event):
 				talk_with.set_face(hero.get_animation())
 				talk_with.scripting = true
 				scripting = true
-			else:
-				party.back_fade = hero.get_animation()
-				save_npcs()
-				get_tree().change_scene("res://menu.tscn")
+		elif Input.is_action_pressed("ui_menu"):
+			party.back_fade = hero.get_animation()
+			save_npcs()
+			get_tree().change_scene("res://menu.tscn")
 		elif Input.is_action_pressed("ui_cancel"):
 			key_pressed()
 			get_tree().change_scene("res://title.tscn")
@@ -185,6 +185,12 @@ func check_script():
 				pos = constants.map_to_pixel(constants.pixel_to_map(pos))
 				party.back_fade = hero.get_animation()
 				party.warp_to(pos.x, pos.y, node.map)
+
+func position():
+	if !walking:
+		return hero.get_pos()
+	else:
+		return next_pos
 
 func detect_hit():
 	var found = false

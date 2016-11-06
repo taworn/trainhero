@@ -7,12 +7,14 @@ const MOVE_RIGHT = 3
 const MOVE_UP = 4
 
 var npc = null         # is hero
+var npc_map = null     # a map to find other NPCs
 var animate = null     # animated graphics
 var tile_map = null    # tile map
 var tile_set = null    # tile set
 var movable = false    # check it is a movable
 var same_tile = false  # check it move is same tile only
 var tile_check = null  # tile to check if same_tile is true
+var with_hero = null   # referencing with hero
 var walking = false    # is walking?
 var scripting = false  # is scripting?
 
@@ -23,6 +25,7 @@ var speed = 0
 
 func _init(instance):
 	npc = instance
+	npc_map = instance.get_node("../../NPCMap")
 	animate = instance.get_node("Animate")
 	tile_map = instance.get_node("../../TileMap")
 	tile_set = tile_map.get_tileset()
@@ -33,8 +36,12 @@ func _init(instance):
 		same_tile = true
 		var map_pos = constants.pixel_to_map(npc.get_pos())
 		tile_check = tile_map.get_cell(map_pos.x - 1, map_pos.y - 1)
+	with_hero = instance.get_node("../../Group")
 	walking = false
 	scripting = false
+	var pos = npc.get_pos()
+	pos = constants.map_to_pixel(constants.pixel_to_map(pos))
+	npc.set_pos(pos)
 
 func _process(delta):
 	if movable && !walking && !scripting:
@@ -62,10 +69,11 @@ func _process(delta):
 			var name = tile_set.tile_get_name(id)
 			if constants.passable_walk.has(name):
 				if constants.passable_walk[name]:
-					time_used = 0
-					walking = true
-					animate.set_frame(0)
-					speed = ai_speed()
+					if detect_hit() == null:
+						speed = ai_speed()
+						animate.set_frame(0)
+						time_used = 0
+						walking = true
 	elif walking:
 		walk(delta)
 	elif scripting:
@@ -108,8 +116,8 @@ func walk(delta):
 
 	npc.set_pos(pos)
 	if finish:
-		walking = false
 		animate.set_frame(0)
+		walking = false
 
 func position():
 	if !walking:
@@ -117,16 +125,26 @@ func position():
 	else:
 		return next_pos
 
-func ai_walk():
-	var i = randi() % 100
-	if i > 95:
-		return i - 95;
+func detect_hit():
+	var found = false
+	var count = npc_map.get_child_count()
+	var i = 0
+	while i < count:
+		var npc = npc_map.get_child(i).npc
+		if npc != self:
+			var pos = npc.position()
+			if next_pos.x == pos.x && next_pos.y == pos.y:
+				found = true
+				break
+		i += 1
+	if found:
+		return npc_map.get_child(i)
 	else:
-		return 0
-
-func ai_speed():
-	var i = randi() % 500
-	return 250 + i
+		var pos = with_hero.position()
+		if next_pos.x == pos.x && next_pos.y == pos.y:
+			return with_hero
+		else:
+			return null
 
 func set_face(hero_face):
 	if hero_face == "down":
@@ -140,4 +158,15 @@ func set_face(hero_face):
 
 func talk_with():
 	return "Good day"
+
+func ai_walk():
+	var i = randi() % 100
+	if i > 95:
+		return i - 95;
+	else:
+		return 0
+
+func ai_speed():
+	var i = randi() % 500
+	return 250 + i
 
