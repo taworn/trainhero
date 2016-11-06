@@ -33,7 +33,6 @@ func _init(instance):
 		same_tile = true
 		var map_pos = constants.pixel_to_map(npc.get_pos())
 		tile_check = tile_map.get_cell(map_pos.x - 1, map_pos.y - 1)
-		print(tile_check)
 	walking = false
 	scripting = false
 

@@ -37,6 +37,8 @@ func _ready():
 	hero.set_pos(Vector2(party.state.x, party.state.y))
 	if party.back_fade != null:
 		hero.set_animation(party.back_fade)
+	else:
+		hero.set_animation("down")
 	center_screen()
 	get_node("../../UI/Title").set_hidden(!party.new)
 	party.new = false
@@ -48,11 +50,12 @@ func _input(event):
 	if !walking && !scripting:
 		if Input.is_action_pressed("ui_accept"):
 			key_pressed()
-			var npc = detect_hit()
+			var npc = detect_talk()
 			if npc != null:
 				talk(npc)
 			else:
 				party.back_fade = hero.get_animation()
+				save_npcs()
 				get_tree().change_scene("res://menu.tscn")
 		elif Input.is_action_pressed("ui_cancel"):
 			key_pressed()
@@ -61,7 +64,11 @@ func _input(event):
 func _process(delta):
 	if !walking && !scripting:
 		distance = null
-		if Input.is_action_pressed("ui_left"):
+		if Input.is_action_pressed("ui_down"):
+			key_pressed()
+			distance = Vector2(0, constants.STEP_Y)
+			hero.set_animation("down")
+		elif Input.is_action_pressed("ui_left"):
 			key_pressed()
 			distance = Vector2(-constants.STEP_X, 0)
 			hero.set_animation("left")
@@ -73,10 +80,6 @@ func _process(delta):
 			key_pressed()
 			distance = Vector2(0, -constants.STEP_Y)
 			hero.set_animation("up")
-		elif Input.is_action_pressed("ui_down"):
-			key_pressed()
-			distance = Vector2(0, constants.STEP_Y)
-			hero.set_animation("down")
 		if distance != null:
 			var pos = hero.get_pos()
 			next_pos = Vector2(pos.x + distance.x, pos.y + distance.y)
@@ -158,7 +161,7 @@ func check_script():
 		if r.has_point(hero.get_pos()):
 			found = true
 			break
-		i = i + 1
+		i += 1
 	if found:
 		var name = warp_map.get_child(i).get_name()
 		if current_scene.warps.has(name):
@@ -179,7 +182,36 @@ func detect_hit():
 		if next_pos.x == pos.x && next_pos.y == pos.y:
 			found = true
 			break
-		i = i + 1
+		i += 1
+	if found:
+		return npc_map.get_child(i)
+	else:
+		return null
+
+func detect_talk():
+	var face = null
+	var animate = hero.get_animation()
+	if animate == "down":
+		face = Vector2(0, constants.STEP_Y)
+	elif animate == "left":
+		face = Vector2(-constants.STEP_X, 0)
+	elif animate == "right":
+		face = Vector2(constants.STEP_X, 0)
+	elif animate == "up":
+		face = Vector2(0, -constants.STEP_Y)
+	var pos = hero.get_pos()
+	var talk_pos = Vector2(pos.x + face.x, pos.y + face.y)
+
+	var found = false
+	var count = npc_map.get_child_count()
+	var i = 0
+	while i < count:
+		var npc = npc_map.get_child(i).npc
+		var pos = npc.detect_hit()
+		if talk_pos.x == pos.x && talk_pos.y == pos.y:
+			found = true
+			break
+		i += 1
 	if found:
 		return npc_map.get_child(i)
 	else:
@@ -187,4 +219,21 @@ func detect_hit():
 
 func talk(npc):
 	print("talk with ", npc.get_name())
+
+func save_npcs():
+	var i = 0
+	while i < npc_map.get_child_count():
+		var npc = npc_map.get_child(i).npc
+		var pos = npc.detect_hit()
+		var name = npc_map.get_child(i).get_name()
+		party.state.npcs[name] = {"x": pos.x, "y": pos.y}
+		i += 1
+
+func set_current_scene(scene):
+	current_scene = scene
+	for i in party.state.npcs:
+		var node = npc_map.get_node(i)
+		if node != null:
+			var data = party.state.npcs[i]
+			node.set_pos(Vector2(data.x, data.y))
 
