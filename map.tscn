@@ -1,10 +1,17 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://tilesets/world.tres" type="TileSet" id=1]
 [ext_resource path="res://party/hero.tscn" type="PackedScene" id=2]
 [ext_resource path="res://fonts/FreeSans.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="DynamicFont" id=1]
+
+font/size = 32
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
 
 font/size = 32
 font/use_mipmaps = false
@@ -101,6 +108,36 @@ margin/bottom = 35.0
 custom_fonts/font = SubResource( 1 )
 align = 1
 valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Container" type="Container" parent="UI"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = -960.0
+margin/bottom = -536.0
+
+[node name="Text" type="Label" parent="UI/Container"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 32.0
+margin/top = 368.0
+margin/right = 32.0
+margin/bottom = 32.0
+custom_fonts/font = SubResource( 2 )
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1

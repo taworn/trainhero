@@ -111,7 +111,7 @@ func walk(delta):
 		walking = false
 		animate.set_frame(0)
 
-func detect_hit():
+func position():
 	if !walking:
 		return npc.get_pos()
 	else:
@@ -127,4 +127,17 @@ func ai_walk():
 func ai_speed():
 	var i = randi() % 500
 	return 250 + i
+
+func set_face(hero_face):
+	if hero_face == "down":
+		animate.set_animation("up")
+	elif hero_face == "left":
+		animate.set_animation("right")
+	elif hero_face == "right":
+		animate.set_animation("left")
+	elif hero_face == "up":
+		animate.set_animation("down")
+
+func talk_with():
+	return "Good day"
 

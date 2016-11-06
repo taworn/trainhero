@@ -10,6 +10,7 @@ var tile_map = null    # tile map
 var tile_set = null    # tile set
 var warp_map = null    # a map to find warp zone
 var npc_map = null     # a map to find NPC
+var container = null   # a container UI
 
 var walking = false    # is walking?
 var scripting = false  # is scripting?
@@ -17,6 +18,8 @@ var scripting = false  # is scripting?
 var distance = null
 var next_pos = null
 var time_used = 0
+
+var talk_with = null
 
 var current_scene = null
 
@@ -31,14 +34,13 @@ func _ready():
 	tile_set = tile_map.get_tileset()
 	warp_map = get_node("../WarpMap")
 	npc_map = get_node("../NPCMap")
+	container = get_node("../../UI/Container")
+	container.set_hidden(true)
 	walking = false
 	scripting = false
 
 	hero.set_pos(Vector2(party.state.x, party.state.y))
-	if party.back_fade != null:
-		hero.set_animation(party.back_fade)
-	else:
-		hero.set_animation("down")
+	hero.set_animation(party.state.face)
 	center_screen()
 	get_node("../../UI/Title").set_hidden(!party.new)
 	party.new = false
@@ -52,7 +54,13 @@ func _input(event):
 			key_pressed()
 			var npc = detect_talk()
 			if npc != null:
-				talk(npc)
+				container.set_hidden(false)
+				talk_with = npc
+				print("talk with ", talk_with.get_name())
+				container.get_node("Text").set_text(talk_with.talk_with())
+				talk_with.set_face(hero.get_animation())
+				talk_with.scripting = true
+				scripting = true
 			else:
 				party.back_fade = hero.get_animation()
 				save_npcs()
@@ -60,6 +68,11 @@ func _input(event):
 		elif Input.is_action_pressed("ui_cancel"):
 			key_pressed()
 			get_tree().change_scene("res://title.tscn")
+	elif scripting:
+		if Input.is_action_pressed("ui_accept"):
+			container.set_hidden(true)
+			talk_with.scripting = false
+			scripting = false
 
 func _process(delta):
 	if !walking && !scripting:
@@ -80,6 +93,7 @@ func _process(delta):
 			key_pressed()
 			distance = Vector2(0, -constants.STEP_Y)
 			hero.set_animation("up")
+		party.state.face = hero.get_animation()
 		if distance != null:
 			var pos = hero.get_pos()
 			next_pos = Vector2(pos.x + distance.x, pos.y + distance.y)
@@ -89,13 +103,13 @@ func _process(delta):
 			if constants.passable_walk.has(name):
 				if constants.passable_walk[name]:
 					if detect_hit() == null:
+						hero.set_frame(0)
 						time_used = 0
 						walking = true
-						hero.set_frame(0)
 	elif walking:
 		walk(delta)
 	elif scripting:
-		pass
+		talk()
 
 func key_pressed():
 	get_node("../../UI/Title").set_hidden(true)
@@ -138,11 +152,11 @@ func walk(delta):
 	hero.set_pos(pos)
 	center_screen()
 	if finish:
-		walking = false
 		hero.set_frame(0)
 		party.state.x = pos.x
 		party.state.y = pos.y
 		check_script()
+		walking = false
 
 func center_screen():
 	var p = hero.get_pos()
@@ -178,7 +192,7 @@ func detect_hit():
 	var i = 0
 	while i < count:
 		var npc = npc_map.get_child(i).npc
-		var pos = npc.detect_hit()
+		var pos = npc.position()
 		if next_pos.x == pos.x && next_pos.y == pos.y:
 			found = true
 			break
@@ -207,26 +221,26 @@ func detect_talk():
 	var i = 0
 	while i < count:
 		var npc = npc_map.get_child(i).npc
-		var pos = npc.detect_hit()
+		var pos = npc.position()
 		if talk_pos.x == pos.x && talk_pos.y == pos.y:
 			found = true
 			break
 		i += 1
 	if found:
-		return npc_map.get_child(i)
+		return npc_map.get_child(i).npc
 	else:
 		return null
 
-func talk(npc):
-	print("talk with ", npc.get_name())
+func talk():
+	pass
 
 func save_npcs():
 	var i = 0
 	while i < npc_map.get_child_count():
 		var npc = npc_map.get_child(i).npc
-		var pos = npc.detect_hit()
+		var pos = npc.position()
 		var name = npc_map.get_child(i).get_name()
-		party.state.npcs[name] = {"x": pos.x, "y": pos.y}
+		party.state.npcs[name] = {"x": pos.x, "y": pos.y, "face": npc.animate.get_animation()}
 		i += 1
 
 func set_current_scene(scene):
@@ -236,4 +250,5 @@ func set_current_scene(scene):
 		if node != null:
 			var data = party.state.npcs[i]
 			node.set_pos(Vector2(data.x, data.y))
+			node.npc.animate.set_animation(data.face)
 

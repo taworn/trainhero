@@ -67,14 +67,15 @@ func start_game():
 		"map": null,
 		"x": null,
 		"y": null,
+		"face": null,
 		"npcs": {
 		},
 	}
 	state.map = "maps/test0"
 	state.x = 96
 	state.y = 96
+	state.face = "down"
 	new = true
-	back_fade = null
 	print("started, state=", state)
 	get_tree().change_scene("res://" + state.map + ".tscn")
 
@@ -94,7 +95,6 @@ func load_game(fileName):
 	    state.parse_json(f.get_line())
 	f.close()
 	new = true
-	back_fade = null
 	print("loaded, state=", state)
 	get_tree().change_scene("res://" + state.map + ".tscn")
 
