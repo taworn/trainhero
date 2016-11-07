@@ -30,6 +30,10 @@ var passable_sail = {
 	"Water0": 1,
 }
 
+# scripts in dialog
+const SCRIPT_SWITCH_TITLE = 0
+const SCRIPT_OPEN_SHOP = 1
+
 func pixel_to_map(pixel_pos):
 	return Vector2(round(pixel_pos.x / STEP_X), round(pixel_pos.y / STEP_Y))
 

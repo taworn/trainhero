@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://tilesets/world.tres" type="TileSet" id=1]
 [ext_resource path="res://party/hero.tscn" type="PackedScene" id=2]
 [ext_resource path="res://fonts/FreeSans.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://party/shop.tscn" type="PackedScene" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -22,6 +23,7 @@ font/font = ExtResource( 3 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+editor/display_folded = true
 layer = -1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -49,6 +51,8 @@ motion/mirroring = Vector2( 0, 0 )
 [node name="Background" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer"]
 
 [node name="Camera" type="Node2D" parent="."]
+
+editor/display_folded = true
 
 [node name="TileMap" type="TileMap" parent="Camera"]
 
@@ -125,6 +129,23 @@ margin/top = 0.0
 margin/right = -960.0
 margin/bottom = -536.0
 
+[node name="Title" type="Label" parent="UI/Container"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 32.0
+margin/top = 323.0
+margin/right = 32.0
+margin/bottom = 242.0
+custom_fonts/font = SubResource( 2 )
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [node name="Text" type="Label" parent="UI/Container"]
 
 anchor/right = 1
@@ -141,5 +162,7 @@ custom_fonts/font = SubResource( 2 )
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="Shop" parent="UI" instance=ExtResource( 4 )]
 
 

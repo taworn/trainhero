@@ -14,12 +14,15 @@ var container = null   # a container UI
 
 var walking = false    # is walking?
 var scripting = false  # is scripting?
+var in_shop = false    # is in shop?
 
 var distance = null
 var next_pos = null
 var time_used = 0
 
 var talk_with = null
+var dialog = null
+var dialog_pointer = -1
 
 var current_scene = null
 
@@ -49,18 +52,12 @@ func _ready():
 	set_process(true)
 
 func _input(event):
-	if !walking && !scripting:
+	if !walking && !scripting && !in_shop:
 		if Input.is_action_pressed("ui_accept"):
 			key_pressed()
 			var npc = detect_talk()
 			if npc != null:
-				container.set_hidden(false)
-				talk_with = npc
-				print("talk with ", talk_with.get_name())
-				container.get_node("Text").set_text(talk_with.talk_with())
-				talk_with.set_face(hero.get_animation())
-				talk_with.scripting = true
-				scripting = true
+				start_talk(npc)
 		elif Input.is_action_pressed("ui_menu"):
 			party.back_fade = hero.get_animation()
 			save_npcs()
@@ -69,13 +66,31 @@ func _input(event):
 			key_pressed()
 			get_tree().change_scene("res://title.tscn")
 	elif scripting:
-		if Input.is_action_pressed("ui_accept"):
-			container.set_hidden(true)
-			talk_with.scripting = false
-			scripting = false
+		if !in_shop:
+			if Input.is_action_pressed("ui_accept"):
+				var next = next_dialog()
+				if next != null:
+					container.get_node("Text").set_text(next)
+				else:
+					container.set_hidden(true)
+					talk_with.scripting = false
+					scripting = false
+		else:
+			if Input.is_action_pressed("ui_cancel"):
+				container.get_node("Title").set_hidden(false)
+				container.get_node("Text").set_hidden(false)
+				get_node("../../UI/Shop").container.close()
+				in_shop = false
+				var next = next_dialog()
+				if next != null:
+					container.get_node("Text").set_text(next)
+				else:
+					container.set_hidden(true)
+					talk_with.scripting = false
+					scripting = false
 
 func _process(delta):
-	if !walking && !scripting:
+	if !walking && !scripting && !in_shop:
 		distance = null
 		if Input.is_action_pressed("ui_down"):
 			key_pressed()
@@ -109,7 +124,7 @@ func _process(delta):
 	elif walking:
 		walk(delta)
 	elif scripting:
-		talk()
+		pass
 
 func key_pressed():
 	get_node("../../UI/Title").set_hidden(true)
@@ -237,8 +252,52 @@ func detect_talk():
 	else:
 		return null
 
-func talk():
-	pass
+func next_dialog():
+	while dialog_pointer < dialog.size():
+		dialog_pointer += 1
+		if dialog_pointer < dialog.size():
+			if typeof(dialog[dialog_pointer]) == TYPE_STRING:
+				return dialog[dialog_pointer]
+			elif typeof(dialog[dialog_pointer]) == TYPE_INT:
+				if dialog[dialog_pointer] == constants.SCRIPT_SWITCH_TITLE:
+					switch_title()
+				elif dialog[dialog_pointer] == constants.SCRIPT_OPEN_SHOP:
+					open_shop()
+					return ""
+				continue
+			else:
+				continue
+	return null
+
+func switch_title():
+	var title = container.get_node("Title").get_text()
+	if title == talk_with.npc.get_name():
+		title = "Hero"
+	else:
+		title = talk_with.npc.get_name()
+	container.get_node("Title").set_text(title)
+
+func open_shop():
+	container.get_node("Title").set_hidden(true)
+	container.get_node("Text").set_hidden(true)
+	in_shop = true
+	get_node("../../UI/Shop").container.open(current_scene.shops[talk_with.npc.get_name()])
+
+func start_talk(npc):
+	talk_with = npc
+	print("talk with ", talk_with.npc.get_name())
+	container.set_hidden(false)
+	talk_with.set_face(hero.get_animation())
+	talk_with.scripting = true
+	scripting = true
+
+	if !current_scene.dialogs.has(talk_with.npc.get_name()):
+		dialog = talk_with.common_talk()
+	else:
+		dialog = current_scene.dialogs[talk_with.npc.get_name()]
+	dialog_pointer = -1	
+	container.get_node("Title").set_text(talk_with.npc.get_name())
+	container.get_node("Text").set_text(next_dialog())
 
 func save_npcs():
 	var i = 0

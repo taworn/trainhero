@@ -1,10 +1,10 @@
 
 extends Node2D
 
-var _class = load("res://npcs/npc.gd")
 var npc = null
 
 func _ready():
+	var _class = load("res://npcs/npc.gd")
 	npc = _class.new(self)
 	set_process(true)
 

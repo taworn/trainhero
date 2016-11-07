@@ -23,6 +23,18 @@ var next_pos = null
 var time_used = 0
 var speed = 0
 
+var common_dialogs = [
+	[
+		"Good day"
+	],
+	[
+		"Hello"
+	],
+	[
+		"..."
+	],
+]
+
 func _init(instance):
 	npc = instance
 	npc_map = instance.get_node("../../NPCMap")
@@ -156,9 +168,6 @@ func set_face(hero_face):
 	elif hero_face == "up":
 		animate.set_animation("down")
 
-func talk_with():
-	return "Good day"
-
 func ai_walk():
 	var i = randi() % 100
 	if i > 95:
@@ -169,4 +178,9 @@ func ai_walk():
 func ai_speed():
 	var i = randi() % 500
 	return 250 + i
+
+func common_talk():
+	var c = common_dialogs.size()
+	var i = randi() % c
+	return common_dialogs[i]
 
