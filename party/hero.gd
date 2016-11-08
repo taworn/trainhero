@@ -58,19 +58,15 @@ func _input(event):
 		if !walking && !scripting && !in_shop && !in_menu:
 			if Input.is_action_pressed("ui_accept"):
 				key_pressed()
-				var npc = detect_talk()
+				var npc = detect_script()
 				if npc != null:
-					start_talk(npc)
-			elif Input.is_action_pressed("ui_menu"):
-				party.back_fade = hero.get_animation()
-				save_npcs()
-				get_tree().change_scene("res://menu.tscn")
+					start_script(npc)
 			elif Input.is_action_pressed("ui_cancel"):
 				key_pressed()
 				party.paused = true
 				in_menu = true
-				get_node("../../UI/Menu").container.open()
 				save_npcs()
+				get_node("../../UI/Menu").container.open()
 		elif scripting:
 			if !in_shop && !in_menu:
 				if Input.is_action_pressed("ui_accept"):
@@ -106,29 +102,29 @@ func _process(delta):
 			distance = null
 			if Input.is_action_pressed("ui_down"):
 				key_pressed()
-				distance = Vector2(0, constants.STEP_Y)
+				distance = Vector2(0, global.STEP_Y)
 				hero.set_animation("down")
 			elif Input.is_action_pressed("ui_left"):
 				key_pressed()
-				distance = Vector2(-constants.STEP_X, 0)
+				distance = Vector2(-global.STEP_X, 0)
 				hero.set_animation("left")
 			elif Input.is_action_pressed("ui_right"):
 				key_pressed()
-				distance = Vector2(constants.STEP_X, 0)
+				distance = Vector2(global.STEP_X, 0)
 				hero.set_animation("right")
 			elif Input.is_action_pressed("ui_up"):
 				key_pressed()
-				distance = Vector2(0, -constants.STEP_Y)
+				distance = Vector2(0, -global.STEP_Y)
 				hero.set_animation("up")
 			party.state.face = hero.get_animation()
 			if distance != null:
 				var pos = hero.get_pos()
 				next_pos = Vector2(pos.x + distance.x, pos.y + distance.y)
-				var map_pos = constants.pixel_to_map(next_pos)
+				var map_pos = global.pixel_to_map(next_pos)
 				var id = tile_map.get_cell(map_pos.x - 1, map_pos.y - 1)
 				var name = tile_set.tile_get_name(id)
-				if constants.passable_walk.has(name):
-					if constants.passable_walk[name]:
+				if global.passable_walk.has(name):
+					if global.passable_walk[name]:
 						if detect_hit() == null:
 							hero.set_frame(0)
 							time_used = 0
@@ -144,33 +140,33 @@ func key_pressed():
 func walk(delta):
 	var finish = false
 	var d = ceil(delta * 1000)
-	var dx = ceil(d * distance.x / constants.STEP_TIME)
-	var dy = ceil(d * distance.y / constants.STEP_TIME)
+	var dx = ceil(d * distance.x / global.STEP_TIME)
+	var dy = ceil(d * distance.y / global.STEP_TIME)
 	var pos = hero.get_pos()
 	pos.x += dx
 	pos.y += dy
 
 	if distance.x < 0:
-		if pos.x <= next_pos.x + constants.STEP_X / 2:
+		if pos.x <= next_pos.x + global.STEP_X / 2:
 			hero.set_frame(1)
 		if pos.x <= next_pos.x:
 			pos.x = next_pos.x
 			finish = true
 	elif distance.x > 0:
-		if pos.x >= next_pos.x - constants.STEP_X / 2:
+		if pos.x >= next_pos.x - global.STEP_X / 2:
 			hero.set_frame(1)
 		if pos.x >= next_pos.x:
 			pos.x = next_pos.x
 			finish = true
 
 	if distance.y < 0:
-		if pos.y <= next_pos.y + constants.STEP_Y / 2:
+		if pos.y <= next_pos.y + global.STEP_Y / 2:
 			hero.set_frame(1)
 		if pos.y <= next_pos.y:
 			pos.y = next_pos.y
 			finish = true
 	elif distance.y > 0:
-		if pos.y >= next_pos.y - constants.STEP_Y / 2:
+		if pos.y >= next_pos.y - global.STEP_Y / 2:
 			hero.set_frame(1)
 		if pos.y >= next_pos.y:
 			pos.y = next_pos.y
@@ -187,7 +183,7 @@ func walk(delta):
 
 func center_screen():
 	var p = hero.get_pos()
-	var q = Vector2(constants.half_screen_size.x - p.x, constants.half_screen_size.y - p.y)
+	var q = Vector2(global.half_screen_size.x - p.x, global.half_screen_size.y - p.y)
 	camera.set_pos(q)
 	if background != null:
 		background.set_pos(Vector2(q.x / 8, q.y / 32))
@@ -209,7 +205,7 @@ func check_script():
 			var node = current_scene.warps[name]
 			if node != null:
 				var pos = Vector2(node.x, node.y)
-				pos = constants.map_to_pixel(constants.pixel_to_map(pos))
+				pos = global.map_to_pixel(global.pixel_to_map(pos))
 				party.back_fade = hero.get_animation()
 				party.warp_to(pos.x, pos.y, node.map)
 
@@ -235,17 +231,17 @@ func detect_hit():
 	else:
 		return null
 
-func detect_talk():
+func detect_script():
 	var face = null
 	var animate = hero.get_animation()
 	if animate == "down":
-		face = Vector2(0, constants.STEP_Y)
+		face = Vector2(0, global.STEP_Y)
 	elif animate == "left":
-		face = Vector2(-constants.STEP_X, 0)
+		face = Vector2(-global.STEP_X, 0)
 	elif animate == "right":
-		face = Vector2(constants.STEP_X, 0)
+		face = Vector2(global.STEP_X, 0)
 	elif animate == "up":
-		face = Vector2(0, -constants.STEP_Y)
+		face = Vector2(0, -global.STEP_Y)
 	var pos = hero.get_pos()
 	var talk_pos = Vector2(pos.x + face.x, pos.y + face.y)
 
@@ -264,6 +260,22 @@ func detect_talk():
 	else:
 		return null
 
+func start_script(npc):
+	talk_with = npc
+	print("talk with ", talk_with.npc.get_name())
+	container.set_hidden(false)
+	talk_with.set_face(hero.get_animation())
+	talk_with.scripting = true
+	scripting = true
+
+	if !current_scene.dialogs.has(talk_with.npc.get_name()):
+		dialog = talk_with.common_talk()
+	else:
+		dialog = current_scene.dialogs[talk_with.npc.get_name()]
+	dialog_pointer = -1
+	container.get_node("Title").set_text(talk_with.npc.get_name())
+	container.get_node("Text").set_text(next_dialog())
+
 func next_dialog():
 	while dialog_pointer < dialog.size():
 		dialog_pointer += 1
@@ -271,9 +283,9 @@ func next_dialog():
 			if typeof(dialog[dialog_pointer]) == TYPE_STRING:
 				return dialog[dialog_pointer]
 			elif typeof(dialog[dialog_pointer]) == TYPE_INT:
-				if dialog[dialog_pointer] == constants.SCRIPT_SWITCH_TITLE:
+				if dialog[dialog_pointer] == global.SCRIPT_SWITCH_TITLE:
 					switch_title()
-				elif dialog[dialog_pointer] == constants.SCRIPT_OPEN_SHOP:
+				elif dialog[dialog_pointer] == global.SCRIPT_OPEN_SHOP:
 					open_shop()
 					return ""
 				continue
@@ -294,22 +306,6 @@ func open_shop():
 	container.get_node("Text").set_hidden(true)
 	in_shop = true
 	get_node("../../UI/Shop").container.open(current_scene.shops[talk_with.npc.get_name()])
-
-func start_talk(npc):
-	talk_with = npc
-	print("talk with ", talk_with.npc.get_name())
-	container.set_hidden(false)
-	talk_with.set_face(hero.get_animation())
-	talk_with.scripting = true
-	scripting = true
-
-	if !current_scene.dialogs.has(talk_with.npc.get_name()):
-		dialog = talk_with.common_talk()
-	else:
-		dialog = current_scene.dialogs[talk_with.npc.get_name()]
-	dialog_pointer = -1	
-	container.get_node("Title").set_text(talk_with.npc.get_name())
-	container.get_node("Text").set_text(next_dialog())
 
 func save_npcs():
 	var i = 0

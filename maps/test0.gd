@@ -12,14 +12,14 @@ var dialogs = {
 	Villager0 = [
 		"Good morning :)",
 		"What u want?",
-		constants.SCRIPT_OPEN_SHOP,
-		constants.SCRIPT_SWITCH_TITLE,
+		global.SCRIPT_OPEN_SHOP,
+		global.SCRIPT_SWITCH_TITLE,
 		"Bye",
-		constants.SCRIPT_SWITCH_TITLE,
+		global.SCRIPT_SWITCH_TITLE,
 		"Ok"
 	],
 	Villager1 = [
-		constants.SCRIPT_OPEN_SHOP,
+		global.SCRIPT_OPEN_SHOP,
 	],
 }
 

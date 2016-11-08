@@ -13,7 +13,7 @@ func start_game():
 		"level": 0,
 		"exp": 0,
 		"gold": 999999999,
-		
+
 		# users
 		"hero": {
 			"avail": true,
@@ -57,13 +57,13 @@ func start_game():
 			"magics": {
 			},
 		},
-		
+
 		# items
 		"items": {
 		},
 		"key-items": {
 		},
-		
+
 		# where are you
 		"map": null,
 		"x": null,

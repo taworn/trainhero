@@ -46,13 +46,13 @@ func _init(instance):
 	elif instance.get_node("SameTile"):
 		movable = true
 		same_tile = true
-		var map_pos = constants.pixel_to_map(npc.get_pos())
+		var map_pos = global.pixel_to_map(npc.get_pos())
 		tile_check = tile_map.get_cell(map_pos.x - 1, map_pos.y - 1)
 	with_hero = instance.get_node("../../Group")
 	walking = false
 	scripting = false
 	var pos = npc.get_pos()
-	pos = constants.map_to_pixel(constants.pixel_to_map(pos))
+	pos = global.map_to_pixel(global.pixel_to_map(pos))
 	npc.set_pos(pos)
 
 func _process(delta):
@@ -62,27 +62,27 @@ func _process(delta):
 		distance = null
 		var a = ai_walk()
 		if a == MOVE_DOWN:
-			distance = Vector2(-constants.STEP_X, 0)
+			distance = Vector2(-global.STEP_X, 0)
 			animate.set_animation("left")
 		elif a == MOVE_LEFT:
-			distance = Vector2(constants.STEP_X, 0)
+			distance = Vector2(global.STEP_X, 0)
 			animate.set_animation("right")
 		elif a == MOVE_RIGHT:
-			distance = Vector2(0, -constants.STEP_Y)
+			distance = Vector2(0, -global.STEP_Y)
 			animate.set_animation("up")
 		elif a == MOVE_UP:
-			distance = Vector2(0, constants.STEP_Y)
+			distance = Vector2(0, global.STEP_Y)
 			animate.set_animation("down")
 		if distance != null:
 			var pos = npc.get_pos()
 			next_pos = Vector2(pos.x + distance.x, pos.y + distance.y)
-			var map_pos = constants.pixel_to_map(next_pos)
+			var map_pos = global.pixel_to_map(next_pos)
 			var id = tile_map.get_cell(map_pos.x - 1, map_pos.y - 1)
 			if same_tile && tile_check != id:
 				return
 			var name = tile_set.tile_get_name(id)
-			if constants.passable_walk.has(name):
-				if constants.passable_walk[name]:
+			if global.passable_walk.has(name):
+				if global.passable_walk[name]:
 					if detect_hit() == null:
 						speed = ai_speed()
 						animate.set_frame(0)
@@ -103,26 +103,26 @@ func walk(delta):
 	pos.y += dy
 
 	if distance.x < 0:
-		if pos.x <= next_pos.x + constants.STEP_X / 2:
+		if pos.x <= next_pos.x + global.STEP_X / 2:
 			animate.set_frame(1)
 		if pos.x <= next_pos.x:
 			pos.x = next_pos.x
 			finish = true
 	elif distance.x > 0:
-		if pos.x >= next_pos.x - constants.STEP_X / 2:
+		if pos.x >= next_pos.x - global.STEP_X / 2:
 			animate.set_frame(1)
 		if pos.x >= next_pos.x:
 			pos.x = next_pos.x
 			finish = true
 
 	if distance.y < 0:
-		if pos.y <= next_pos.y + constants.STEP_Y / 2:
+		if pos.y <= next_pos.y + global.STEP_Y / 2:
 			animate.set_frame(1)
 		if pos.y <= next_pos.y:
 			pos.y = next_pos.y
 			finish = true
 	elif distance.y > 0:
-		if pos.y >= next_pos.y - constants.STEP_Y / 2:
+		if pos.y >= next_pos.y - global.STEP_Y / 2:
 			animate.set_frame(1)
 		if pos.y >= next_pos.y:
 			pos.y = next_pos.y
@@ -170,6 +170,11 @@ func set_face(hero_face):
 	elif hero_face == "up":
 		animate.set_animation("down")
 
+func common_talk():
+	var c = common_dialogs.size()
+	var i = randi() % c
+	return common_dialogs[i]
+
 func ai_walk():
 	var i = randi() % 100
 	if i > 95:
@@ -180,9 +185,4 @@ func ai_walk():
 func ai_speed():
 	var i = randi() % 500
 	return 250 + i
-
-func common_talk():
-	var c = common_dialogs.size()
-	var i = randi() % c
-	return common_dialogs[i]
 
