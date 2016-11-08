@@ -11,6 +11,7 @@ func _ready():
 	list.add_item("Save Game #1", null)
 	list.select(0)
 	list.grab_focus()
+	get_node("MusicPlayer").play()
 
 func _on_ItemList_item_activated(index):
 	var list = get_node("ItemList")

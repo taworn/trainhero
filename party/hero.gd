@@ -51,6 +51,7 @@ func _ready():
 
 	set_process_input(true)
 	set_process(true)
+	get_node("../../MusicPlayer").play()
 
 func _input(event):
 	if !party.paused:
