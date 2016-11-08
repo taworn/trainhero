@@ -3,7 +3,8 @@ extends Node2D
 
 var state = {}  # current state
 
-var new = false  # is change scene or go back
+var paused = false  # paused entry scene
+var new = false     # is change scene or go back
 var back_fade = null
 
 func start_game():

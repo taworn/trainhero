@@ -56,6 +56,8 @@ func _init(instance):
 	npc.set_pos(pos)
 
 func _process(delta):
+	if party.paused:
+		return
 	if movable && !walking && !scripting:
 		distance = null
 		var a = ai_walk()

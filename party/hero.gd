@@ -15,6 +15,7 @@ var container = null   # a container UI
 var walking = false    # is walking?
 var scripting = false  # is scripting?
 var in_shop = false    # is in shop?
+var in_menu = false    # is in menu?
 
 var distance = null
 var next_pos = null
@@ -52,79 +53,89 @@ func _ready():
 	set_process(true)
 
 func _input(event):
-	if !walking && !scripting && !in_shop:
-		if Input.is_action_pressed("ui_accept"):
-			key_pressed()
-			var npc = detect_talk()
-			if npc != null:
-				start_talk(npc)
-		elif Input.is_action_pressed("ui_menu"):
-			party.back_fade = hero.get_animation()
-			save_npcs()
-			get_tree().change_scene("res://menu.tscn")
-		elif Input.is_action_pressed("ui_cancel"):
-			key_pressed()
-			get_tree().change_scene("res://title.tscn")
-	elif scripting:
-		if !in_shop:
+	if !party.paused:
+		if !walking && !scripting && !in_shop && !in_menu:
 			if Input.is_action_pressed("ui_accept"):
-				var next = next_dialog()
-				if next != null:
-					container.get_node("Text").set_text(next)
-				else:
-					container.set_hidden(true)
-					talk_with.scripting = false
-					scripting = false
-		else:
-			if Input.is_action_pressed("ui_cancel"):
-				container.get_node("Title").set_hidden(false)
-				container.get_node("Text").set_hidden(false)
-				get_node("../../UI/Shop").container.close()
-				in_shop = false
-				var next = next_dialog()
-				if next != null:
-					container.get_node("Text").set_text(next)
-				else:
-					container.set_hidden(true)
-					talk_with.scripting = false
-					scripting = false
+				key_pressed()
+				var npc = detect_talk()
+				if npc != null:
+					start_talk(npc)
+			elif Input.is_action_pressed("ui_menu"):
+				party.back_fade = hero.get_animation()
+				save_npcs()
+				get_tree().change_scene("res://menu.tscn")
+			elif Input.is_action_pressed("ui_cancel"):
+				key_pressed()
+				party.paused = true
+				in_menu = true
+				get_node("../../UI/Menu").container.open()
+				save_npcs()
+		elif scripting:
+			if !in_shop && !in_menu:
+				if Input.is_action_pressed("ui_accept"):
+					var next = next_dialog()
+					if next != null:
+						container.get_node("Text").set_text(next)
+					else:
+						container.set_hidden(true)
+						talk_with.scripting = false
+						scripting = false
+			elif in_shop:
+				if Input.is_action_pressed("ui_cancel"):
+					container.get_node("Title").set_hidden(false)
+					container.get_node("Text").set_hidden(false)
+					get_node("../../UI/Shop").container.close()
+					in_shop = false
+					var next = next_dialog()
+					if next != null:
+						container.get_node("Text").set_text(next)
+					else:
+						container.set_hidden(true)
+						talk_with.scripting = false
+						scripting = false
+	elif in_menu:
+		if Input.is_action_pressed("ui_cancel"):
+			if get_node("../../UI/Menu").container.cancel():
+				in_menu = false
+				party.paused = false
 
 func _process(delta):
-	if !walking && !scripting && !in_shop:
-		distance = null
-		if Input.is_action_pressed("ui_down"):
-			key_pressed()
-			distance = Vector2(0, constants.STEP_Y)
-			hero.set_animation("down")
-		elif Input.is_action_pressed("ui_left"):
-			key_pressed()
-			distance = Vector2(-constants.STEP_X, 0)
-			hero.set_animation("left")
-		elif Input.is_action_pressed("ui_right"):
-			key_pressed()
-			distance = Vector2(constants.STEP_X, 0)
-			hero.set_animation("right")
-		elif Input.is_action_pressed("ui_up"):
-			key_pressed()
-			distance = Vector2(0, -constants.STEP_Y)
-			hero.set_animation("up")
-		party.state.face = hero.get_animation()
-		if distance != null:
-			var pos = hero.get_pos()
-			next_pos = Vector2(pos.x + distance.x, pos.y + distance.y)
-			var map_pos = constants.pixel_to_map(next_pos)
-			var id = tile_map.get_cell(map_pos.x - 1, map_pos.y - 1)
-			var name = tile_set.tile_get_name(id)
-			if constants.passable_walk.has(name):
-				if constants.passable_walk[name]:
-					if detect_hit() == null:
-						hero.set_frame(0)
-						time_used = 0
-						walking = true
-	elif walking:
-		walk(delta)
-	elif scripting:
-		pass
+	if !party.paused:
+		if !walking && !scripting && !in_shop:
+			distance = null
+			if Input.is_action_pressed("ui_down"):
+				key_pressed()
+				distance = Vector2(0, constants.STEP_Y)
+				hero.set_animation("down")
+			elif Input.is_action_pressed("ui_left"):
+				key_pressed()
+				distance = Vector2(-constants.STEP_X, 0)
+				hero.set_animation("left")
+			elif Input.is_action_pressed("ui_right"):
+				key_pressed()
+				distance = Vector2(constants.STEP_X, 0)
+				hero.set_animation("right")
+			elif Input.is_action_pressed("ui_up"):
+				key_pressed()
+				distance = Vector2(0, -constants.STEP_Y)
+				hero.set_animation("up")
+			party.state.face = hero.get_animation()
+			if distance != null:
+				var pos = hero.get_pos()
+				next_pos = Vector2(pos.x + distance.x, pos.y + distance.y)
+				var map_pos = constants.pixel_to_map(next_pos)
+				var id = tile_map.get_cell(map_pos.x - 1, map_pos.y - 1)
+				var name = tile_set.tile_get_name(id)
+				if constants.passable_walk.has(name):
+					if constants.passable_walk[name]:
+						if detect_hit() == null:
+							hero.set_frame(0)
+							time_used = 0
+							walking = true
+		elif walking:
+			walk(delta)
+		elif scripting:
+			pass
 
 func key_pressed():
 	get_node("../../UI/Title").set_hidden(true)
