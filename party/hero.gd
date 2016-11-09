@@ -153,7 +153,16 @@ func move(action):
 			var map_pos = global.pixel_to_map(next_pos)
 			var id = tile_map.get_cell(map_pos.x - 1, map_pos.y - 1)
 			var name = tile_set.tile_get_name(id)
-			if global.passable_walk_dict.has(name):
+			if current_scene.doors.has(name):
+				var door = current_scene.doors[name]
+				if typeof(door) == TYPE_STRING:
+					id = tile_set.find_tile_by_name(door)
+					tile_map.set_cell(map_pos.x - 1, map_pos.y - 1, id)
+				elif typeof(door) == TYPE_ARRAY:
+					if party.state.keys.has(door[0]):
+						id = tile_set.find_tile_by_name(door[1])
+						tile_map.set_cell(map_pos.x - 1, map_pos.y - 1, id)
+			elif global.passable_walk_dict.has(name):
 				if global.passable_walk_dict[name]:
 					if detect_hit() == null:
 						hero.set_frame(0)

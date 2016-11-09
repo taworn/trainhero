@@ -61,8 +61,9 @@ func start_game():
 		# items
 		"items": {
 		},
-		"key-items": {
-		},
+		"keys": [
+			#"key_0",
+		],
 
 		# where are you
 		"map": null,

@@ -1,18 +1,20 @@
-[gd_resource type="TileSet" load_steps=14 format=1]
+[gd_resource type="TileSet" load_steps=16 format=1]
 
 [ext_resource path="res://tilesets/world/grass0.png" type="Texture" id=1]
 [ext_resource path="res://tilesets/world/water0.png" type="Texture" id=2]
 [ext_resource path="res://tilesets/world/mountain0.png" type="Texture" id=3]
 [ext_resource path="res://tilesets/world/table0.png" type="Texture" id=4]
 [ext_resource path="res://tilesets/world/table1.png" type="Texture" id=5]
-[ext_resource path="res://tilesets/world/town0.png" type="Texture" id=6]
-[ext_resource path="res://tilesets/world/castle0.png" type="Texture" id=7]
-[ext_resource path="res://tilesets/world/castle1.png" type="Texture" id=8]
-[ext_resource path="res://tilesets/world/castle2.png" type="Texture" id=9]
-[ext_resource path="res://tilesets/world/castle3.png" type="Texture" id=10]
-[ext_resource path="res://tilesets/world/grass1.png" type="Texture" id=11]
-[ext_resource path="res://tilesets/world/tree0.png" type="Texture" id=12]
-[ext_resource path="res://tilesets/world/tree1.png" type="Texture" id=13]
+[ext_resource path="res://tilesets/world/door0.png" type="Texture" id=6]
+[ext_resource path="res://tilesets/world/door1.png" type="Texture" id=7]
+[ext_resource path="res://tilesets/world/town0.png" type="Texture" id=8]
+[ext_resource path="res://tilesets/world/castle0.png" type="Texture" id=9]
+[ext_resource path="res://tilesets/world/castle1.png" type="Texture" id=10]
+[ext_resource path="res://tilesets/world/castle2.png" type="Texture" id=11]
+[ext_resource path="res://tilesets/world/castle3.png" type="Texture" id=12]
+[ext_resource path="res://tilesets/world/grass1.png" type="Texture" id=13]
+[ext_resource path="res://tilesets/world/tree0.png" type="Texture" id=14]
+[ext_resource path="res://tilesets/world/tree1.png" type="Texture" id=15]
 
 [resource]
 
@@ -33,7 +35,7 @@
 1/shape_offset = Vector2( 0, 0 )
 1/shapes = [  ]
 2/name = "Town0"
-2/texture = ExtResource( 6 )
+2/texture = ExtResource( 8 )
 2/tex_offset = Vector2( 0, 0 )
 2/region = Rect2( 0, 0, 64, 64 )
 2/occluder_offset = Vector2( 32, 32 )
@@ -41,7 +43,7 @@
 2/shape_offset = Vector2( 0, 0 )
 2/shapes = [  ]
 3/name = "Castle0"
-3/texture = ExtResource( 7 )
+3/texture = ExtResource( 9 )
 3/tex_offset = Vector2( 0, 0 )
 3/region = Rect2( 0, 0, 64, 64 )
 3/occluder_offset = Vector2( 32, 32 )
@@ -49,7 +51,7 @@
 3/shape_offset = Vector2( 0, 0 )
 3/shapes = [  ]
 4/name = "Castle1"
-4/texture = ExtResource( 8 )
+4/texture = ExtResource( 10 )
 4/tex_offset = Vector2( 0, 0 )
 4/region = Rect2( 0, 0, 64, 64 )
 4/occluder_offset = Vector2( 32, 32 )
@@ -57,7 +59,7 @@
 4/shape_offset = Vector2( 0, 0 )
 4/shapes = [  ]
 5/name = "Castle2"
-5/texture = ExtResource( 9 )
+5/texture = ExtResource( 11 )
 5/tex_offset = Vector2( 0, 0 )
 5/region = Rect2( 0, 0, 64, 64 )
 5/occluder_offset = Vector2( 32, 32 )
@@ -65,7 +67,7 @@
 5/shape_offset = Vector2( 0, 0 )
 5/shapes = [  ]
 6/name = "Castle3"
-6/texture = ExtResource( 10 )
+6/texture = ExtResource( 12 )
 6/tex_offset = Vector2( 0, 0 )
 6/region = Rect2( 0, 0, 64, 64 )
 6/occluder_offset = Vector2( 32, 32 )
@@ -73,7 +75,7 @@
 6/shape_offset = Vector2( 0, 0 )
 6/shapes = [  ]
 7/name = "Grass1"
-7/texture = ExtResource( 11 )
+7/texture = ExtResource( 13 )
 7/tex_offset = Vector2( 0, 0 )
 7/region = Rect2( 0, 0, 64, 64 )
 7/occluder_offset = Vector2( 32, 32 )
@@ -81,7 +83,7 @@
 7/shape_offset = Vector2( 0, 0 )
 7/shapes = [  ]
 8/name = "Tree0"
-8/texture = ExtResource( 12 )
+8/texture = ExtResource( 14 )
 8/tex_offset = Vector2( 0, 0 )
 8/region = Rect2( 0, 0, 64, 64 )
 8/occluder_offset = Vector2( 32, 32 )
@@ -89,7 +91,7 @@
 8/shape_offset = Vector2( 0, 0 )
 8/shapes = [  ]
 9/name = "Tree1"
-9/texture = ExtResource( 13 )
+9/texture = ExtResource( 15 )
 9/tex_offset = Vector2( 0, 0 )
 9/region = Rect2( 0, 0, 64, 64 )
 9/occluder_offset = Vector2( 32, 32 )
@@ -120,4 +122,20 @@
 12/navigation_offset = Vector2( 32, 32 )
 12/shape_offset = Vector2( 0, 0 )
 12/shapes = [  ]
+13/name = "Door0"
+13/texture = ExtResource( 6 )
+13/tex_offset = Vector2( 0, 0 )
+13/region = Rect2( 0, 0, 64, 64 )
+13/occluder_offset = Vector2( 32, 32 )
+13/navigation_offset = Vector2( 32, 32 )
+13/shape_offset = Vector2( 0, 0 )
+13/shapes = [  ]
+14/name = "Door1"
+14/texture = ExtResource( 7 )
+14/tex_offset = Vector2( 0, 0 )
+14/region = Rect2( 0, 0, 64, 64 )
+14/occluder_offset = Vector2( 32, 32 )
+14/navigation_offset = Vector2( 32, 32 )
+14/shape_offset = Vector2( 0, 0 )
+14/shapes = [  ]
 

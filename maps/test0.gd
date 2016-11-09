@@ -4,10 +4,6 @@ extends Node2D
 func _ready():
 	get_node("Camera/Group").set_current_scene(self)
 
-var warps = {
-	"Town0": {"x": 160, "y": 227, "map": "maps/test0"},
-}
-
 var dialogs = {
 	Villager0 = [
 		"Good morning :)",
@@ -16,7 +12,7 @@ var dialogs = {
 		global.SCRIPT_SWITCH_TITLE,
 		"Bye",
 		global.SCRIPT_SWITCH_TITLE,
-		"Ok"
+		"Ok",
 	],
 	Villager1 = [
 		global.SCRIPT_OPEN_SHOP,
@@ -33,5 +29,14 @@ var shops = {
 		"Item 3",
 		"Item 4",
 	],
+}
+
+var doors = {
+	"Door0": "Grass0",
+	"Door1": ["key_0", "Grass1"],
+}
+
+var warps = {
+	"Town0": {"x": 160, "y": 227, "map": "maps/test0"},
 }
 
