@@ -123,8 +123,8 @@ func _process(delta):
 				var map_pos = global.pixel_to_map(next_pos)
 				var id = tile_map.get_cell(map_pos.x - 1, map_pos.y - 1)
 				var name = tile_set.tile_get_name(id)
-				if global.passable_walk.has(name):
-					if global.passable_walk[name]:
+				if global.passable_walk_dict.has(name):
+					if global.passable_walk_dict[name]:
 						if detect_hit() == null:
 							hero.set_frame(0)
 							time_used = 0
@@ -244,6 +244,13 @@ func detect_script():
 		face = Vector2(0, -global.STEP_Y)
 	var pos = hero.get_pos()
 	var talk_pos = Vector2(pos.x + face.x, pos.y + face.y)
+	
+	var map_pos = global.pixel_to_map(talk_pos)
+	var id = tile_map.get_cell(map_pos.x - 1, map_pos.y - 1)
+	var name = tile_set.tile_get_name(id)
+	if global.pass_script_dict.has(name):
+		face = Vector2(face.x * 2, face.y * 2)
+		talk_pos = Vector2(pos.x + face.x, pos.y + face.y)
 
 	var found = false
 	var count = npc_map.get_child_count()

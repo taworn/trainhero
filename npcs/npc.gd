@@ -81,8 +81,8 @@ func _process(delta):
 			if same_tile && tile_check != id:
 				return
 			var name = tile_set.tile_get_name(id)
-			if global.passable_walk.has(name):
-				if global.passable_walk[name]:
+			if global.passable_walk_dict.has(name):
+				if global.passable_walk_dict[name]:
 					if detect_hit() == null:
 						speed = ai_speed()
 						animate.set_frame(0)

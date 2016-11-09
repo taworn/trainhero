@@ -19,15 +19,21 @@ var half_screen_size = {
 }
 
 # passable for walking
-var passable_walk = {
-	"Grass0": 1,
+var passable_walk_dict = {
+	"Grass0": 1, "Grass1": 1, 
+	"Tree1": 1,
 	"Town0": 1,
 	"Castle0": 1, "Castle1": 1, "Castle2": 1, "Castle3": 1,
 }
 
 # passable for sailing
-var passable_sail = {
+var passable_sail_dict = {
 	"Water0": 1,
+}
+
+# pass scripts
+var pass_script_dict = {
+	"Table0": 1, "Table1": 1,
 }
 
 # scripts in dialog
