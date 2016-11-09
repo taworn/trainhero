@@ -42,6 +42,10 @@ var pass_script_dict = {
 	"Table0": 1, "Table1": 1,
 }
 
+var treasure_dialog = [
+	"%s found"
+]
+
 # scripts in dialog
 const SCRIPT_SWITCH_TITLE = 0
 const SCRIPT_OPEN_SHOP = 1

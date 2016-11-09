@@ -84,6 +84,8 @@ margin/top = 0.0
 margin/right = 40.0
 margin/bottom = 40.0
 
+[node name="TreasureMap" type="Node2D" parent="Camera"]
+
 [node name="NPCMap" type="Node2D" parent="Camera"]
 
 [node name="Group" parent="Camera" instance=ExtResource( 2 )]

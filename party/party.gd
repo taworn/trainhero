@@ -62,8 +62,9 @@ func start_game():
 		"items": {
 		},
 		"keys": [
-			#"key_0",
 		],
+		"treasures": {
+		},
 
 		# where are you
 		"map": null,
@@ -85,7 +86,7 @@ func start_game():
 	state.y = 96
 	state.face = "down"
 	new = true
-	print("started, state=", state)
+	print("started, state=", state.to_json())
 	get_tree().change_scene("res://" + state.map + ".tscn")
 
 func save_game(fileName):
@@ -93,7 +94,7 @@ func save_game(fileName):
 	f.open(fileName, File.WRITE)
 	f.store_line(state.to_json())
 	f.close()
-	print("saved, state=", state)
+	print("saved, state=", state.to_json())
 
 func load_game(fileName):
 	var f = File.new()
@@ -104,7 +105,7 @@ func load_game(fileName):
 	    state.parse_json(f.get_line())
 	f.close()
 	new = true
-	print("loaded, state=", state)
+	print("loaded, state=", state.to_json())
 	get_tree().change_scene("res://" + state.map + ".tscn")
 
 func back():

@@ -1,17 +1,18 @@
 
 extends Node
 
-var npc = null         # is hero
-var npc_map = null     # a map to find other NPCs
-var animate = null     # animated graphics
-var tile_map = null    # tile map
-var tile_set = null    # tile set
-var movable = false    # check it is a movable
-var same_tile = false  # check it move is same tile only
-var tile_check = null  # tile to check if same_tile is true
-var with_hero = null   # referencing with hero
-var walking = false    # is walking?
-var scripting = false  # is scripting?
+var npc = null           # is hero
+var npc_map = null       # a map to find other NPCs
+var animate = null       # animated graphics
+var tile_map = null      # tile map
+var tile_set = null      # tile set
+var movable = false      # check it is a movable
+var same_tile = false    # check it move is same tile only
+var tile_check = null    # tile to check if same_tile is true
+var treasure_map = null  # a map to find treasures
+var with_hero = null     # referencing with hero
+var walking = false      # is walking?
+var scripting = false    # is scripting?
 
 var distance = null
 var next_pos = null
@@ -43,6 +44,7 @@ func _init(instance):
 		same_tile = true
 		var map_pos = global.pixel_to_map(npc.get_pos())
 		tile_check = tile_map.get_cell(map_pos.x - 1, map_pos.y - 1)
+	treasure_map = instance.get_node("../../TreasureMap")
 	with_hero = instance.get_node("../../Group")
 	walking = false
 	scripting = false
@@ -78,7 +80,7 @@ func _process(delta):
 			var name = tile_set.tile_get_name(id)
 			if global.passable_walk_dict.has(name):
 				if global.passable_walk_dict[name]:
-					if detect_hit() == null:
+					if !detect_hit():
 						speed = ai_speed()
 						animate.set_frame(0)
 						time_used = 0
@@ -134,27 +136,6 @@ func position():
 	else:
 		return next_pos
 
-func detect_hit():
-	var found = false
-	var count = npc_map.get_child_count()
-	var i = 0
-	while i < count:
-		var npc = npc_map.get_child(i).npc
-		if npc != self:
-			var pos = npc.position()
-			if next_pos.x == pos.x && next_pos.y == pos.y:
-				found = true
-				break
-		i += 1
-	if found:
-		return npc_map.get_child(i)
-	else:
-		var pos = with_hero.position()
-		if next_pos.x == pos.x && next_pos.y == pos.y:
-			return with_hero
-		else:
-			return null
-
 func set_face(hero_face):
 	if hero_face == "down":
 		animate.set_animation("up")
@@ -164,6 +145,33 @@ func set_face(hero_face):
 		animate.set_animation("left")
 	elif hero_face == "up":
 		animate.set_animation("down")
+
+func detect_hit():
+	var found = false
+	var count = npc_map.get_child_count()
+	var i = 0
+	while i < count:
+		var npc = npc_map.get_child(i).npc
+		if npc != self:
+			var pos = npc.position()
+			if next_pos.x == pos.x && next_pos.y == pos.y:
+				return true
+		i += 1
+
+	count = treasure_map.get_child_count()
+	i = 0
+	while i < count:
+		var box = treasure_map.get_child(i)
+		var pos = box.get_pos()
+		if next_pos.x == pos.x && next_pos.y == pos.y:
+			return true
+		i += 1
+
+	var pos = with_hero.position()
+	if next_pos.x == pos.x && next_pos.y == pos.y:
+		return true
+
+	return false
 
 func common_talk():
 	var c = common_dialogs.size()

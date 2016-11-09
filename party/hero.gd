@@ -3,16 +3,17 @@ extends Node2D
 
 var party = null
 
-var background = null  # background sprite, can be null
-var camera = null      # camera to set position (x, y)
-var hero = null        # is hero
-var ship = null        # ship
-var ship_ani = null    # ship animate
-var tile_map = null    # tile map
-var tile_set = null    # tile set
-var warp_map = null    # a map to find warp zones
-var npc_map = null     # a map to find NPCs
-var container = null   # a container UI
+var background = null    # background sprite, can be null
+var camera = null        # camera to set position (x, y)
+var hero = null          # is hero
+var ship = null          # ship
+var ship_ani = null      # ship animate
+var tile_map = null      # tile map
+var tile_set = null      # tile set
+var warp_map = null      # a map to find warp zones
+var treasure_map = null  # a map to find treasures
+var npc_map = null       # a map to find NPCs
+var container = null     # a container UI
 
 var walking = false    # is walking?
 var sailing = false    # is sailing on ship?
@@ -43,6 +44,7 @@ func _ready():
 	tile_set = tile_map.get_tileset()
 	warp_map = get_node("../WarpMap")
 	npc_map = get_node("../NPCMap")
+	treasure_map = get_node("../TreasureMap")
 	container = get_node("../../UI/Container")
 	container.set_hidden(true)
 	walking = false
@@ -70,6 +72,10 @@ func _input(event):
 				var npc = detect_script()
 				if npc != null:
 					start_script(npc)
+				else:
+					var box = detect_treasure()
+					if box != null:
+						open_box(box)
 			elif Input.is_action_pressed("ui_cancel"):
 				key_pressed()
 				party.paused = true
@@ -85,7 +91,8 @@ func _input(event):
 						container.get_node("Text").set_text(next)
 					else:
 						container.set_hidden(true)
-						talk_with.scripting = false
+						if talk_with != null:
+							talk_with.scripting = false
 						scripting = false
 
 			elif in_shop:
@@ -164,7 +171,7 @@ func move(action):
 						tile_map.set_cell(map_pos.x - 1, map_pos.y - 1, id)
 			elif global.passable_walk_dict.has(name):
 				if global.passable_walk_dict[name]:
-					if detect_hit() == null:
+					if !detect_hit():
 						hero.set_frame(0)
 						time_used = 0
 						walking = true
@@ -202,10 +209,11 @@ func move(action):
 					sailing = true
 			elif global.passable_walk_dict.has(name):
 				if global.passable_walk_dict[name]:
-					if detect_hit() == null:
+					if !detect_hit():
 						party.state.ship.moor = true
+						party.state.face = party.state.ship.face
 						hero.set_pos(pos)
-						hero.set_animation(party.state.ship.face)
+						hero.set_animation(party.state.face)
 						hero.set_hidden(false)
 						hero.set_frame(0)
 						time_used = 0
@@ -252,7 +260,7 @@ func walk(delta):
 		hero.set_frame(0)
 		party.state.x = pos.x
 		party.state.y = pos.y
-		check_script()
+		check_warp()
 		walking = false
 		if !ship.is_hidden():
 			var ship_pos = ship.get_pos()
@@ -314,7 +322,26 @@ func center_screen():
 	if background != null:
 		background.set_pos(Vector2(q.x / 8, q.y / 32))
 
-func check_script():
+func position():
+	if !walking:
+		return hero.get_pos()
+	else:
+		return next_pos
+
+func check_face():
+	var face = null
+	var animate = hero.get_animation()
+	if animate == "down":
+		face = Vector2(0, global.STEP_Y)
+	elif animate == "left":
+		face = Vector2(-global.STEP_X, 0)
+	elif animate == "right":
+		face = Vector2(global.STEP_X, 0)
+	elif animate == "up":
+		face = Vector2(0, -global.STEP_Y)
+	return face
+
+func check_warp():
 	var found = false
 	var count = warp_map.get_child_count()
 	var i = 0
@@ -335,12 +362,6 @@ func check_script():
 				party.back_fade = hero.get_animation()
 				party.warp_to(pos.x, pos.y, node.map)
 
-func position():
-	if !walking:
-		return hero.get_pos()
-	else:
-		return next_pos
-
 func detect_hit():
 	var found = false
 	var count = npc_map.get_child_count()
@@ -349,25 +370,22 @@ func detect_hit():
 		var npc = npc_map.get_child(i).npc
 		var pos = npc.position()
 		if next_pos.x == pos.x && next_pos.y == pos.y:
-			found = true
-			break
+			return true
 		i += 1
-	if found:
-		return npc_map.get_child(i)
-	else:
-		return null
+
+	count = treasure_map.get_child_count()
+	i = 0
+	while i < count:
+		var box = treasure_map.get_child(i)
+		var pos = box.get_pos()
+		if next_pos.x == pos.x && next_pos.y == pos.y:
+			return true
+		i += 1
+
+	return false
 
 func detect_script():
-	var face = null
-	var animate = hero.get_animation()
-	if animate == "down":
-		face = Vector2(0, global.STEP_Y)
-	elif animate == "left":
-		face = Vector2(-global.STEP_X, 0)
-	elif animate == "right":
-		face = Vector2(global.STEP_X, 0)
-	elif animate == "up":
-		face = Vector2(0, -global.STEP_Y)
+	var face = check_face()
 	var pos = hero.get_pos()
 	var talk_pos = Vector2(pos.x + face.x, pos.y + face.y)
 	
@@ -393,6 +411,26 @@ func detect_script():
 	else:
 		return null
 
+func detect_treasure():
+	var face = check_face()
+	var pos = hero.get_pos()
+	var open_pos = Vector2(pos.x + face.x, pos.y + face.y)
+
+	var found = false
+	var count = treasure_map.get_child_count()
+	var i = 0
+	while i < count:
+		var box = treasure_map.get_child(i)
+		var pos = box.get_pos()
+		if open_pos.x == pos.x && open_pos.y == pos.y:
+			found = true
+			break
+		i += 1
+	if found:
+		return treasure_map.get_child(i)
+	else:
+		return null
+
 func start_script(npc):
 	talk_with = npc
 	print("talk with ", talk_with.npc.get_name())
@@ -406,6 +444,7 @@ func start_script(npc):
 	else:
 		dialog = current_scene.dialogs[talk_with.npc.get_name()]
 	dialog_pointer = -1
+	container.get_node("Title").set_hidden(false)
 	container.get_node("Title").set_text(talk_with.npc.get_name())
 	container.get_node("Text").set_text(next_dialog())
 
@@ -440,6 +479,30 @@ func open_shop():
 	in_shop = true
 	get_node("../../UI/Shop").container.open(current_scene.shops[talk_with.npc.get_name()])
 
+func open_box(box):
+	if !party.state.treasures.has(party.state.map):
+		party.state.treasures[party.state.map] = []
+	var array = party.state.treasures[party.state.map]
+	if !array.has(box.get_name()):
+		array.append(box.get_name())
+		box.set_animation("opened")
+		if current_scene.treasures.has(box.get_name()):
+			var items = current_scene.treasures[box.get_name()]
+			var s = ""
+			for i in items:
+				party.state.keys.append(i)
+				if s != "":
+					s += ", "
+				s += i
+			container.set_hidden(false)
+			talk_with = null
+			scripting = true
+			dialog = global.treasure_dialog
+			dialog_pointer = -1
+			container.get_node("Title").set_hidden(true)
+			container.get_node("Text").set_text("%s found" % s)
+			next_dialog()
+
 func save_npcs():
 	var i = 0
 	while i < npc_map.get_child_count():
@@ -452,6 +515,12 @@ func save_npcs():
 func set_current_scene(scene):
 	current_scene = scene
 	ship.set_hidden(party.state.map != party.state.ship.map)
+	if party.state.treasures.has(party.state.map):
+		var array = party.state.treasures[party.state.map]
+		for i in array:
+			var box = treasure_map.get_node(i)
+			if box != null:
+				box.set_animation("opened")
 	if !ship.is_hidden():
 		var pos = Vector2(party.state.ship.x, party.state.ship.y)
 		pos = global.map_to_pixel(global.pixel_to_map(pos))

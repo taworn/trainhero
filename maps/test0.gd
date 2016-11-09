@@ -36,6 +36,12 @@ var doors = {
 	"Door1": ["key_0", "Grass1"],
 }
 
+var treasures = {
+	"Treasure0": [
+		"key_0",
+	],
+}
+
 var warps = {
 	"Town0": {"x": 160, "y": 227, "map": "maps/test0"},
 }
