@@ -68,7 +68,14 @@ func start_game():
 		"map": null,
 		"x": null,
 		"y": null,
-		"face": null,
+		"face": "down",
+		"ship": {
+			"moor": true,
+			"map": "maps/test0",
+			"x": 32,
+			"y": 160,
+			"face": "down",
+		},
 		"npcs": {
 		},
 	}

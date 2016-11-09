@@ -1,25 +1,26 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://tilesets/world.tres" type="TileSet" id=1]
 [ext_resource path="res://party/hero.tscn" type="PackedScene" id=2]
-[ext_resource path="res://fonts/FreeSans.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://party/shop.tscn" type="PackedScene" id=4]
-[ext_resource path="res://party/menu.tscn" type="PackedScene" id=5]
-[ext_resource path="res://musics/Dragon Quest 3 - Adventure.ogg" type="AudioStream" id=6]
+[ext_resource path="res://party/ship.tscn" type="PackedScene" id=3]
+[ext_resource path="res://fonts/FreeSans.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://party/shop.tscn" type="PackedScene" id=5]
+[ext_resource path="res://party/menu.tscn" type="PackedScene" id=6]
+[ext_resource path="res://musics/Dragon Quest 3 - Adventure.ogg" type="AudioStream" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 
 font/size = 32
 font/use_mipmaps = false
 font/use_filter = false
-font/font = ExtResource( 3 )
+font/font = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=2]
 
 font/size = 32
 font/use_mipmaps = false
 font/use_filter = false
-font/font = ExtResource( 3 )
+font/font = ExtResource( 4 )
 
 [node name="Root" type="Node2D"]
 
@@ -54,8 +55,6 @@ motion/mirroring = Vector2( 0, 0 )
 
 [node name="Camera" type="Node2D" parent="."]
 
-editor/display_folded = true
-
 [node name="TileMap" type="TileMap" parent="Camera"]
 
 mode = 0
@@ -89,8 +88,11 @@ margin/bottom = 40.0
 
 [node name="Group" parent="Camera" instance=ExtResource( 2 )]
 
+[node name="Ship" parent="Camera" instance=ExtResource( 3 )]
+
 [node name="UI" type="Container" parent="."]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -165,13 +167,13 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Shop" parent="UI" instance=ExtResource( 4 )]
+[node name="Shop" parent="UI" instance=ExtResource( 5 )]
 
-[node name="Menu" parent="UI" instance=ExtResource( 5 )]
+[node name="Menu" parent="UI" instance=ExtResource( 6 )]
 
 [node name="MusicPlayer" type="StreamPlayer" parent="."]
 
-stream/stream = ExtResource( 6 )
+stream/stream = ExtResource( 7 )
 stream/play = false
 stream/loop = true
 stream/volume_db = 0.0

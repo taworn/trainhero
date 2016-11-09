@@ -6,6 +6,8 @@ var party = null
 var background = null  # background sprite, can be null
 var camera = null      # camera to set position (x, y)
 var hero = null        # is hero
+var ship = null        # ship
+var ship_ani = null    # ship animate
 var tile_map = null    # tile map
 var tile_set = null    # tile set
 var warp_map = null    # a map to find warp zones
@@ -13,6 +15,7 @@ var npc_map = null     # a map to find NPCs
 var container = null   # a container UI
 
 var walking = false    # is walking?
+var sailing = false    # is sailing on ship?
 var scripting = false  # is scripting?
 var in_shop = false    # is in shop?
 var in_menu = false    # is in menu?
@@ -34,6 +37,8 @@ func _ready():
 		background = null
 	camera = get_node("../../Camera")
 	hero = get_node("Hero")
+	ship = get_node("../Ship")
+	ship_ani = ship.get_node("Animate")
 	tile_map = get_node("../TileMap")
 	tile_set = tile_map.get_tileset()
 	warp_map = get_node("../WarpMap")
@@ -45,6 +50,10 @@ func _ready():
 
 	hero.set_pos(Vector2(party.state.x, party.state.y))
 	hero.set_animation(party.state.face)
+	ship.set_pos(Vector2(party.state.ship.x, party.state.ship.y))
+	ship_ani.set_animation(party.state.ship.face)
+	if !party.state.ship.moor:
+		hero.set_hidden(true)
 	center_screen()
 	get_node("../../UI/Title").set_hidden(!party.new)
 	party.new = false
@@ -55,7 +64,7 @@ func _ready():
 
 func _input(event):
 	if !party.paused:
-		if !walking && !scripting && !in_shop && !in_menu:
+		if !walking && !sailing && !scripting && !in_shop && !in_menu:
 			if Input.is_action_pressed("ui_accept"):
 				key_pressed()
 				var npc = detect_script()
@@ -67,6 +76,7 @@ func _input(event):
 				in_menu = true
 				save_npcs()
 				get_node("../../UI/Menu").container.open()
+
 		elif scripting:
 			if !in_shop && !in_menu:
 				if Input.is_action_pressed("ui_accept"):
@@ -77,6 +87,7 @@ func _input(event):
 						container.set_hidden(true)
 						talk_with.scripting = false
 						scripting = false
+
 			elif in_shop:
 				if Input.is_action_pressed("ui_cancel"):
 					container.get_node("Title").set_hidden(false)
@@ -90,6 +101,7 @@ func _input(event):
 						container.set_hidden(true)
 						talk_with.scripting = false
 						scripting = false
+
 	elif in_menu:
 		if Input.is_action_pressed("ui_cancel"):
 			if get_node("../../UI/Menu").container.cancel():
@@ -98,44 +110,97 @@ func _input(event):
 
 func _process(delta):
 	if !party.paused:
-		if !walking && !scripting && !in_shop:
-			distance = null
+		if !walking && !sailing && !scripting && !in_shop && !in_menu:
 			if Input.is_action_pressed("ui_down"):
 				key_pressed()
-				distance = Vector2(0, global.STEP_Y)
-				hero.set_animation("down")
+				move(global.MOVE_DOWN)
 			elif Input.is_action_pressed("ui_left"):
 				key_pressed()
-				distance = Vector2(-global.STEP_X, 0)
-				hero.set_animation("left")
+				move(global.MOVE_LEFT)
 			elif Input.is_action_pressed("ui_right"):
 				key_pressed()
-				distance = Vector2(global.STEP_X, 0)
-				hero.set_animation("right")
+				move(global.MOVE_RIGHT)
 			elif Input.is_action_pressed("ui_up"):
 				key_pressed()
-				distance = Vector2(0, -global.STEP_Y)
-				hero.set_animation("up")
-			party.state.face = hero.get_animation()
-			if distance != null:
-				var pos = hero.get_pos()
-				next_pos = Vector2(pos.x + distance.x, pos.y + distance.y)
-				var map_pos = global.pixel_to_map(next_pos)
-				var id = tile_map.get_cell(map_pos.x - 1, map_pos.y - 1)
-				var name = tile_set.tile_get_name(id)
-				if global.passable_walk_dict.has(name):
-					if global.passable_walk_dict[name]:
-						if detect_hit() == null:
-							hero.set_frame(0)
-							time_used = 0
-							walking = true
+				move(global.MOVE_UP)
 		elif walking:
 			walk(delta)
-		elif scripting:
-			pass
+		elif sailing:
+			sail(delta)
 
 func key_pressed():
 	get_node("../../UI/Title").set_hidden(true)
+
+func move(action):
+	distance = null
+	if party.state.ship.moor:
+		if action == global.MOVE_DOWN:
+			distance = Vector2(0, global.STEP_Y)
+			hero.set_animation("down")
+		elif action == global.MOVE_LEFT:
+			distance = Vector2(-global.STEP_X, 0)
+			hero.set_animation("left")
+		elif action == global.MOVE_RIGHT:
+			distance = Vector2(global.STEP_X, 0)
+			hero.set_animation("right")
+		elif action == global.MOVE_UP:
+			distance = Vector2(0, -global.STEP_Y)
+			hero.set_animation("up")
+		party.state.face = hero.get_animation()
+		if distance != null:
+			var pos = hero.get_pos()
+			next_pos = Vector2(pos.x + distance.x, pos.y + distance.y)
+			var map_pos = global.pixel_to_map(next_pos)
+			var id = tile_map.get_cell(map_pos.x - 1, map_pos.y - 1)
+			var name = tile_set.tile_get_name(id)
+			if global.passable_walk_dict.has(name):
+				if global.passable_walk_dict[name]:
+					if detect_hit() == null:
+						hero.set_frame(0)
+						time_used = 0
+						walking = true
+			elif !ship.is_hidden():
+				var ship_pos = ship.get_pos()
+				if next_pos.x == ship_pos.x && next_pos.y == ship_pos.y:
+					hero.set_frame(0)
+					time_used = 0
+					walking = true
+
+	else:
+		if action == global.MOVE_DOWN:
+			distance = Vector2(0, global.STEP_Y)
+			ship_ani.set_animation("down")
+		elif action == global.MOVE_LEFT:
+			distance = Vector2(-global.STEP_X, 0)
+			ship_ani.set_animation("left")
+		elif action == global.MOVE_RIGHT:
+			distance = Vector2(global.STEP_X, 0)
+			ship_ani.set_animation("right")
+		elif action == global.MOVE_UP:
+			distance = Vector2(0, -global.STEP_Y)
+			ship_ani.set_animation("up")
+		party.state.ship.face = ship_ani.get_animation()
+		if distance != null:
+			var pos = ship.get_pos()
+			next_pos = Vector2(pos.x + distance.x, pos.y + distance.y)
+			var map_pos = global.pixel_to_map(next_pos)
+			var id = tile_map.get_cell(map_pos.x - 1, map_pos.y - 1)
+			var name = tile_set.tile_get_name(id)
+			if global.passable_sail_dict.has(name):
+				if global.passable_sail_dict[name]:
+					ship_ani.set_frame(0)
+					time_used = 0
+					sailing = true
+			elif global.passable_walk_dict.has(name):
+				if global.passable_walk_dict[name]:
+					if detect_hit() == null:
+						party.state.ship.moor = true
+						hero.set_pos(pos)
+						hero.set_animation(party.state.ship.face)
+						hero.set_hidden(false)
+						hero.set_frame(0)
+						time_used = 0
+						walking = true
 
 func walk(delta):
 	var finish = false
@@ -180,9 +245,61 @@ func walk(delta):
 		party.state.y = pos.y
 		check_script()
 		walking = false
+		if !ship.is_hidden():
+			var ship_pos = ship.get_pos()
+			if pos.x == ship_pos.x && pos.y == ship_pos.y:
+				party.state.ship.moor = false
+				hero.set_hidden(true)
+
+func sail(delta):
+	var finish = false
+	var d = ceil(delta * 1000)
+	var dx = ceil(d * distance.x / global.STEP_TIME)
+	var dy = ceil(d * distance.y / global.STEP_TIME)
+	var pos = ship.get_pos()
+	pos.x += dx
+	pos.y += dy
+
+	if distance.x < 0:
+		if pos.x <= next_pos.x + global.STEP_X / 2:
+			ship_ani.set_frame(1)
+		if pos.x <= next_pos.x:
+			pos.x = next_pos.x
+			finish = true
+	elif distance.x > 0:
+		if pos.x >= next_pos.x - global.STEP_X / 2:
+			ship_ani.set_frame(1)
+		if pos.x >= next_pos.x:
+			pos.x = next_pos.x
+			finish = true
+
+	if distance.y < 0:
+		if pos.y <= next_pos.y + global.STEP_Y / 2:
+			ship_ani.set_frame(1)
+		if pos.y <= next_pos.y:
+			pos.y = next_pos.y
+			finish = true
+	elif distance.y > 0:
+		if pos.y >= next_pos.y - global.STEP_Y / 2:
+			ship_ani.set_frame(1)
+		if pos.y >= next_pos.y:
+			pos.y = next_pos.y
+			finish = true
+
+	ship.set_pos(pos)
+	center_screen()
+	if finish:
+		ship_ani.set_frame(0)
+		party.state.ship.x = pos.x
+		party.state.ship.y = pos.y
+		sailing = false
 
 func center_screen():
-	var p = hero.get_pos()
+	var p
+	if party.state.ship.moor:
+		p = hero.get_pos()
+	else:
+		p = ship.get_pos()
 	var q = Vector2(global.half_screen_size.x - p.x, global.half_screen_size.y - p.y)
 	camera.set_pos(q)
 	if background != null:
@@ -325,6 +442,11 @@ func save_npcs():
 
 func set_current_scene(scene):
 	current_scene = scene
+	ship.set_hidden(party.state.map != party.state.ship.map)
+	if !ship.is_hidden():
+		var pos = Vector2(party.state.ship.x, party.state.ship.y)
+		pos = global.map_to_pixel(global.pixel_to_map(pos))
+		ship.set_pos(pos)
 	for i in party.state.npcs:
 		var node = npc_map.get_node(i)
 		if node != null:

@@ -1,11 +1,6 @@
 
 extends Node
 
-const MOVE_DOWN = 1
-const MOVE_LEFT = 2
-const MOVE_RIGHT = 3
-const MOVE_UP = 4
-
 var npc = null         # is hero
 var npc_map = null     # a map to find other NPCs
 var animate = null     # animated graphics
@@ -61,16 +56,16 @@ func _process(delta):
 	if movable && !walking && !scripting:
 		distance = null
 		var a = ai_walk()
-		if a == MOVE_DOWN:
+		if a == global.MOVE_DOWN:
 			distance = Vector2(-global.STEP_X, 0)
 			animate.set_animation("left")
-		elif a == MOVE_LEFT:
+		elif a == global.MOVE_LEFT:
 			distance = Vector2(global.STEP_X, 0)
 			animate.set_animation("right")
-		elif a == MOVE_RIGHT:
+		elif a == global.MOVE_RIGHT:
 			distance = Vector2(0, -global.STEP_Y)
 			animate.set_animation("up")
-		elif a == MOVE_UP:
+		elif a == global.MOVE_UP:
 			distance = Vector2(0, global.STEP_Y)
 			animate.set_animation("down")
 		if distance != null:

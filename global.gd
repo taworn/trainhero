@@ -1,6 +1,12 @@
 
 extends Node
 
+# move in direction
+const MOVE_DOWN = 1
+const MOVE_LEFT = 2
+const MOVE_RIGHT = 3
+const MOVE_UP = 4
+
 # one step size, in pixels
 const STEP_X = 64
 const STEP_Y = 64
