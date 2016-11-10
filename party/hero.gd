@@ -30,6 +30,8 @@ var talk_with = null
 var dialog = null
 var dialog_pointer = -1
 
+var battle_roll = 0
+
 var after_fade = null
 var current_scene = null
 
@@ -271,13 +273,15 @@ func walk(delta):
 		hero.set_frame(0)
 		party.state.x = pos.x
 		party.state.y = pos.y
-		check_warp()
 		walking = false
-		if !ship.is_hidden():
-			var ship_pos = ship.get_pos()
-			if pos.x == ship_pos.x && pos.y == ship_pos.y:
-				party.state.ship.moor = false
-				hero.set_hidden(true)
+		if !check_warp():
+			if !ship.is_hidden():
+				var ship_pos = ship.get_pos()
+				if pos.x == ship_pos.x && pos.y == ship_pos.y:
+					party.state.ship.moor = false
+					hero.set_hidden(true)
+					return
+			check_battle()
 
 func sail(delta):
 	var finish = false
@@ -321,6 +325,7 @@ func sail(delta):
 		party.state.ship.x = pos.x
 		party.state.ship.y = pos.y
 		sailing = false
+		check_battle()
 
 func center_screen():
 	var p
@@ -375,6 +380,23 @@ func check_warp():
 				animation.set_current_animation("fade_out")
 				animation.play()
 				party.paused = true
+				return true
+	return false
+
+func check_battle():
+	if battle_roll <= 0:
+		battle_roll = 1
+	else:
+		var i = randi() % 100
+		print(battle_roll, "-", i)
+		if i <= battle_roll:
+			battle_roll = 0
+			save_npcs()
+			get_tree().change_scene("res://battle.tscn")
+		else:
+			battle_roll += 1
+			if battle_roll > 10:
+				battle_roll = 10
 
 func detect_hit():
 	var found = false
