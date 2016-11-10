@@ -3,9 +3,25 @@
 
 A training for a game's hero.
 
-**Tools and Library Usage**
+**How To Play**
 
- - Godot Engine, https://godotengine.org/
+Map Scenes
+
+ - key Down, Left, Right, Up to walk or select cursor
+ - key S, A, D, W to walk or select cursor, too
+ - key Enter or Space to talk or accept
+ - key ESC to cancel or open menu
+
+Battle Scenes
+
+ - key Down, Left, Right, Up to select cursor
+ - key S, A, D, W to select cursor, too
+ - key Enter or Space to accept
+ - key ESC to cancel
+
+**Usage**
+
+ - godotengine.org - Godot Engine
 
 **Thanks**
 
@@ -15,7 +31,7 @@ A training for a game's hero.
  - online-convert.com - use to convert formats
  - gnu.org/software/freefont - provide free font
  - www.spriters-resource.com - provide graphics, thank to Shurlock, Tonberry2k, Ryan914, WaxPoetic
- - www.sounds-resource.com - provide sounds, thank to
+ - www.sounds-resource.com - provide sounds, thank to ?
  - ffmusic.ffshrine.org - Final Fantasy Music & Video Game, provide sounds
  - woodus.com/den/music - Dragon's Den, provide sounds
  - Nobuo Uematsu - Final Fantasy artist
