@@ -14,6 +14,7 @@ var warp_map = null      # a map to find warp zones
 var treasure_map = null  # a map to find treasures
 var npc_map = null       # a map to find NPCs
 var container = null     # a container UI
+var animation = null     # animation player
 
 var walking = false    # is walking?
 var sailing = false    # is sailing on ship?
@@ -29,6 +30,7 @@ var talk_with = null
 var dialog = null
 var dialog_pointer = -1
 
+var after_fade = null
 var current_scene = null
 
 func _ready():
@@ -47,9 +49,11 @@ func _ready():
 	treasure_map = get_node("../TreasureMap")
 	container = get_node("../../UI/Container")
 	container.set_hidden(true)
+	animation = get_node("../../AnimationPlayer")
+	animation.connect("finished", self, "_on_AnimationPlayer_finished")
 	walking = false
 	scripting = false
-
+	
 	hero.set_pos(Vector2(party.state.x, party.state.y))
 	hero.set_animation(party.state.face)
 	ship.set_pos(Vector2(party.state.ship.x, party.state.ship.y))
@@ -59,10 +63,12 @@ func _ready():
 	center_screen()
 	get_node("../../UI/Title").set_hidden(!party.new)
 	party.new = false
+	after_fade = null
 
 	set_process_input(true)
 	set_process(true)
 	get_node("../../MusicPlayer").play()
+	party.paused = true
 
 func _input(event):
 	if !party.paused:
@@ -134,6 +140,11 @@ func _process(delta):
 			walk(delta)
 		elif sailing:
 			sail(delta)
+
+func _on_AnimationPlayer_finished():
+	if after_fade != null:
+		party.warp_to(after_fade.x, after_fade.y, after_fade.map)
+	party.paused = false
 
 func key_pressed():
 	get_node("../../UI/Title").set_hidden(true)
@@ -360,7 +371,10 @@ func check_warp():
 				var pos = Vector2(node.x, node.y)
 				pos = global.map_to_pixel(global.pixel_to_map(pos))
 				party.back_fade = hero.get_animation()
-				party.warp_to(pos.x, pos.y, node.map)
+				after_fade = {"x": pos.x, "y": pos.y, "map": node.map}
+				animation.set_current_animation("fade_out")
+				animation.play()
+				party.paused = true
 
 func detect_hit():
 	var found = false
