@@ -2,10 +2,11 @@
 extends Panel
 
 var party = null
+var list = null
 
 func _ready():
 	party = get_node("/root/party")
-	var list = get_node("ItemList")
+	list = get_node("Menu")
 	list.add_item("New Game", null)
 	list.add_item("Save Game #0", null)
 	list.add_item("Save Game #1", null)
@@ -13,8 +14,7 @@ func _ready():
 	list.grab_focus()
 	get_node("MusicPlayer").play()
 
-func _on_ItemList_item_activated(index):
-	var list = get_node("ItemList")
+func _on_Menu_item_activated(index):
 	list.release_focus()
 	list.hide()
 	if index == 0:

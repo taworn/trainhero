@@ -87,7 +87,6 @@ func start_game():
 	state.face = "down"
 	new = true
 	print("started, state=", state.to_json())
-	get_tree().change_scene("res://" + state.map + ".tscn")
 
 func save_game(fileName):
 	var f = File.new()
