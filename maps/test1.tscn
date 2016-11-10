@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://map.tscn" type="PackedScene" id=1]
+[ext_resource path="res://maps/test1.gd" type="Script" id=2]
+[ext_resource path="res://npcs/King.tscn" type="PackedScene" id=3]
+
+[node name="Root" instance=ExtResource( 1 )]
+
+script/script = ExtResource( 2 )
+
+[node name="TileMap" parent="Camera"]
+
+tile_data = IntArray( 0, 0, 1, 0, 2, 2, 3, 1, 65536, 0, 65537, 0, 65538, 0, 65539, 1, 131072, 0, 131073, 0, 131074, 0, 131075, 1, 196608, 1, 196609, 7, 196610, 1, 196611, 1, 262144, 0, 262145, 0, 262146, 0, 262147, 1, 327680, 0, 327681, 0, 327682, 0, 327683, 1, 393216, 1, 393217, 1, 393218, 1, 393219, 1 )
+
+[node name="Town0" type="Control" parent="Camera/WarpMap"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 128.0
+margin/top = 0.0
+margin/right = 192.0
+margin/bottom = 64.0
+
+[node name="Fake King" parent="Camera/NPCMap" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 96, 224 )
+transform/scale = Vector2( 1, 1 )
+
+[node name="UI" parent="."]
+
+editor/display_folded = false
+
+[node name="Title" parent="UI"]
+
+text = "Test 1"
+
+

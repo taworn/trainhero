@@ -5,7 +5,7 @@ func _ready():
 	get_node("Camera/Group").set_current_scene(self)
 
 var dialogs = {
-	Villager0 = [
+	"Villager0": [
 		"Good morning :)",
 		"What u want?",
 		global.SCRIPT_OPEN_SHOP,
@@ -14,18 +14,18 @@ var dialogs = {
 		global.SCRIPT_SWITCH_TITLE,
 		"Ok",
 	],
-	Villager1 = [
+	"Villager1": [
 		global.SCRIPT_OPEN_SHOP,
 	],
 }
 
 var shops = {
-	Villager0 = [
+	"Villager0": [
 		"Item 0",
 		"Item 1",
 		"Item 2",
 	],
-	Villager1 = [
+	"Villager1": [
 		"Item 3",
 		"Item 4",
 	],
@@ -43,6 +43,6 @@ var treasures = {
 }
 
 var warps = {
-	"Town0": {"x": 160, "y": 227, "map": "maps/test0"},
+	"Town0": {"x": 32, "y": 32, "map": "maps/test1"},
 }
 

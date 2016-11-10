@@ -496,6 +496,9 @@ func next_dialog():
 				elif dialog[dialog_pointer] == global.SCRIPT_OPEN_SHOP:
 					open_shop()
 					return ""
+				elif dialog[dialog_pointer] == global.SCRIPT_BATTLE:
+					battle()
+					return ""
 				continue
 			else:
 				continue
@@ -539,6 +542,11 @@ func open_box(box):
 			container.get_node("Text").set_text("%s found" % s)
 			next_dialog()
 
+func battle():
+	battle_roll = 0
+	save_npcs()
+	get_tree().change_scene("res://battle.tscn")
+
 func save_npcs():
 	var i = 0
 	while i < npc_map.get_child_count():
@@ -550,6 +558,7 @@ func save_npcs():
 
 func set_current_scene(scene):
 	current_scene = scene
+	get_node("../../CanvasModulate").set_color(Color(0, 0, 0, 0))
 	ship.set_hidden(party.state.map != party.state.ship.map)
 	if party.state.treasures.has(party.state.map):
 		var array = party.state.treasures[party.state.map]

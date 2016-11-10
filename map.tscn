@@ -223,6 +223,6 @@ autoplay = "fade_in"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 
-color = Color( 1, 1, 1, 0 )
+color = Color( 1, 1, 1, 1 )
 
 

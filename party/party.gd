@@ -82,7 +82,7 @@ func start_game():
 		},
 	}
 	state.map = "maps/test0"
-	state.x = 96
+	state.x = 160
 	state.y = 96
 	state.face = "down"
 	new = true
