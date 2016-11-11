@@ -1,121 +1,137 @@
 
 extends Node2D
 
-var state = {}  # current state
+var camera = null      # camera to set position (x, y), can be null
+var background = null  # background sprite, can be null
+var tile_map = null    # tile map
+var hero = null        # a hero
+var ship = null        # a ship
 
-var paused = false  # paused entry scene
-var new = false     # is change scene or go back
-var back_fade = null
+var ui_container = null  # UI container
+var animation = null     # animation
 
-func start_game():
-	state = {
-		# level, experience and gold
-		"level": 0,
-		"exp": 0,
-		"gold": 999999999,
+var paused = false   # game pause
+var in_menu = false  # in menu?
 
-		# users
-		"hero": {
-			"avail": true,
-			"down": false,
-			"hp": 100,
-			"mp": 20,
-			"ap": 10,
-			"dp": 10,
-			"sp": 10,
-			"weapon": null,
-			"armor": null,
-			"accessory": null,
-			"magics": {
-			},
-		},
-		"heroine0": {
-			"avail": false,
-			"down": false,
-			"hp": 70,
-			"mp": 50,
-			"ap": 8,
-			"dp": 8,
-			"sp": 8,
-			"weapon": null,
-			"armor": null,
-			"accessory": null,
-			"magics": {
-			},
-		},
-		"heroine1": {
-			"avail": false,
-			"down": false,
-			"hp": 50,
-			"mp": 70,
-			"ap": 8,
-			"dp": 8,
-			"sp": 8,
-			"weapon": null,
-			"armor": null,
-			"accessory": null,
-			"magics": {
-			},
-		},
+var after_effect = null
+var scene = null
 
-		# items
-		"items": {
-		},
-		"keys": [
-		],
-		"treasures": {
-		},
+func _ready():
+	camera = get_node("../../../Camera")
+	if camera != null:
+		background = camera.get_node("../CanvasLayer/ParallaxBackground/ParallaxLayer/Background")
+		if background.get_texture() == null:
+			background = null
+	tile_map = get_node("../../TileMap")
+	hero = tile_map.get_node("Players/Hero")
+	ship = tile_map.get_node("Players/Ship")
+	ship.set_hidden(state.persist.ship.map != state.persist.map)
 
-		# where are you
-		"map": null,
-		"x": null,
-		"y": null,
-		"face": "down",
-		"ship": {
-			"moor": true,
-			"map": "maps/test0",
-			"x": 32,
-			"y": 160,
-			"face": "down",
-		},
-		"npcs": {
-		},
-	}
-	state.map = "maps/test0"
-	state.x = 160
-	state.y = 96
-	state.face = "down"
-	new = true
-	print("started, state=", state.to_json())
+	ui_container = get_node("../../../UI/Container")
 
-func save_game(fileName):
-	var f = File.new()
-	f.open(fileName, File.WRITE)
-	f.store_line(state.to_json())
-	f.close()
-	print("saved, state=", state.to_json())
+	animation = get_node("../../../Effect/AnimationPlayer")
+	animation.connect("finished", self, "_on_AnimationPlayer_finished")
+	animation.get_node("../CanvasModulate").set_color(Color(0, 0, 0, 0))
 
-func load_game(fileName):
-	var f = File.new()
-	if !f.file_exists(fileName):
-		return start_game()
-	f.open(fileName, File.READ)
-	if (!f.eof_reached()):
-	    state.parse_json(f.get_line())
-	f.close()
-	new = true
-	print("loaded, state=", state.to_json())
-	get_tree().change_scene("res://" + state.map + ".tscn")
+	center_screen()
+	set_process_input(true)
+	set_process(true)
+	paused = true
 
-func back():
-	get_tree().change_scene("res://" + state.map + ".tscn")
+func _input(event):
+	if paused || hero.is_moving() || (!ship.is_hidden() && ship.is_moving()):
+		return
+	if Input.is_action_pressed("ui_accept"):
+		key_pressed()
+	elif Input.is_action_pressed("ui_cancel"):
+		key_pressed()
 
-func warp_to(x, y, map):
-	state.map = map
-	state.x = x
-	state.y = y
-	state.npcs.clear()
-	new = true
-	print("warp to, map=", state.map, " (", state.x, ", ", state.y, ")")
-	get_tree().change_scene("res://" + state.map + ".tscn")
+func _process(delta):
+	if paused || hero.is_moving() || (!ship.is_hidden() && ship.is_moving()):
+		return
+	var action = 0
+	if Input.is_action_pressed("ui_down"):
+		key_pressed()
+		action = global.MOVE_DOWN
+	elif Input.is_action_pressed("ui_left"):
+		key_pressed()
+		action = global.MOVE_LEFT
+	elif Input.is_action_pressed("ui_right"):
+		key_pressed()
+		action = global.MOVE_RIGHT
+	elif Input.is_action_pressed("ui_up"):
+		key_pressed()
+		action = global.MOVE_UP
+	if action != 0:
+		if !state.persist.ship.cruising:
+			hero.move(action)
+		else:
+			ship.move(action)
+
+func _on_AnimationPlayer_finished():
+	if after_effect != null:
+		state.warp_to(after_effect.x, after_effect.y, after_effect.map)
+		after_effect = null
+	paused = false
+
+func key_pressed():
+	var scene_name = get_node("../../../UI/SceneName")
+	if scene_name != null:
+		scene_name.set_hidden(true)
+
+func on_moving_step():
+	center_screen()
+
+func center_screen():
+	if camera != null:
+		var pos
+		if !state.persist.ship.cruising:
+			pos = hero.get_pos()
+		else:
+			pos = ship.get_pos()
+		var cam_pos = Vector2(global.half_screen_size.x - pos.x - (global.STEP_X >> 1), global.half_screen_size.y - pos.y - (global.STEP_Y >> 1))
+		camera.set_pos(cam_pos)
+		if background != null:
+			background.set_pos(Vector2(cam_pos.x / 8, cam_pos.y / 32))
+
+func switch_to_hero():
+	state.persist.x = state.persist.ship.x
+	state.persist.y = state.persist.ship.y
+	hero.set_pos(ship.get_pos())
+	hero.set_hidden(false)
+	state.persist.ship.cruising = false
+
+func switch_to_ship():
+	state.persist.ship.cruising = true
+	hero.set_hidden(true)
+
+func check_key(door):
+	if scene.door_dict.has(door.get_name()):
+		var found = false
+		var data = scene.door_dict[door.get_name()]
+		if typeof(data) == TYPE_STRING:
+			if state.persist.keys.has(data):
+				found = true
+		else:
+			found = true
+		if found:
+			door.set_hidden(true)
+			return true
+	return false
+	
+func warp_to(name):
+	if scene.warp_dict.has(name):
+		var data = scene.warp_dict[name]
+		var pos = global.normalize(Vector2(data.x, data.y))
+		after_effect = {
+			"x": pos.x,
+			"y": pos.y,
+			"map": data.map,
+		}
+		animation.set_current_animation("fade_out")
+		animation.play()
+		paused = true
+
+func set_current_scene(scene):
+	self.scene = scene
 

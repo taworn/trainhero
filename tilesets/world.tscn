@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=1]
+[gd_scene load_steps=14 format=1]
 
 [ext_resource path="res://tilesets/world/grass0.png" type="Texture" id=1]
 [ext_resource path="res://tilesets/world/grass1.png" type="Texture" id=2]
@@ -9,12 +9,10 @@
 [ext_resource path="res://tilesets/world/table1.png" type="Texture" id=7]
 [ext_resource path="res://tilesets/world/water0.png" type="Texture" id=8]
 [ext_resource path="res://tilesets/world/town0.png" type="Texture" id=9]
-[ext_resource path="res://tilesets/world/door0.png" type="Texture" id=10]
-[ext_resource path="res://tilesets/world/door1.png" type="Texture" id=11]
-[ext_resource path="res://tilesets/world/castle0.png" type="Texture" id=12]
-[ext_resource path="res://tilesets/world/castle1.png" type="Texture" id=13]
-[ext_resource path="res://tilesets/world/castle2.png" type="Texture" id=14]
-[ext_resource path="res://tilesets/world/castle3.png" type="Texture" id=15]
+[ext_resource path="res://tilesets/world/castle0.png" type="Texture" id=10]
+[ext_resource path="res://tilesets/world/castle1.png" type="Texture" id=11]
+[ext_resource path="res://tilesets/world/castle2.png" type="Texture" id=12]
+[ext_resource path="res://tilesets/world/castle3.png" type="Texture" id=13]
 
 [node name="Node2D" type="Node2D"]
 
@@ -63,34 +61,24 @@ texture = ExtResource( 8 )
 transform/pos = Vector2( 96, 160 )
 texture = ExtResource( 9 )
 
-[node name="Door0" type="Sprite" parent="."]
-
-transform/pos = Vector2( 32, 224 )
-texture = ExtResource( 10 )
-
-[node name="Door1" type="Sprite" parent="."]
-
-transform/pos = Vector2( 96, 224 )
-texture = ExtResource( 11 )
-
 [node name="Castle0" type="Sprite" parent="."]
 
 transform/pos = Vector2( 32, 288 )
-texture = ExtResource( 12 )
+texture = ExtResource( 10 )
 
 [node name="Castle1" type="Sprite" parent="."]
 
 transform/pos = Vector2( 96, 288 )
-texture = ExtResource( 13 )
+texture = ExtResource( 11 )
 
 [node name="Castle2" type="Sprite" parent="."]
 
 transform/pos = Vector2( 32, 352 )
-texture = ExtResource( 14 )
+texture = ExtResource( 12 )
 
 [node name="Castle3" type="Sprite" parent="."]
 
 transform/pos = Vector2( 96, 352 )
-texture = ExtResource( 15 )
+texture = ExtResource( 13 )
 
 

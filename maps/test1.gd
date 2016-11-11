@@ -2,25 +2,10 @@
 extends Node2D
 
 func _ready():
-	get_node("Camera/Group").set_current_scene(self)
+	get_node("MusicPlayer").play()
+	get_node("Camera/TileMap/Party").set_current_scene(self)
 
-var dialogs = {
-	"Fake King": [
-		"You DIE",
-		global.SCRIPT_BATTLE,
-	],
-}
-
-var shops = {
-}
-
-var doors = {
-}
-
-var treasures = {
-}
-
-var warps = {
-	"Town0": {"x": 160, "y": 224, "map": "maps/test0"},
+var warp_dict = {
+	"Test0": {"x": 256, "y": 128, "map": "maps/test0"},
 }
 

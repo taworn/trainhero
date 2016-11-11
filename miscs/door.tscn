@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=1]
 
-[ext_resource path="res://miscs/treasure.gd" type="Script" id=1]
-[ext_resource path="res://miscs/treasure0.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://miscs/door.gd" type="Script" id=1]
+[ext_resource path="res://miscs/door0.tres" type="SpriteFrames" id=2]
 
-[node name="Treasure" type="Node2D"]
+[node name="Door" type="Node2D"]
 
 script/script = ExtResource( 1 )
 

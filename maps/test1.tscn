@@ -2,17 +2,27 @@
 
 [ext_resource path="res://map.tscn" type="PackedScene" id=1]
 [ext_resource path="res://maps/test1.gd" type="Script" id=2]
-[ext_resource path="res://npcs/King.tscn" type="PackedScene" id=3]
+[ext_resource path="res://backgrounds/0.png" type="Texture" id=3]
 
 [node name="Root" instance=ExtResource( 1 )]
 
 script/script = ExtResource( 2 )
 
+[node name="Background" parent="CanvasLayer/ParallaxBackground/ParallaxLayer"]
+
+transform/scale = Vector2( 8, 8 )
+texture = ExtResource( 3 )
+centered = false
+
 [node name="TileMap" parent="Camera"]
 
-tile_data = IntArray( 0, 0, 1, 0, 2, 2, 3, 1, 65536, 0, 65537, 0, 65538, 0, 65539, 1, 131072, 0, 131073, 0, 131074, 0, 131075, 1, 196608, 1, 196609, 7, 196610, 1, 196611, 1, 262144, 0, 262145, 0, 262146, 0, 262147, 1, 327680, 0, 327681, 0, 327682, 0, 327683, 1, 393216, 1, 393217, 1, 393218, 1, 393219, 1 )
+tile_data = IntArray( 65533, 7, 65534, 1, 65535, 7, 0, 7, 1, 0, 2, 3, 3, 7, 4, 7, 5, 7, 6, 0, 7, 7, 8, 7, 131069, 7, 131070, 1, 131071, 7, 65536, 0, 65537, 0, 65538, 0, 65539, 0, 65540, 7, 65541, 0, 65542, 0, 65543, 7, 65544, 7, 196605, 7, 196606, 1, 196607, 7, 131072, 0, 131073, 0, 131074, 0, 131075, 0, 131076, 7, 131077, 0, 131078, 0, 131079, 7, 131080, 7, 262141, 7, 262142, 1, 262143, 7, 196608, 0, 196609, 0, 196610, 0, 196611, 7, 196612, 7, 196613, 7, 196614, 0, 196615, 7, 196616, 7, 327677, 7, 327678, 1, 327679, 1, 262144, 0, 262145, 0, 262146, 0, 262147, 1, 262148, 0, 262149, 0, 262150, 0, 262151, 7, 262152, 7, 393213, 7, 393214, 1, 393215, 1, 327680, 2, 327681, 0, 327682, 2, 327683, 1, 327684, 0, 327685, 0, 327686, 0, 327687, 7, 327688, 7, 458749, 7, 458750, 7, 458751, 1, 393216, 1, 393217, 1, 393218, 1, 393219, 1, 393220, 0, 393221, 0, 393222, 0, 393223, 7, 393224, 7, 524285, 7, 524286, 7, 524287, 7, 458752, 0, 458753, 0, 458754, 0, 458755, 0, 458756, 0, 458757, 7, 458758, 7, 458759, 7, 458760, 7, 589821, 7, 589822, 7, 589823, 7, 524288, 7, 524289, 7, 524290, 7, 524291, 7, 524292, 7, 524293, 7, 524294, 7, 524295, 7, 524296, 7 )
 
-[node name="Town0" type="Control" parent="Camera/WarpMap"]
+[node name="Hero" parent="Camera/TileMap/Players"]
+
+editor/display_folded = true
+
+[node name="Test0" type="Control" parent="Camera/TileMap/Scripts"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -23,17 +33,18 @@ margin/top = 0.0
 margin/right = 192.0
 margin/bottom = 64.0
 
-[node name="Fake King" parent="Camera/NPCMap" instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 96, 224 )
-transform/scale = Vector2( 1, 1 )
-
 [node name="UI" parent="."]
 
-editor/display_folded = false
+editor/display_folded = true
 
-[node name="Title" parent="UI"]
+[node name="SceneName" parent="UI"]
 
 text = "Test 1"
 
+[node name="Title" parent="UI/Container"]
 
+margin/top = 320.0
+margin/bottom = 245.0
+
+
+[editable path="Camera/TileMap/Players/Hero"]
