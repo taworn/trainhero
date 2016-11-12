@@ -18,6 +18,8 @@ var next_pos = null
 var time_used = 0
 var speed = 0
 
+var party = null
+
 func _ready():
 	set_pos(global.normalize(get_pos()))
 	moving = false
@@ -32,25 +34,27 @@ func _ready():
 		same_tile = true
 		var map_pos = global.pixel_to_map(get_pos())
 		tile_check = tile_map.get_cell(map_pos.x, map_pos.y)
+	party = tile_map.get_node("Party")
 	set_process(true)
 
 func _process(delta):
-	if !moving:
-		if movable:
-			var action = ai_walk()
-			if action == global.MOVE_DOWN:
-				action = global.MOVE_DOWN
-			elif action == global.MOVE_LEFT:
-				action = global.MOVE_LEFT
-			elif action == global.MOVE_RIGHT:
-				action = global.MOVE_RIGHT
-			elif action == global.MOVE_UP:
-				action = global.MOVE_UP
-			if action != 0:
-				speed = ai_speed()
-				move(action)
-	else:
-		moving_step(delta)
+	if !party.paused:
+		if !moving:
+			if movable:
+				var action = ai_walk()
+				if action == global.MOVE_DOWN:
+					action = global.MOVE_DOWN
+				elif action == global.MOVE_LEFT:
+					action = global.MOVE_LEFT
+				elif action == global.MOVE_RIGHT:
+					action = global.MOVE_RIGHT
+				elif action == global.MOVE_UP:
+					action = global.MOVE_UP
+				if action != 0:
+					speed = ai_speed()
+					move(action)
+		else:
+			moving_step(delta)
 
 func is_moving():
 	return moving
@@ -61,20 +65,26 @@ func get_current_pos():
 	else:
 		return next_pos
 
+func get_face():
+	return animate.get_animation()
+
 func set_face(action):
-	distance = null
-	if action == global.MOVE_DOWN:
-		distance = Vector2(0, global.STEP_Y)
-		animate.set_animation("down")
-	elif action == global.MOVE_LEFT:
-		distance = Vector2(-global.STEP_X, 0)
-		animate.set_animation("left")
-	elif action == global.MOVE_RIGHT:
-		distance = Vector2(global.STEP_X, 0)
-		animate.set_animation("right")
-	elif action == global.MOVE_UP:
-		distance = Vector2(0, -global.STEP_Y)
-		animate.set_animation("up")
+	if typeof(action) == TYPE_INT:
+		distance = null
+		if action == global.MOVE_DOWN:
+			distance = Vector2(0, global.STEP_Y)
+			animate.set_animation("down")
+		elif action == global.MOVE_LEFT:
+			distance = Vector2(-global.STEP_X, 0)
+			animate.set_animation("left")
+		elif action == global.MOVE_RIGHT:
+			distance = Vector2(global.STEP_X, 0)
+			animate.set_animation("right")
+		elif action == global.MOVE_UP:
+			distance = Vector2(0, -global.STEP_Y)
+			animate.set_animation("up")
+	else:
+		animate.set_animation(action)
 
 func move(action):
 	set_face(action)

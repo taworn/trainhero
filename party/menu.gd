@@ -1,65 +1,77 @@
 
 extends Container
 
-var container = null
-var menu_level = 0
+const SAVE_COUNT = 2
+
+var party = null
+
 var menu_list = null
 var save_list = null
 
 func _ready():
-	container = get_node(".")
-	container.set_hidden(true)	
-	
-	menu_list = get_node("MenuList")
-	menu_list.add_item("Item", null)
-	menu_list.add_item("Magic", null)
-	menu_list.add_item("Equip", null)
-	menu_list.add_item("Save", null)
-	menu_list.add_item("Exit", null)
+	set_hidden(true)
 
+	menu_list = get_node("MenuList")
+	menu_list.add_item("Items", null)
+	menu_list.add_item("Magics", null)
+	menu_list.add_item("Equipment", null)
+	menu_list.add_item("Save Game", null)
+	menu_list.add_item("Exit Game", null)
+	menu_list.add_item("Return Game", null)
 	save_list = get_node("SaveList")
-	save_list.add_item("Save #0", null)
-	save_list.add_item("Save #1", null)
-	set_process_input(true)
+
+	for i in range(SAVE_COUNT):
+		save_list.add_item("Save Game #%d" % i, null)
 
 func _input(event):
-	if !container.is_hidden():
-		if Input.is_action_pressed("ui_left") || Input.is_action_pressed("ui_right"):
-			pass
-		if Input.is_action_pressed("ui_accept"):
-			if menu_level == 0:
-				var index = menu_list.get_selected_items()
-				print("select(0) ", index)
-				if index[0] == 3:
-					menu_list.set_hidden(true)
-					save_list.set_hidden(false)
-					save_list.grab_focus()
-					menu_level += 1
-				if index[0] == 4:
-					get_tree().change_scene("res://title.tscn")
-					party.paused = false
-			elif menu_level == 1:
-				var index = save_list.get_selected_items()
-				var save = "user://game-%d.save" % index[0]
-				party.save_game(save)
-				cancel()
+	if Input.is_action_pressed("ui_accept"):
+		pass
+	elif Input.is_action_pressed("ui_cancel"):
+		close()
 
-func open():
-	menu_level = 0
-	menu_list.select(0)
-	save_list.select(0)
+func _on_MenuList_item_activated(index):
 	save_list.set_hidden(true)
-	menu_list.grab_focus()
-	container.set_hidden(false)
 
-func cancel():
-	if menu_level > 0:
-		save_list.set_hidden(true)
-		menu_list.set_hidden(false)
-		menu_list.grab_focus()
-		menu_level -= 1
-		return false
-	else:
-		container.set_hidden(true)
-		return true
+	print("activate: ", index)
+
+	if index == 0:
+		pass
+	elif index == 1:
+		pass
+	elif index == 2:
+		pass
+	elif index == 3:
+		save_list.set_hidden(false)
+		save_list.select(0)
+		save_list.grab_focus()
+	elif index == 4:
+		state.persist = state.restart_game()
+		get_tree().change_scene("res://title.tscn")
+	elif index == 5:
+		close()
+
+func _on_SaveList_item_activated(index):
+	print("activate(save): ", index)
+	var save = "user://game%d.save" % index
+	state.save_game(save)
+	close()
+
+func open(party):
+	self.party = party
+	party.paused = true
+	party.set_process(false)
+	party.set_process_input(false)
+	set_process_input(true)
+	set_hidden(false)
+
+	save_list.set_hidden(true)
+	menu_list.select(0)
+	menu_list.grab_focus()
+
+func close():
+	set_hidden(true)
+	set_process_input(false)
+	party.set_process_input(true)
+	party.set_process(true)
+	party.paused = false
 

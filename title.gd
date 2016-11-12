@@ -26,11 +26,11 @@ func _ready():
 func _on_Menu_item_activated(index):
 	menu.release_focus()
 	menu.hide()
+	party.set_process_input(true)
+	party.set_process(true)
 	if index == 0:
-		state.start_game()
-		party.set_process_input(true)
-		party.set_process(true)
+		state.new_game()
 	else:
-		var save = "user://game%d.save" % index
+		var save = "user://game%d.save" % (index - 1)
 		state.load_game(save)
 

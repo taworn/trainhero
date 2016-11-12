@@ -47,7 +47,6 @@ draw_bg = true
 
 [node name="Panel" type="Panel"]
 
-editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false

@@ -7,11 +7,11 @@ var tile_map = null    # tile map
 var hero = null        # a hero
 var ship = null        # a ship
 
-var ui_container = null  # UI container
-var animation = null     # animation
+var menu = null  # menu
 
-var paused = false   # game pause
-var in_menu = false  # in menu?
+var animation = null  # animation
+
+var paused = false  # game pause
 
 var after_effect = null
 var scene = null
@@ -25,9 +25,10 @@ func _ready():
 	tile_map = get_node("../../TileMap")
 	hero = tile_map.get_node("Players/Hero")
 	ship = tile_map.get_node("Players/Ship")
+	hero.set_hidden(state.persist.ship.cruising)
 	ship.set_hidden(state.persist.ship.map != state.persist.map)
 
-	ui_container = get_node("../../../UI/Container")
+	menu = get_node("../../../UI/Menu")
 
 	animation = get_node("../../../Effect/AnimationPlayer")
 	animation.connect("finished", self, "_on_AnimationPlayer_finished")
@@ -45,6 +46,9 @@ func _input(event):
 		key_pressed()
 	elif Input.is_action_pressed("ui_cancel"):
 		key_pressed()
+		if menu != null:
+			save_npcs()
+			menu.open(self)
 
 func _process(delta):
 	if paused || hero.is_moving() || (!ship.is_hidden() && ship.is_moving()):
@@ -132,6 +136,28 @@ func warp_to(name):
 		animation.play()
 		paused = true
 
+func save_npcs():
+	var players = tile_map.get_node("Players")
+	var count = players.get_child_count()
+	var i = 0
+	while i < count:
+		var child = players.get_child(i)
+		if child != self && !child.is_hidden():
+			if child.tag in [global.TAG_NPC]:
+				var name = child.get_name()
+				var pos = child.get_current_pos()
+				state.persist.npcs[name] = {"x": pos.x, "y": pos.y, "face": child.get_face()}
+		i += 1
+
 func set_current_scene(scene):
 	self.scene = scene
+
+	var players = tile_map.get_node("Players")
+	for i in state.persist.npcs:
+		var node = players.get_node(i)
+		if node != null:
+			var data = state.persist.npcs[i]
+			node.set_pos(Vector2(data.x, data.y))
+			node.set_face(data.face)
+
 

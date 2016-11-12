@@ -5,8 +5,6 @@
 [resource]
 
 font/size = 32
-extra_spacing/top = 4
-extra_spacing/bottom = 4
 font/use_mipmaps = false
 font/use_filter = false
 font/font = ExtResource( 1 )
