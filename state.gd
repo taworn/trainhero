@@ -12,7 +12,7 @@ func restart_game():
 		"level": 0,
 		"exp": 0,
 		"gold": 999999999,
-	
+
 		# users
 		"hero": {
 			"avail": true,
@@ -56,7 +56,7 @@ func restart_game():
 			"magics": {
 			},
 		},
-	
+
 		# items
 		"items": {
 		},
@@ -64,7 +64,7 @@ func restart_game():
 		],
 		"treasures": {
 		},
-	
+
 		# where are you
 		"map": null,
 		"x": 128,
@@ -77,7 +77,7 @@ func restart_game():
 			"y": 128,
 			"face": "down",
 		},
-	
+
 		# where all NPCs in current map
 		"npcs": {
 		},

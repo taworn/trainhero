@@ -4,7 +4,7 @@
 
 [sub_resource type="SpriteFrames" id=1]
 
-animations = [ { "frames":[  ], "loop":true, "name":"right", "speed":5.0 }, { "frames":[  ], "loop":true, "name":"left", "speed":5.0 }, { "frames":[  ], "loop":true, "name":"up", "speed":5.0 }, { "frames":[  ], "loop":true, "name":"down", "speed":5.0 }, { "frames":[  ], "loop":true, "name":"wound", "speed":5.0 }, { "frames":[  ], "loop":true, "name":"die", "speed":5.0 }, { "frames":[  ], "loop":true, "name":"recover", "speed":5.0 }, { "frames":[  ], "loop":true, "name":"sleep", "speed":5.0 } ]
+animations = [ { "frames":[  ], "loop":true, "name":"right", "speed":5.0 }, { "frames":[  ], "loop":true, "name":"left", "speed":5.0 }, { "frames":[  ], "loop":true, "name":"up", "speed":5.0 }, { "frames":[  ], "loop":true, "name":"down", "speed":5.0 }, { "frames":[  ], "loop":true, "name":"wound", "speed":5.0 }, { "frames":[  ], "loop":true, "name":"sleep", "speed":5.0 }, { "frames":[  ], "loop":true, "name":"recover", "speed":5.0 }, { "frames":[  ], "loop":true, "name":"die", "speed":5.0 } ]
 
 [node name="NPC" type="Node2D"]
 

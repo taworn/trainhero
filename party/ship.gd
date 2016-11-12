@@ -68,53 +68,6 @@ func move(action):
 			return true
 	return false
 
-func check_on_land():
-	var map_pos = global.pixel_to_map(next_pos)
-	var id = tile_map.get_cell(map_pos.x, map_pos.y)
-	var name = tile_map.get_tileset().tile_get_name(id)
-	if global.passable_walk_dict.has(name) && global.passable_walk_dict[name]:
-		# checks players
-		var players = tile_map.get_node("Players")
-		var count = players.get_child_count()
-		var i = 0
-		while i < count:
-			var pos
-			var child = players.get_child(i)
-			if child != self && !child.is_hidden():
-				if child.tag in [global.TAG_HERO, global.TAG_SHIP, global.TAG_NPC]:
-					pos = child.get_current_pos()
-				else:
-					pos = child.get_pos()
-				if next_pos.x == pos.x && next_pos.y == pos.y:
-					return false
-			i += 1
-		return true
-	return false
-
-func check_before_walk():
-	# checks map
-	var map_pos = global.pixel_to_map(next_pos)
-	var id = tile_map.get_cell(map_pos.x, map_pos.y)
-	var name = tile_map.get_tileset().tile_get_name(id)
-	if global.passable_sail_dict.has(name) && global.passable_sail_dict[name]:
-		return true
-	return false
-
-func check_after_walk():
-	# checks scripts
-	var pos = get_pos()
-	var scripts = tile_map.get_node("Scripts")
-	var count = scripts.get_child_count()
-	var i = 0
-	while i < count:
-		var child = scripts.get_child(i)
-		var rect = Rect2(child.get_pos(), child.get_size())
-		if rect.has_point(pos):
-			party.warp_to(child.get_name())
-			return true
-		i += 1
-	return false
-
 func moving_step(delta):
 	var finish = false
 	var d = ceil(delta * 1000)
@@ -158,4 +111,51 @@ func moving_step(delta):
 		state.persist.ship.x = pos.x
 		state.persist.ship.y = pos.y
 		check_after_walk()
+
+func check_before_walk():
+	# checks map
+	var map_pos = global.pixel_to_map(next_pos)
+	var id = tile_map.get_cell(map_pos.x, map_pos.y)
+	var name = tile_map.get_tileset().tile_get_name(id)
+	if global.passable_sail_dict.has(name) && global.passable_sail_dict[name]:
+		return true
+	return false
+
+func check_after_walk():
+	# checks scripts
+	var pos = get_pos()
+	var scripts = tile_map.get_node("Scripts")
+	var count = scripts.get_child_count()
+	var i = 0
+	while i < count:
+		var child = scripts.get_child(i)
+		var rect = Rect2(child.get_pos(), child.get_size())
+		if rect.has_point(pos):
+			party.warp_to(child.get_name())
+			return true
+		i += 1
+	return false
+
+func check_on_land():
+	var map_pos = global.pixel_to_map(next_pos)
+	var id = tile_map.get_cell(map_pos.x, map_pos.y)
+	var name = tile_map.get_tileset().tile_get_name(id)
+	if global.passable_walk_dict.has(name) && global.passable_walk_dict[name]:
+		# checks players
+		var players = tile_map.get_node("Players")
+		var count = players.get_child_count()
+		var i = 0
+		while i < count:
+			var pos
+			var child = players.get_child(i)
+			if child != self && !child.is_hidden():
+				if child.tag in [global.TAG_HERO, global.TAG_SHIP, global.TAG_NPC]:
+					pos = child.get_current_pos()
+				else:
+					pos = child.get_pos()
+				if next_pos.x == pos.x && next_pos.y == pos.y:
+					return false
+			i += 1
+		return true
+	return false
 

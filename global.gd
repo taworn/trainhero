@@ -8,6 +8,9 @@ const TAG_NPC = 3
 const TAG_DOOR = 4
 const TAG_TREASURE = 5
 
+# scripting to use in dialogs
+const SCRIPT_OPEN_SHOP = 1
+
 # move in direction
 const MOVE_DOWN = 1
 const MOVE_LEFT = 2

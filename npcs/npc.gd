@@ -6,6 +6,7 @@ var tag = global.TAG_NPC
 var moving = false   # is moving?
 var animate = null   # animation to act various tasks
 var tile_map = null  # tile map
+var pause = false    # this NPC is pause or resume
 
 # adds child node to control more behaviors
 var fix_face = false   # can talk but no set face
@@ -19,6 +20,12 @@ var time_used = 0
 var speed = 0
 
 var party = null
+
+var common_dialogs = [
+	["Good day"],
+	["Hello"],
+	["..."],
+]
 
 func _ready():
 	set_pos(global.normalize(get_pos()))
@@ -40,7 +47,7 @@ func _ready():
 func _process(delta):
 	if !party.paused:
 		if !moving:
-			if movable:
+			if movable && !pause:
 				var action = ai_walk()
 				if action == global.MOVE_DOWN:
 					action = global.MOVE_DOWN
@@ -69,22 +76,27 @@ func get_face():
 	return animate.get_animation()
 
 func set_face(action):
+	if fix_face:
+		return
 	if typeof(action) == TYPE_INT:
-		distance = null
-		if action == global.MOVE_DOWN:
-			distance = Vector2(0, global.STEP_Y)
-			animate.set_animation("down")
-		elif action == global.MOVE_LEFT:
-			distance = Vector2(-global.STEP_X, 0)
-			animate.set_animation("left")
-		elif action == global.MOVE_RIGHT:
-			distance = Vector2(global.STEP_X, 0)
-			animate.set_animation("right")
-		elif action == global.MOVE_UP:
-			distance = Vector2(0, -global.STEP_Y)
-			animate.set_animation("up")
+			distance = null
+			if action == global.MOVE_DOWN:
+				distance = Vector2(0, global.STEP_Y)
+				animate.set_animation("down")
+			elif action == global.MOVE_LEFT:
+				distance = Vector2(-global.STEP_X, 0)
+				animate.set_animation("left")
+			elif action == global.MOVE_RIGHT:
+				distance = Vector2(global.STEP_X, 0)
+				animate.set_animation("right")
+			elif action == global.MOVE_UP:
+				distance = Vector2(0, -global.STEP_Y)
+				animate.set_animation("up")
 	else:
 		animate.set_animation(action)
+
+func set_pause(b):
+	pause = b
 
 func move(action):
 	set_face(action)
@@ -96,33 +108,6 @@ func move(action):
 			time_used = 0
 			moving = true
 			return true
-	return false
-
-func check_before_walk():
-	# checks players
-	var players = tile_map.get_node("Players")
-	var count = players.get_child_count()
-	var i = 0
-	while i < count:
-		var pos
-		var child = players.get_child(i)
-		if child != self && !child.is_hidden():
-			if child.tag in [global.TAG_HERO, global.TAG_SHIP, global.TAG_NPC]:
-				pos = child.get_current_pos()
-			else:
-				pos = child.get_pos()
-			if next_pos.x == pos.x && next_pos.y == pos.y:
-				return false
-		i += 1
-
-	# checks map
-	var map_pos = global.pixel_to_map(next_pos)
-	var id = tile_map.get_cell(map_pos.x, map_pos.y)
-	var name = tile_map.get_tileset().tile_get_name(id)
-	if global.passable_walk_dict.has(name) && global.passable_walk_dict[name]:
-		if same_tile && tile_check != id:
-			return false
-		return true
 	return false
 
 func moving_step(delta):
@@ -164,6 +149,36 @@ func moving_step(delta):
 	if finish:
 		animate.set_frame(0)
 		moving = false
+
+func check_before_walk():
+	# checks players
+	var players = tile_map.get_node("Players")
+	var count = players.get_child_count()
+	var i = 0
+	while i < count:
+		var pos
+		var child = players.get_child(i)
+		if child != self && !child.is_hidden():
+			if child.tag in [global.TAG_HERO, global.TAG_SHIP, global.TAG_NPC]:
+				pos = child.get_current_pos()
+			else:
+				pos = child.get_pos()
+			if next_pos.x == pos.x && next_pos.y == pos.y:
+				return false
+		i += 1
+
+	# checks map
+	var map_pos = global.pixel_to_map(next_pos)
+	var id = tile_map.get_cell(map_pos.x, map_pos.y)
+	var name = tile_map.get_tileset().tile_get_name(id)
+	if global.passable_walk_dict.has(name) && global.passable_walk_dict[name]:
+		if same_tile && tile_check != id:
+			return false
+		return true
+	return false
+
+func get_common_dialog():
+	return common_dialogs[randi() % common_dialogs.size()]
 
 func ai_walk():
 	var i = randi() % 100

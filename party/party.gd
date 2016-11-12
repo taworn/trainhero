@@ -7,12 +7,12 @@ var tile_map = null    # tile map
 var hero = null        # a hero
 var ship = null        # a ship
 
-var menu = null  # menu
-
+var menu = null       # menu
+var shop = null       # shop
+var scripting = null  # scripting
 var animation = null  # animation
 
 var paused = false  # game pause
-
 var after_effect = null
 var scene = null
 
@@ -29,6 +29,8 @@ func _ready():
 	ship.set_hidden(state.persist.ship.map != state.persist.map)
 
 	menu = get_node("../../../UI/Menu")
+	shop = get_node("../../../UI/Shop")
+	scripting = get_node("../../../UI/Scripting")
 
 	animation = get_node("../../../Effect/AnimationPlayer")
 	animation.connect("finished", self, "_on_AnimationPlayer_finished")
@@ -44,6 +46,10 @@ func _input(event):
 		return
 	if Input.is_action_pressed("ui_accept"):
 		key_pressed()
+		if !state.persist.ship.cruising:
+			var child = hero.check_standing()
+			if child != null && child.tag in [global.TAG_NPC, global.TAG_DOOR, global.TAG_TREASURE]:
+				execute_script(child)
 	elif Input.is_action_pressed("ui_cancel"):
 		key_pressed()
 		if menu != null:
@@ -109,6 +115,22 @@ func switch_to_ship():
 	state.persist.ship.cruising = true
 	hero.set_hidden(true)
 
+func execute_script(child):
+	if child.tag == global.TAG_NPC:
+		var dialog
+		if scene.dialog_dict.has(child.get_name()):
+			dialog = scene.dialog_dict[child.get_name()]
+		else:
+			dialog = child.get_common_dialog()
+		scripting.open(self, child, dialog)
+	elif child.tag == global.TAG_DOOR:
+		check_key(child)
+	elif child.tag == global.TAG_TREASURE:
+		check_box(child)
+
+func get_sale_list(name):
+	return scene.shop_dict[name]
+
 func check_key(door):
 	if scene.door_dict.has(door.get_name()):
 		var found = false
@@ -122,7 +144,24 @@ func check_key(door):
 			door.set_hidden(true)
 			return true
 	return false
-	
+
+func check_box(child):
+	if !state.persist.treasures.has(state.persist.map):
+		state.persist.treasures[state.persist.map] = []
+	var array = state.persist.treasures[state.persist.map]
+	if !array.has(child.get_name()):
+		state.persist.treasures[state.persist.map].append(child.get_name())
+		child.set_opened()
+		if scene.treasure_dict.has(child.get_name()):
+			var list = scene.treasure_dict[child.get_name()]
+			var s = ""
+			for i in list:
+				state.persist.keys.append(i)
+				if s != "":
+					s += ", "
+				s += i
+			scripting.open_treasure(self, child, s)
+
 func warp_to(name):
 	if scene.warp_dict.has(name):
 		var data = scene.warp_dict[name]
@@ -160,4 +199,10 @@ func set_current_scene(scene):
 			node.set_pos(Vector2(data.x, data.y))
 			node.set_face(data.face)
 
+	if state.persist.treasures.has(state.persist.map):
+		var array = state.persist.treasures[state.persist.map]
+		for i in array:
+			var box = players.get_node(i)
+			if box != null:
+				box.set_opened()
 
