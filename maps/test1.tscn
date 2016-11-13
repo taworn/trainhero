@@ -12,6 +12,7 @@ script/script = ExtResource( 2 )
 
 [node name="Background" parent="CanvasLayer/ParallaxBackground/ParallaxLayer"]
 
+transform/pos = Vector2( -32, 0 )
 transform/scale = Vector2( 8, 8 )
 texture = ExtResource( 3 )
 centered = false
@@ -39,9 +40,16 @@ transform/pos = Vector2( 0, 192 )
 
 [node name="Scripting" type="Node" parent="Camera/TileMap/Players/Female0"]
 
-[node name="Scripts" parent="Camera/TileMap"]
+[node name="King Fake Battle" type="Control" parent="Camera/TileMap/Scripts"]
 
-editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 64.0
+margin/top = 256.0
+margin/right = 128.0
+margin/bottom = 448.0
 
 [node name="Test0" type="Control" parent="Camera/TileMap/Scripts"]
 

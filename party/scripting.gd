@@ -86,6 +86,25 @@ func open(party, with, source):
 	text.set_text("")
 	execute()
 
+func open_floor(party, source):
+	self.party = party
+	self.with = null
+	party.set_process(false)
+	party.set_process_input(false)
+	set_process_input(true)
+	set_hidden(false)
+
+	dialog = []
+	for i in source:
+		dialog.append(i)
+
+	panel_title.set_hidden(false)
+	panel_text.set_hidden(false)
+	title.set_hidden(true)
+	title.set_text("")
+	text.set_text("")
+	execute()
+
 func open_treasure(party, with, pickup_items):
 	self.party = party
 	self.with = with
@@ -103,7 +122,8 @@ func open_treasure(party, with, pickup_items):
 func close():
 	set_hidden(true)
 	set_process_input(false)
-	with.set_pause(false)
+	if with != null && with.tag in [global.TAG_NPC]:
+		with.set_pause(false)
 	party.set_process_input(true)
 	party.set_process(true)
 	party = null

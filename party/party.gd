@@ -181,23 +181,29 @@ func check_box(child):
 				s += i
 			scripting.open_treasure(self, child, s)
 
-func warp_to(name):
-	if scene.warp_dict.has(name):
-		var data = scene.warp_dict[name]
-		var pos = global.normalize(Vector2(data.x, data.y))
-		after_effect = {
-			"x": pos.x,
-			"y": pos.y,
-			"map": data.map,
-		}
-		animation.set_current_animation("fade_out")
-		animation.play()
-		paused = true
+func after_walk(name):
+	if name != null:
+		if scene.warp_dict.has(name):
+			warp_to(name)
+		elif scene.dialog_dict.has(name):
+			var dialog = scene.dialog_dict[name]
+			scripting.open_floor(self, dialog)
+	else:
+		if scene.tag in [global.TAG_DUNGEON, global.TAG_WORLD]:
+			if battle_roll.random():
+				open_battle()
 
-func after_walk():
-	if scene.tag in [global.TAG_DUNGEON, global.TAG_WORLD]:
-		if battle_roll.random():
-			open_battle()
+func warp_to(name):
+	var data = scene.warp_dict[name]
+	var pos = global.normalize(Vector2(data.x, data.y))
+	after_effect = {
+		"x": pos.x,
+		"y": pos.y,
+		"map": data.map,
+	}
+	animation.set_current_animation("fade_out")
+	animation.play()
+	paused = true
 
 func open_battle():
 	save_npcs()

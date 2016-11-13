@@ -131,10 +131,10 @@ func check_after_walk():
 		var child = scripts.get_child(i)
 		var rect = Rect2(child.get_pos(), child.get_size())
 		if rect.has_point(pos):
-			party.warp_to(child.get_name())
+			party.after_walk(child.get_name())
 			return true
 		i += 1
-	party.after_walk()
+	party.after_walk(null)
 	return false
 
 func check_on_land():

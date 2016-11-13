@@ -13,16 +13,16 @@ var warp_dict = {
 }
 
 var dialog_dict = {
-	"King Fake": [
+	"King Fake Battle": [
 		"You Die!!\nYou Die!!\nYou Die!!\nYou Die!!",
 		"You Die!!\nYou Die!!\nYou Die!!\nYou Die!!",
-		[global.SCRIPT_BATTLE],
+		[global.SCRIPT_BATTLE, 0],
 	],
 	"Female0": [
 		[global.SCRIPT_NPC_FACE, "left"],
 		"Oh, yeah",
-		[global.SCRIPT_NPC_WALK, 250, global.MOVE_UP],
-		[global.SCRIPT_NPC_WALK, 250, global.MOVE_UP],
+		[global.SCRIPT_NPC_WALK, 100, global.MOVE_UP],
+		[global.SCRIPT_NPC_WALK, 100, global.MOVE_UP],
 		[global.SCRIPT_NPC_FACE, "left"],
 	],
 }
