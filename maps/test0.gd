@@ -56,7 +56,6 @@ var dialog_dict = {
 	],
 	"Female1": [
 		"Hello Hero",
-		[global.SCRIPT_NPC_WALK, global.MOVE_DOWN],
 		[global.SCRIPT_HERO_FACE, "right"],
 		[global.SCRIPT_OPEN_SHOP],
 		"Goodbye Hero",

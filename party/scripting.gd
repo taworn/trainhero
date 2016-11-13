@@ -155,7 +155,8 @@ func execute():
 			wait = WAIT_HERO
 
 		elif d[0] == global.SCRIPT_NPC_WALK:
-			with.move(d[1])
+			with.set_speed(d[1])
+			with.move(d[2])
 			wait = WAIT_NPC
 
 		elif d[0] == global.SCRIPT_BATTLE:

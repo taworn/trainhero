@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://map.tscn" type="PackedScene" id=1]
 [ext_resource path="res://maps/test1.gd" type="Script" id=2]
 [ext_resource path="res://backgrounds/0.png" type="Texture" id=3]
 [ext_resource path="res://npcs/King.tscn" type="PackedScene" id=4]
+[ext_resource path="res://npcs/Female0.tscn" type="PackedScene" id=5]
 
 [node name="Root" instance=ExtResource( 1 )]
 
@@ -31,6 +32,12 @@ editor/display_folded = true
 [node name="King Fake" parent="Camera/TileMap/Players" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 64, 320 )
+
+[node name="Female0" parent="Camera/TileMap/Players" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 0, 192 )
+
+[node name="Scripting" type="Node" parent="Camera/TileMap/Players/Female0"]
 
 [node name="Scripts" parent="Camera/TileMap"]
 

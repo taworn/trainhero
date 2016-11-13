@@ -11,6 +11,7 @@ var pause = false    # this NPC is pause or resume
 # adds child node to control more behaviors
 var fix_face = false   # can talk but no set face
 var movable = false    # a movable NPC
+var scripting = false  # can use in scripting only
 var same_tile = false  # a movable NPC, but can walk on same tile only
 var tile_check = null  # tile to check if same_tile is true
 
@@ -36,6 +37,9 @@ func _ready():
 		fix_face = true
 	elif get_node("Movable"):
 		movable = true
+	elif get_node("Scripting"):
+		movable = true
+		scripting = true
 	elif get_node("SameTile"):
 		movable = true
 		same_tile = true
@@ -48,18 +52,19 @@ func _process(delta):
 	if !party.paused:
 		if !moving:
 			if movable && !pause:
-				var action = ai_walk()
-				if action == global.MOVE_DOWN:
-					action = global.MOVE_DOWN
-				elif action == global.MOVE_LEFT:
-					action = global.MOVE_LEFT
-				elif action == global.MOVE_RIGHT:
-					action = global.MOVE_RIGHT
-				elif action == global.MOVE_UP:
-					action = global.MOVE_UP
-				if action != 0:
-					speed = ai_speed()
-					move(action)
+				if !scripting:
+					var action = ai_walk()
+					if action == global.MOVE_DOWN:
+						action = global.MOVE_DOWN
+					elif action == global.MOVE_LEFT:
+						action = global.MOVE_LEFT
+					elif action == global.MOVE_RIGHT:
+						action = global.MOVE_RIGHT
+					elif action == global.MOVE_UP:
+						action = global.MOVE_UP
+					if action != 0:
+						speed = ai_speed()
+						move(action)
 		else:
 			moving_step(delta)
 
@@ -74,6 +79,9 @@ func get_current_pos():
 
 func set_pause(b):
 	pause = b
+
+func set_speed(s):
+	speed = s
 
 func get_face():
 	return animate.get_animation()
@@ -103,7 +111,7 @@ func move(action):
 	if distance != null:
 		var pos = get_pos()
 		next_pos = Vector2(pos.x + distance.x, pos.y + distance.y)
-		if check_before_walk():
+		if scripting || check_before_walk():
 			animate.set_frame(0)
 			time_used = 0
 			moving = true
