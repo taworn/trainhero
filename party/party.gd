@@ -27,6 +27,9 @@ func _ready():
 	ship = tile_map.get_node("Players/Ship")
 	hero.set_hidden(state.persist.ship.cruising)
 	ship.set_hidden(state.persist.ship.map != state.persist.map)
+	print(state.persist.ship.cruising)
+	print(state.persist.ship.map)
+	print(state.persist.map)
 
 	menu = get_node("../../../UI/Menu")
 	shop = get_node("../../../UI/Shop")

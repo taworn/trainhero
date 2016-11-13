@@ -7,5 +7,6 @@ func _ready():
 
 var warp_dict = {
 	"Test0": {"x": 256, "y": 128, "map": "maps/test0"},
+	"Test0Water": {"x": 256, "y": 704, "map": "maps/test0"},
 }
 

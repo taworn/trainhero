@@ -94,6 +94,17 @@ margin/top = 128.0
 margin/right = 320.0
 margin/bottom = 256.0
 
+[node name="Test1Water" type="Control" parent="Camera/TileMap/Scripts"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 256.0
+margin/top = 704.0
+margin/right = 320.0
+margin/bottom = 832.0
+
 [node name="UI" parent="."]
 
 editor/display_folded = true

@@ -112,6 +112,10 @@ func back():
 	get_tree().change_scene("res://" + persist.map + ".tscn")
 
 func warp_to(x, y, map):
+	if state.persist.ship.cruising:
+		persist.ship.map = map
+		persist.ship.x = x
+		persist.ship.y = y
 	persist.map = map
 	persist.x = x
 	persist.y = y
