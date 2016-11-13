@@ -12,6 +12,8 @@ var shop = null       # shop
 var scripting = null  # scripting
 var animation = null  # animation
 
+var battle_roll = null
+
 var paused = false  # game pause
 var after_effect = null
 var scene = null
@@ -35,6 +37,9 @@ func _ready():
 	animation = get_node("../../../Effect/AnimationPlayer")
 	animation.connect("finished", self, "_on_AnimationPlayer_finished")
 	animation.get_node("../CanvasModulate").set_color(Color(0, 0, 0, 0))
+	
+	var _class = load("res://party/battle_roll.gd")
+	battle_roll = _class.new()
 
 	center_screen()
 	set_process_input(true)
@@ -80,7 +85,10 @@ func _process(delta):
 
 func _on_AnimationPlayer_finished():
 	if after_effect != null:
-		state.warp_to(after_effect.x, after_effect.y, after_effect.map)
+		if after_effect.has("map"):
+			state.warp_to(after_effect.x, after_effect.y, after_effect.map)
+		else:
+			state.fight()
 		after_effect = null
 	paused = false
 
@@ -128,6 +136,9 @@ func execute_script(child):
 	elif child.tag == global.TAG_TREASURE:
 		check_box(child)
 
+func get_sale_list(name):
+	return scene.shop_dict[name]
+
 func check_face_to_hero():
 	var face = hero.get_face()
 	if face == "down":
@@ -138,9 +149,6 @@ func check_face_to_hero():
 		return "left"
 	elif face == "up":
 		return "down"
-
-func get_sale_list(name):
-	return scene.shop_dict[name]
 
 func check_key(door):
 	if scene.door_dict.has(door.get_name()):
@@ -185,6 +193,15 @@ func warp_to(name):
 		animation.set_current_animation("fade_out")
 		animation.play()
 		paused = true
+
+func after_walk():
+	if scene.tag in [global.TAG_DUNGEON, global.TAG_WORLD]:
+		if battle_roll.random():
+			save_npcs()
+			after_effect = {}
+			animation.set_current_animation("light")
+			animation.play()
+			paused = true
 
 func save_npcs():
 	var players = tile_map.get_node("Players")

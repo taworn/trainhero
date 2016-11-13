@@ -5,6 +5,8 @@ func _ready():
 	get_node("MusicPlayer").play()
 	get_node("Camera/TileMap/Party").set_current_scene(self)
 
+var tag = global.TAG_WORLD
+
 var warp_dict = {
 	"Test1": {"x": 128, "y": 128, "map": "maps/test1"},
 	"Test1Water": {"x": 128, "y": 512, "map": "maps/test1"},

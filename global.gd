@@ -8,6 +8,11 @@ const TAG_NPC = 3
 const TAG_DOOR = 4
 const TAG_TREASURE = 5
 
+# type of map scene
+const TAG_NO_DUNGEON = 0
+const TAG_DUNGEON = 1
+const TAG_WORLD = 2
+
 # scripting to use in dialogs
 const SCRIPT_OPEN_SHOP = 1
 const SCRIPT_TITLE_VISIBLE = 2

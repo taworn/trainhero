@@ -124,3 +124,6 @@ func warp_to(x, y, map):
 	print("warp to: map=", persist.map, " (", persist.x, ", ", persist.y, ")")
 	get_tree().change_scene("res://" + persist.map + ".tscn")
 
+func fight():
+	get_tree().change_scene("res://battle.tscn")
+

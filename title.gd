@@ -6,6 +6,8 @@ const SAVE_COUNT = 2
 var menu = null
 var party = null
 
+var tag = global.TAG_NO_DUNGEON
+
 var warp_dict = {
 	"World": {"x": 128, "y": 128, "map": "maps/test0"},
 }

@@ -175,6 +175,8 @@ func check_after_walk():
 			party.warp_to(child.get_name())
 			return true
 		i += 1
+
+	party.after_walk()
 	return false
 
 func check_standing():

@@ -173,8 +173,6 @@ stream/buffering_ms = 500
 
 [node name="Effect" type="Node" parent="."]
 
-editor/display_folded = true
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Effect"]
 
 playback/process_mode = 1
@@ -192,5 +190,7 @@ autoplay = "fade_in"
 color = Color( 1, 1, 1, 1 )
 
 [connection signal="item_activated" from="Menu" to="." method="_on_Menu_item_activated"]
+
+[connection signal="finished" from="Effect/AnimationPlayer" to="." method="_on_AnimationPlayer_finished"]
 
 

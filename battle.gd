@@ -1,19 +1,32 @@
 
-extends Node2D
+extends Container
 
-var party = null
+var animation = null  # animation
+
+var after_effect = null
+
+var command_list = null
 
 func _ready():
-	party = get_node("/root/party")
-	var list = get_node("ItemList")
-	list.add_item("Attack", null)
-	list.add_item("End", null)
-	list.select(0)
-	list.grab_focus()
+	animation = get_node("Effect/AnimationPlayer")
+	animation.connect("finished", self, "_on_AnimationPlayer_finished")
+	animation.get_node("../CanvasModulate").set_color(Color(0, 0, 0, 0))
+
+	command_list = get_node("CommandList")
+	command_list.add_item("Attack", null)
+	command_list.add_item("End", null)
+	command_list.select(0)
+	command_list.grab_focus()
 	get_node("MusicPlayer").play()
 
-func _on_ItemList_item_activated(index):
-	var list = get_node("ItemList")
+func _on_AnimationPlayer_finished():
+	if after_effect != null:
+		after_effect = null
+		state.back()
+
+func _on_CommandList_item_activated(index):
 	if index == 1:
-		party.back()
+		after_effect = {}
+		animation.set_current_animation("fade_out")
+		animation.play()
 
