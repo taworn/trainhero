@@ -158,5 +158,9 @@ func execute():
 			with.move(d[1])
 			wait = WAIT_NPC
 
+		elif d[0] == global.SCRIPT_BATTLE:
+			party.open_battle()
+			wait = WAIT_IDLE
+
 		set_process(true)
 

@@ -12,3 +12,11 @@ var warp_dict = {
 	"Test0Water": {"x": 256, "y": 704, "map": "maps/test0"},
 }
 
+var dialog_dict = {
+	"King Fake": [
+		"You Die!!\nYou Die!!\nYou Die!!\nYou Die!!",
+		"You Die!!\nYou Die!!\nYou Die!!\nYou Die!!",
+		[global.SCRIPT_BATTLE],
+	],
+}
+

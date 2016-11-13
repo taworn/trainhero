@@ -37,7 +37,7 @@ func _ready():
 	animation = get_node("../../../Effect/AnimationPlayer")
 	animation.connect("finished", self, "_on_AnimationPlayer_finished")
 	animation.get_node("../CanvasModulate").set_color(Color(0, 0, 0, 0))
-	
+
 	var _class = load("res://party/battle_roll.gd")
 	battle_roll = _class.new()
 
@@ -197,11 +197,14 @@ func warp_to(name):
 func after_walk():
 	if scene.tag in [global.TAG_DUNGEON, global.TAG_WORLD]:
 		if battle_roll.random():
-			save_npcs()
-			after_effect = {}
-			animation.set_current_animation("light")
-			animation.play()
-			paused = true
+			open_battle()
+
+func open_battle():
+	save_npcs()
+	after_effect = {}
+	animation.set_current_animation("light")
+	animation.play()
+	paused = true
 
 func save_npcs():
 	var players = tile_map.get_node("Players")
