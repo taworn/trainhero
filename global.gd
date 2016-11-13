@@ -10,6 +10,12 @@ const TAG_TREASURE = 5
 
 # scripting to use in dialogs
 const SCRIPT_OPEN_SHOP = 1
+const SCRIPT_TITLE_VISIBLE = 2
+const SCRIPT_TITLE_SET = 3
+const SCRIPT_HERO_FACE = 4
+const SCRIPT_NPC_FACE = 5
+const SCRIPT_HERO_WALK = 6
+const SCRIPT_NPC_WALK = 7
 
 # move in direction
 const MOVE_DOWN = 1

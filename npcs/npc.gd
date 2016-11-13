@@ -72,6 +72,9 @@ func get_current_pos():
 	else:
 		return next_pos
 
+func set_pause(b):
+	pause = b
+
 func get_face():
 	return animate.get_animation()
 
@@ -94,9 +97,6 @@ func set_face(action):
 				animate.set_animation("up")
 	else:
 		animate.set_animation(action)
-
-func set_pause(b):
-	pause = b
 
 func move(action):
 	set_face(action)

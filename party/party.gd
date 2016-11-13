@@ -27,9 +27,6 @@ func _ready():
 	ship = tile_map.get_node("Players/Ship")
 	hero.set_hidden(state.persist.ship.cruising)
 	ship.set_hidden(state.persist.ship.map != state.persist.map)
-	print(state.persist.ship.cruising)
-	print(state.persist.ship.map)
-	print(state.persist.map)
 
 	menu = get_node("../../../UI/Menu")
 	shop = get_node("../../../UI/Shop")
@@ -130,6 +127,17 @@ func execute_script(child):
 		check_key(child)
 	elif child.tag == global.TAG_TREASURE:
 		check_box(child)
+
+func check_face_to_hero():
+	var face = hero.get_face()
+	if face == "down":
+		return "up"
+	elif face == "left":
+		return "right"
+	elif face == "right":
+		return "left"
+	elif face == "up":
+		return "down"
 
 func get_sale_list(name):
 	return scene.shop_dict[name]

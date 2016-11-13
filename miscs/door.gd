@@ -9,3 +9,6 @@ func _ready():
 	set_pos(global.normalize(get_pos()))
 	animate = get_node("Animate")
 
+func set_pause(b):
+	pass
+

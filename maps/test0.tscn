@@ -50,7 +50,7 @@ transform/pos = Vector2( 128, 320 )
 [node name="Female3" parent="Camera/TileMap/Players" instance=ExtResource( 3 )]
 
 editor/display_folded = true
-transform/pos = Vector2( 768, 128 )
+transform/pos = Vector2( 832, 192 )
 
 [node name="Animate" parent="Camera/TileMap/Players/Female3"]
 

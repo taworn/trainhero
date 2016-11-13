@@ -15,3 +15,6 @@ func is_opened():
 func set_opened():
 	animate.set_animation("opened")
 
+func set_pause(b):
+	pass
+

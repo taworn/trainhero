@@ -2,7 +2,10 @@
 extends Container
 
 const WAIT_ACCEPT = 1
-const WAIT_PROCESS = 2
+const WAIT_SHOP = 2
+const WAIT_IDLE = 3
+const WAIT_HERO = 4
+const WAIT_NPC = 5
 
 var panel_title = null
 var panel_text = null
@@ -14,6 +17,7 @@ var with = null
 
 var dialog = null
 var wait = 0
+var title_hidden = false
 
 func _ready():
 	panel_title = get_node("PanelTitle")
@@ -33,15 +37,30 @@ func _input(event):
 		close()
 
 func _process(delta):
-	if wait == WAIT_PROCESS:
-		if !party.shop.is_opened():
+	if wait != 0:
+		if wait == WAIT_SHOP:
+			if party.shop.is_opened():
+				return
 			panel_title.set_hidden(false)
 			panel_text.set_hidden(false)
-			wait = 0
-			if dialog.size() > 0:
-				execute()
-			else:
-				close()
+
+		elif wait == WAIT_IDLE:
+			pass
+
+		elif wait == WAIT_HERO:
+			if party.hero.is_moving():
+				return
+
+		elif wait == WAIT_NPC:
+			if with.is_moving():
+				return
+
+		set_process(false)
+		wait = 0
+		if dialog.size() > 0:
+			execute()
+		else:
+			close()
 
 func is_opened():
 	return party != null
@@ -49,20 +68,13 @@ func is_opened():
 func open(party, with, source):
 	self.party = party
 	self.with = with
-	with.set_pause(true)
 	party.set_process(false)
 	party.set_process_input(false)
+	with.set_pause(true)
 	set_process_input(true)
 	set_hidden(false)
-	var face = party.hero.get_face()
-	if face == "down":
-		with.set_face("up")
-	elif face == "left":
-		with.set_face("right")
-	elif face == "right":
-		with.set_face("left")
-	elif face == "up":
-		with.set_face("down")
+	var face = party.check_face_to_hero()
+	with.set_face(face)
 
 	dialog = []
 	for i in source:
@@ -91,6 +103,7 @@ func open_treasure(party, with, pickup_items):
 func close():
 	set_hidden(true)
 	set_process_input(false)
+	with.set_pause(false)
 	party.set_process_input(true)
 	party.set_process(true)
 	party = null
@@ -103,13 +116,47 @@ func execute():
 		text.set_text(d)
 		wait = WAIT_ACCEPT
 
-	elif typeof(d) == TYPE_INT:
+	elif typeof(d) == TYPE_ARRAY:
 		# command
-		if d == global.SCRIPT_OPEN_SHOP:
+		if d[0] == global.SCRIPT_OPEN_SHOP:
 			panel_title.set_hidden(true)
 			panel_text.set_hidden(true)
 			party.shop.open(party, party.get_sale_list(with.get_name()))
+			wait = WAIT_SHOP
 
-		wait = WAIT_PROCESS
+		elif d[0] == global.SCRIPT_TITLE_VISIBLE:
+			panel_title.set_hidden(!d[1])
+			wait = WAIT_IDLE
+
+		elif d[0] == global.SCRIPT_TITLE_SET:
+			var s
+			if d[1] == 0:
+				s = "Hero"
+			elif d[1] == 1:
+				s = with.get_name()
+			else:
+				s = d[1]
+			title.set_text(s)
+			wait = WAIT_IDLE
+
+		elif d[0] == global.SCRIPT_HERO_FACE:
+			party.hero.set_face(d[1])
+			wait = WAIT_IDLE
+
+		elif d[0] == global.SCRIPT_NPC_FACE:
+			if d[1] == null:
+				with.set_face(party.check_face_to_hero())
+			else:
+				with.set_face(d[1])
+			wait = WAIT_IDLE
+
+		elif d[0] == global.SCRIPT_HERO_WALK:
+			party.hero.move(d[1])
+			wait = WAIT_HERO
+
+		elif d[0] == global.SCRIPT_NPC_WALK:
+			with.move(d[1])
+			wait = WAIT_NPC
+
 		set_process(true)
 

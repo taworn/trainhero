@@ -19,11 +19,7 @@ var shop_dict = {
 		"Antidote",
 		"Antiseptic",
 	],
-	"Female3": [
-		"Recover MP 25%",
-		"Recover MP 50%",
-		"Recover MP 75%",
-		"Recover MP 100%",
+	"Female1": [
 	],
 }
 
@@ -41,16 +37,35 @@ var treasure_dict = {
 var dialog_dict = {
 	"Female0": [
 		"Good morning",
+		[global.SCRIPT_TITLE_VISIBLE, 0],
+		[global.SCRIPT_HERO_FACE, "down"],
+		[global.SCRIPT_NPC_FACE, "up"],
+		"...",
+		[global.SCRIPT_TITLE_VISIBLE, 1],
+		[global.SCRIPT_NPC_FACE, null],
 		"You want something?",
-		global.SCRIPT_OPEN_SHOP,
+		[global.SCRIPT_TITLE_SET, 0],
+		"Sure",
+		[global.SCRIPT_HERO_WALK, global.MOVE_DOWN],
+		[global.SCRIPT_OPEN_SHOP],
+		[global.SCRIPT_TITLE_SET, 1],
 		"Good bye",
+		[global.SCRIPT_NPC_FACE, "right"],
+	],
+	"Female1": [
+		"Hello Hero",
+		[global.SCRIPT_NPC_WALK, global.MOVE_DOWN],
+		[global.SCRIPT_HERO_FACE, "right"],
+		[global.SCRIPT_OPEN_SHOP],
+		"Goodbye Hero",
 	],
 	"Female2": [
 		"I'm in this tile.",
 		"Yes, it is tile",
 	],
 	"Female3": [
-		global.SCRIPT_OPEN_SHOP,	
-	],
+		[global.SCRIPT_NPC_FACE, "down"],
+		"Good bye",
+	]
 }
 
