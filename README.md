@@ -33,6 +33,8 @@ Battle Scenes
  - desktopnexus.com - for title image
  - spriters-resource.com - provide graphics, thank to daemoth, Shurlock, Tonberry2k, Ryan914, WaxPoetic
  - sounds-resource.com - provide sounds, thank to ?
+ - freesound.org - provide sounds
+ - vgmusic.com - provide sounds and musics
  - ffmusic.ffshrine.org - Final Fantasy Music & Video Game, provide sounds
  - woodus.com/den/music - Dragon's Den, provide sounds
  - Nobuo Uematsu - Final Fantasy artist

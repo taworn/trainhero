@@ -55,10 +55,71 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 32.0
 margin/top = 124.0
-margin/right = 382.0
+margin/right = 496.0
 margin/bottom = 568.0
 custom_styles/bg_focus = ExtResource( 2 )
 custom_styles/bg = ExtResource( 2 )
 custom_fonts/font = ExtResource( 4 )
+
+[node name="PanelCurrent" type="Panel" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 528.0
+margin/top = 124.0
+margin/right = 992.0
+margin/bottom = 184.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="Current" type="Label" parent="PanelCurrent"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 16.0
+margin/top = 0.0
+margin/right = 448.0
+margin/bottom = 60.0
+custom_fonts/font = ExtResource( 3 )
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="PanelGold" type="Panel" parent="."]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 760.0
+margin/top = 508.0
+margin/right = 992.0
+margin/bottom = 568.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="Gold" type="Label" parent="PanelGold"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 16.0
+margin/top = 0.0
+margin/right = 216.0
+margin/bottom = 60.0
+custom_fonts/font = ExtResource( 3 )
+text = "888888888 G"
+align = 2
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[connection signal="item_selected" from="SaleList" to="." method="_on_SaleList_item_selected"]
 
 

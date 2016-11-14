@@ -1,6 +1,8 @@
 
 extends Node
 
+const LIMIT_ITEMS = 9
+
 var new = false  # is change scene or go back
 var scripting_continue = null  # has scripting cross scenes
 
@@ -12,7 +14,7 @@ func restart_game():
 		# level, experience and gold
 		"level": 0,
 		"exp": 0,
-		"gold": 999999999,
+		"gold": 55555,
 
 		# users
 		"hero": {
@@ -60,6 +62,20 @@ func restart_game():
 
 		# items, key items and others
 		"items": {
+			"recover_hp_25": 0,
+			"recover_hp_50": 0,
+			"recover_hp_75": 0,
+			"recover_hp_100": 0,
+			"recover_mp_25": 0,
+			"recover_mp_50": 0,
+			"recover_mp_75": 0,
+			"recover_mp_100": 0,
+			"recover_hpmp_25": 0,
+			"recover_hpmp_50": 0,
+			"recover_hpmp_75": 0,
+			"recover_hpmp_100": 0,
+			"antidote": 0,
+			"antiseptic": 0,
 		},
 		"keys": [
 		],

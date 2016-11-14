@@ -10,6 +10,7 @@ var ship = null        # a ship
 var menu = null       # menu
 var shop = null       # shop
 var scripting = null  # scripting
+var sound = null      # sound sample
 var animation = null  # animation
 
 var battle_roll = null
@@ -33,6 +34,7 @@ func _ready():
 	menu = get_node("../../../UI/Menu")
 	shop = get_node("../../../UI/Shop")
 	scripting = get_node("../../../UI/Scripting")
+	sound = get_node("../../../SoundPlayer")
 
 	animation = get_node("../../../Effect/AnimationPlayer")
 	animation.connect("finished", self, "_on_AnimationPlayer_finished")

@@ -14,12 +14,17 @@ var warp_dict = {
 
 var shop_dict = {
 	"Female0": [
-		"Recover HP 25%",
-		"Recover HP 50%",
-		"Recover HP 75%",
-		"Recover HP 100%",
-		"Antidote",
-		"Antiseptic",
+		"recover_hp_25",
+		"recover_hp_50",
+		"recover_hp_75",
+		"recover_mp_25",
+		"recover_mp_50",
+		"recover_mp_75",
+		"recover_hpmp_25",
+		"recover_hpmp_50",
+		"recover_hpmp_100",
+		"antidote",
+		"antiseptic",
 	],
 	"Female1": [
 	],
