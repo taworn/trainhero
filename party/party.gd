@@ -84,13 +84,20 @@ func _process(delta):
 			ship.move(action)
 
 func _on_AnimationPlayer_finished():
+	paused = false
 	if after_effect != null:
 		if after_effect.has("map"):
 			state.warp_to(after_effect.x, after_effect.y, after_effect.map)
 		else:
 			state.fight()
 		after_effect = null
-	paused = false
+	else:
+		if state.scripting_continue != null:
+			var source = state.scripting_continue
+			state.scripting_continue = null
+			var dialog
+			dialog = scene.dialog_dict[source]
+			scripting.open_floor(self, dialog)
 
 func key_pressed():
 	var scene_name = get_node("../../../UI/SceneName")
@@ -169,7 +176,7 @@ func check_box(child):
 		state.persist.treasures[state.persist.map] = []
 	var array = state.persist.treasures[state.persist.map]
 	if !array.has(child.get_name()):
-		state.persist.treasures[state.persist.map].append(child.get_name())
+		array.append(child.get_name())
 		child.set_opened()
 		if scene.treasure_dict.has(child.get_name()):
 			var list = scene.treasure_dict[child.get_name()]
@@ -242,4 +249,9 @@ func set_current_scene(scene):
 			var box = players.get_node(i)
 			if box != null:
 				box.set_opened()
+
+	if scene.dialog_dict.has("START"):
+		var dialog
+		dialog = scene.dialog_dict["START"]
+		scripting.open_hidden(self, dialog)
 

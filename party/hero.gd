@@ -170,10 +170,11 @@ func check_after_walk():
 	var i = 0
 	while i < count:
 		var child = scripts.get_child(i)
-		var rect = Rect2(child.get_pos(), child.get_size())
-		if rect.has_point(pos):
-			party.after_walk(child.get_name())
-			return true
+		if !child.is_hidden():
+			var rect = Rect2(child.get_pos(), child.get_size())
+			if rect.has_point(pos):
+				party.after_walk(child.get_name())
+				return true
 		i += 1
 
 	party.after_walk(null)

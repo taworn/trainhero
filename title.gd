@@ -12,6 +12,9 @@ var warp_dict = {
 	"World": {"x": 128, "y": 128, "map": "maps/test0"},
 }
 
+var dialog_dict = {
+}
+
 func _ready():
 	menu = get_node("Menu")
 	menu.add_item("New Game", null)

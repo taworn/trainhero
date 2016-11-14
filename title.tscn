@@ -20,7 +20,7 @@ font/use_mipmaps = false
 font/use_filter = false
 font/font = ExtResource( 3 )
 
-[node name="Panel" type="Panel"]
+[node name="Training Hero" type="Panel"]
 
 anchor/right = 1
 anchor/bottom = 1

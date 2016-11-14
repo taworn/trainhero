@@ -2,6 +2,7 @@
 extends Node
 
 var new = false  # is change scene or go back
+var scripting_continue = null  # has scripting cross scenes
 
 # current persistence state
 var persist = restart_game()
@@ -57,12 +58,14 @@ func restart_game():
 			},
 		},
 
-		# items
+		# items, key items and others
 		"items": {
 		},
 		"keys": [
 		],
 		"treasures": {
+		},
+		"quests": {
 		},
 
 		# where are you
