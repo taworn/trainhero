@@ -9,6 +9,12 @@ var scripting_continue = null  # has scripting cross scenes
 # current persistence state
 var persist = restart_game()
 
+var players_dict = {
+	persist.players[0].name: 0,
+	persist.players[1].name: 1,
+	persist.players[2].name: 2,
+}
+
 func restart_game():
 	var persist = {
 		# level, experience and gold
@@ -16,49 +22,63 @@ func restart_game():
 		"exp": 0,
 		"gold": 55555,
 
-		# users
-		"hero": {
-			"avail": true,
-			"down": false,
-			"hp": 100,
-			"mp": 20,
-			"ap": 10,
-			"dp": 10,
-			"sp": 10,
-			"weapon": null,
-			"armor": null,
-			"accessory": null,
-			"magics": {
+		# players
+		"players": [
+			{
+				"name": "Hero",
+				"avail": true,
+				"faint": false,
+				"poison": false,
+				"hp_max": 100,
+				"hp": 1,
+				"mp_max": 25,
+				"mp": 0,
+				"ap": 10,
+				"dp": 10,
+				"sp": 10,
+				"weapon": null,
+				"armor": null,
+				"accessory": null,
+				"magics": {
+				},
 			},
-		},
-		"heroine0": {
-			"avail": false,
-			"down": false,
-			"hp": 70,
-			"mp": 50,
-			"ap": 8,
-			"dp": 8,
-			"sp": 8,
-			"weapon": null,
-			"armor": null,
-			"accessory": null,
-			"magics": {
+			{
+				"name": "Rydia",
+				"avail": true,
+				"faint": false,
+				"poison": true,
+				"hp_max": 75,
+				"hp": 75,
+				"mp_max": 50,
+				"mp": 1,
+				"ap": 8,
+				"dp": 8,
+				"sp": 8,
+				"weapon": null,
+				"armor": null,
+				"accessory": null,
+				"magics": {
+				},
 			},
-		},
-		"heroine1": {
-			"avail": false,
-			"down": false,
-			"hp": 50,
-			"mp": 70,
-			"ap": 8,
-			"dp": 8,
-			"sp": 8,
-			"weapon": null,
-			"armor": null,
-			"accessory": null,
-			"magics": {
+			{
+				"name": "Unknown",
+				"avail": true,
+				"faint": true,
+				"poison": false,
+				"hp_max": 50,
+				"hp": 0,
+				"mp_max": 75,
+				"mp": 7,
+				"ap": 8,
+				"dp": 8,
+				"sp": 8,
+				"weapon": null,
+				"armor": null,
+				"accessory": null,
+				"magics": {
+				},
 			},
-		},
+		],
 
 		# items, key items and others
 		"items": {
@@ -78,6 +98,8 @@ func restart_game():
 			"antiseptic": 0,
 		},
 		"keys": [
+		],
+		"equipments": [
 		],
 		"treasures": {
 		},
@@ -103,9 +125,9 @@ func restart_game():
 	}
 	return persist
 
-func new_game():
+func start_game():
 	new = true
-	print("new game: persist=", persist.to_json())
+	print("start game: persist=", persist.to_json())
 
 func save_game(fileName):
 	var f = File.new()
@@ -145,4 +167,58 @@ func warp_to(x, y, map):
 
 func fight():
 	get_tree().change_scene("res://battle.tscn")
+
+func item_check(id):
+	var players = []
+	var effect = master.item_dict[id].effect
+	for i in range(3):
+		var can_use = false
+		if persist.players[i].avail:
+			if !persist.players[i].faint:
+				if effect.has("hp"):
+					if persist.players[i].hp < persist.players[i].hp_max:
+						can_use = true
+				if effect.has("mp"):
+					if persist.players[i].mp < persist.players[i].mp_max:
+						can_use = true
+				if effect.has("cure"):
+					if persist.players[i].poison:
+						can_use = true
+			else:
+				if effect.has("heal"):
+					if persist.players[i].faint:
+						can_use = true
+			if can_use:
+				players.append(i)
+	return players
+
+func item_use(id, player):
+	var effect = master.item_dict[id].effect
+	var used = false
+	if player.avail:
+		if !player.faint:
+			if effect.has("hp"):
+				if player.hp < player.hp_max:
+					player.hp += round(effect["hp"] * player.hp_max / 100)
+					if player.hp > player.hp_max:
+						player.hp = player.hp_max
+					used = true
+			if effect.has("mp"):
+				if player.mp < player.mp_max:
+					player.mp += round(effect["mp"] * player.mp_max / 100)
+					if player.mp > player.mp_max:
+						player.mp = player.mp_max
+					used = true
+			if effect.has("cure"):
+				if player.poison:
+					player.poison = false
+					used = true
+		else:
+			if effect.has("heal"):
+				if player.faint:
+					player.faint = false
+					player.hp = round(effect["heal"] * player.hp_max / 100)
+					used = true
+	persist.items[id] -= 1
+	return used
 

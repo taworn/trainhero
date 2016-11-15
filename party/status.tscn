@@ -1,0 +1,89 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://miscs/panel_background.tres" type="StyleBox" id=1]
+[ext_resource path="res://party/status.gd" type="Script" id=2]
+[ext_resource path="res://party/hero/d0.png" type="Texture" id=3]
+[ext_resource path="res://fonts/normal.tres" type="DynamicFont" id=4]
+
+[node name="Status" type="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 678.0
+margin/bottom = 148.0
+custom_styles/panel = ExtResource( 1 )
+script/script = ExtResource( 2 )
+
+[node name="Icon" type="Sprite" parent="."]
+
+transform/pos = Vector2( 16, 16 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="Container" type="Container" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 96.0
+margin/top = 16.0
+margin/right = 662.0
+margin/bottom = 132.0
+
+[node name="Name" type="Label" parent="Container"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 250.0
+margin/bottom = 35.0
+custom_fonts/font = ExtResource( 4 )
+text = "Hero"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="HP" type="Label" parent="Container"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 45.0
+margin/right = 250.0
+margin/bottom = 80.0
+custom_fonts/font = ExtResource( 4 )
+text = "HP 9999/9999"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="MP" type="Label" parent="Container"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 85.0
+margin/right = 250.0
+margin/bottom = 120.0
+custom_fonts/font = ExtResource( 4 )
+text = "MP 9999/9999"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+

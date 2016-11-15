@@ -34,7 +34,7 @@ func _on_Menu_item_activated(index):
 	party.set_process_input(true)
 	party.set_process(true)
 	if index == 0:
-		state.new_game()
+		state.start_game()
 	else:
 		var save = "user://game%d.save" % (index - 1)
 		state.load_game(save)

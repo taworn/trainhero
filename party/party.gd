@@ -199,8 +199,9 @@ func after_walk(name):
 			scripting.open_floor(self, dialog)
 	else:
 		if scene.tag in [global.TAG_DUNGEON, global.TAG_WORLD]:
-			if battle_roll.random():
-				open_battle()
+			if !scripting.is_opened():
+				if battle_roll.random():
+					open_battle()
 
 func warp_to(name):
 	var data = scene.warp_dict[name]

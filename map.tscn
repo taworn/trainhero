@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=1]
+[gd_scene load_steps=18 format=1]
 
 [ext_resource path="res://tilesets/world.tres" type="TileSet" id=1]
 [ext_resource path="res://party/hero.tscn" type="PackedScene" id=2]
@@ -11,8 +11,9 @@
 [ext_resource path="res://musics/Dragon Quest 3 - Adventure.ogg" type="AudioStream" id=9]
 [ext_resource path="res://sounds/coin.wav" type="Sample" id=10]
 [ext_resource path="res://sounds/error.wav" type="Sample" id=11]
-[ext_resource path="res://miscs/fade_in.tres" type="Animation" id=12]
-[ext_resource path="res://miscs/fade_out.tres" type="Animation" id=13]
+[ext_resource path="res://sounds/heal.wav" type="Sample" id=12]
+[ext_resource path="res://miscs/fade_in.tres" type="Animation" id=13]
+[ext_resource path="res://miscs/fade_out.tres" type="Animation" id=14]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -25,6 +26,7 @@ font/font = ExtResource( 5 )
 
 samples/coin = { "db":0.0, "pitch":1.0, "sample":ExtResource( 10 ) }
 samples/error = { "db":0.0, "pitch":1.0, "sample":ExtResource( 11 ) }
+samples/heal = { "db":0.0, "pitch":1.0, "sample":ExtResource( 12 ) }
 
 [sub_resource type="Animation" id=3]
 
@@ -186,8 +188,8 @@ default/chorus_send = 0.0
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/fade_in = ExtResource( 12 )
-anims/fade_out = ExtResource( 13 )
+anims/fade_in = ExtResource( 13 )
+anims/fade_out = ExtResource( 14 )
 anims/light = SubResource( 3 )
 next/light = ""
 playback/active = true

@@ -1,18 +1,22 @@
 
 extends Container
 
+const FORMAT_MONEY = "%d G"
+const FORMAT_ITEM_STOCK = "%s x%d"
+const FORMAT_ITEM_SALE = "%s  %d G"
+
 var party = null
 
+var money = null
 var list = null
 var sale_list = null
 var current = null
-var money = null
 
 func _ready():
+	set_hidden(true)
+	money = get_node("PanelGold/Gold")
 	sale_list = get_node("SaleList")
 	current = get_node("PanelCurrent/Current")
-	money = get_node("PanelGold/Gold")
-	set_hidden(true)
 
 func _input(event):
 	if Input.is_action_pressed("ui_accept"):
@@ -29,7 +33,9 @@ func _input(event):
 func _on_SaleList_item_selected(index):
 	if index >= 0 && index < list.size():
 		var id = list[index]
-		current.set_text("%s  x%d" % [master.item_dict[id].name, state.persist.items[id]])
+		current.set_text(FORMAT_ITEM_STOCK % [master.item_dict[id].name, state.persist.items[id]])
+	else:
+		current.set_text("")
 
 func is_opened():
 	return party != null
@@ -41,15 +47,15 @@ func open(party, list):
 	set_process_input(true)
 	set_hidden(false)
 
+	money.set_text(FORMAT_MONEY % state.persist.gold)
 	sale_list.clear()
 	for i in list:
-		var s = "%s  %d G" % [master.item_dict[i].name, master.item_dict[i].money]
+		var s = FORMAT_ITEM_SALE % [master.item_dict[i].name, master.item_dict[i].money]
 		sale_list.add_item(s, null)
 	sale_list.add_item("Return Game", null)
 	sale_list.select(0)
 	sale_list.grab_focus()
 	_on_SaleList_item_selected(0)
-	money.set_text("%d G" % state.persist.gold)
 
 func close():
 	set_hidden(true)
@@ -64,8 +70,8 @@ func buy(index):
 			party.sound.play("coin")
 			state.persist.items[id] += 1
 			state.persist.gold -= master.item_dict[id].money
-			current.set_text("%s  x%d" % [master.item_dict[id].name, state.persist.items[id]])
-			money.set_text("%d G" % state.persist.gold)
+			current.set_text(FORMAT_ITEM_STOCK % [master.item_dict[id].name, state.persist.items[id]])
+			money.set_text(FORMAT_MONEY % state.persist.gold)
 			print("buy item: " + id)
 			return
 	party.sound.play("error")
