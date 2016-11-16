@@ -2,7 +2,7 @@
 
 [ext_resource path="res://miscs/panel_background.tres" type="StyleBox" id=1]
 [ext_resource path="res://party/status.gd" type="Script" id=2]
-[ext_resource path="res://party/hero/d0.png" type="Texture" id=3]
+[ext_resource path="res://party/hero.tres" type="SpriteFrames" id=3]
 [ext_resource path="res://fonts/normal.tres" type="DynamicFont" id=4]
 
 [node name="Status" type="Panel"]
@@ -18,10 +18,11 @@ margin/bottom = 148.0
 custom_styles/panel = ExtResource( 1 )
 script/script = ExtResource( 2 )
 
-[node name="Icon" type="Sprite" parent="."]
+[node name="Icon" type="AnimatedSprite" parent="."]
 
 transform/pos = Vector2( 16, 16 )
-texture = ExtResource( 3 )
+frames = ExtResource( 3 )
+animation = "down"
 centered = false
 
 [node name="Container" type="Container" parent="."]

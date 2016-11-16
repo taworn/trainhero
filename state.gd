@@ -61,8 +61,8 @@ func restart_game():
 				},
 			},
 			{
-				"name": "Unknown",
-				"avail": true,
+				"name": "Nadia",
+				"avail": false,
 				"faint": true,
 				"poison": false,
 				"hp_max": 50,
