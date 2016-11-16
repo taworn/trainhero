@@ -103,22 +103,27 @@ var magic_dict = {
 		"cut": {
 			"name": "Cut",
 			"mp": 3,
+			"effect": {"battle": 1},
 		},
 		"slash": {
 			"name": "Slash",
 			"mp": 3,
+			"effect": {"battle": 1},
 		},
 		"warp": {
 			"name": "Warp Back",
 			"mp": 5,
+			"effect": {"warp": 1},
 		},
 		"thunder": {
 			"name": "Thunder",
 			"mp": 7,
+			"effect": {"battle": 1},
 		},
 		"lightning": {
 			"name": "Lightning",
 			"mp": 9,
+			"effect": {"battle": 1},
 		},
 	},
 
@@ -127,86 +132,107 @@ var magic_dict = {
 		"recover_hp_25": {
 			"name": "Recover HP 25%",
 			"mp": 2,
+			"effect": {"hp": 25},
 		},
 		"recover_hp_50": {
 			"name": "Recover HP 50%",
 			"mp": 4,
+			"effect": {"hp": 50},
 		},
 		"recover_hp_75": {
 			"name": "Recover HP 75%",
 			"mp": 6,
+			"effect": {"hp": 50},
 		},
 		"recover_hp_100": {
 			"name": "Recover HP 100%",
 			"mp": 8,
+			"effect": {"hp": 100},
 		},
 
 		# restore HP all
 		"recover_hp_25_all": {
 			"name": "Recover HP 25% All",
 			"mp": 4,
+			"effect": {"all": 1, "hp": 25},
 		},
 		"recover_hp_50_all": {
 			"name": "Recover HP 50% All",
 			"mp": 6,
+			"effect": {"all": 1, "hp": 50},
 		},
 		"recover_hp_75_all": {
 			"name": "Recover HP 75% All",
 			"mp": 8,
+			"effect": {"all": 1, "hp": 75},
 		},
 		"recover_hp_100_all": {
 			"name": "Recover HP 100% All",
 			"mp": 10,
+			"effect": {"all": 1, "hp": 100},
 		},
 
 		# anti-
 		"antidote": {
 			"name": "Antidote",
 			"mp": 2,
+			"effect": {"cure": 1},
 		},
 		"antiseptic": {
 			"name": "Antiseptic",
 			"mp": 4,
+			"effect": {"heal": 25},
 		},
-		"antiseptic_full": {
-			"name": "Antiseptic Full",
+
+		# full recovery all
+		"recovery_all": {
+			"name": "Recovery Full",
 			"mp": 12,
+			"effect": {"all": 1, "heal": 100, "cure": 1, "hp": 100},
 		},
 
 		# protect
 		"protect": {
 			"name": "Protect",
 			"mp": 3,
+			"effect": {"battle": 1},
 		},
 		"shield": {
 			"name": "Shield",
 			"mp": 3,
+			"effect": {"battle": 1},
 		},
 
 		# attack
 		"fire": {
 			"name": "Fire",
 			"mp": 3,
+			"effect": {"battle": 1},
 		},
 		"fire_group": {
 			"name": "Fire Group",
 			"mp": 5,
+			"effect": {"battle": 1},
 		},
 		"fire_all": {
 			"name": "Fire All",
 			"mp": 7,
+			"effect": {"battle": 1},
 		},
 		"ice": {
 			"name": "Ice",
 			"mp": 3,
+			"effect": {"battle": 1},
 		},
 		"ice_group": {
 			"name": "Ice Group",
 			"mp": 5,
+			"effect": {"battle": 1},
 		},
 		"ice_all": {
 			"name": "Ice All",
 			"mp": 7,
+			"effect": {"battle": 1},
 		},
 	},
 
@@ -215,36 +241,43 @@ var magic_dict = {
 		"slow": {
 			"name": "Slow",
 			"mp": 2,
+			"effect": {"battle": 1},
 		},
 		"slow_all": {
 			"name": "Slow All",
 			"mp": 4,
+			"effect": {"battle": 1},
 		},
 		"speed": {
 			"name": "Speed",
 			"mp": 2,
+			"effect": {"battle": 1},
 		},
 		"speed_all": {
 			"name": "Haste",
 			"mp": 6,
+			"effect": {"battle": 1},
 		},
 
 		# bomb
 		"bomb": {
 			"name": "Bomb",
 			"mp": 6,
+			"effect": {"battle": 1},
 		},
 
 		# whirlwind
 		"wind": {
 			"name": "Whirlwind",
 			"mp": 9,
+			"effect": {"battle": 1},
 		},
 
 		# meteor
 		"meteor": {
 			"name": "Meteor",
 			"mp": 12,
+			"effect": {"battle": 1},
 		},
 	},
 }

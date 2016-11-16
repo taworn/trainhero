@@ -39,8 +39,13 @@ func restart_game():
 				"weapon": null,
 				"armor": null,
 				"accessory": null,
-				"magics": {
-				},
+				"magics": [
+					"cut",
+					"slash",
+					"warp",
+					"thunder",
+					"lightning",
+				],
 			},
 			{
 				"name": "Rydia",
@@ -48,7 +53,7 @@ func restart_game():
 				"faint": false,
 				"poison": true,
 				"hp_max": 75,
-				"hp": 75,
+				"hp": 25,
 				"mp_max": 50,
 				"mp": 1,
 				"ap": 8,
@@ -57,12 +62,31 @@ func restart_game():
 				"weapon": null,
 				"armor": null,
 				"accessory": null,
-				"magics": {
-				},
+				"magics": [
+					"recover_hp_25",
+					"recover_hp_50",
+					"recover_hp_75",
+					"recover_hp_100",
+					"recover_hp_25_all",
+					"recover_hp_50_all",
+					"recover_hp_75_all",
+					"recover_hp_100_all",
+					"antidote",
+					"antiseptic",
+					"recovery_all",
+					"protect",
+					"shield",
+					"fire",
+					"fire_group",
+					"fire_all",
+					"ice",
+					"ice_group",
+					"ice_all",
+				],
 			},
 			{
 				"name": "Nadia",
-				"avail": false,
+				"avail": true,
 				"faint": true,
 				"poison": false,
 				"hp_max": 50,
@@ -75,8 +99,15 @@ func restart_game():
 				"weapon": null,
 				"armor": null,
 				"accessory": null,
-				"magics": {
-				},
+				"magics": [
+					"slow",
+					"slow_all",
+					"speed",
+					"speed_all",
+					"bomb",
+					"wind",
+					"meteor",
+				],
 			},
 		],
 
@@ -167,58 +198,4 @@ func warp_to(x, y, map):
 
 func fight():
 	get_tree().change_scene("res://battle.tscn")
-
-func item_check(id):
-	var players = []
-	var effect = master.item_dict[id].effect
-	for i in range(3):
-		var can_use = false
-		if persist.players[i].avail:
-			if !persist.players[i].faint:
-				if effect.has("hp"):
-					if persist.players[i].hp < persist.players[i].hp_max:
-						can_use = true
-				if effect.has("mp"):
-					if persist.players[i].mp < persist.players[i].mp_max:
-						can_use = true
-				if effect.has("cure"):
-					if persist.players[i].poison:
-						can_use = true
-			else:
-				if effect.has("heal"):
-					if persist.players[i].faint:
-						can_use = true
-			if can_use:
-				players.append(i)
-	return players
-
-func item_use(id, player):
-	var effect = master.item_dict[id].effect
-	var used = false
-	if player.avail:
-		if !player.faint:
-			if effect.has("hp"):
-				if player.hp < player.hp_max:
-					player.hp += round(effect["hp"] * player.hp_max / 100)
-					if player.hp > player.hp_max:
-						player.hp = player.hp_max
-					used = true
-			if effect.has("mp"):
-				if player.mp < player.mp_max:
-					player.mp += round(effect["mp"] * player.mp_max / 100)
-					if player.mp > player.mp_max:
-						player.mp = player.mp_max
-					used = true
-			if effect.has("cure"):
-				if player.poison:
-					player.poison = false
-					used = true
-		else:
-			if effect.has("heal"):
-				if player.faint:
-					player.faint = false
-					player.hp = round(effect["heal"] * player.hp_max / 100)
-					used = true
-	persist.items[id] -= 1
-	return used
 

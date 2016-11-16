@@ -3,6 +3,7 @@ extends Container
 
 const FORMAT_MONEY = "%d G"
 const FORMAT_ITEM_STOCK = "%s x%d"
+const FORMAT_MAGIC_STOCK = "%s (-%dMP)"
 
 const SAVE_COUNT = 2
 
@@ -18,6 +19,12 @@ var save_list = null
 var item_list_data = null
 var item_list = null
 var item_player_list = null
+
+var magic_from_list = null
+var magic_list = null
+var magic_to_list = null
+
+var player_id = null
 
 func _ready():
 	set_hidden(true)
@@ -39,9 +46,13 @@ func _ready():
 	for i in range(SAVE_COUNT):
 		save_list.add_item("Save Game #%d" % i, null)
 
-	item_list_data = Array()
-	item_list = get_node("Container/ItemList")
-	item_player_list = get_node("Container/ItemPlayerList")
+	item_list_data = []
+	item_list = get_node("ItemContainer/ItemList")
+	item_player_list = get_node("ItemContainer/ItemPlayerList")
+
+	magic_from_list = get_node("MagicContainer/MagicPlayerFromList")
+	magic_list = get_node("MagicContainer/MagicList")
+	magic_to_list = get_node("MagicContainer/MagicPlayerToList")
 
 func _input(event):
 	if Input.is_action_pressed("ui_accept"):
@@ -53,13 +64,18 @@ func _on_MenuList_item_activated(index):
 	save_list.set_hidden(true)
 	item_list.set_hidden(true)
 	item_player_list.set_hidden(true)
+	magic_from_list.set_hidden(true)
+	magic_list.set_hidden(true)
+	magic_to_list.set_hidden(true)
 
 	if index == 0:
 		item_list.set_hidden(false)
 		item_list.select(0)
 		item_list.grab_focus()
 	elif index == 1:
-		pass
+		magic_from_list.set_hidden(false)
+		magic_from_list.select(0)
+		magic_from_list.grab_focus()
 	elif index == 2:
 		pass
 	elif index == 3:
@@ -80,7 +96,7 @@ func _on_SaveList_item_activated(index):
 func _on_ItemList_item_activated(index):
 	var id = item_list_data[index]
 	item_player_list.clear()
-	var players = state.item_check(id)
+	var players = item_check(id)
 	if players.size() > 0:
 		for i in players:
 			item_player_list.add_item(state.persist.players[i].name)
@@ -90,13 +106,55 @@ func _on_ItemList_item_activated(index):
 	else:
 		party.sound.play("error")
 
-func _on_ItemPlayerList_item_activated( index ):
+func _on_ItemPlayerList_item_activated(index):
 	var name = item_player_list.get_item_text(index)
 	var player = state.persist.players[state.players_dict[name]]
 	var selected = item_list.get_selected_items()
-	if state.item_use(item_list_data[selected[0]], player):
+	if item_use(item_list_data[selected[0]], player):
 		party.sound.play("heal")
 		refresh()
+
+func _on_MagicPlayerFromList_item_activated(index):
+	var name = magic_from_list.get_item_text(index)
+	player_id = state.players_dict[name]
+	var player = state.persist.players[player_id]
+	magic_list.clear()
+	for i in player.magics:
+		magic_list.add_item(FORMAT_MAGIC_STOCK % [master.magic_dict[player_id][i].name, master.magic_dict[player_id][i].mp])
+	magic_from_list.set_hidden(true)
+	magic_list.set_hidden(false)
+	magic_list.select(0)
+	magic_list.grab_focus()
+
+func _on_MagicList_item_activated(index):
+	var id = state.persist.players[player_id].magics[index]
+	var players = magic_check(player_id, id)
+	if typeof(players) == TYPE_ARRAY:
+		if players.size() > 0:
+			magic_to_list.clear()
+			for i in players:
+				magic_to_list.add_item(state.persist.players[i].name)
+			magic_to_list.set_hidden(false)
+			magic_to_list.select(0)
+			magic_to_list.grab_focus()
+			return
+	else:
+		if players:
+			if magic_use_all(player_id, state.persist.players[player_id].magics[index]):
+				party.sound.play("heal")
+				refresh()
+				return
+	party.sound.play("error")
+
+func _on_MagicPlayerToList_item_activated(index):
+	var name = magic_to_list.get_item_text(index)
+	var player = state.persist.players[state.players_dict[name]]
+	var selected = magic_list.get_selected_items()
+	if magic_use_one(player_id, state.persist.players[player_id].magics[selected[0]], player):
+		party.sound.play("heal")
+		refresh()
+	else:
+		party.sound.play("error")
 
 func open(party):
 	self.party = party
@@ -125,11 +183,169 @@ func refresh():
 	for i in master.item_list_sort:
 		if state.persist.items[i] > 0:
 			item_list_data.append(i)
-			item_list.add_item(FORMAT_ITEM_STOCK % [master.item_dict[i].name, state.persist.items[i]]);
+			item_list.add_item(FORMAT_ITEM_STOCK % [master.item_dict[i].name, state.persist.items[i]])
+
+	magic_from_list.clear()
+	for i in state.persist.players:
+		if i.avail && !i.faint:
+			magic_from_list.add_item(i.name)
 
 	item_list.set_hidden(true)
 	item_player_list.set_hidden(true)
+	magic_from_list.set_hidden(true)
+	magic_list.set_hidden(true)
+	magic_to_list.set_hidden(true)
 	save_list.set_hidden(true)
 	menu_list.select(0)
 	menu_list.grab_focus()
+	player_id = null
+
+func item_check(id):
+	var players = []
+	var effect = master.item_dict[id].effect
+	for i in range(3):
+		var can_use = false
+		var player = state.persist.players[i]
+		if player.avail:
+			if player.faint:
+				if effect.has("heal"):
+					can_use = true
+			if !player.faint:
+				if effect.has("hp"):
+					if player.hp < player.hp_max:
+						can_use = true
+				if effect.has("mp"):
+					if player.mp < player.mp_max:
+						can_use = true
+				if effect.has("cure"):
+					if player.poison:
+						can_use = true
+			if can_use:
+				players.append(i)
+	return players
+
+func item_use(id, player):
+	var effect = master.item_dict[id].effect
+	var used = false
+	if player.avail:
+		if player.faint:
+			if effect.has("heal"):
+				if player.faint:
+					player.faint = false
+					player.hp = round(effect["heal"] * player.hp_max / 100)
+					used = true
+		if !player.faint:
+			if effect.has("hp"):
+				if player.hp < player.hp_max:
+					player.hp += round(effect["hp"] * player.hp_max / 100)
+					if player.hp > player.hp_max:
+						player.hp = player.hp_max
+					used = true
+			if effect.has("mp"):
+				if player.mp < player.mp_max:
+					player.mp += round(effect["mp"] * player.mp_max / 100)
+					if player.mp > player.mp_max:
+						player.mp = player.mp_max
+					used = true
+			if effect.has("cure"):
+				if player.poison:
+					player.poison = false
+					used = true
+	state.persist.items[id] -= 1
+	return used
+
+func magic_check(player_id, id):
+	if state.persist.players[player_id].mp < master.magic_dict[player_id][id].mp:
+		return false
+	var players = []
+	var effect = master.magic_dict[player_id][id].effect
+	if !effect.has("all"):
+		for i in range(3):
+			var can_use = false
+			var player = state.persist.players[i]
+			if player.avail:
+				if player.faint:
+					if effect.has("heal"):
+						can_use = true
+				if !player.faint:
+					if effect.has("hp"):
+						if player.hp < player.hp_max:
+							can_use = true
+					if effect.has("cure"):
+						if player.poison:
+							can_use = true
+				if can_use:
+					players.append(i)
+		return players
+	else:
+		var can_use = false
+		for i in range(3):
+			var player = state.persist.players[i]
+			if player.avail:
+				if player.faint:
+					if effect.has("heal"):
+						can_use = true
+				if !player.faint:
+					if effect.has("hp"):
+						if player.hp < player.hp_max:
+							can_use = true
+					if effect.has("cure"):
+						if player.poison:
+							can_use = true
+		return can_use
+
+func magic_use_one(player_id, id, player):
+	var effect = master.magic_dict[player_id][id].effect
+	var used = false
+	if player.faint:
+		if effect.has("heal"):
+			if player.faint:
+				player.faint = false
+				player.hp = round(effect["heal"] * player.hp_max / 100)
+				used = true
+	if !player.faint:
+		if effect.has("hp"):
+			if player.hp < player.hp_max:
+				player.hp += round(effect["hp"] * player.hp_max / 100)
+				if player.hp > player.hp_max:
+					player.hp = player.hp_max
+				used = true
+		if effect.has("cure"):
+			if player.poison:
+				player.poison = false
+				used = true
+	if used:
+		state.persist.players[player_id].mp -= master.magic_dict[player_id][id].mp
+		return true
+	else:
+		return false
+
+func magic_use_all(player_id, id):
+	var used = false
+	var effect = master.magic_dict[player_id][id].effect
+	for i in range(3):
+		var player = state.persist.players[i]
+		if player.avail:
+			if player.faint:
+				if effect.has("heal"):
+					if player.faint:
+						player.faint = false
+						player.hp = round(effect["heal"] * player.hp_max / 100)
+						used = true
+			if !player.faint:
+				if effect.has("hp"):
+					if player.hp < player.hp_max:
+						player.hp += round(effect["hp"] * player.hp_max / 100)
+						if player.hp > player.hp_max:
+							player.hp = player.hp_max
+						used = true
+				if effect.has("cure"):
+					if player.poison:
+						player.poison = false
+						used = true
+	if used:
+		state.persist.players[player_id].mp -= master.magic_dict[player_id][id].mp
+		return true
+	else:
+		return false
 

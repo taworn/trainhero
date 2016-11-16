@@ -127,7 +127,7 @@ margin/bottom = 568.0
 
 frames = ExtResource( 7 )
 
-[node name="Container" type="Container" parent="."]
+[node name="ItemContainer" type="Container" parent="."]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -138,7 +138,62 @@ margin/top = 124.0
 margin/right = 992.0
 margin/bottom = 568.0
 
-[node name="ItemList" type="ItemList" parent="Container"]
+[node name="ItemList" type="ItemList" parent="ItemContainer"]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 400.0
+margin/bottom = 444.0
+custom_styles/bg_focus = ExtResource( 2 )
+custom_styles/bg = ExtResource( 2 )
+custom_fonts/font = ExtResource( 4 )
+
+[node name="ItemPlayerList" type="ItemList" parent="ItemContainer"]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 428.0
+margin/top = 0.0
+margin/right = 678.0
+margin/bottom = 150.0
+custom_styles/bg_focus = ExtResource( 2 )
+custom_styles/bg = ExtResource( 2 )
+custom_fonts/font = ExtResource( 4 )
+
+[node name="MagicContainer" type="Container" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 314.0
+margin/top = 124.0
+margin/right = 992.0
+margin/bottom = 568.0
+
+[node name="MagicPlayerFromList" type="ItemList" parent="MagicContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 250.0
+margin/bottom = 150.0
+custom_styles/bg_focus = ExtResource( 2 )
+custom_styles/bg = ExtResource( 2 )
+custom_fonts/font = ExtResource( 4 )
+
+[node name="MagicList" type="ItemList" parent="MagicContainer"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -152,7 +207,7 @@ custom_styles/bg_focus = ExtResource( 2 )
 custom_styles/bg = ExtResource( 2 )
 custom_fonts/font = ExtResource( 4 )
 
-[node name="ItemPlayerList" type="ItemList" parent="Container"]
+[node name="MagicPlayerToList" type="ItemList" parent="MagicContainer"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -168,6 +223,7 @@ custom_fonts/font = ExtResource( 4 )
 
 [node name="SaveList" type="ItemList" parent="."]
 
+visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -182,9 +238,15 @@ custom_fonts/font = ExtResource( 4 )
 
 [connection signal="item_activated" from="MenuList" to="." method="_on_MenuList_item_activated"]
 
-[connection signal="item_activated" from="Container/ItemList" to="." method="_on_ItemList_item_activated"]
+[connection signal="item_activated" from="ItemContainer/ItemList" to="." method="_on_ItemList_item_activated"]
 
-[connection signal="item_activated" from="Container/ItemPlayerList" to="." method="_on_ItemPlayerList_item_activated"]
+[connection signal="item_activated" from="ItemContainer/ItemPlayerList" to="." method="_on_ItemPlayerList_item_activated"]
+
+[connection signal="item_activated" from="MagicContainer/MagicPlayerFromList" to="." method="_on_MagicPlayerFromList_item_activated"]
+
+[connection signal="item_activated" from="MagicContainer/MagicList" to="." method="_on_MagicList_item_activated"]
+
+[connection signal="item_activated" from="MagicContainer/MagicPlayerToList" to="." method="_on_MagicPlayerToList_item_activated"]
 
 [connection signal="item_activated" from="SaveList" to="." method="_on_SaveList_item_activated"]
 
