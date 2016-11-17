@@ -129,6 +129,7 @@ frames = ExtResource( 7 )
 
 [node name="ItemContainer" type="Container" parent="."]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -170,6 +171,7 @@ custom_fonts/font = ExtResource( 4 )
 
 [node name="MagicContainer" type="Container" parent="."]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -181,6 +183,7 @@ margin/bottom = 568.0
 
 [node name="MagicPlayerFromList" type="ItemList" parent="MagicContainer"]
 
+visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -195,6 +198,7 @@ custom_fonts/font = ExtResource( 4 )
 
 [node name="MagicList" type="ItemList" parent="MagicContainer"]
 
+visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -209,6 +213,7 @@ custom_fonts/font = ExtResource( 4 )
 
 [node name="MagicPlayerToList" type="ItemList" parent="MagicContainer"]
 
+visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -217,6 +222,59 @@ margin/left = 428.0
 margin/top = 0.0
 margin/right = 678.0
 margin/bottom = 150.0
+custom_styles/bg_focus = ExtResource( 2 )
+custom_styles/bg = ExtResource( 2 )
+custom_fonts/font = ExtResource( 4 )
+
+[node name="EquipContainer" type="Container" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 314.0
+margin/top = 124.0
+margin/right = 992.0
+margin/bottom = 568.0
+
+[node name="EquipPlayerList" type="ItemList" parent="EquipContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 250.0
+margin/bottom = 150.0
+custom_styles/bg_focus = ExtResource( 2 )
+custom_styles/bg = ExtResource( 2 )
+custom_fonts/font = ExtResource( 4 )
+
+[node name="EquipList" type="ItemList" parent="EquipContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 678.0
+margin/bottom = 150.0
+custom_styles/bg_focus = ExtResource( 2 )
+custom_styles/bg = ExtResource( 2 )
+custom_fonts/font = ExtResource( 4 )
+
+[node name="EquipChangeableList" type="ItemList" parent="EquipContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 166.0
+margin/right = 678.0
+margin/bottom = 416.0
 custom_styles/bg_focus = ExtResource( 2 )
 custom_styles/bg = ExtResource( 2 )
 custom_fonts/font = ExtResource( 4 )
@@ -247,6 +305,12 @@ custom_fonts/font = ExtResource( 4 )
 [connection signal="item_activated" from="MagicContainer/MagicList" to="." method="_on_MagicList_item_activated"]
 
 [connection signal="item_activated" from="MagicContainer/MagicPlayerToList" to="." method="_on_MagicPlayerToList_item_activated"]
+
+[connection signal="item_activated" from="EquipContainer/EquipPlayerList" to="." method="_on_EquipPlayerList_item_activated"]
+
+[connection signal="item_activated" from="EquipContainer/EquipList" to="." method="_on_EquipList_item_activated"]
+
+[connection signal="item_activated" from="EquipContainer/EquipChangeableList" to="." method="_on_EquipChangeableList_item_activated"]
 
 [connection signal="item_activated" from="SaveList" to="." method="_on_SaveList_item_activated"]
 

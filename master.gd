@@ -186,12 +186,12 @@ var magic_dict = {
 
 		# full recovery all
 		"recovery_all": {
-			"name": "Recovery Full",
+			"name": "Recovery Full All",
 			"mp": 12,
 			"effect": {"all": 1, "heal": 100, "cure": 1, "hp": 100},
 		},
 
-		# protect
+		# protect and shield
 		"protect": {
 			"name": "Protect",
 			"mp": 3,
@@ -282,114 +282,169 @@ var magic_dict = {
 	},
 }
 
-var sword_dict = {
-	"sword": {
-		"name": "Sword",
+var equip_dict = {
+	0: {
+		"sword": {
+			"name": "Sword",
+			"type": "weapon",
+			"ap": 10,
+			"mp": 0,
+		},
+		"longsword": {
+			"name": "Long Sword",
+			"type": "weapon",
+			"ap": 20,
+			"mp": 0,
+		},
+		"paladin_sword": {
+			"name": "Paladin Sword",
+			"type": "weapon",
+			"ap": 35,
+			"mp": 0,
+		},
+		"hero_sword": {
+			"name": "Hero Sword",
+			"type": "weapon",
+			"ap": 50,
+			"mp": 0,
+		},
+		"armor": {
+			"name": "Armor",
+			"type": "armor",
+			"dp": 5,
+		},
+		"paladin_armor": {
+			"name": "Paladin Armor",
+			"type": "armor",
+			"dp": 15,
+		},
+		"hero_armor": {
+			"name": "Hero Armor",
+			"type": "armor",
+			"dp": 30,
+		},
+		"shield": {
+			"name": "Shield",
+			"type": "accessory",
+			"dp": 3,
+		},
+		"paladin_shield": {
+			"name": "Paladin Shield",
+			"type": "accessory",
+			"dp": 12,
+		},
+		"hero_shield": {
+			"name": "Hero Shield",
+			"type": "accessory",
+			"dp": 20,
+		},
 	},
-	"longsword": {
-		"name": "Long Sword",
-	},
-	"thunder_sword": {
-		"name": "Thunder Sword",
-	},
-	"lightning_sword": {
-		"name": "Lightning Sword",
-	},
-}
 
-var armor_dict = {
-	"armor": {
-		"name": "Armor",
+	1: {
+		"wand": {
+			"name": "Wand",
+			"type": "weapon",
+			"ap": 5,
+			"mp": 10,
+		},
+		"firewand": {
+			"name": "Fire Wand",
+			"type": "weapon",
+			"ap": 7,
+			"mp": 20,
+		},
+		"icewand": {
+			"name": "Ice Wand",
+			"type": "weapon",
+			"ap": 7,
+			"mp": 20,
+		},
+		"miraclewand": {
+			"name": "Miracle Wand",
+			"type": "weapon",
+			"ap": 10,
+			"mp": 30,
+		},
+		"robe": {
+			"name": "Robe",
+			"type": "armor",
+			"dp": 4,
+		},
+		"firerobe": {
+			"name": "Fire Robe",
+			"type": "armor",
+			"dp": 10,
+		},
+		"icerobe": {
+			"name": "Ice Robe",
+			"type": "armor",
+			"dp": 10,
+		},
+		"miraclerobe": {
+			"name": "Miracle Robe",
+			"type": "armor",
+			"dp": 25,
+		},
+		"amulet": {
+			"name": "Amulet",
+			"type": "accessory",
+			"dp": 0,
+			"effect": {"regen_mp": 1}
+		},
+		"light_amulet": {
+			"name": "Light Amulet",
+			"type": "accessory",
+			"dp": 0,
+			"effect": {"regen_mp": 2}
+		},
+		"miracle_amulet": {
+			"name": "Miracle Amulet",
+			"type": "accessory",
+			"dp": 0,
+			"effect": {"regen_mp": 3, "cut_mp": 50}
+		},
 	},
-	"paladin_armor": {
-		"name": "Paladin Armor",
-	},
-	"lightning_armor": {
-		"name": "Lightning Armor",
-	},
-}
 
-var shield_dict = {
-	"shield": {
-		"name": "Shield",
-	},
-	"paladin_shield": {
-		"name": "Paladin Shield",
-	},
-	"lightning_shield": {
-		"name": "Lightning Shield",
-	},
-}
-
-var wand_dict = {
-	"wand": {
-		"name": "Wand",
-	},
-	"firewand": {
-		"name": "Fire Wand",
-	},
-	"icewand": {
-		"name": "Ice Wand",
-	},
-	"miraclewand": {
-		"name": "Miracle Wand",
-	},
-}
-
-var robe_dict = {
-	"robe": {
-		"name": "Robe",
-	},
-	"firerobe": {
-		"name": "Fire Robe",
-	},
-	"icerobe": {
-		"name": "Ice Robe",
-	},
-	"miraclerobe": {
-		"name": "Miracle Robe",
-	},
-}
-
-var amulet_dict = {
-	"amulet": {
-		"name": "Amulet",
-	},
-	"light_amulet": {
-		"name": "Light Amulet",
-	},
-	"miracle_amulet": {
-		"name": "Miracle Amulet",
-	},
-}
-
-var staff_dict = {
-	"staff": {
-		"name": "Staff",
-	},
-	"magic_staff": {
-		"name": "Magic Staff",
-	},
-}
-
-var dress_dict = {
-	"dress": {
-		"name": "Dress",
-	},
-	"dark_dress": {
-		"name": "Dark Dress",
-	},
-	"void_dress": {
-		"name": "Void Dress",
-	},
-}
-
-var ring_dict = {
-	"ring": {
-		"name": "Ring",
-	},
-	"void_ring": {
-		"name": "Void Ring",
+	2: {
+		"staff": {
+			"name": "Staff",
+			"type": "weapon",
+			"ap": 3,
+			"mp": 12,
+		},
+		"magic_staff": {
+			"name": "Magic Staff",
+			"type": "weapon",
+			"ap": 3,
+			"mp": 20,
+		},
+		"dress": {
+			"name": "Dress",
+			"type": "armor",
+			"dp": 4,
+		},
+		"dark_dress": {
+			"name": "Dark Dress",
+			"type": "armor",
+			"dp": 10,
+		},
+		"void_dress": {
+			"name": "Void Dress",
+			"type": "armor",
+			"dp": 16,
+		},
+		"ring": {
+			"name": "Ring",
+			"type": "accessory",
+			"dp": 0,
+			"effect": {"regen_mp": 4}
+		},
+		"void_ring": {
+			"name": "Void Ring",
+			"type": "accessory",
+			"dp": 0,
+			"effect": {"regen_mp": 8}
+		},
 	},
 }
 

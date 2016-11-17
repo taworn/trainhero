@@ -4,9 +4,15 @@ extends Container
 const FORMAT_MONEY = "%d G"
 const FORMAT_ITEM_STOCK = "%s x%d"
 const FORMAT_MAGIC_STOCK = "%s (-%dMP)"
+const FORMAT_EQUIP_STOCK = "%s: %s"
+const FORMAT_EQUIP_WEAPON = "%s   A%d M%d"
+const FORMAT_EQUIP_ARMOR = "%s   D%d"
 
 const SAVE_COUNT = 2
 
+var equip_type = ["weapon", "armor", "accessory"]
+
+var deep_level = 0
 var party = null
 
 var money = null
@@ -23,6 +29,11 @@ var item_player_list = null
 var magic_from_list = null
 var magic_list = null
 var magic_to_list = null
+
+var equip_player_list = null
+var equip_list = null
+var equip_changeable_list_data = null
+var equip_changeable_list = null
 
 var player_id = null
 
@@ -54,11 +65,19 @@ func _ready():
 	magic_list = get_node("MagicContainer/MagicList")
 	magic_to_list = get_node("MagicContainer/MagicPlayerToList")
 
+	equip_player_list = get_node("EquipContainer/EquipPlayerList")
+	equip_list = get_node("EquipContainer/EquipList")
+	equip_changeable_list_data = []
+	equip_changeable_list = get_node("EquipContainer/EquipChangeableList")
+
 func _input(event):
 	if Input.is_action_pressed("ui_accept"):
 		pass
 	elif Input.is_action_pressed("ui_cancel"):
-		close()
+		if deep_level > 0:
+			cancel()
+		else:
+			close()
 
 func _on_MenuList_item_activated(index):
 	save_list.set_hidden(true)
@@ -67,7 +86,11 @@ func _on_MenuList_item_activated(index):
 	magic_from_list.set_hidden(true)
 	magic_list.set_hidden(true)
 	magic_to_list.set_hidden(true)
+	equip_player_list.set_hidden(true)
+	equip_list.set_hidden(true)
+	equip_changeable_list.set_hidden(true)
 
+	deep_level = 1
 	if index == 0:
 		item_list.set_hidden(false)
 		item_list.select(0)
@@ -77,7 +100,9 @@ func _on_MenuList_item_activated(index):
 		magic_from_list.select(0)
 		magic_from_list.grab_focus()
 	elif index == 2:
-		pass
+		equip_player_list.set_hidden(false)
+		equip_player_list.select(0)
+		equip_player_list.grab_focus()
 	elif index == 3:
 		save_list.set_hidden(false)
 		save_list.select(0)
@@ -87,11 +112,6 @@ func _on_MenuList_item_activated(index):
 		get_tree().change_scene("res://title.tscn")
 	elif index == 5:
 		close()
-
-func _on_SaveList_item_activated(index):
-	var save = "user://game%d.save" % index
-	state.save_game(save)
-	close()
 
 func _on_ItemList_item_activated(index):
 	var id = item_list_data[index]
@@ -156,21 +176,51 @@ func _on_MagicPlayerToList_item_activated(index):
 	else:
 		party.sound.play("error")
 
-func open(party):
-	self.party = party
-	party.paused = true
-	party.set_process(false)
-	party.set_process_input(false)
-	set_process_input(true)
-	set_hidden(false)
+func _on_EquipPlayerList_item_activated(index):
+	var name = equip_player_list.get_item_text(index)
+	player_id = state.players_dict[name]
+	var player = state.persist.players[player_id]
+	equip_list.clear()
+	equip_list.add_item(FORMAT_EQUIP_STOCK % ["Weapon", master.equip_dict[player_id][player.weapon].name])
+	equip_list.add_item(FORMAT_EQUIP_STOCK % ["Armor", master.equip_dict[player_id][player.armor].name])
+	equip_list.add_item(FORMAT_EQUIP_STOCK % ["Accessory", master.equip_dict[player_id][player.accessory].name])
+	equip_player_list.set_hidden(true)
+	equip_list.set_hidden(false)
+	equip_list.select(0)
+	equip_list.grab_focus()
+
+func _on_EquipList_item_activated(index):
+	equip_changeable_list_data.clear()
+	equip_changeable_list.clear()
+	for i in state.persist.players[player_id].equips:
+		var equipment = master.equip_dict[player_id][i]
+		if equipment.type == equip_type[index]:
+			equip_changeable_list_data.append(i)
+			if index == 0:
+				equip_changeable_list.add_item(FORMAT_EQUIP_WEAPON % [equipment.name, equipment.ap, equipment.mp])
+			else:
+				equip_changeable_list.add_item(FORMAT_EQUIP_ARMOR % [equipment.name, equipment.dp])
+	equip_changeable_list.set_hidden(false)
+	equip_changeable_list.select(0)
+	equip_changeable_list.grab_focus()
+
+func _on_EquipChangeableList_item_activated(index):
+	var player = state.persist.players[player_id]
+	var selected = equip_list.get_selected_items()
+	if selected[0] == 0:
+		player.weapon = equip_changeable_list_data[index]
+	elif selected[0] == 1:
+		player.armor = equip_changeable_list_data[index]
+	elif selected[0] == 2:
+		player.accessory = equip_changeable_list_data[index]
+	party.sound.play("coin")
 	refresh()
 
-func close():
-	set_hidden(true)
-	set_process_input(false)
-	party.set_process_input(true)
-	party.set_process(true)
-	party.paused = false
+func _on_SaveList_item_activated(index):
+	var save = "user://game%d.save" % index
+	state.save_game(save)
+	party.sound.play("coin")
+	close()
 
 func refresh():
 	money.set_text(FORMAT_MONEY % state.persist.gold)
@@ -190,15 +240,43 @@ func refresh():
 		if i.avail && !i.faint:
 			magic_from_list.add_item(i.name)
 
+	equip_player_list.clear()
+	for i in state.persist.players:
+		if i.avail && !i.faint:
+			equip_player_list.add_item(i.name)
+
+	cancel()
+
+func cancel():
+	deep_level = 0
 	item_list.set_hidden(true)
 	item_player_list.set_hidden(true)
 	magic_from_list.set_hidden(true)
 	magic_list.set_hidden(true)
 	magic_to_list.set_hidden(true)
+	equip_player_list.set_hidden(true)
+	equip_list.set_hidden(true)
+	equip_changeable_list.set_hidden(true)
 	save_list.set_hidden(true)
-	menu_list.select(0)
-	menu_list.grab_focus()
 	player_id = null
+	menu_list.grab_focus()
+
+func close():
+	set_hidden(true)
+	set_process_input(false)
+	party.set_process_input(true)
+	party.set_process(true)
+	party.paused = false
+
+func open(party):
+	self.party = party
+	party.paused = true
+	party.set_process(false)
+	party.set_process_input(false)
+	set_process_input(true)
+	set_hidden(false)
+	refresh()
+	menu_list.select(0)
 
 func item_check(id):
 	var players = []
