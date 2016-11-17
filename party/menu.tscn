@@ -51,6 +51,53 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="PanelExp" type="Panel" parent="."]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 400.0
+margin/top = 32.0
+margin/right = 744.0
+margin/bottom = 92.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="Level" type="Label" parent="PanelExp"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 16.0
+margin/top = 0.0
+margin/right = 106.0
+margin/bottom = 60.0
+custom_fonts/font = ExtResource( 3 )
+text = "Lv100"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Exp" type="Label" parent="PanelExp"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 128.0
+margin/top = 0.0
+margin/right = 333.0
+margin/bottom = 60.0
+custom_fonts/font = ExtResource( 3 )
+text = "Exp 88888888"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [node name="PanelGold" type="Panel" parent="."]
 
 editor/display_folded = true
@@ -82,8 +129,9 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="MenuList" type="ItemList" parent="."]
+[node name="PanelMenu" type="Panel" parent="."]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -91,7 +139,19 @@ size_flags/vertical = 2
 margin/left = 32.0
 margin/top = 124.0
 margin/right = 282.0
-margin/bottom = 404.0
+margin/bottom = 434.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="MenuList" type="ItemList" parent="PanelMenu"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 16.0
+margin/top = 16.0
+margin/right = 234.0
+margin/bottom = 294.0
 custom_styles/bg_focus = ExtResource( 2 )
 custom_styles/bg = ExtResource( 2 )
 custom_fonts/font = ExtResource( 4 )
@@ -228,6 +288,7 @@ custom_fonts/font = ExtResource( 4 )
 
 [node name="EquipContainer" type="Container" parent="."]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -239,6 +300,7 @@ margin/bottom = 568.0
 
 [node name="EquipPlayerList" type="ItemList" parent="EquipContainer"]
 
+visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -253,6 +315,7 @@ custom_fonts/font = ExtResource( 4 )
 
 [node name="EquipList" type="ItemList" parent="EquipContainer"]
 
+visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -267,6 +330,7 @@ custom_fonts/font = ExtResource( 4 )
 
 [node name="EquipChangeableList" type="ItemList" parent="EquipContainer"]
 
+visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -294,7 +358,7 @@ custom_styles/bg_focus = ExtResource( 2 )
 custom_styles/bg = ExtResource( 2 )
 custom_fonts/font = ExtResource( 4 )
 
-[connection signal="item_activated" from="MenuList" to="." method="_on_MenuList_item_activated"]
+[connection signal="item_activated" from="PanelMenu/MenuList" to="." method="_on_MenuList_item_activated"]
 
 [connection signal="item_activated" from="ItemContainer/ItemList" to="." method="_on_ItemList_item_activated"]
 

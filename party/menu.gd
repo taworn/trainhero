@@ -1,6 +1,8 @@
 
 extends Container
 
+const FORMAT_LEVEL = "Lv %d"
+const FORMAT_EXP = "Exp %d"
 const FORMAT_MONEY = "%d G"
 const FORMAT_ITEM_STOCK = "%s x%d"
 const FORMAT_MAGIC_STOCK = "%s (-%dMP)"
@@ -15,7 +17,6 @@ var equip_type = ["weapon", "armor", "accessory"]
 var deep_level = 0
 var party = null
 
-var money = null
 var status0 = null
 var status1 = null
 var status2 = null
@@ -40,12 +41,11 @@ var player_id = null
 func _ready():
 	set_hidden(true)
 
-	money = get_node("PanelGold/Gold")
 	status0 = get_node("Status0")
 	status1 = get_node("Status1")
 	status2 = get_node("Status2")
 
-	menu_list = get_node("MenuList")
+	menu_list = get_node("PanelMenu/MenuList")
 	menu_list.add_item("Items", null)
 	menu_list.add_item("Magics", null)
 	menu_list.add_item("Equipment", null)
@@ -223,7 +223,6 @@ func _on_SaveList_item_activated(index):
 	close()
 
 func refresh():
-	money.set_text(FORMAT_MONEY % state.persist.gold)
 	status0.update(0)
 	status1.update(1)
 	status2.update(2)
@@ -275,6 +274,9 @@ func open(party):
 	party.set_process_input(false)
 	set_process_input(true)
 	set_hidden(false)
+	get_node("PanelExp/Level").set_text(FORMAT_LEVEL % state.persist.level)
+	get_node("PanelExp/Exp").set_text(FORMAT_EXP % state.persist.experience)
+	get_node("PanelGold/Gold").set_text(FORMAT_MONEY % state.persist.gold)
 	refresh()
 	menu_list.select(0)
 

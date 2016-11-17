@@ -18,8 +18,8 @@ var players_dict = {
 func restart_game():
 	var persist = {
 		# level, experience and gold
-		"level": 0,
-		"exp": 0,
+		"level": 55,
+		"experience": 555555,
 		"gold": 55555,
 
 		# players
