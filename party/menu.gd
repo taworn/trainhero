@@ -219,7 +219,7 @@ func _on_EquipChangeableList_item_activated(index):
 func _on_SaveList_item_activated(index):
 	var save = "user://game%d.save" % index
 	state.save_game(save)
-	party.sound.play("coin")
+	party.sound.play("save")
 	close()
 
 func refresh():
