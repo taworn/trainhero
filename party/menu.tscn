@@ -1,12 +1,14 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://party/menu.gd" type="Script" id=1]
 [ext_resource path="res://miscs/panel_background.tres" type="StyleBox" id=2]
 [ext_resource path="res://fonts/normal.tres" type="DynamicFont" id=3]
-[ext_resource path="res://fonts/normal_menu.tres" type="DynamicFont" id=4]
-[ext_resource path="res://party/status.tscn" type="PackedScene" id=5]
-[ext_resource path="res://party/heroine0.tres" type="SpriteFrames" id=6]
-[ext_resource path="res://party/heroine1.tres" type="SpriteFrames" id=7]
+[ext_resource path="res://miscs/panel_background_selected.tres" type="StyleBox" id=4]
+[ext_resource path="res://miscs/panel_transparent.tres" type="StyleBox" id=5]
+[ext_resource path="res://fonts/normal_menu.tres" type="DynamicFont" id=6]
+[ext_resource path="res://party/status.tscn" type="PackedScene" id=7]
+[ext_resource path="res://party/heroine0.tres" type="SpriteFrames" id=8]
+[ext_resource path="res://party/heroine1.tres" type="SpriteFrames" id=9]
 
 [node name="Menu" type="Container"]
 
@@ -131,7 +133,6 @@ max_lines_visible = -1
 
 [node name="PanelMenu" type="Panel" parent="."]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -152,18 +153,19 @@ margin/left = 16.0
 margin/top = 16.0
 margin/right = 234.0
 margin/bottom = 294.0
-custom_styles/bg_focus = ExtResource( 2 )
-custom_styles/bg = ExtResource( 2 )
-custom_fonts/font = ExtResource( 4 )
+custom_styles/selected_focus = ExtResource( 4 )
+custom_styles/bg_focus = ExtResource( 5 )
+custom_styles/bg = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
 
-[node name="Status0" parent="." instance=ExtResource( 5 )]
+[node name="Status0" parent="." instance=ExtResource( 7 )]
 
 margin/left = 314.0
 margin/top = 124.0
 margin/right = 992.0
 margin/bottom = 272.0
 
-[node name="Status1" parent="." instance=ExtResource( 5 )]
+[node name="Status1" parent="." instance=ExtResource( 7 )]
 
 editor/display_folded = true
 margin/left = 314.0
@@ -173,9 +175,9 @@ margin/bottom = 420.0
 
 [node name="Icon" parent="Status1"]
 
-frames = ExtResource( 6 )
+frames = ExtResource( 8 )
 
-[node name="Status2" parent="." instance=ExtResource( 5 )]
+[node name="Status2" parent="." instance=ExtResource( 7 )]
 
 editor/display_folded = true
 margin/left = 314.0
@@ -185,7 +187,7 @@ margin/bottom = 568.0
 
 [node name="Icon" parent="Status2"]
 
-frames = ExtResource( 7 )
+frames = ExtResource( 9 )
 
 [node name="ItemContainer" type="Container" parent="."]
 
@@ -210,9 +212,10 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 400.0
 margin/bottom = 444.0
+custom_styles/selected_focus = ExtResource( 4 )
 custom_styles/bg_focus = ExtResource( 2 )
 custom_styles/bg = ExtResource( 2 )
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 6 )
 
 [node name="ItemPlayerList" type="ItemList" parent="ItemContainer"]
 
@@ -225,9 +228,10 @@ margin/left = 428.0
 margin/top = 0.0
 margin/right = 678.0
 margin/bottom = 150.0
+custom_styles/selected_focus = ExtResource( 4 )
 custom_styles/bg_focus = ExtResource( 2 )
 custom_styles/bg = ExtResource( 2 )
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 6 )
 
 [node name="MagicContainer" type="Container" parent="."]
 
@@ -252,9 +256,10 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 250.0
 margin/bottom = 150.0
+custom_styles/selected_focus = ExtResource( 4 )
 custom_styles/bg_focus = ExtResource( 2 )
 custom_styles/bg = ExtResource( 2 )
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 6 )
 
 [node name="MagicList" type="ItemList" parent="MagicContainer"]
 
@@ -267,9 +272,10 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 400.0
 margin/bottom = 444.0
+custom_styles/selected_focus = ExtResource( 4 )
 custom_styles/bg_focus = ExtResource( 2 )
 custom_styles/bg = ExtResource( 2 )
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 6 )
 
 [node name="MagicPlayerToList" type="ItemList" parent="MagicContainer"]
 
@@ -282,9 +288,10 @@ margin/left = 428.0
 margin/top = 0.0
 margin/right = 678.0
 margin/bottom = 150.0
+custom_styles/selected_focus = ExtResource( 4 )
 custom_styles/bg_focus = ExtResource( 2 )
 custom_styles/bg = ExtResource( 2 )
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 6 )
 
 [node name="EquipContainer" type="Container" parent="."]
 
@@ -309,9 +316,10 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 250.0
 margin/bottom = 150.0
+custom_styles/selected_focus = ExtResource( 4 )
 custom_styles/bg_focus = ExtResource( 2 )
 custom_styles/bg = ExtResource( 2 )
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 6 )
 
 [node name="EquipList" type="ItemList" parent="EquipContainer"]
 
@@ -324,9 +332,10 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 678.0
 margin/bottom = 150.0
+custom_styles/selected_focus = ExtResource( 4 )
 custom_styles/bg_focus = ExtResource( 2 )
 custom_styles/bg = ExtResource( 2 )
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 6 )
 
 [node name="EquipChangeableList" type="ItemList" parent="EquipContainer"]
 
@@ -339,9 +348,10 @@ margin/left = 0.0
 margin/top = 166.0
 margin/right = 678.0
 margin/bottom = 416.0
+custom_styles/selected_focus = ExtResource( 4 )
 custom_styles/bg_focus = ExtResource( 2 )
 custom_styles/bg = ExtResource( 2 )
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 6 )
 
 [node name="SaveList" type="ItemList" parent="."]
 
@@ -354,9 +364,10 @@ margin/left = 314.0
 margin/top = 124.0
 margin/right = 564.0
 margin/bottom = 274.0
+custom_styles/selected_focus = ExtResource( 4 )
 custom_styles/bg_focus = ExtResource( 2 )
 custom_styles/bg = ExtResource( 2 )
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 6 )
 
 [connection signal="item_activated" from="PanelMenu/MenuList" to="." method="_on_MenuList_item_activated"]
 

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://battle.gd" type="Script" id=1]
 [ext_resource path="res://backgrounds/0.png" type="Texture" id=2]
-[ext_resource path="res://miscs/panel_background.tres" type="StyleBox" id=3]
+[ext_resource path="res://miscs/panel_battle_background.tres" type="StyleBox" id=3]
 [ext_resource path="res://fonts/normal_menu.tres" type="DynamicFont" id=4]
 [ext_resource path="res://musics/Final Fantasy 8 - The Man With The Machine Gun.ogg" type="AudioStream" id=5]
 [ext_resource path="res://miscs/fade_in.tres" type="Animation" id=6]
@@ -26,7 +26,18 @@ transform/scale = Vector2( 4.26667, 4.26667 )
 texture = ExtResource( 2 )
 centered = false
 
-[node name="CommandList" type="ItemList" parent="."]
+[node name="UI" type="Container" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+
+[node name="CommandList" type="ItemList" parent="UI"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -67,9 +78,10 @@ autoplay = "fade_in"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Effect"]
 
+transform/scale = Vector2( 0, 0 )
 color = Color( 1, 1, 1, 1 )
 
-[connection signal="item_activated" from="CommandList" to="." method="_on_CommandList_item_activated"]
+[connection signal="item_activated" from="UI/CommandList" to="." method="_on_CommandList_item_activated"]
 
 [connection signal="finished" from="Effect/AnimationPlayer" to="." method="_on_AnimationPlayer_finished"]
 

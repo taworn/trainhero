@@ -200,7 +200,7 @@ func after_walk(name):
 	else:
 		if scene.tag in [global.TAG_DUNGEON, global.TAG_WORLD]:
 			if !scripting.is_opened():
-				if battle_roll.random():
+				#if battle_roll.random():
 					open_battle()
 
 func warp_to(name):

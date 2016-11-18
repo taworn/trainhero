@@ -12,7 +12,7 @@ func _ready():
 	animation.connect("finished", self, "_on_AnimationPlayer_finished")
 	animation.get_node("../CanvasModulate").set_color(Color(0, 0, 0, 0))
 
-	command_list = get_node("CommandList")
+	command_list = get_node("UI/CommandList")
 	command_list.add_item("Attack", null)
 	command_list.add_item("End", null)
 	command_list.select(0)
