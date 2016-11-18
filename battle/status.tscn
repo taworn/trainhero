@@ -1,9 +1,22 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
-[ext_resource path="res://miscs/panel_background.tres" type="StyleBox" id=1]
-[ext_resource path="res://party/status.gd" type="Script" id=2]
+[ext_resource path="res://miscs/panel_transparent.tres" type="StyleBox" id=1]
+[ext_resource path="res://battle/status.gd" type="Script" id=2]
 [ext_resource path="res://party/hero.tres" type="SpriteFrames" id=3]
 [ext_resource path="res://fonts/normal.tres" type="DynamicFont" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+bg_color = Color( 0.501961, 0, 0, 0.25098 )
+light_color = Color( 0.8, 0.8, 0.8, 1 )
+dark_color = Color( 0.8, 0.8, 0.8, 1 )
+border_size = 0
+border_blend = true
+draw_bg = true
 
 [node name="Status" type="Panel"]
 
@@ -13,16 +26,29 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 678.0
+margin/right = 292.0
 margin/bottom = 148.0
 custom_styles/panel = ExtResource( 1 )
 script/script = ExtResource( 2 )
+
+[node name="Active" type="Panel" parent="."]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 292.0
+margin/bottom = 148.0
+custom_styles/panel = SubResource( 1 )
 
 [node name="Icon" type="AnimatedSprite" parent="."]
 
 transform/pos = Vector2( 16, 16 )
 frames = ExtResource( 3 )
-animation = "down"
+animation = "up"
 centered = false
 
 [node name="Container" type="Container" parent="."]
@@ -33,7 +59,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 96.0
 margin/top = 16.0
-margin/right = 662.0
+margin/right = 276.0
 margin/bottom = 132.0
 
 [node name="Name" type="Label" parent="Container"]
