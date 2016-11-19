@@ -24,13 +24,14 @@ func execute(group_file):
 			enemy_to_load = i[0]
 			randomize()
 			enemy_count = randi() % (int(i[1]) + 1)
-		if enemy_count > 0:
+		while enemy_count > 0:
 			var template = load("res://enemies/" + enemy_to_load + ".tscn")
 			var enemy = template.instance()
 			if enemy.data.has("on_air"):
 				monsters_on_air.add_child(enemy)
 			else:
 				monsters_on_floor.add_child(enemy)
+			enemy_count -= 1
 
 	setup_layout(monsters_on_floor)
 	setup_layout(monsters_on_air)

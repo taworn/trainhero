@@ -87,7 +87,6 @@ custom_fonts/font = ExtResource( 6 )
 
 [node name="TileMap" type="TileMap" parent="Node"]
 
-editor/display_folded = true
 transform/pos = Vector2( 640, 408 )
 mode = 0
 tile_set = ExtResource( 7 )

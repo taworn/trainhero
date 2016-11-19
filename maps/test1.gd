@@ -7,6 +7,15 @@ func _ready():
 
 var tag = global.TAG_DUNGEON
 
+var enemy_dict = {
+	"slimes0": 3,
+	"slimes1": 1,
+}
+
+var enemy_ship_dict = {
+	"fish0": 1,
+}
+
 var warp_dict = {
 	"Test0": {"x": 256, "y": 128, "map": "maps/test0"},
 	"Test0Water": {"x": 256, "y": 704, "map": "maps/test0"},

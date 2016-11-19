@@ -7,6 +7,27 @@ func _ready():
 
 var tag = global.TAG_WORLD
 
+var enemy_dict = {
+}
+
+var enemy_ship_dict = {
+	"fish0": 1,
+	"fish1": 1,
+}
+
+var enemy_zone_dict = {
+	"Zone0": {
+		"slimes0": 2,
+		"fish0": 2,
+	},
+	"Zone1": {
+		"fish1": 1,
+	},
+	"Zone2": {
+		"slimes1": 1,
+	},
+}
+
 var warp_dict = {
 	"Test1": {"x": 128, "y": 128, "map": "maps/test1"},
 	"Test1Water": {"x": 128, "y": 512, "map": "maps/test1"},

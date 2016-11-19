@@ -5,7 +5,7 @@ const LIMIT_ITEMS = 9
 
 var new = false  # is change scene or go back
 var scripting_continue = null  # has scripting cross scenes
-var enemies_group_file = "slimes0"
+var enemies_group_file = ""
 
 # current persistence state
 var persist = restart_game()
@@ -234,6 +234,7 @@ func warp_to(x, y, map):
 	print("warp to: map=", persist.map, " (", persist.x, ", ", persist.y, ")")
 	get_tree().change_scene("res://" + persist.map + ".tscn")
 
-func fight():
+func fight(battle):
+	enemies_group_file = battle
 	get_tree().change_scene("res://battle.tscn")
 

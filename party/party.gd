@@ -90,8 +90,8 @@ func _on_AnimationPlayer_finished():
 	if after_effect != null:
 		if after_effect.has("map"):
 			state.warp_to(after_effect.x, after_effect.y, after_effect.map)
-		else:
-			state.fight()
+		elif after_effect.has("battle"):
+			state.fight(after_effect["battle"])
 		after_effect = null
 	else:
 		if state.scripting_continue != null:
@@ -201,7 +201,28 @@ func after_walk(name):
 		if scene.tag in [global.TAG_DUNGEON, global.TAG_WORLD]:
 			if !scripting.is_opened():
 				if battle_roll.random():
-					open_battle()
+					if !state.persist.ship.cruising:
+						var zone = detect_battle_zone()
+						if zone != null:
+							random_battle(scene.enemy_zone_dict[zone.get_name()])
+						else:
+							random_battle(scene.enemy_dict)
+					else:
+						random_battle(scene.enemy_ship_dict)
+
+func detect_battle_zone():
+	var zones = tile_map.get_node("Battle Zones")
+	if zones != null:
+		var pos = hero.get_pos()
+		var count = zones.get_child_count()
+		var i = 0
+		while i < count:
+			var child = zones.get_child(i)
+			var rect = Rect2(child.get_pos(), child.get_size())
+			if rect.has_point(pos):
+				return child
+			i += 1
+	return null
 
 func warp_to(name):
 	var data = scene.warp_dict[name]
@@ -215,9 +236,26 @@ func warp_to(name):
 	animation.play()
 	paused = true
 
-func open_battle():
+func random_battle(dict):
+	if dict.size() <= 0:
+		return
+
+	var sum = 0
+	for i in dict:
+		sum += dict[i]
+
+	randomize()
+	var random = randi() % sum
+	sum = 0
+	for i in dict:
+		sum += dict[i]
+		if random < sum:
+			open_battle(i)
+			return
+
+func open_battle(battle):
 	save_npcs()
-	after_effect = {}
+	after_effect = {"battle": battle}
 	animation.set_current_animation("light")
 	animation.play()
 	paused = true
