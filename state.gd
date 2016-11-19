@@ -5,6 +5,7 @@ const LIMIT_ITEMS = 9
 
 var new = false  # is change scene or go back
 var scripting_continue = null  # has scripting cross scenes
+var enemies_group_file = "slimes0"
 
 # current persistence state
 var persist = restart_game()
@@ -33,12 +34,10 @@ func restart_game():
 				"hp": 1,
 				"mp_max": 25,
 				"mp": 0,
-				"stat": {
-					"ap": 10,
-					"mp": 0,
-					"dp": 10,
-					"sp": 10,
-				},
+				"att": 10,
+				"mag": 0,
+				"def": 10,
+				"spd": 12,
 				"weapon": "sword",
 				"armor": "armor",
 				"accessory": "shield",
@@ -71,12 +70,10 @@ func restart_game():
 				"hp": 25,
 				"mp_max": 50,
 				"mp": 49,
-				"stat": {
-					"ap": 8,
-					"mp": 10,
-					"dp": 8,
-					"sp": 8,
-				},
+				"att": 7,
+				"mag": 10,
+				"def": 8,
+				"spd": 9,
 				"weapon": "wand",
 				"armor": "robe",
 				"accessory": "amulet",
@@ -124,12 +121,10 @@ func restart_game():
 				"hp": 0,
 				"mp_max": 75,
 				"mp": 7,
-				"stat": {
-					"ap": 8,
-					"mp": 12,
-					"dp": 8,
-					"sp": 8,
-				},
+				"att": 8,
+				"mag": 0,
+				"def": 7,
+				"spd": 8,
 				"weapon": "staff",
 				"armor": "dress",
 				"accessory": "ring",
@@ -203,21 +198,21 @@ func start_game():
 	new = true
 	print("start game: persist=", persist.to_json())
 
-func save_game(fileName):
+func save_game(filename):
 	var f = File.new()
-	f.open(fileName, File.WRITE)
+	f.open(filename, File.WRITE)
 	f.store_line(persist.to_json())
 	f.close()
 	print("saved game: persist=", persist.to_json())
 
-func load_game(fileName):
+func load_game(filename):
 	var f = File.new()
-	if !f.file_exists(fileName):
+	if !f.file_exists(filename):
 		print("no game saved, new game instead")
 		return new_game()
-	f.open(fileName, File.READ)
+	f.open(filename, File.READ)
 	if (!f.eof_reached()):
-	    persist.parse_json(f.get_line())
+		persist.parse_json(f.get_line())
 	f.close()
 	new = true
 	print("loaded game: persist=", persist.to_json())

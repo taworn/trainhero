@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://enemies/enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://enemies/butterfly_dragon.gd" type="Script" id=2]
+[ext_resource path="res://enemies/butterfly_dragon.png" type="Texture" id=3]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ { "frames":[ ExtResource( 3 ) ], "loop":true, "name":"default", "speed":5.0 } ]
+
+[node name="Butterfly Dragon" instance=ExtResource( 1 )]
+
+script/script = ExtResource( 2 )
+
+[node name="Animate" parent="."]
+
+frames = SubResource( 1 )
+
+

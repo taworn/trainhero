@@ -8,7 +8,10 @@ var command_panel = null
 var command_list = null
 var text_panel = null
 var text_label = null
+
 var status = []
+var monsters_on_floor = null
+var monsters_on_air = null
 
 var sound = null      # sound sample
 var animation = null  # animation
@@ -18,9 +21,9 @@ var time_cumulative = 0
 var menu_player = null
 
 var player_speed_list = [
-	TIME_LIMIT - state.persist.players[0].stat.sp,
-	TIME_LIMIT - state.persist.players[1].stat.sp,
-	TIME_LIMIT - state.persist.players[2].stat.sp,
+	TIME_LIMIT - state.persist.players[0].spd,
+	TIME_LIMIT - state.persist.players[1].spd,
+	TIME_LIMIT - state.persist.players[2].spd,
 ]
 
 func _ready():
@@ -44,6 +47,10 @@ func _ready():
 	status[0].update(0)
 	status[1].update(1)
 	status[2].update(2)
+
+	monsters_on_floor = get_node("UI/Monsters On Floor")
+	monsters_on_air = get_node("UI/Monsters On Air")
+	get_node("UI/Loader").execute("res://enemies/groups/" + state.enemies_group_file + ".txt")
 
 	get_node("MusicPlayer").play()
 	animation = get_node("Effect/AnimationPlayer")
@@ -72,7 +79,7 @@ func _on_AnimationPlayer_finished():
 func _on_CommandList_item_activated(index):
 	if index == 0:
 		status[menu_player].set_active(false)
-		player_speed_list[menu_player] = TIME_LIMIT - state.persist.players[menu_player].stat.sp
+		player_speed_list[menu_player] = TIME_LIMIT - state.persist.players[menu_player].spd
 		menu_player = null
 		command_panel.set_hidden(true)
 		set_process_input(false)

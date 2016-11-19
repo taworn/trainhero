@@ -1,0 +1,8 @@
+slime0
+chameleon_humanoid
+slime0
+slime0
+blazeghost
+butterfly_dragon
+blazeghost
+slime0,2
