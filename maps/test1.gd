@@ -46,7 +46,6 @@ var dialog_dict = {
 		[global.SCRIPT_NPC_FACE, "left"],
 		"Oh, yeah",
 		[global.SCRIPT_NPC_WALK, 100, global.MOVE_UP],
-		[global.SCRIPT_NPC_WALK, 100, global.MOVE_UP],
 		[global.SCRIPT_NPC_FACE, "left"],
 	],
 }

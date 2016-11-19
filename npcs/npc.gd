@@ -28,6 +28,22 @@ var common_dialogs = [
 	["..."],
 ]
 
+var common_sleep_dialog = [
+	"Zzz...",
+]
+
+var common_recovery_dialog = [
+	"...",
+]
+
+var common_wound_dialog = [
+	"Aagh...",
+]
+
+var common_die_dialog = [
+	"",
+]
+
 func _ready():
 	set_pos(global.normalize(get_pos()))
 	moving = false
@@ -53,18 +69,20 @@ func _process(delta):
 		if !moving:
 			if movable && !pause:
 				if !scripting:
-					var action = ai_walk()
-					if action == global.MOVE_DOWN:
-						action = global.MOVE_DOWN
-					elif action == global.MOVE_LEFT:
-						action = global.MOVE_LEFT
-					elif action == global.MOVE_RIGHT:
-						action = global.MOVE_RIGHT
-					elif action == global.MOVE_UP:
-						action = global.MOVE_UP
-					if action != 0:
-						speed = ai_speed()
-						move(action)
+					var act = animate.get_animation()
+					if act in ["down", "left", "right", "up"]:
+						var action = ai_walk()
+						if action == global.MOVE_DOWN:
+							action = global.MOVE_DOWN
+						elif action == global.MOVE_LEFT:
+							action = global.MOVE_LEFT
+						elif action == global.MOVE_RIGHT:
+							action = global.MOVE_RIGHT
+						elif action == global.MOVE_UP:
+							action = global.MOVE_UP
+						if action != 0:
+							speed = ai_speed()
+							move(action)
 		else:
 			moving_step(delta)
 
@@ -88,6 +106,9 @@ func get_face():
 
 func set_face(action):
 	if fix_face:
+		return
+	var act = animate.get_animation()
+	if !(act in ["down", "left", "right", "up"]):
 		return
 	if typeof(action) == TYPE_INT:
 			distance = null
@@ -186,7 +207,19 @@ func check_before_walk():
 	return false
 
 func get_common_dialog():
-	return common_dialogs[randi() % common_dialogs.size()]
+	var act = animate.get_animation()
+	if act in ["down", "left", "right", "up"]:
+		return common_dialogs[randi() % common_dialogs.size()]
+	elif act in ["sleep"]:
+		return common_sleep_dialog
+	elif act in ["wound"]:
+		return common_wound_dialog
+	elif act in ["recovery"]:
+		return common_recovery_dialog
+	elif act in ["die"]:
+		return common_die_dialog
+	else:
+		return null
 
 func ai_walk():
 	var i = randi() % 100

@@ -56,6 +56,7 @@ var passable_walk_dict = {
 	"Tree1": 1,
 	"Town0": 1,
 	"Castle0": 1, "Castle1": 1, "Castle2": 1, "Castle3": 1,
+	"Bed0": 1,
 }
 
 # passable sailing map
