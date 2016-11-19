@@ -2,7 +2,7 @@
 extends Container
 
 const TIME_LIMIT = 32
-const TIME_TICK = 100
+const TIME_TICK = 50
 
 var command_panel = null
 var command_list = null

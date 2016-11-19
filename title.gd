@@ -9,7 +9,7 @@ var party = null
 var tag = global.TAG_NO_DUNGEON
 
 var warp_dict = {
-	"World": {"x": 128, "y": 128, "map": "maps/test0"},
+	"World": {"x": 576, "y": 320, "map": "maps/world"},
 }
 
 var dialog_dict = {

@@ -57,6 +57,23 @@ func move(action):
 	set_face(action)
 	if distance != null:
 		var pos = get_pos()
+		if party.scene.tag == global.TAG_WORLD:
+			if action == global.MOVE_UP && pos.y == party.scene.rect.pos.y:
+				print("reach up")
+				pos.y = party.scene.rect.end.y
+				set_pos(Vector2(pos.x, pos.y))
+			elif action == global.MOVE_LEFT && pos.x == party.scene.rect.pos.x:
+				print("reach left")
+				pos.x = party.scene.rect.end.x
+				set_pos(Vector2(pos.x, pos.y))
+			elif action == global.MOVE_RIGHT && pos.x == party.scene.rect.end.x:
+				print("reach right")
+				pos.x = party.scene.rect.pos.x
+				set_pos(Vector2(pos.x, pos.y))
+			elif action == global.MOVE_DOWN && pos.y == party.scene.rect.end.y:
+				print("reach down")
+				pos.y = party.scene.rect.pos.y
+				set_pos(Vector2(pos.x, pos.y))
 		next_pos = Vector2(pos.x + distance.x, pos.y + distance.y)
 		if check_on_land():
 			party.switch_to_hero()
