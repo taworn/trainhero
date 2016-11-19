@@ -221,7 +221,7 @@ func load_game(filename):
 func back():
 	get_tree().change_scene("res://" + persist.map + ".tscn")
 
-func warp_to(x, y, map):
+func warp_to(x, y, map, retain_npcs):
 	if state.persist.ship.cruising:
 		persist.ship.map = map
 		persist.ship.x = x
@@ -229,7 +229,8 @@ func warp_to(x, y, map):
 	persist.map = map
 	persist.x = x
 	persist.y = y
-	persist.npcs.clear()
+	if !retain_npcs:
+		persist.npcs.clear()
 	new = true
 	print("warp to: map=", persist.map, " (", persist.x, ", ", persist.y, ")")
 	get_tree().change_scene("res://" + persist.map + ".tscn")

@@ -7,6 +7,7 @@ const WAIT_SHOP = 2
 const WAIT_IDLE = 3
 const WAIT_HERO = 4
 const WAIT_NPC = 5
+const WAIT_NPC_ = 6
 var wait = 0
 
 # UI
@@ -18,6 +19,7 @@ var text = null
 # party and with NPC
 var party = null
 var with = null
+var npc_other = null
 
 # dialog
 var dialog = null
@@ -60,6 +62,10 @@ func _process(delta):
 
 		elif wait == WAIT_NPC:
 			if with.is_moving():
+				return
+
+		elif wait == WAIT_NPC_:
+			if npc_other.is_moving():
 				return
 
 		set_process(false)
@@ -110,6 +116,8 @@ func open_floor(party, source):
 func open_hidden(party, source):
 	base_open(party)
 	load_source(source)
+	panel_title.set_hidden(true)
+	panel_text.set_hidden(true)
 	execute()
 
 func open_treasure(party, with, pickup_items):
@@ -145,30 +153,53 @@ func execute():
 			party.shop.open(party, party.get_sale_list(with.get_name()))
 			wait = WAIT_SHOP
 
+		elif d[0] == global.SCRIPT_OPEN_INN:
+			if state.persist.gold >= d[1]:
+				state.persist.gold -= d[1]
+				for i in state.persist.players:
+					if i.avail:
+						i.hp = i.hp_max
+						i.mp = i.mp_max
+						i.poison = false
+				var party = self.party
+				close()
+				party.warp_to(null)
+			wait = WAIT_IDLE
+
 		elif d[0] == global.SCRIPT_TITLE_VISIBLE:
 			panel_title.set_hidden(!d[1])
 			wait = WAIT_IDLE
 
 		elif d[0] == global.SCRIPT_TITLE_SET:
 			var s
-			if d[1] == 0:
-				s = "Hero"
-			elif d[1] == 1:
-				s = with.get_name()
+			if typeof(d[1]) == TYPE_INT:
+				if d[1] == 0:
+					s = state.persist.players[0].name
+				else:
+					s = with.get_name()
 			else:
 				s = d[1]
+			panel_title.set_hidden(false)
 			title.set_text(s)
 			wait = WAIT_IDLE
 
-		elif d[0] == global.SCRIPT_HERO_FACE:
+		elif d[0] == global.SCRIPT_HERO_ACTION:
 			party.hero.set_face(d[1])
 			wait = WAIT_IDLE
 
-		elif d[0] == global.SCRIPT_NPC_FACE:
+		elif d[0] == global.SCRIPT_NPC_ACTION:
 			if d[1] == null:
 				with.set_face(party.check_face_to_hero())
 			else:
 				with.set_face(d[1])
+			wait = WAIT_IDLE
+
+		elif d[0] == global.SCRIPT_NPC_ACTION_:
+			var npc = party.get_node("../Players/" + d[1])
+			if d[2] == null:
+				npc.set_face(party.check_face_to_hero())
+			else:
+				npc.set_face(d[2])
 			wait = WAIT_IDLE
 
 		elif d[0] == global.SCRIPT_HERO_WALK:
@@ -180,13 +211,20 @@ func execute():
 			with.move(d[2])
 			wait = WAIT_NPC
 
+		elif d[0] == global.SCRIPT_NPC_WALK_:
+			var npc = party.get_node("../Players/" + d[1])
+			npc.set_speed(d[2])
+			npc.move(d[3])
+			npc_other = npc
+			wait = WAIT_NPC_
+
 		elif d[0] == global.SCRIPT_NPC_HIDDEN:
 			var players = party.tile_map.get_node("Players")
 			var npc = players.get_node(d[1])
 			npc.set_hidden(true)
 			wait = WAIT_IDLE
 
-		elif d[0] == global.SCRIPT_SCRIPT_HIDDEN:
+		elif d[0] == global.SCRIPT_HIDDEN_SCRIPT:
 			var scripts = party.tile_map.get_node("Scripts")
 			var script = scripts.get_node(d[1])
 			script.set_hidden(true)
@@ -198,7 +236,7 @@ func execute():
 
 		elif d[0] == global.SCRIPT_BATTLE:
 			state.scripting_continue = d[1]
-			party.open_battle()
+			party.open_battle(d[2])
 			wait = WAIT_IDLE
 
 		elif d[0] == global.SCRIPT_READ_QUEST:
@@ -220,7 +258,15 @@ func execute():
 			wait = WAIT_IDLE
 
 		elif d[0] == global.SCRIPT_CONTINUE_IF:
-			if quest_read == null && !quest_read:
+			if quest_read == null || !quest_read:
 				dialog = []
+			wait = WAIT_IDLE
+
+		elif d[0] == global.SCRIPT_IF_ELSE:
+			if quest_read == null || !quest_read:
+				if party.scene.dialog_dict.has(d[1]):
+					load_source(party.scene.dialog_dict[d[1]])
+				else:
+					dialog = []
 			wait = WAIT_IDLE
 

@@ -89,7 +89,7 @@ func _on_AnimationPlayer_finished():
 	paused = false
 	if after_effect != null:
 		if after_effect.has("map"):
-			state.warp_to(after_effect.x, after_effect.y, after_effect.map)
+			state.warp_to(after_effect.x, after_effect.y, after_effect.map, after_effect.retain_npcs)
 		elif after_effect.has("battle"):
 			state.fight(after_effect["battle"])
 		after_effect = null
@@ -225,13 +225,23 @@ func detect_battle_zone():
 	return null
 
 func warp_to(name):
-	var data = scene.warp_dict[name]
-	var pos = global.normalize(Vector2(data.x, data.y))
-	after_effect = {
-		"x": pos.x,
-		"y": pos.y,
-		"map": data.map,
-	}
+	if name != null:
+		var data = scene.warp_dict[name]
+		var pos = global.normalize(Vector2(data.x, data.y))
+		after_effect = {
+			"x": pos.x,
+			"y": pos.y,
+			"map": data.map,
+			"retain_npcs": false,
+		}
+	else:
+		save_npcs()
+		after_effect = {
+			"x": state.persist.x,
+			"y": state.persist.y,
+			"map": state.persist.map,
+			"retain_npcs": true,
+		}
 	animation.set_current_animation("fade_out")
 	animation.play()
 	paused = true
