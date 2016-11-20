@@ -18,9 +18,9 @@ func random():
 		print(roll, "-", i)
 		if i > roll:
 			#roll += 1
-			roll += 1
-			if roll > 10:
-				roll = 10
+			roll *= 2
+			if roll > 50:
+				roll = 50
 			return false
 		else:
 			roll = 0

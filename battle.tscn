@@ -2,14 +2,14 @@
 
 [ext_resource path="res://battle.gd" type="Script" id=1]
 [ext_resource path="res://backgrounds/0.png" type="Texture" id=2]
-[ext_resource path="res://miscs/panel_battle_background.tres" type="StyleBox" id=3]
-[ext_resource path="res://miscs/panel_battle_background_selected.tres" type="StyleBox" id=4]
-[ext_resource path="res://miscs/panel_transparent.tres" type="StyleBox" id=5]
-[ext_resource path="res://fonts/normal_menu.tres" type="DynamicFont" id=6]
-[ext_resource path="res://battle/status.tscn" type="PackedScene" id=7]
-[ext_resource path="res://party/heroine0.tres" type="SpriteFrames" id=8]
-[ext_resource path="res://party/heroine1.tres" type="SpriteFrames" id=9]
-[ext_resource path="res://battle/loader.tscn" type="PackedScene" id=10]
+[ext_resource path="res://battle/loader.tscn" type="PackedScene" id=3]
+[ext_resource path="res://miscs/panel_battle_background.tres" type="StyleBox" id=4]
+[ext_resource path="res://miscs/panel_battle_background_selected.tres" type="StyleBox" id=5]
+[ext_resource path="res://miscs/panel_transparent.tres" type="StyleBox" id=6]
+[ext_resource path="res://fonts/normal_menu.tres" type="DynamicFont" id=7]
+[ext_resource path="res://battle/status.tscn" type="PackedScene" id=8]
+[ext_resource path="res://party/heroine0.tres" type="SpriteFrames" id=9]
+[ext_resource path="res://party/heroine1.tres" type="SpriteFrames" id=10]
 [ext_resource path="res://musics/Final Fantasy 8 - The Man With The Machine Gun.ogg" type="AudioStream" id=11]
 [ext_resource path="res://sounds/sounds.tres" type="SampleLibrary" id=12]
 [ext_resource path="res://miscs/fade_in.tres" type="Animation" id=13]
@@ -44,6 +44,12 @@ margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 0.0
 
+[node name="Monsters On Floor" type="Node2D" parent="UI"]
+
+[node name="Monsters On Air" type="Node2D" parent="UI"]
+
+[node name="Loader" parent="UI" instance=ExtResource( 3 )]
+
 [node name="PanelCommand" type="Panel" parent="UI"]
 
 editor/display_folded = true
@@ -55,7 +61,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 256.0
 margin/bottom = 248.0
-custom_styles/panel = ExtResource( 3 )
+custom_styles/panel = ExtResource( 4 )
 
 [node name="CommandList" type="ItemList" parent="UI/PanelCommand"]
 
@@ -67,10 +73,10 @@ margin/left = 16.0
 margin/top = 16.0
 margin/right = 240.0
 margin/bottom = 232.0
-custom_styles/selected_focus = ExtResource( 4 )
-custom_styles/bg_focus = ExtResource( 5 )
-custom_styles/bg = ExtResource( 5 )
-custom_fonts/font = ExtResource( 6 )
+custom_styles/selected_focus = ExtResource( 5 )
+custom_styles/bg_focus = ExtResource( 6 )
+custom_styles/bg = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 
 [node name="PanelText" type="Panel" parent="UI"]
 
@@ -83,7 +89,7 @@ margin/left = 256.0
 margin/top = 0.0
 margin/right = 1024.0
 margin/bottom = 128.0
-custom_styles/panel = ExtResource( 3 )
+custom_styles/panel = ExtResource( 4 )
 
 [node name="Text" type="Label" parent="UI/PanelText"]
 
@@ -95,19 +101,19 @@ margin/left = 16.0
 margin/top = 16.0
 margin/right = 752.0
 margin/bottom = 112.0
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Status0" parent="UI" instance=ExtResource( 7 )]
+[node name="Status0" parent="UI" instance=ExtResource( 8 )]
 
 margin/left = 160.0
 margin/top = 448.0
 margin/right = 452.0
 margin/bottom = 596.0
 
-[node name="Status1" parent="UI" instance=ExtResource( 7 )]
+[node name="Status1" parent="UI" instance=ExtResource( 8 )]
 
 editor/display_folded = true
 margin/left = 448.0
@@ -117,9 +123,9 @@ margin/bottom = 596.0
 
 [node name="Icon" parent="UI/Status1"]
 
-frames = ExtResource( 8 )
+frames = ExtResource( 9 )
 
-[node name="Status2" parent="UI" instance=ExtResource( 7 )]
+[node name="Status2" parent="UI" instance=ExtResource( 8 )]
 
 editor/display_folded = true
 margin/left = 736.0
@@ -129,13 +135,7 @@ margin/bottom = 596.0
 
 [node name="Icon" parent="UI/Status2"]
 
-frames = ExtResource( 9 )
-
-[node name="Monsters On Floor" type="Node2D" parent="UI"]
-
-[node name="Monsters On Air" type="Node2D" parent="UI"]
-
-[node name="Loader" parent="UI" instance=ExtResource( 10 )]
+frames = ExtResource( 10 )
 
 [node name="MusicPlayer" type="StreamPlayer" parent="."]
 

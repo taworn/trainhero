@@ -33,25 +33,60 @@ func execute(group_file):
 				monsters_on_floor.add_child(enemy)
 			enemy_count -= 1
 
-	setup_layout(monsters_on_floor)
-	setup_layout(monsters_on_air)
+	var h0 = setup_layout(monsters_on_floor, 0)
+	var h1 = setup_layout(monsters_on_air, 1)
 	var pos
 	pos = monsters_on_floor.get_pos()
-	monsters_on_floor.set_pos(Vector2(pos.x, 300))
+	monsters_on_floor.set_pos(Vector2(pos.x, 410 - h0))
 	pos = monsters_on_air.get_pos()
-	monsters_on_air.set_pos(Vector2(pos.x, 100))
+	monsters_on_air.set_pos(Vector2(pos.x, 50))
+	if monsters_on_air.get_child_count() <= 0:
+		pos = monsters_on_floor.get_pos()
+		monsters_on_floor.set_pos(Vector2(pos.x, 375 - h0))
+	if monsters_on_floor.get_child_count() <= 0:
+		pos = monsters_on_air.get_pos()
+		monsters_on_air.set_pos(Vector2(pos.x, 100))
 
-func setup_layout(monsters):
-	var y = monsters.get_pos().y
+func setup_layout(monsters, on_air):
 	var x = 0
+	var y = 0
+	var positions = []
+	var count = monsters.get_child_count()
+	var space = 0
 	var i = 0
-	while i < monsters.get_child_count():
+
+	# first round, get positions
+	while i < count:
 		var child = monsters.get_child(i)
 		var filename = child.get_filename().basename() + ".png"
 		var image = load(filename)
-		var pos = child.get_pos()
-		child.set_pos(Vector2(x, y))
+		positions.append(Vector2(image.get_width(), image.get_height()))
 		x += image.get_width()
+		if y < image.get_height():
+			y = image.get_height()
 		i += 1
+	if count > 1:
+		# align with spaces
+		var border = global.screen_size.x - 64
+		var widths = (count - 1) * 24 + x
+		if widths <= border:
+			space = 24
+
+	# second round, align positions
+	x = 0
+	i = 0
+	while i < count:
+		var child = monsters.get_child(i)
+		var pos = child.get_pos()
+		if !on_air:
+			child.set_pos(Vector2(x, y - positions[i].y))
+		else:
+			child.set_pos(Vector2(x, 0))
+		x += positions[i].x + space
+		i += 1
+	if count > 1:
+		x -= space
 	monsters.set_pos(Vector2(global.half_screen_size.x - round(x / 2), y))
+
+	return y
 
