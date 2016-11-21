@@ -6,6 +6,9 @@ var name = null
 var hp = null
 var mp = null
 
+var data = null  # link to state.persist.players[data_id]
+var data_id = -1
+
 func _ready():
 	icon = get_node("Icon")
 	name = get_node("Container/Name")
@@ -40,6 +43,8 @@ func update(index):
 		name.set_text("")
 		hp.set_text("")
 		mp.set_text("")
+	data = player
+	data_id = index
 
 func set_active(b):
 	get_node("Active").set_hidden(!b)

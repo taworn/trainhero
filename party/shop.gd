@@ -37,8 +37,11 @@ func _on_SaleList_item_selected(index):
 	else:
 		current.set_text("")
 
-func is_opened():
-	return party != null
+func close():
+	set_hidden(true)
+	set_process_input(false)
+	party.scripting.set_process_input(true)
+	party = null
 
 func open(party, list):
 	self.party = party
@@ -57,11 +60,8 @@ func open(party, list):
 	sale_list.grab_focus()
 	_on_SaleList_item_selected(0)
 
-func close():
-	set_hidden(true)
-	set_process_input(false)
-	party.scripting.set_process_input(true)
-	party = null
+func is_opened():
+	return party != null
 
 func buy(index):
 	var id = list[index]

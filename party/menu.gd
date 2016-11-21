@@ -16,6 +16,7 @@ var equip_type = ["weapon", "armor", "accessory"]
 
 var deep_level = 0
 var party = null
+var player_id = null
 
 var status0 = null
 var status1 = null
@@ -35,8 +36,6 @@ var equip_player_list = null
 var equip_list = null
 var equip_changeable_list_data = null
 var equip_changeable_list = null
-
-var player_id = null
 
 func _ready():
 	set_hidden(true)
@@ -128,7 +127,7 @@ func _on_ItemList_item_activated(index):
 
 func _on_ItemPlayerList_item_activated(index):
 	var name = item_player_list.get_item_text(index)
-	var player = state.persist.players[state.players_dict[name]]
+	var player = state.persist.players[state.player_dict[name]]
 	var selected = item_list.get_selected_items()
 	if item_use(item_list_data[selected[0]], player):
 		party.sound.play("heal")
@@ -136,7 +135,7 @@ func _on_ItemPlayerList_item_activated(index):
 
 func _on_MagicPlayerFromList_item_activated(index):
 	var name = magic_from_list.get_item_text(index)
-	player_id = state.players_dict[name]
+	player_id = state.player_dict[name]
 	var player = state.persist.players[player_id]
 	magic_list.clear()
 	for i in player.magics:
@@ -168,7 +167,7 @@ func _on_MagicList_item_activated(index):
 
 func _on_MagicPlayerToList_item_activated(index):
 	var name = magic_to_list.get_item_text(index)
-	var player = state.persist.players[state.players_dict[name]]
+	var player = state.persist.players[state.player_dict[name]]
 	var selected = magic_list.get_selected_items()
 	if magic_use_one(player_id, state.persist.players[player_id].magics[selected[0]], player):
 		party.sound.play("heal")
@@ -178,7 +177,7 @@ func _on_MagicPlayerToList_item_activated(index):
 
 func _on_EquipPlayerList_item_activated(index):
 	var name = equip_player_list.get_item_text(index)
-	player_id = state.players_dict[name]
+	player_id = state.player_dict[name]
 	var player = state.persist.players[player_id]
 	equip_list.clear()
 	equip_list.add_item(FORMAT_EQUIP_STOCK % ["Weapon", master.equip_dict[player_id][player.weapon].name])
@@ -266,6 +265,7 @@ func close():
 	party.set_process_input(true)
 	party.set_process(true)
 	party.paused = false
+	party = null
 
 func open(party):
 	self.party = party
@@ -279,6 +279,9 @@ func open(party):
 	get_node("PanelGold/Gold").set_text(FORMAT_MONEY % state.persist.gold)
 	refresh()
 	menu_list.select(0)
+
+func is_opened():
+	return party != null
 
 func item_check(id):
 	var players = []

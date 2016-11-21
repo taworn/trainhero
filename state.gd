@@ -10,7 +10,7 @@ var enemies_group_file = ""
 # current persistence state
 var persist = restart_game()
 
-var players_dict = {
+var player_dict = {
 	persist.players[0].name: 0,
 	persist.players[1].name: 1,
 	persist.players[2].name: 2,
