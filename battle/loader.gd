@@ -50,7 +50,6 @@ func execute(group_file):
 func setup_layout(monsters, on_air):
 	var x = 0
 	var y = 0
-	var positions = []
 	var count = monsters.get_child_count()
 	var space = 0
 	var i = 0
@@ -60,10 +59,11 @@ func setup_layout(monsters, on_air):
 		var child = monsters.get_child(i)
 		var filename = child.get_filename().basename() + ".png"
 		var image = load(filename)
-		positions.append(Vector2(image.get_width(), image.get_height()))
-		x += image.get_width()
-		if y < image.get_height():
-			y = image.get_height()
+		child.data.width = image.get_width()
+		child.data.height = image.get_height()
+		x += child.data.width
+		if y < child.data.height:
+			y = child.data.height
 		i += 1
 	if count > 1:
 		# align with spaces
@@ -79,10 +79,10 @@ func setup_layout(monsters, on_air):
 		var child = monsters.get_child(i)
 		var pos = child.get_pos()
 		if !on_air:
-			child.set_pos(Vector2(x, y - positions[i].y))
+			child.set_pos(Vector2(x, y - child.data.height))
 		else:
 			child.set_pos(Vector2(x, 0))
-		x += positions[i].x + space
+		x += child.data.width + space
 		i += 1
 	if count > 1:
 		x -= space
