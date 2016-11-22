@@ -17,6 +17,10 @@ var item_list_data = null
 var item_list = null
 var item_target_list = null
 
+var cursor = null
+var cursor_index = -1
+var monsters_left = []
+
 func _ready():
 	command_panel = get_node("PanelCommand")
 	command_list = get_node("PanelCommand/CommandList")
@@ -31,15 +35,33 @@ func _ready():
 	item_list_data = []
 	item_list = get_node("PanelCommand/ItemList")
 	item_target_list = get_node("PanelCommand/ItemTargetList")
+	cursor = get_node("Cursor")
 
 	set_hidden(true)
 
 func _input(event):
-	if Input.is_action_pressed("ui_accept"):
-		pass
-	elif Input.is_action_pressed("ui_cancel"):
-		if deep_level > 0:
-			cancel()
+	if cursor.is_hidden():
+		if Input.is_action_pressed("ui_cancel"):
+			if deep_level > 0:
+				cancel()
+	else:
+		if Input.is_action_pressed("ui_cancel"):
+			cursor.set_hidden(true)
+			command_panel.set_hidden(false)
+			command_list.grab_focus()
+		elif Input.is_action_pressed("ui_left"):
+			move_cursor(global.MOVE_LEFT)
+		elif Input.is_action_pressed("ui_right"):
+			move_cursor(global.MOVE_RIGHT)
+		elif Input.is_action_pressed("ui_accept"):
+			cursor.set_hidden(true)
+			command_panel.set_hidden(false)
+			result = {
+				"name": "attack",
+				"take_time": 1,
+				"target": monsters_left[cursor_index],
+			}
+			close()
 
 func _on_CommandList_item_activated(index):
 	magic_list.set_hidden(true)
@@ -49,12 +71,11 @@ func _on_CommandList_item_activated(index):
 
 	deep_level = 1
 	if index == 0:
-		result = {
-			"name": "attack",
-			"take_time": 1,
-			"target": "unknown",
-		}
-		close()
+		command_panel.set_hidden(true)
+		cursor.set_hidden(false)
+		cursor_index = 0
+		init_monsters()
+		move_cursor(0)
 
 	elif index == 1:
 		magic_list.clear()
@@ -177,6 +198,7 @@ func open(battle, player_id):
 	battle.set_process(false)
 	set_process_input(true)
 	set_hidden(false)
+	cursor.set_hidden(true)
 	refresh()
 	command_list.select(0)
 
@@ -246,4 +268,38 @@ func magic_check(player_id, id):
 						if player.poison:
 							can_use = true
 		return can_use
+
+func init_monsters():
+	monsters_left = []
+	for i in battle.monsters:
+		if !i.data.has("die"):
+			monsters_left.append(i)
+
+func draw_cursor():
+	var monster = battle.monsters[cursor_index]
+	var on_air = monster.data.has("on_air")
+	var group
+	if !on_air:
+		group = battle.monsters_on_floor
+	else:
+		group = battle.monsters_on_air
+
+	var parent_pos = group.get_pos()
+	var rect = Rect2(monster.get_pos(), Vector2(monster.data.width, monster.data.height))
+	var x = parent_pos.x + rect.pos.x - 44
+	var y = parent_pos.y + rect.pos.y + (rect.size.y - 48) / 2
+	cursor.set_pos(Vector2(x, y))
+
+func move_cursor(direction):
+	if direction == global.MOVE_RIGHT:
+		if cursor_index + 1 < monsters_left.size():
+			cursor_index += 1
+		else:
+			cursor_index = 0
+	elif direction == global.MOVE_LEFT:
+		if cursor_index - 1 >= 0:
+			cursor_index -= 1
+		else:
+			cursor_index = monsters_left.size() - 1
+	draw_cursor()
 

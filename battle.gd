@@ -82,7 +82,7 @@ func _process(delta):
 		var player = party[owner_id]
 		var action = player.data.action
 		if action.name == "attack":
-			print("action(%s): attack, unknown enemies now" % [player.data.name])
+			print("action(%s): attack %s" % [player.data.name, action.target.data.name])
 		elif action.name == "magic":
 			if action.side == "party":
 				if typeof(action.target) == TYPE_STRING:

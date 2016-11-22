@@ -85,6 +85,8 @@ custom_fonts/font = ExtResource( 6 )
 
 [node name="Node" type="Node" parent="."]
 
+editor/display_folded = true
+
 [node name="TileMap" type="TileMap" parent="Node"]
 
 transform/pos = Vector2( 640, 408 )
