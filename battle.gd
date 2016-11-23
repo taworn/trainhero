@@ -87,7 +87,11 @@ func _process(delta):
 			if master.magic_dict[owner_id][action.magic].effect.has("battle"):
 				var battle = master.magic_dict[owner_id][action.magic].effect["battle"]
 				if battle == "one":
-					print("action(%s): attack magic %s to %s" % [player.data.name, action.magic, action.target])
+					print("action(%s): attack magic %s to %s" % [player.data.name, action.magic, action.target.data.name])
+				elif battle == "group":
+					print("action(%s): attack magic %s to %s" % [player.data.name, action.magic, action.targets])
+				elif battle == "all":
+					print("action(%s): attack magic %s to all enemies" % [player.data.name, action.magic])
 			else:
 				if typeof(action.target) == TYPE_STRING:
 					print("action(%s): use magic %s to %s" % [player.data.name, action.magic, action.target])

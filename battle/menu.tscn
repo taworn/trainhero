@@ -25,7 +25,6 @@ script/script = ExtResource( 1 )
 
 [node name="PanelCommand" type="Panel" parent="."]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -67,6 +66,21 @@ custom_styles/bg = ExtResource( 2 )
 custom_fonts/font = ExtResource( 5 )
 
 [node name="MagicTargetList" type="ItemList" parent="PanelCommand"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 576.0
+margin/top = 0.0
+margin/right = 826.0
+margin/bottom = 150.0
+custom_styles/selected_focus = ExtResource( 3 )
+custom_styles/bg_focus = ExtResource( 2 )
+custom_styles/bg = ExtResource( 2 )
+custom_fonts/font = ExtResource( 5 )
+
+[node name="MagicGroupList" type="ItemList" parent="PanelCommand"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -123,6 +137,8 @@ centered = false
 [connection signal="item_activated" from="PanelCommand/MagicList" to="." method="_on_MagicList_item_activated"]
 
 [connection signal="item_activated" from="PanelCommand/MagicTargetList" to="." method="_on_MagicTargetList_item_activated"]
+
+[connection signal="item_activated" from="PanelCommand/MagicGroupList" to="." method="_on_MagicGroupList_item_activated"]
 
 [connection signal="item_activated" from="PanelCommand/ItemList" to="." method="_on_ItemList_item_activated"]
 

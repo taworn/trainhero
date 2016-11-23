@@ -13,6 +13,7 @@ var command_panel = null
 var command_list = null
 var magic_list = null
 var magic_target_list = null
+var magic_group_list = null
 var item_list_data = null
 var item_list = null
 var item_target_list = null
@@ -33,6 +34,7 @@ func _ready():
 
 	magic_list = get_node("PanelCommand/MagicList")
 	magic_target_list = get_node("PanelCommand/MagicTargetList")
+	magic_group_list = get_node("PanelCommand/MagicGroupList")
 	item_list_data = []
 	item_list = get_node("PanelCommand/ItemList")
 	item_target_list = get_node("PanelCommand/ItemTargetList")
@@ -74,7 +76,6 @@ func _input(event):
 					"name": "magic",
 					"take_time": master.magic_dict[player_id][id].time,
 					"magic": id,
-					"side": "monsters",
 					"target": monsters_left[cursor_index],
 				}
 			close()
@@ -82,6 +83,7 @@ func _input(event):
 func _on_CommandList_item_activated(index):
 	magic_list.set_hidden(true)
 	magic_target_list.set_hidden(true)
+	magic_group_list.set_hidden(true)
 	item_list.set_hidden(true)
 	item_target_list.set_hidden(true)
 
@@ -138,8 +140,33 @@ func _on_MagicList_item_activated(index):
 			cursor_index = 0
 			init_monsters()
 			move_cursor(0)
-		else:
-			print("attack magic: ", master.magic_dict[player_id][id])
+		elif battle == "group":
+			magic_group_list.clear()
+			var i = 0
+			while i < self.battle.monsters_on_air.get_child_count():
+				var child = self.battle.monsters_on_air.get_child(i)
+				if !child.data.has("die"):
+					magic_group_list.add_item("On Air")
+					break
+				i += 1
+			i = 0
+			while i < self.battle.monsters_on_floor.get_child_count():
+				var child = self.battle.monsters_on_floor.get_child(i)
+				if !child.data.has("die"):
+					magic_group_list.add_item("On Floor")
+					break
+				i += 1
+			magic_group_list.set_hidden(false)
+			magic_group_list.select(0)
+			magic_group_list.grab_focus()
+		elif battle == "all":
+			result = {
+				"name": "magic",
+				"take_time": master.magic_dict[player_id][id].time,
+				"magic": id,
+				"targets": "all",
+			}
+			close()
 	else:
 		var players = magic_check(player_id, id)
 		if typeof(players) == TYPE_ARRAY:
@@ -157,7 +184,6 @@ func _on_MagicList_item_activated(index):
 					"name": "magic",
 					"take_time": master.magic_dict[player_id][id].time,
 					"magic": id,
-					"side": "party",
 					"target": "all",
 				}
 				close()
@@ -173,8 +199,24 @@ func _on_MagicTargetList_item_activated(index):
 		"name": "magic",
 		"take_time": master.magic_dict[player_id][id].time,
 		"magic": id,
-		"side": "party",
 		"target": state.player_dict[player.name],
+	}
+	close()
+
+func _on_MagicGroupList_item_activated(index):
+	var name = magic_group_list.get_item_text(index)
+	var selected = magic_list.get_selected_items()
+	var id = state.persist.players[player_id].magics[selected[0]]
+	var group = ""
+	if name == "On Air":
+		group = "air"
+	elif name == "On Floor":
+		group = "floor"
+	result = {
+		"name": "magic",
+		"take_time": master.magic_dict[player_id][id].time,
+		"magic": id,
+		"targets": group,
 	}
 	close()
 
@@ -210,6 +252,7 @@ func cancel():
 	deep_level = 0
 	magic_list.set_hidden(true)
 	magic_target_list.set_hidden(true)
+	magic_group_list.set_hidden(true)
 	item_list.set_hidden(true)
 	item_target_list.set_hidden(true)
 	command_list.set_hidden(false)
@@ -278,6 +321,8 @@ func magic_check(player_id, id):
 					if effect.has("cure"):
 						if player.poison:
 							can_use = true
+					if effect.has("block") || effect.has("speed"):
+						can_use = true
 				if can_use:
 					players.append(i)
 		return players
@@ -296,6 +341,8 @@ func magic_check(player_id, id):
 					if effect.has("cure"):
 						if player.poison:
 							can_use = true
+					if effect.has("block") || effect.has("speed"):
+						can_use = true
 		return can_use
 
 func init_monsters():
