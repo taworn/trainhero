@@ -8,15 +8,15 @@ A training for a game's hero.
 Map Scenes
 
  - key Down, Left, Right, Up to walk or select cursor
- - key S, A, D, W to walk or select cursor, too
- - key Enter or Space to talk or accept
+ - key S, A, D, W to walk or select cursor
+ - key Enter to talk or accept
  - key ESC to cancel or open menu
 
 Battle Scenes
 
  - key Down, Left, Right, Up to select cursor
- - key S, A, D, W to select cursor, too
- - key Enter or Space to accept
+ - key S, A, D, W to select cursor
+ - key Enter to accept
  - key ESC to cancel
 
 **Usage**

@@ -6,11 +6,16 @@ const TIME_TICK = 50
 const WAIT_TURN = 0
 const WAIT_MENU = 1
 const WAIT_ACTION = 2
+const WAIT_ATTACK = 3
 
 var party = []                # party of hero and heroines
 var monsters_on_floor = null  # monsters who on floor
 var monsters_on_air = null    # monsters who on air
 var monsters = []             # monsters add to list
+
+var effects = null         # when players attack or use magic
+var effect_player = null   # effect player
+var current_effect = null  # current using effect
 
 var menu = null
 var text_panel = null
@@ -37,6 +42,9 @@ func _ready():
 	monsters_on_floor = get_node("Players/Monsters On Floor")
 	monsters_on_air = get_node("Players/Monsters On Air")
 	get_node("Players/Loader").execute("res://enemies/groups/" + state.enemies_group_file + ".txt")
+
+	effects = get_node("Players/Effects")
+	effect_player = get_node("Players/Effects/Player")
 
 	menu = get_node("UI/Menu")
 	text_panel = get_node("UI/PanelText")
@@ -83,6 +91,11 @@ func _process(delta):
 		var action = player.data.action
 		if action.name == "attack":
 			print("action(%s): attack %s" % [player.data.name, action.target.data.name])
+			player.data.speed = TIME_LIMIT - player.data.spd
+			player.data.action = null
+			wait = WAIT_ATTACK
+			run_attack(action)
+			return
 		elif action.name == "magic":
 			if master.magic_dict[owner_id][action.magic].effect.has("battle"):
 				var battle = master.magic_dict[owner_id][action.magic].effect["battle"]
@@ -108,6 +121,9 @@ func _process(delta):
 		player.data.action = null
 		wait = WAIT_TURN
 
+	elif wait == WAIT_ATTACK:
+		pass
+
 	else:
 		time_cumulative += round(delta * 1000)
 		if time_cumulative > TIME_TICK:
@@ -118,6 +134,9 @@ func _on_AnimationPlayer_finished():
 	if after_effect != null:
 		after_effect = null
 		state.back()
+
+func _on_Player_finished():
+	wait = WAIT_TURN
 
 func turn():
 	var player = check_party_turn()
@@ -156,4 +175,15 @@ func check_monsters_turn():
 			if i.data.speed <= 0:
 				return i
 	return null
+
+func run_attack(action):
+	var weapon = party[owner_id].data.weapon
+	var animation = master.equip_dict[owner_id][weapon].effect.animation
+	var enemy = action.target
+	var parent = enemy.get_parent()
+	var enemy_pos = enemy.get_pos()
+	var parent_pos = parent.get_pos()
+	current_effect = effects.get_node(animation)
+	current_effect.set_pos(Vector2(parent_pos.x + enemy_pos.x + enemy.data.width / 2, parent_pos.y + enemy_pos.y + enemy.data.height / 2))
+	effect_player.play(animation)
 
