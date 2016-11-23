@@ -20,6 +20,7 @@ var item_target_list = null
 var cursor = null
 var cursor_index = -1
 var monsters_left = []
+var attack_type = null
 
 func _ready():
 	command_panel = get_node("PanelCommand")
@@ -53,14 +54,29 @@ func _input(event):
 			move_cursor(global.MOVE_LEFT)
 		elif Input.is_action_pressed("ui_right"):
 			move_cursor(global.MOVE_RIGHT)
+		elif Input.is_action_pressed("ui_up"):
+			move_cursor(global.MOVE_UP)
+		elif Input.is_action_pressed("ui_down"):
+			move_cursor(global.MOVE_DOWN)
 		elif Input.is_action_pressed("ui_accept"):
 			cursor.set_hidden(true)
 			command_panel.set_hidden(false)
-			result = {
-				"name": "attack",
-				"take_time": 1,
-				"target": monsters_left[cursor_index],
-			}
+			if attack_type == "attack":
+				result = {
+					"name": "attack",
+					"take_time": 1,
+					"target": monsters_left[cursor_index],
+				}
+			elif attack_type == "magic":
+				var selected = magic_list.get_selected_items()
+				var id = state.persist.players[player_id].magics[selected[0]]
+				result = {
+					"name": "magic",
+					"take_time": master.magic_dict[player_id][id].time,
+					"magic": id,
+					"side": "monsters",
+					"target": monsters_left[cursor_index],
+				}
 			close()
 
 func _on_CommandList_item_activated(index):
@@ -71,6 +87,7 @@ func _on_CommandList_item_activated(index):
 
 	deep_level = 1
 	if index == 0:
+		attack_type = "attack"
 		command_panel.set_hidden(true)
 		cursor.set_hidden(false)
 		cursor_index = 0
@@ -112,28 +129,40 @@ func _on_CommandList_item_activated(index):
 
 func _on_MagicList_item_activated(index):
 	var id = state.persist.players[player_id].magics[index]
-	var players = magic_check(player_id, id)
-	if typeof(players) == TYPE_ARRAY:
-		if players.size() > 0:
-			magic_target_list.clear()
-			for i in players:
-				magic_target_list.add_item(state.persist.players[i].name)
-			magic_target_list.set_hidden(false)
-			magic_target_list.select(0)
-			magic_target_list.grab_focus()
-			return
+	if master.magic_dict[player_id][id].effect.has("battle"):
+		var battle = master.magic_dict[player_id][id].effect["battle"]
+		if battle == "one":
+			attack_type = "magic"
+			command_panel.set_hidden(true)
+			cursor.set_hidden(false)
+			cursor_index = 0
+			init_monsters()
+			move_cursor(0)
+		else:
+			print("attack magic: ", master.magic_dict[player_id][id])
 	else:
-		if players:
-			result = {
-				"name": "magic",
-				"take_time": master.magic_dict[player_id][id].time,
-				"magic": id,
-				"side": "party",
-				"target": "all",
-			}
-			close()
-			return
-	battle.sound.play("error")
+		var players = magic_check(player_id, id)
+		if typeof(players) == TYPE_ARRAY:
+			if players.size() > 0:
+				magic_target_list.clear()
+				for i in players:
+					magic_target_list.add_item(state.persist.players[i].name)
+				magic_target_list.set_hidden(false)
+				magic_target_list.select(0)
+				magic_target_list.grab_focus()
+				return
+		else:
+			if players:
+				result = {
+					"name": "magic",
+					"take_time": master.magic_dict[player_id][id].time,
+					"magic": id,
+					"side": "party",
+					"target": "all",
+				}
+				close()
+				return
+		battle.sound.play("error")
 
 func _on_MagicTargetList_item_activated(index):
 	var name = magic_target_list.get_item_text(index)
@@ -291,15 +320,24 @@ func draw_cursor():
 	cursor.set_pos(Vector2(x, y))
 
 func move_cursor(direction):
-	if direction == global.MOVE_RIGHT:
-		if cursor_index + 1 < monsters_left.size():
-			cursor_index += 1
-		else:
-			cursor_index = 0
-	elif direction == global.MOVE_LEFT:
+	if direction == global.MOVE_LEFT:
 		if cursor_index - 1 >= 0:
 			cursor_index -= 1
 		else:
 			cursor_index = monsters_left.size() - 1
+	elif direction == global.MOVE_RIGHT:
+		if cursor_index + 1 < monsters_left.size():
+			cursor_index += 1
+		else:
+			cursor_index = 0
+	elif direction == global.MOVE_UP || direction == global.MOVE_DOWN:
+		var current_on_air = monsters_left[cursor_index].data.has("on_air")
+		var i = 0
+		while i < monsters_left.size():
+			if !monsters_left[i].data.has("die"):
+				if monsters_left[i].data.has("on_air") != current_on_air:
+					cursor_index = i
+					break
+			i += 1
 	draw_cursor()
 

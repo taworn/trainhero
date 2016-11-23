@@ -84,13 +84,15 @@ func _process(delta):
 		if action.name == "attack":
 			print("action(%s): attack %s" % [player.data.name, action.target.data.name])
 		elif action.name == "magic":
-			if action.side == "party":
+			if master.magic_dict[owner_id][action.magic].effect.has("battle"):
+				var battle = master.magic_dict[owner_id][action.magic].effect["battle"]
+				if battle == "one":
+					print("action(%s): attack magic %s to %s" % [player.data.name, action.magic, action.target])
+			else:
 				if typeof(action.target) == TYPE_STRING:
 					print("action(%s): use magic %s to %s" % [player.data.name, action.magic, action.target])
 				else:
 					print("action(%s): use magic %s to %s" % [player.data.name, action.magic, party[action.target].data.name])
-			else:
-				pass
 		elif action.name == "item":
 			print("action(%s): use item %s on %s" % [player.data.name, action.item, party[action.target].data.name])
 		elif action.name == "wait":

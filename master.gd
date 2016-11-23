@@ -212,13 +212,13 @@ var magic_dict = {
 			"name": "Protect",
 			"mp": 3,
 			"time": 3,
-			"effect": {"battle": 1},
+			"effect": {"all": 1, "block": "protect"},
 		},
 		"shield": {
 			"name": "Shield",
 			"mp": 3,
 			"time": 3,
-			"effect": {"battle": 1},
+			"effect": {"all": 1, "block": "shield"},
 		},
 
 		# attack
@@ -226,37 +226,37 @@ var magic_dict = {
 			"name": "Fire",
 			"mp": 3,
 			"time": 3,
-			"effect": {"battle": 1},
+			"effect": {"battle": "one"},
 		},
 		"fire_group": {
 			"name": "Fire Group",
 			"mp": 5,
 			"time": 5,
-			"effect": {"battle": 1},
+			"effect": {"battle": "group"},
 		},
 		"fire_all": {
 			"name": "Fire All",
 			"mp": 7,
 			"time": 7,
-			"effect": {"battle": 1},
+			"effect": {"battle": "all"},
 		},
 		"ice": {
 			"name": "Ice",
 			"mp": 3,
 			"time": 3,
-			"effect": {"battle": 1},
+			"effect": {"battle": "one"},
 		},
 		"ice_group": {
 			"name": "Ice Group",
 			"mp": 5,
 			"time": 5,
-			"effect": {"battle": 1},
+			"effect": {"battle": "group"},
 		},
 		"ice_all": {
 			"name": "Ice All",
 			"mp": 7,
 			"time": 7,
-			"effect": {"battle": 1},
+			"effect": {"battle": "all"},
 		},
 	},
 
@@ -266,25 +266,25 @@ var magic_dict = {
 			"name": "Slow",
 			"mp": 2,
 			"time": 4,
-			"effect": {"battle": 1},
+			"effect": {"battle": "one"},
 		},
 		"slow_all": {
 			"name": "Slow All",
 			"mp": 4,
 			"time": 4,
-			"effect": {"battle": 1},
+			"effect": {"battle": "all"},
 		},
 		"speed": {
 			"name": "Speed",
 			"mp": 2,
 			"time": 4,
-			"effect": {"battle": 1},
+			"effect": {"speed": 1},
 		},
 		"speed_all": {
 			"name": "Haste",
 			"mp": 6,
 			"time": 4,
-			"effect": {"battle": 1},
+			"effect": {"all": 1, "speed": 1},
 		},
 
 		# bomb
@@ -292,7 +292,7 @@ var magic_dict = {
 			"name": "Bomb",
 			"mp": 6,
 			"time": 8,
-			"effect": {"battle": 1},
+			"effect": {"battle": "all"},
 		},
 
 		# whirlwind
@@ -300,7 +300,7 @@ var magic_dict = {
 			"name": "Whirlwind",
 			"mp": 9,
 			"time": 8,
-			"effect": {"battle": 1},
+			"effect": {"battle": "all"},
 		},
 
 		# meteor
@@ -308,7 +308,7 @@ var magic_dict = {
 			"name": "Meteor",
 			"mp": 12,
 			"time": 15,
-			"effect": {"battle": 1},
+			"effect": {"battle": "all"},
 		},
 	},
 }
