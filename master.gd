@@ -368,7 +368,7 @@ var equip_dict = {
 			"att": 35,
 			"mag": 0,
 			"hint": "A dragon sword, absorb HP/MP.",
-			"effect": {"animation": "Sword0", "absorb_hp": 1, "absorb_mp": 1},
+			"effect": {"animation": "Sword1", "absorb_hp": 1, "absorb_mp": 1},
 		},
 		"hero_sword": {
 			"name": "Hero Sword",
@@ -376,7 +376,7 @@ var equip_dict = {
 			"att": 50,
 			"mag": 0,
 			"hint": "A legendary sword, absorb HP/MP.",
-			"effect": {"animation": "Sword0", "absorb_hp": 3, "absorb_mp": 1},
+			"effect": {"animation": "Sword1", "absorb_hp": 3, "absorb_mp": 1},
 		},
 		"armor": {
 			"name": "Armor",
@@ -486,7 +486,7 @@ var equip_dict = {
 			"att": 16,
 			"mag": 0,
 			"hint": "A nifty boomerang.",
-			"effect": {"animation": "Wand0"},
+			"effect": {"animation": "Boomerang0"},
 		},
 		"dress": {
 			"name": "Dress",

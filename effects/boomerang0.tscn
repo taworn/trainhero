@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://effects/boomerang0.tres" type="SpriteFrames" id=1]
+
+[node name="Effect Weapon Boomerang" type="AnimatedSprite"]
+
+frames = ExtResource( 1 )
+animation = "default"
+
+

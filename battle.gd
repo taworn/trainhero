@@ -211,5 +211,6 @@ func run_attack(action):
 	var parent_pos = parent.get_pos()
 	current_effect = effects.get_node(animation)
 	current_effect.set_pos(Vector2(parent_pos.x + enemy_pos.x + enemy.data.width / 2, parent_pos.y + enemy_pos.y + enemy.data.height / 2))
+	current_effect.set_frame(0)
 	effect_player.play(animation)
 
