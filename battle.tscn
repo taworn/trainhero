@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=1]
 
 [ext_resource path="res://battle.gd" type="Script" id=1]
-[ext_resource path="res://backgrounds/0.png" type="Texture" id=2]
+[ext_resource path="res://backgrounds/grass.png" type="Texture" id=2]
 [ext_resource path="res://battle/status.tscn" type="PackedScene" id=3]
 [ext_resource path="res://party/heroine0.tres" type="SpriteFrames" id=4]
 [ext_resource path="res://party/heroine1.tres" type="SpriteFrames" id=5]

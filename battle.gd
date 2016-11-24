@@ -8,6 +8,7 @@ const WAIT_MENU = 1
 const WAIT_ACTION = 2
 const WAIT_ATTACK = 3
 
+var background = null         # background
 var party = []                # party of hero and heroines
 var monsters_on_floor = null  # monsters who on floor
 var monsters_on_air = null    # monsters who on air
@@ -29,8 +30,13 @@ var time_cumulative = 0
 var owner_id = null
 var wait = WAIT_TURN
 
+var map_to_background = {
+	"Grass1": "forest",
+	"Tree1": "forest",
+}
+
 func _ready():
-	print("background: ", state.battle_background)
+	background = get_node("Background")
 	party.append(get_node("Players/Party/Status0"))
 	party.append(get_node("Players/Party/Status1"))
 	party.append(get_node("Players/Party/Status2"))
@@ -43,6 +49,19 @@ func _ready():
 	monsters_on_floor = get_node("Players/Monsters On Floor")
 	monsters_on_air = get_node("Players/Monsters On Air")
 	get_node("Players/Loader").execute("res://enemies/groups/" + state.enemies_group_file + ".txt")
+
+	var filename = null
+	if state.persist.ship.cruising:
+		filename = "ocean"
+	else:
+		if map_to_background.has(state.battle_background):
+			filename = map_to_background[state.battle_background]
+		else:
+			filename = "grass"
+	filename = "res://backgrounds/" + filename + ".png"
+	var image = ImageTexture.new()
+	image.load(filename)
+	background.set_texture(image)
 
 	effects = get_node("Players/Effects")
 	effect_player = get_node("Players/Effects/Player")
