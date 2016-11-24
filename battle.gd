@@ -50,19 +50,6 @@ func _ready():
 	monsters_on_air = get_node("Players/Monsters On Air")
 	get_node("Players/Loader").execute("res://enemies/groups/" + state.enemies_group_file + ".txt")
 
-	var filename = null
-	if state.persist.ship.cruising:
-		filename = "ocean"
-	else:
-		if map_to_background.has(state.battle_background):
-			filename = map_to_background[state.battle_background]
-		else:
-			filename = "grass"
-	filename = "res://backgrounds/" + filename + ".png"
-	var image = ImageTexture.new()
-	image.load(filename)
-	background.set_texture(image)
-
 	effects = get_node("Players/Effects")
 	effect_player = get_node("Players/Effects/Player")
 
@@ -78,6 +65,19 @@ func _ready():
 	animation.connect("finished", self, "_on_AnimationPlayer_finished")
 	animation.get_node("../CanvasModulate").set_color(Color(0, 0, 0, 0))
 
+	var filename = null
+	if state.persist.ship.cruising:
+		filename = "ocean"
+	else:
+		if map_to_background.has(state.battle_background):
+			filename = map_to_background[state.battle_background]
+		else:
+			filename = "grass"
+	filename = "res://backgrounds/" + filename + ".png"
+	var image = ImageTexture.new()
+	image.load(filename)
+	background.set_texture(image)
+
 	var i = 0
 	while i < monsters_on_floor.get_child_count():
 		var child = monsters_on_floor.get_child(i)
@@ -88,12 +88,18 @@ func _ready():
 		var child = monsters_on_air.get_child(i)
 		i += 1
 		monsters.append(child)
+	var boss = false
 	for i in monsters:
 		i.data.speed = TIME_LIMIT - i.data.spd
 		i.data.action = null
+		if i.data.has("boss"):
+			boss = true
 	for i in party:
 		i.data.speed = TIME_LIMIT - i.data.spd
 		i.data.action = null
+
+	if boss:
+		menu.disable_for_boss()
 
 	set_process(true)
 

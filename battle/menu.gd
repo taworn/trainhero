@@ -388,3 +388,6 @@ func move_cursor(direction):
 			i += 1
 	draw_cursor()
 
+func disable_for_boss():
+	command_list.set_item_disabled(4, true)
+
