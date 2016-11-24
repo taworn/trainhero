@@ -236,7 +236,7 @@ func execute():
 
 		elif d[0] == global.SCRIPT_BATTLE:
 			state.scripting_continue = d[1]
-			party.open_battle(d[2])
+			party.open_battle(d[2], d[3])
 			wait = WAIT_IDLE
 
 		elif d[0] == global.SCRIPT_READ_QUEST:

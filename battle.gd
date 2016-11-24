@@ -30,6 +30,7 @@ var owner_id = null
 var wait = WAIT_TURN
 
 func _ready():
+	print("background: ", state.battle_background)
 	party.append(get_node("Players/Party/Status0"))
 	party.append(get_node("Players/Party/Status1"))
 	party.append(get_node("Players/Party/Status2"))

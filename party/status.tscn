@@ -87,4 +87,72 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="Att" type="Label" parent="Container"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 200.0
+margin/top = 45.0
+margin/right = 320.0
+margin/bottom = 80.0
+custom_fonts/font = ExtResource( 4 )
+text = "ATT 99"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Mag" type="Label" parent="Container"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 200.0
+margin/top = 85.0
+margin/right = 320.0
+margin/bottom = 120.0
+custom_fonts/font = ExtResource( 4 )
+text = "MAG 99"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Def" type="Label" parent="Container"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 340.0
+margin/top = 45.0
+margin/right = 460.0
+margin/bottom = 80.0
+custom_fonts/font = ExtResource( 4 )
+text = "DEF 99"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Spd" type="Label" parent="Container"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 340.0
+margin/top = 85.0
+margin/right = 460.0
+margin/bottom = 120.0
+custom_fonts/font = ExtResource( 4 )
+text = "SPD 99"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 

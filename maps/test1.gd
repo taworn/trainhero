@@ -37,7 +37,7 @@ var dialog_dict = {
 		[global.SCRIPT_NPC_ACTION_, "Female0", "down"],
 		[global.SCRIPT_TITLE_SET, "Female0"],
 		"Fight :)",
-		[global.SCRIPT_BATTLE, "King Fake Battle Win", "boss0"],
+		[global.SCRIPT_BATTLE, "King Fake Battle Win", "boss0", "bossbackground"],
 	],
 	"King Fake Battle Win": [
 		[global.SCRIPT_NO_CANCEL],

@@ -133,6 +133,7 @@ max_lines_visible = -1
 
 [node name="PanelMenu" type="Panel" parent="."]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -210,7 +211,7 @@ size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
 margin/right = 400.0
-margin/bottom = 444.0
+margin/bottom = 360.0
 custom_styles/selected_focus = ExtResource( 4 )
 custom_styles/bg_focus = ExtResource( 2 )
 custom_styles/bg = ExtResource( 2 )
@@ -234,7 +235,6 @@ custom_fonts/font = ExtResource( 6 )
 
 [node name="MagicContainer" type="Container" parent="."]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -270,7 +270,7 @@ size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
 margin/right = 400.0
-margin/bottom = 444.0
+margin/bottom = 360.0
 custom_styles/selected_focus = ExtResource( 4 )
 custom_styles/bg_focus = ExtResource( 2 )
 custom_styles/bg = ExtResource( 2 )
@@ -294,7 +294,6 @@ custom_fonts/font = ExtResource( 6 )
 
 [node name="EquipContainer" type="Container" parent="."]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -344,9 +343,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 166.0
+margin/top = 0.0
 margin/right = 678.0
-margin/bottom = 416.0
+margin/bottom = 200.0
 custom_styles/selected_focus = ExtResource( 4 )
 custom_styles/bg_focus = ExtResource( 2 )
 custom_styles/bg = ExtResource( 2 )
@@ -368,15 +367,48 @@ custom_styles/bg_focus = ExtResource( 2 )
 custom_styles/bg = ExtResource( 2 )
 custom_fonts/font = ExtResource( 6 )
 
+[node name="PanelHint" type="Panel" parent="."]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 32.0
+margin/top = 500.0
+margin/right = 992.0
+margin/bottom = 568.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="Hint" type="Label" parent="PanelHint"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 16.0
+margin/top = 16.0
+margin/right = 944.0
+margin/bottom = 52.0
+custom_fonts/font = ExtResource( 3 )
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [connection signal="item_activated" from="PanelMenu/MenuList" to="." method="_on_MenuList_item_activated"]
 
 [connection signal="item_activated" from="ItemContainer/ItemList" to="." method="_on_ItemList_item_activated"]
+
+[connection signal="item_selected" from="ItemContainer/ItemList" to="." method="_on_ItemList_item_selected"]
 
 [connection signal="item_activated" from="ItemContainer/ItemPlayerList" to="." method="_on_ItemPlayerList_item_activated"]
 
 [connection signal="item_activated" from="MagicContainer/MagicPlayerFromList" to="." method="_on_MagicPlayerFromList_item_activated"]
 
 [connection signal="item_activated" from="MagicContainer/MagicList" to="." method="_on_MagicList_item_activated"]
+
+[connection signal="item_selected" from="MagicContainer/MagicList" to="." method="_on_MagicList_item_selected"]
 
 [connection signal="item_activated" from="MagicContainer/MagicPlayerToList" to="." method="_on_MagicPlayerToList_item_activated"]
 
@@ -385,6 +417,8 @@ custom_fonts/font = ExtResource( 6 )
 [connection signal="item_activated" from="EquipContainer/EquipList" to="." method="_on_EquipList_item_activated"]
 
 [connection signal="item_activated" from="EquipContainer/EquipChangeableList" to="." method="_on_EquipChangeableList_item_activated"]
+
+[connection signal="item_selected" from="EquipContainer/EquipChangeableList" to="." method="_on_EquipChangeableList_item_selected"]
 
 [connection signal="item_activated" from="SaveList" to="." method="_on_SaveList_item_activated"]
 

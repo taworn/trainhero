@@ -91,7 +91,7 @@ func _on_AnimationPlayer_finished():
 		if after_effect.has("map"):
 			state.warp_to(after_effect.x, after_effect.y, after_effect.map, after_effect.retain_npcs)
 		elif after_effect.has("battle"):
-			state.fight(after_effect["battle"])
+			state.fight(after_effect["battle"], after_effect["background"])
 		after_effect = null
 	else:
 		if state.scripting_continue != null:
@@ -191,6 +191,17 @@ func check_box(child):
 			scripting.open_treasure(self, child, s)
 
 func after_walk(name):
+	for i in state.persist.players:
+		if i.avail && !i.faint:
+			if i.poison:
+				if i.hp > 1:
+					i.hp -= 1
+			var accessory = master.equip_dict[state.player_dict[i.name]][i.accessory]
+			if accessory.has("effect"):
+				if accessory["effect"].has("walk_mp"):
+					if i.mp < i.mp_max:
+						i.mp += 1
+
 	if name != null:
 		if scene.warp_dict.has(name):
 			warp_to(name)
@@ -202,13 +213,21 @@ func after_walk(name):
 			if !scripting.is_opened():
 				if battle_roll.random():
 					if !state.persist.ship.cruising:
+						var hero_pos = hero.get_pos()
+						var map_pos = global.pixel_to_map(hero_pos)
+						var id = tile_map.get_cell(map_pos.x, map_pos.y)
+						var name = tile_map.get_tileset().tile_get_name(id)
 						var zone = detect_battle_zone()
 						if zone != null:
-							random_battle(scene.enemy_zone_dict[zone.get_name()])
+							random_battle(scene.enemy_zone_dict[zone.get_name()], name)
 						else:
-							random_battle(scene.enemy_dict)
+							random_battle(scene.enemy_dict, name)
 					else:
-						random_battle(scene.enemy_ship_dict)
+						var ship_pos = ship.get_pos()
+						var map_pos = global.pixel_to_map(ship_pos)
+						var id = tile_map.get_cell(map_pos.x, map_pos.y)
+						var name = tile_map.get_tileset().tile_get_name(id)
+						random_battle(scene.enemy_ship_dict, name)
 
 func detect_battle_zone():
 	var zones = tile_map.get_node("Battle Zones")
@@ -246,7 +265,7 @@ func warp_to(name):
 	animation.play()
 	paused = true
 
-func random_battle(dict):
+func random_battle(dict, background):
 	if dict.size() <= 0:
 		return
 
@@ -260,12 +279,12 @@ func random_battle(dict):
 	for i in dict:
 		sum += dict[i]
 		if random < sum:
-			open_battle(i)
+			open_battle(i, background)
 			return
 
-func open_battle(battle):
+func open_battle(battle, background):
 	save_npcs()
-	after_effect = {"battle": battle}
+	after_effect = {"battle": battle, "background": background}
 	animation.set_current_animation("light")
 	animation.play()
 	paused = true

@@ -6,6 +6,7 @@ const LIMIT_ITEMS = 9
 var new = false  # is change scene or go back
 var scripting_continue = null  # has scripting cross scenes
 var enemies_group_file = ""
+var battle_background = ""
 
 # current persistence state
 var persist = restart_game()
@@ -46,12 +47,12 @@ func restart_game():
 					"slash",
 					"warp",
 					"thunder",
-					"lightning",
+					"heroblade",
 				],
 				"equips": [
 					"sword",
 					"longsword",
-					"paladin_sword",
+					"dragon_sword",
 					"hero_sword",
 					"armor",
 					"paladin_armor",
@@ -67,7 +68,7 @@ func restart_game():
 				"faint": false,
 				"poison": true,
 				"hp_max": 75,
-				"hp": 25,
+				"hp": 30,
 				"mp_max": 50,
 				"mp": 49,
 				"att": 7,
@@ -92,23 +93,18 @@ func restart_game():
 					"protect",
 					"shield",
 					"fire",
-					"fire_group",
-					"fire_all",
+					"fire_spread",
 					"ice",
-					"ice_group",
-					"ice_all",
+					"ice_spread",
 				],
 				"equips": [
 					"wand",
-					"firewand",
-					"icewand",
+					"starwand",
 					"miraclewand",
 					"robe",
-					"firerobe",
-					"icerobe",
+					"starrobe",
 					"miraclerobe",
 					"amulet",
-					"light_amulet",
 					"miracle_amulet",
 				],
 			},
@@ -125,7 +121,7 @@ func restart_game():
 				"mag": 0,
 				"def": 7,
 				"spd": 8,
-				"weapon": "staff",
+				"weapon": "boomerang",
 				"armor": "dress",
 				"accessory": "ring",
 				"magics": [
@@ -138,11 +134,9 @@ func restart_game():
 					"meteor",
 				],
 				"equips": [
-					"staff",
-					"magic_staff",
+					"boomerang",
 					"dress",
 					"dark_dress",
-					"void_dress",
 					"ring",
 					"void_ring",
 				],
@@ -235,7 +229,16 @@ func warp_to(x, y, map, retain_npcs):
 	print("warp to: map=", persist.map, " (", persist.x, ", ", persist.y, ")")
 	get_tree().change_scene("res://" + persist.map + ".tscn")
 
-func fight(battle):
+func fight(battle, background):
 	enemies_group_file = battle
+	battle_background = background
 	get_tree().change_scene("res://battle.tscn")
+
+func usage_mp(player_id, magic_id):
+	var mp = master.magic_dict[player_id][magic_id].mp
+	var effect = master.equip_dict[player_id][state.persist.players[player_id].weapon].effect
+	if effect.has("usage_mp"):
+		var cut = ceil(mp * effect["usage_mp"] / 100)
+		mp -= cut
+	return mp
 

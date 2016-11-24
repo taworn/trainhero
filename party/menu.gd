@@ -37,6 +37,9 @@ var equip_list = null
 var equip_changeable_list_data = null
 var equip_changeable_list = null
 
+var hint_panel = null
+var hint_text = null
+
 func _ready():
 	set_hidden(true)
 
@@ -69,6 +72,9 @@ func _ready():
 	equip_changeable_list_data = []
 	equip_changeable_list = get_node("EquipContainer/EquipChangeableList")
 
+	hint_panel = get_node("PanelHint")
+	hint_text = get_node("PanelHint/Hint")
+
 func _input(event):
 	if Input.is_action_pressed("ui_accept"):
 		pass
@@ -88,12 +94,15 @@ func _on_MenuList_item_activated(index):
 	equip_player_list.set_hidden(true)
 	equip_list.set_hidden(true)
 	equip_changeable_list.set_hidden(true)
+	hint_panel.set_hidden(true)
 
 	deep_level = 1
 	if index == 0:
 		item_list.set_hidden(false)
 		item_list.select(0)
 		item_list.grab_focus()
+		hint_panel.set_hidden(false)
+		_on_ItemList_item_selected(0)
 	elif index == 1:
 		magic_from_list.set_hidden(false)
 		magic_from_list.select(0)
@@ -125,6 +134,13 @@ func _on_ItemList_item_activated(index):
 	else:
 		party.sound.play("error")
 
+func _on_ItemList_item_selected(index):
+	if index < item_list_data.size():
+		var id = item_list_data[index]
+		hint_text.set_text(master.item_dict[id].hint)
+	else:
+		hint_text.set_text("")
+
 func _on_ItemPlayerList_item_activated(index):
 	var name = item_player_list.get_item_text(index)
 	var player = state.persist.players[state.player_dict[name]]
@@ -139,11 +155,13 @@ func _on_MagicPlayerFromList_item_activated(index):
 	var player = state.persist.players[player_id]
 	magic_list.clear()
 	for i in player.magics:
-		magic_list.add_item(FORMAT_MAGIC_STOCK % [master.magic_dict[player_id][i].name, master.magic_dict[player_id][i].mp])
+		magic_list.add_item(FORMAT_MAGIC_STOCK % [master.magic_dict[player_id][i].name, state.usage_mp(player_id, i)])
 	magic_from_list.set_hidden(true)
 	magic_list.set_hidden(false)
 	magic_list.select(0)
 	magic_list.grab_focus()
+	hint_panel.set_hidden(false)
+	_on_MagicList_item_selected(0)
 
 func _on_MagicList_item_activated(index):
 	var id = state.persist.players[player_id].magics[index]
@@ -164,6 +182,13 @@ func _on_MagicList_item_activated(index):
 				refresh()
 				return
 	party.sound.play("error")
+
+func _on_MagicList_item_selected(index):
+	if index < state.persist.players[player_id].magics.size():
+		var id = state.persist.players[player_id].magics[index]
+		hint_text.set_text(master.magic_dict[player_id][id].hint)
+	else:
+		hint_text.set_text("")
 
 func _on_MagicPlayerToList_item_activated(index):
 	var name = magic_to_list.get_item_text(index)
@@ -196,12 +221,15 @@ func _on_EquipList_item_activated(index):
 		if equipment.type == equip_type[index]:
 			equip_changeable_list_data.append(i)
 			if index == 0:
-				equip_changeable_list.add_item(FORMAT_EQUIP_WEAPON % [equipment.name, equipment.ap, equipment.mp])
+				equip_changeable_list.add_item(FORMAT_EQUIP_WEAPON % [equipment.name, equipment.att, equipment.mag])
 			else:
-				equip_changeable_list.add_item(FORMAT_EQUIP_ARMOR % [equipment.name, equipment.dp])
+				equip_changeable_list.add_item(FORMAT_EQUIP_ARMOR % [equipment.name, equipment.def])
+	equip_list.set_hidden(true)
 	equip_changeable_list.set_hidden(false)
 	equip_changeable_list.select(0)
 	equip_changeable_list.grab_focus()
+	hint_panel.set_hidden(false)
+	_on_EquipChangeableList_item_selected(0)
 
 func _on_EquipChangeableList_item_activated(index):
 	var player = state.persist.players[player_id]
@@ -214,6 +242,13 @@ func _on_EquipChangeableList_item_activated(index):
 		player.accessory = equip_changeable_list_data[index]
 	party.sound.play("coin")
 	refresh()
+
+func _on_EquipChangeableList_item_selected(index):
+	if index < equip_changeable_list_data.size():
+		var id = equip_changeable_list_data[index]
+		hint_text.set_text(master.equip_dict[player_id][id].hint)
+	else:
+		hint_text.set_text("")
 
 func _on_SaveList_item_activated(index):
 	var save = "user://game%d.save" % index
@@ -246,6 +281,7 @@ func refresh():
 	cancel()
 
 func cancel():
+	player_id = null
 	deep_level = 0
 	item_list.set_hidden(true)
 	item_player_list.set_hidden(true)
@@ -256,7 +292,7 @@ func cancel():
 	equip_list.set_hidden(true)
 	equip_changeable_list.set_hidden(true)
 	save_list.set_hidden(true)
-	player_id = null
+	hint_panel.set_hidden(true)
 	menu_list.grab_focus()
 
 func close():
@@ -338,7 +374,7 @@ func item_use(id, player):
 	return used
 
 func magic_check(player_id, id):
-	if state.persist.players[player_id].mp < master.magic_dict[player_id][id].mp:
+	if state.persist.players[player_id].mp < state.usage_mp(player_id, id):
 		return false
 	var players = []
 	var effect = master.magic_dict[player_id][id].effect
@@ -398,7 +434,7 @@ func magic_use_one(player_id, id, player):
 				player.poison = false
 				used = true
 	if used:
-		state.persist.players[player_id].mp -= master.magic_dict[player_id][id].mp
+		state.persist.players[player_id].mp -= state.usage_mp(player_id, id)
 		return true
 	else:
 		return false
@@ -427,7 +463,7 @@ func magic_use_all(player_id, id):
 						player.poison = false
 						used = true
 	if used:
-		state.persist.players[player_id].mp -= master.magic_dict[player_id][id].mp
+		state.persist.players[player_id].mp -= state.usage_mp(player_id, id)
 		return true
 	else:
 		return false
