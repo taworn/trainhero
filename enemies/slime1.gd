@@ -3,7 +3,7 @@ extends Node2D
 
 var data = {
 	"name": "Slime Red",
-	"hp": 15,
+	"hp": 80,
 	"mp": 0,
 	"att": 7,
 	"mag": 0,

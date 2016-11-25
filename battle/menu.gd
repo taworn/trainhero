@@ -99,7 +99,7 @@ func _on_CommandList_item_activated(index):
 	elif index == 1:
 		magic_list.clear()
 		for i in state.persist.players[player_id].magics:
-			magic_list.add_item(FORMAT_MAGIC_STOCK % [master.magic_dict[player_id][i].name, master.magic_dict[player_id][i].mp])
+			magic_list.add_item(FORMAT_MAGIC_STOCK % [master.magic_dict[player_id][i].name, formulas.usage_mp(player_id, i)])
 		magic_list.set_hidden(false)
 		magic_list.select(0)
 		magic_list.grab_focus()
@@ -132,6 +132,9 @@ func _on_CommandList_item_activated(index):
 func _on_MagicList_item_activated(index):
 	var id = state.persist.players[player_id].magics[index]
 	if master.magic_dict[player_id][id].effect.has("battle"):
+		if state.persist.players[player_id].mp < formulas.usage_mp(player_id, id):
+			battle.sound.play("error")
+			return
 		var battle = master.magic_dict[player_id][id].effect["battle"]
 		if battle == "one":
 			attack_type = "magic"
@@ -302,7 +305,7 @@ func item_check(id):
 	return players
 
 func magic_check(player_id, id):
-	if state.persist.players[player_id].mp < master.magic_dict[player_id][id].mp:
+	if state.persist.players[player_id].mp < formulas.usage_mp(player_id, id):
 		return false
 	var players = []
 	var effect = master.magic_dict[player_id][id].effect
@@ -352,7 +355,7 @@ func init_monsters():
 			monsters_left.append(i)
 
 func draw_cursor():
-	var monster = battle.monsters[cursor_index]
+	var monster = monsters_left[cursor_index]
 	var on_air = monster.data.has("on_air")
 	var group
 	if !on_air:

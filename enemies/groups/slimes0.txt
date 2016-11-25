@@ -1,6 +1,5 @@
 slime0
 slime0
-slime0,3
+slime0
 blazeghost
 blazeghost
-butterfly_dragon

@@ -2,20 +2,20 @@
 
 [resource]
 
-resource/name = "Sword0"
-length = 0.5
+resource/name = "Cut"
+length = 0.4
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sword0:visibility/visible")
+tracks/0/path = NodePath("Cut:visibility/visible")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.3 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ true, false ] }
+tracks/0/keys = { "times":FloatArray( 0, 0.4 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ true, false ] }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sword0:frame")
+tracks/1/path = NodePath("Cut:frame")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ 0, 1 ] }
+tracks/1/keys = { "times":FloatArray( 0, 0.1, 0.2, 0.3, 0.4 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "update":1, "values":[ 0, 1, 2, 3, 4 ] }
 tracks/2/type = "value"
 tracks/2/path = NodePath("../../SoundPlayer:play/play")
 tracks/2/interp = 1

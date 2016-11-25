@@ -119,7 +119,7 @@ var magic_dict = {
 			"mp": 3,
 			"time": 3,
 			"hint": "Cut one enemy.",
-			"effect": {"battle": "one"},
+			"effect": {"animation": "Cut", "battle": "one"},
 		},
 		"slash": {
 			"name": "Slash",

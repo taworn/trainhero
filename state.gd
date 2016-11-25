@@ -34,7 +34,7 @@ func restart_game():
 				"hp_max": 100,
 				"hp": 1,
 				"mp_max": 25,
-				"mp": 0,
+				"mp": 20,
 				"att": 10,
 				"mag": 0,
 				"def": 10,
@@ -74,7 +74,7 @@ func restart_game():
 				"att": 7,
 				"mag": 10,
 				"def": 8,
-				"spd": 9,
+				"spd": 11,
 				"weapon": "wand",
 				"armor": "robe",
 				"accessory": "amulet",
@@ -233,12 +233,4 @@ func fight(battle, background):
 	enemies_group_file = battle
 	battle_background = background
 	get_tree().change_scene("res://battle.tscn")
-
-func usage_mp(player_id, magic_id):
-	var mp = master.magic_dict[player_id][magic_id].mp
-	var effect = master.equip_dict[player_id][state.persist.players[player_id].weapon].effect
-	if effect.has("usage_mp"):
-		var cut = ceil(mp * effect["usage_mp"] / 100)
-		mp -= cut
-	return mp
 

@@ -7,6 +7,7 @@ const WAIT_TURN = 0
 const WAIT_MENU = 1
 const WAIT_ACTION = 2
 const WAIT_ATTACK = 3
+const WAIT_WIN = 4
 
 var background = null         # background
 var party = []                # party of hero and heroines
@@ -90,12 +91,18 @@ func _ready():
 		monsters.append(child)
 	var boss = false
 	for i in monsters:
-		i.data.speed = TIME_LIMIT - i.data.spd
+		i.data.spd2 = i.data.spd
+		i.data.speed = TIME_LIMIT - i.data.spd2
 		i.data.action = null
 		if i.data.has("boss"):
 			boss = true
+		var template = load("res://battle/damage.tscn")
+		var damage = template.instance()
+		damage.attach(i, i.data.width, i.data.height, self, "_on_Damage_finished")
+		i.data.damage = damage
 	for i in party:
-		i.data.speed = TIME_LIMIT - i.data.spd
+		i.data.spd2 = i.data.spd
+		i.data.speed = TIME_LIMIT - i.data.spd2
 		i.data.action = null
 
 	if boss:
@@ -116,17 +123,20 @@ func _process(delta):
 		var player = party[owner_id]
 		var action = player.data.action
 		if action.name == "attack":
-			print("action(%s): attack %s" % [player.data.name, action.target.data.name])
-			player.data.speed = TIME_LIMIT - player.data.spd
-			player.data.action = null
+			print("action(%s): attack %s (time: %d)" % [player.data.name, action.target.data.name, action.take_time])
+			player.data.speed = TIME_LIMIT - player.data.spd2
 			wait = WAIT_ATTACK
-			run_attack(action)
+			attack()
 			return
 		elif action.name == "magic":
 			if master.magic_dict[owner_id][action.magic].effect.has("battle"):
 				var battle = master.magic_dict[owner_id][action.magic].effect["battle"]
 				if battle == "one":
-					print("action(%s): attack magic %s to %s" % [player.data.name, action.magic, action.target.data.name])
+					print("action(%s): attack magic %s to %s (time: %d)" % [player.data.name, action.magic, action.target.data.name, action.take_time])
+					player.data.speed = TIME_LIMIT - player.data.spd2
+					wait = WAIT_ATTACK
+					magic_attack_one()
+					return
 				elif battle == "group":
 					print("action(%s): attack magic %s to %s" % [player.data.name, action.magic, action.targets])
 				elif battle == "all":
@@ -143,12 +153,15 @@ func _process(delta):
 		elif action.name == "runaway":
 			print("action(%s): runaway, bye bye ^_^" % [player.data.name])
 			state.back()
-		player.data.speed = TIME_LIMIT - player.data.spd
+		player.data.speed = TIME_LIMIT - player.data.spd2
 		player.data.action = null
 		wait = WAIT_TURN
 
 	elif wait == WAIT_ATTACK:
 		pass
+
+	elif wait == WAIT_WIN:
+		state.back()
 
 	else:
 		time_cumulative += round(delta * 1000)
@@ -162,7 +175,28 @@ func _on_AnimationPlayer_finished():
 		state.back()
 
 func _on_Player_finished():
-	wait = WAIT_TURN
+	var action = party[owner_id].data.action
+	var target = action.target
+	var damage = 0
+	if action.name == "attack":
+		damage = formulas.player_attack_monster(owner_id, target)
+	elif action.name == "magic":
+		damage = 999
+	target.data.hp -= damage
+	target.data.damage.display("%d" % damage)
+	target.data.damage.play()
+
+func _on_Damage_finished():
+	var action = party[owner_id].data.action
+	var target = action.target
+	if target.data.hp <= 0:
+		target.data["die"] = 1
+		target.set_hidden(true)
+	party[owner_id].data.action = null
+	if !check_party_win():
+		wait = WAIT_TURN
+	else:
+		wait = WAIT_WIN
 
 func turn():
 	var player = check_party_turn()
@@ -180,7 +214,7 @@ func turn():
 	var monster = check_monsters_turn()
 	if monster != null:
 		print("monster: ", monster.data.name)
-		monster.data.speed = TIME_LIMIT - monster.data.spd
+		monster.data.speed = TIME_LIMIT - monster.data.spd2
 		return
 
 	for i in monsters:
@@ -202,9 +236,31 @@ func check_monsters_turn():
 				return i
 	return null
 
-func run_attack(action):
+func check_party_win():
+	for i in monsters:
+		if !i.data.has("die"):
+			return false
+	return true
+
+func attack():
+	var action = party[owner_id].data.action
 	var weapon = party[owner_id].data.weapon
 	var animation = master.equip_dict[owner_id][weapon].effect.animation
+	var enemy = action.target
+	var parent = enemy.get_parent()
+	var enemy_pos = enemy.get_pos()
+	var parent_pos = parent.get_pos()
+	current_effect = effects.get_node(animation)
+	current_effect.set_pos(Vector2(parent_pos.x + enemy_pos.x + enemy.data.width / 2, parent_pos.y + enemy_pos.y + enemy.data.height / 2))
+	current_effect.set_frame(0)
+	effect_player.play(animation)
+
+func magic_attack_one():
+	var action = party[owner_id].data.action
+	var magic_id = action.magic
+	party[owner_id].data.mp -= formulas.usage_mp(owner_id, magic_id)
+	party[owner_id].update(owner_id)
+	var animation = master.magic_dict[owner_id][magic_id].effect.animation
 	var enemy = action.target
 	var parent = enemy.get_parent()
 	var enemy_pos = enemy.get_pos()
