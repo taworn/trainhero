@@ -1,7 +1,7 @@
 
 extends Node
 
-func execute(group_file):
+func execute(group_file, base_lines):
 	print("open enemies group file: " + group_file)
 	var lines = []
 	var f = File.new()
@@ -38,14 +38,18 @@ func execute(group_file):
 	var pos
 	pos = monsters_on_floor.get_pos()
 	monsters_on_floor.set_pos(Vector2(pos.x, 410 - h0))
+	base_lines["floor"] = 410 - h0
 	pos = monsters_on_air.get_pos()
 	monsters_on_air.set_pos(Vector2(pos.x, 50))
+	base_lines["air"] = 50
 	if monsters_on_air.get_child_count() <= 0:
 		pos = monsters_on_floor.get_pos()
 		monsters_on_floor.set_pos(Vector2(pos.x, 375 - h0))
+		base_lines["floor"] = 375 - h0
 	if monsters_on_floor.get_child_count() <= 0:
 		pos = monsters_on_air.get_pos()
 		monsters_on_air.set_pos(Vector2(pos.x, 100))
+		base_lines["air"] = 100
 
 func setup_layout(monsters, on_air):
 	var x = 0

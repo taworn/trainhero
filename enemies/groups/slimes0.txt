@@ -3,3 +3,5 @@ slime0
 slime0
 blazeghost
 blazeghost
+butterfly_dragon
+chameleon_humanoid
