@@ -100,6 +100,8 @@ frames = ExtResource( 5 )
 
 [node name="Effects" type="Node2D" parent="Players"]
 
+editor/display_folded = true
+
 [node name="Player" type="AnimationPlayer" parent="Players/Effects"]
 
 playback/process_mode = 1

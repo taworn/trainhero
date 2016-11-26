@@ -13,11 +13,12 @@ var background = null         # background
 var party = []                # party of hero and heroines
 var monsters_on_floor = null  # monsters who on floor
 var monsters_on_air = null    # monsters who on air
-var monsters = []             # monsters add to list
+var monsters_floor = []       # monsters on floor add to array
+var monsters_air = []         # monsters on air add to array
+var monsters = []             # monsters add to array
 
-var effects = null         # when players attack or use magic
-var effect_player = null   # effect player
-var current_effect = null  # current using effect
+var effects = null        # when players attack or use magic
+var effect_player = null  # effect player
 
 var menu = null
 var text_panel = null
@@ -30,9 +31,6 @@ var after_effect = null
 var time_cumulative = 0
 var owner_id = null
 var wait = WAIT_TURN
-var wait_count = 0
-var wait_data = []
-var base_lines = {"floor": 0, "air": 0}
 
 var map_to_background = {
 	"Grass1": "forest",
@@ -52,7 +50,7 @@ func _ready():
 	party[2].set_active(false)
 	monsters_on_floor = get_node("Players/Monsters On Floor")
 	monsters_on_air = get_node("Players/Monsters On Air")
-	get_node("Players/Loader").execute("res://enemies/groups/" + state.enemies_group_file + ".txt", base_lines)
+	get_node("Players/Loader").execute("res://enemies/groups/" + state.enemies_group_file + ".txt")
 
 	effects = get_node("Players/Effects")
 	effect_player = get_node("Players/Effects/Player")
@@ -85,12 +83,14 @@ func _ready():
 	var i = 0
 	while i < monsters_on_floor.get_child_count():
 		var child = monsters_on_floor.get_child(i)
+		monsters_floor.append(child)
 		monsters.append(child)
 		i += 1
 	i = 0
 	while i < monsters_on_air.get_child_count():
 		var child = monsters_on_air.get_child(i)
 		i += 1
+		monsters_air.append(child)
 		monsters.append(child)
 	var boss = false
 	for i in monsters:
@@ -138,13 +138,13 @@ func _process(delta):
 					print("action(%s): attack magic %s to %s (time: %d)" % [player.data.name, action.magic, action.target.data.name, action.take_time])
 					player.data.speed = TIME_LIMIT - player.data.spd2
 					wait = WAIT_ATTACK
-					magic_attack_one()
+					attack()
 					return
 				elif battle == "group":
 					print("action(%s): attack magic %s to %s (time: %d)" % [player.data.name, action.magic, action.targets, action.take_time])
 					player.data.speed = TIME_LIMIT - player.data.spd2
 					wait = WAIT_ATTACK
-					magic_attack_group()
+					attack()
 					return
 				elif battle == "all":
 					print("action(%s): attack magic %s to all enemies" % [player.data.name, action.magic])
@@ -182,60 +182,38 @@ func _on_AnimationPlayer_finished():
 		state.back()
 
 func _on_Player_finished():
-	var action = party[owner_id].data.action
-	if action.has("targets"):
-		var dies = true
-		for i in wait_data:
-			if !i.data.has("die"):
-				dies = false
-				break
-		if dies:
-			party[owner_id].data.action = null
-			wait = WAIT_TURN
-		else:
-			for i in wait_data:
-				var damage = 999
+	var player = party[owner_id]
+	var action = player.data.action
+	# check if all miss
+	var dies = true
+	for i in action.enemies:
+		if !i.data.has("die"):
+			dies = false
+			break
+	if !dies:
+		# continue will normal flow
+		for i in action.enemies:
+			if !i.is_hidden():
+				var damage = randi() % 1000  # use random for now
 				i.data.hp -= damage
 				i.data.damage.display("%d" % damage)
 				i.data.damage.play()
 	else:
-		var target = action.target
-		var damage = 0
-		if action.name == "attack":
-			damage = formulas.player_attack_monster(owner_id, target)
-		elif action.name == "magic":
-			damage = 999
-		target.data.hp -= damage
-		target.data.damage.display("%d" % damage)
-		target.data.damage.play()
+		# continue next loop	
+		party[owner_id].data.action = null
+		wait = WAIT_TURN
 
 func _on_Damage_finished():
-	var action = party[owner_id].data.action
-	if action.has("targets"):
-		wait_count -= 1
-		if wait_count <= 0:
-			var monsters = null
-			if action.targets == "air":
-				monsters = monsters_on_air
-			else:
-				monsters = monsters_on_floor
-			var i = 0
-			while i < monsters.get_child_count():
-				var target = monsters.get_child(i)
-				if target.data.hp <= 0:
-					target.data["die"] = 1
-					target.set_hidden(true)
-				i += 1
-			party[owner_id].data.action = null
-			if !check_party_win():
-				wait = WAIT_TURN
-			else:
-				wait = WAIT_WIN
-	else:
-		var target = action.target
-		if target.data.hp <= 0:
-			target.data["die"] = 1
-			target.set_hidden(true)
+	var player = party[owner_id]
+	var action = player.data.action
+	action.enemy_count += 1
+	if action.enemy_count >= live_count(action.enemies):
+		for i in action.enemies:
+			if !i.is_hidden():
+				if i.data.hp <= 0:
+					i.data.hp = 0
+					i.data.die = 1
+					i.set_hidden(true)
 		party[owner_id].data.action = null
 		if !check_party_win():
 			wait = WAIT_TURN
@@ -286,57 +264,57 @@ func check_party_win():
 			return false
 	return true
 
+func live_count(group):
+	var count = 0
+	for i in group:
+		if !i.data.has("die"):
+			count += 1
+	return count
+
+func random_next_enemy():
+	for i in monsters:
+		if !i.data.has("die"):
+			return i
+	return null
+
 func attack():
-	var action = party[owner_id].data.action
-	var weapon = party[owner_id].data.weapon
-	var animation = master.equip_dict[owner_id][weapon].effect.animation
-	var enemy = action.target
-	var parent = enemy.get_parent()
-	var enemy_pos = enemy.get_pos()
-	var parent_pos = parent.get_pos()
-	current_effect = effects.get_node(animation)
-	current_effect.set_pos(Vector2(parent_pos.x + enemy_pos.x + enemy.data.width / 2, parent_pos.y + enemy_pos.y + enemy.data.height / 2))
-	current_effect.set_frame(0)
-	effect_player.play(animation)
+	var player = party[owner_id]
+	var action = player.data.action
+	var animation = null
+	if action.name == "attack":
+		var weapon = player.data.weapon
+		animation = master.equip_dict[owner_id][weapon].effect.animation
+	elif action.name == "magic":
+		var magic_id = action.magic
+		animation = master.magic_dict[owner_id][magic_id].effect.animation
+		player.data.mp -= formulas.usage_mp(owner_id, magic_id)
+		player.update(owner_id)
 
-func magic_attack_one():
-	var action = party[owner_id].data.action
-	var magic_id = action.magic
-	party[owner_id].data.mp -= formulas.usage_mp(owner_id, magic_id)
-	party[owner_id].update(owner_id)
-	var animation = master.magic_dict[owner_id][magic_id].effect.animation
-	var enemy = action.target
-	var parent = enemy.get_parent()
-	var enemy_pos = enemy.get_pos()
-	var parent_pos = parent.get_pos()
-	current_effect = effects.get_node(animation)
-	current_effect.set_pos(Vector2(parent_pos.x + enemy_pos.x + enemy.data.width / 2, parent_pos.y + enemy_pos.y + enemy.data.height / 2))
-	current_effect.set_frame(0)
-	effect_player.play(animation)
-
-func magic_attack_group():
-	var action = party[owner_id].data.action
-	var magic_id = action.magic
-	party[owner_id].data.mp -= formulas.usage_mp(owner_id, magic_id)
-	party[owner_id].update(owner_id)
-	var animation = master.magic_dict[owner_id][magic_id].effect.animation
-	var monsters = null
-	if action.targets == "air":
-		monsters = monsters_on_air
+	if action.has("target"):
+		# select one enemy
+		var target = action.target
+		if target.data.has("die"):
+			target = random_next_enemy()
+		var pos = target.get_pos()
+		var parent_pos = target.get_parent().get_pos()
+		var effect = effects.get_node(animation)
+		effect.set_pos(Vector2(parent_pos.x + pos.x + target.data.width / 2, parent_pos.y + pos.y + target.data.height / 2))
+		effect.set_frame(0)
+		action.enemies = [target]
 	else:
-		monsters = monsters_on_floor
-	current_effect = effects.get_node(animation)
-	current_effect.set_pos(Vector2(global.half_screen_size.x, base_lines[action.targets]))
-	current_effect.set_frame(0)
+		# select multiple enemies
+		var group
+		if action.targets == "air":
+			group = monsters_air
+		elif action.targets == "floor":
+			group = monsters_floor
+		else:
+			group = monsters
+		var effect = effects.get_node(animation)
+		effect.set_pos(Vector2(global.half_screen_size.x, 250))
+		effect.set_frame(0)
+		action.enemies = group
+	action.enemy_count = 0
+
 	effect_player.play(animation)
-	wait_count = 0
-	wait_data = []
-	var i = 0
-	while i < monsters.get_child_count():
-		var enemy = monsters.get_child(i)
-		if !enemy.data.has("die"):
-			var enemy_pos = enemy.get_pos()
-			wait_count += 1
-			wait_data.append(enemy)
-		i += 1
 
