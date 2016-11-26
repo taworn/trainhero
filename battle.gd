@@ -147,7 +147,11 @@ func _process(delta):
 					attack()
 					return
 				elif battle == "all":
-					print("action(%s): attack magic %s to all enemies" % [player.data.name, action.magic])
+					print("action(%s): attack magic %s to all enemies (time: %d)" % [player.data.name, action.magic, action.take_time])
+					player.data.speed = TIME_LIMIT - player.data.spd2
+					wait = WAIT_ATTACK
+					attack()
+					return
 			else:
 				if typeof(action.target) == TYPE_STRING:
 					print("action(%s): use magic %s to %s" % [player.data.name, action.magic, action.target])
@@ -199,7 +203,7 @@ func _on_Player_finished():
 				i.data.damage.display("%d" % damage)
 				i.data.damage.play()
 	else:
-		# continue next loop	
+		# continue next loop
 		party[owner_id].data.action = null
 		wait = WAIT_TURN
 

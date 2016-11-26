@@ -140,7 +140,7 @@ var magic_dict = {
 			"mp": 7,
 			"time": 5,
 			"hint": "Lightning all enemies.",
-			"effect": {"battle": "all"},
+			"effect": {"animation": "Thunder", "battle": "all"},
 		},
 		"heroblade": {
 			"name": "Hero Blade",
