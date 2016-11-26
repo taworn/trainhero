@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=7 format=1]
+[gd_resource type="SpriteFrames" load_steps=9 format=1]
 
 [ext_resource path="res://effects/thunder/0.png" type="Texture" id=1]
 [ext_resource path="res://effects/thunder/1.png" type="Texture" id=2]
@@ -6,8 +6,10 @@
 [ext_resource path="res://effects/thunder/3.png" type="Texture" id=4]
 [ext_resource path="res://effects/thunder/4.png" type="Texture" id=5]
 [ext_resource path="res://effects/thunder/5.png" type="Texture" id=6]
+[ext_resource path="res://effects/thunder/a.png" type="Texture" id=7]
+[ext_resource path="res://effects/thunder/b.png" type="Texture" id=8]
 
 [resource]
 
-animations = [ { "frames":[ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ], "loop":true, "name":"default", "speed":5.0 } ]
+animations = [ { "frames":[ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ], "loop":true, "name":"default", "speed":5.0 } ]
 

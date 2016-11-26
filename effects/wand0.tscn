@@ -2,8 +2,10 @@
 
 [ext_resource path="res://effects/wand0.tres" type="SpriteFrames" id=1]
 
-[node name="Effect Weapon Wand" type="AnimatedSprite"]
+[node name="Wand0" type="AnimatedSprite"]
 
+visibility/visible = false
+transform/scale = Vector2( 3, 3 )
 frames = ExtResource( 1 )
 animation = "default"
 

@@ -2,8 +2,10 @@
 
 [ext_resource path="res://effects/sword1.tres" type="SpriteFrames" id=1]
 
-[node name="Effect Weapon Sword" type="AnimatedSprite"]
+[node name="Sword1" type="AnimatedSprite"]
 
+visibility/visible = false
+transform/scale = Vector2( 3, 3 )
 frames = ExtResource( 1 )
 animation = "default"
 

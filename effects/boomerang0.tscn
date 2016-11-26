@@ -2,8 +2,10 @@
 
 [ext_resource path="res://effects/boomerang0.tres" type="SpriteFrames" id=1]
 
-[node name="Effect Weapon Boomerang" type="AnimatedSprite"]
+[node name="Boomerang0" type="AnimatedSprite"]
 
+visibility/visible = false
+transform/scale = Vector2( 4, 4 )
 frames = ExtResource( 1 )
 animation = "default"
 

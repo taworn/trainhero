@@ -17,8 +17,7 @@ var monsters_floor = []       # monsters on floor add to array
 var monsters_air = []         # monsters on air add to array
 var monsters = []             # monsters add to array
 
-var effects = null        # when players attack or use magic
-var effect_player = null  # effect player
+var effects = null  # players attack or use magic
 
 var menu = null
 var text_panel = null
@@ -51,9 +50,8 @@ func _ready():
 	monsters_on_floor = get_node("Players/Monsters On Floor")
 	monsters_on_air = get_node("Players/Monsters On Air")
 	get_node("Players/Loader").execute("res://enemies/groups/" + state.enemies_group_file + ".txt")
-
 	effects = get_node("Players/Effects")
-	effect_player = get_node("Players/Effects/Player")
+	effects.connect(self, "_on_Player_finished")
 
 	menu = get_node("UI/Menu")
 	text_panel = get_node("UI/PanelText")
@@ -294,6 +292,7 @@ func attack():
 		player.data.mp -= formulas.usage_mp(owner_id, magic_id)
 		player.update(owner_id)
 
+	var effect_pos
 	if action.has("target"):
 		# select one enemy
 		var target = action.target
@@ -301,9 +300,7 @@ func attack():
 			target = random_next_enemy()
 		var pos = target.get_pos()
 		var parent_pos = target.get_parent().get_pos()
-		var effect = effects.get_node(animation)
-		effect.set_pos(Vector2(parent_pos.x + pos.x + target.data.width / 2, parent_pos.y + pos.y + target.data.height / 2))
-		effect.set_frame(0)
+		effect_pos = Vector2(parent_pos.x + pos.x + target.data.width / 2, parent_pos.y + pos.y + target.data.height / 2)
 		action.enemies = [target]
 	else:
 		# select multiple enemies
@@ -314,11 +311,9 @@ func attack():
 			group = monsters_floor
 		else:
 			group = monsters
-		var effect = effects.get_node(animation)
-		effect.set_pos(Vector2(global.half_screen_size.x, 250))
-		effect.set_frame(0)
+		effect_pos = Vector2(global.half_screen_size.x, 250)
 		action.enemies = group
 	action.enemy_count = 0
 
-	effect_player.play(animation)
+	effects.play(animation, effect_pos)
 

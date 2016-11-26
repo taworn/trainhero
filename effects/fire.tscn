@@ -2,8 +2,10 @@
 
 [ext_resource path="res://effects/fire.tres" type="SpriteFrames" id=1]
 
-[node name="Effect Magic Fire" type="AnimatedSprite"]
+[node name="Fire" type="AnimatedSprite"]
 
+visibility/visible = false
+transform/scale = Vector2( 4, 4 )
 frames = ExtResource( 1 )
 animation = "default"
 
