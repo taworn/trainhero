@@ -1,19 +1,26 @@
-[gd_scene load_steps=15 format=1]
+[gd_scene load_steps=22 format=1]
 
 [ext_resource path="res://effects/effects.gd" type="Script" id=1]
 [ext_resource path="res://effects/bladea.tres" type="Animation" id=2]
-[ext_resource path="res://effects/boomerang0a.tres" type="Animation" id=3]
-[ext_resource path="res://effects/cuta.tres" type="Animation" id=4]
-[ext_resource path="res://effects/firea.tres" type="Animation" id=5]
-[ext_resource path="res://effects/firesa.tres" type="Animation" id=6]
-[ext_resource path="res://effects/icea.tres" type="Animation" id=7]
-[ext_resource path="res://effects/icesa.tres" type="Animation" id=8]
-[ext_resource path="res://effects/slasha.tres" type="Animation" id=9]
-[ext_resource path="res://effects/sword0a.tres" type="Animation" id=10]
-[ext_resource path="res://effects/sword1a.tres" type="Animation" id=11]
-[ext_resource path="res://effects/sword2a.tres" type="Animation" id=12]
-[ext_resource path="res://effects/thundera.tres" type="Animation" id=13]
-[ext_resource path="res://effects/wand0a.tres" type="Animation" id=14]
+[ext_resource path="res://effects/bomba.tres" type="Animation" id=3]
+[ext_resource path="res://effects/boomerang0a.tres" type="Animation" id=4]
+[ext_resource path="res://effects/cuta.tres" type="Animation" id=5]
+[ext_resource path="res://effects/firea.tres" type="Animation" id=6]
+[ext_resource path="res://effects/firesa.tres" type="Animation" id=7]
+[ext_resource path="res://effects/icea.tres" type="Animation" id=8]
+[ext_resource path="res://effects/icesa.tres" type="Animation" id=9]
+[ext_resource path="res://effects/meteora.tres" type="Animation" id=10]
+[ext_resource path="res://effects/slasha.tres" type="Animation" id=11]
+[ext_resource path="res://effects/slowa.tres" type="Animation" id=12]
+[ext_resource path="res://effects/slowsa.tres" type="Animation" id=13]
+[ext_resource path="res://effects/speeda.tres" type="Animation" id=14]
+[ext_resource path="res://effects/speedsa.tres" type="Animation" id=15]
+[ext_resource path="res://effects/sword0a.tres" type="Animation" id=16]
+[ext_resource path="res://effects/sword1a.tres" type="Animation" id=17]
+[ext_resource path="res://effects/sword2a.tres" type="Animation" id=18]
+[ext_resource path="res://effects/thundera.tres" type="Animation" id=19]
+[ext_resource path="res://effects/wand0a.tres" type="Animation" id=20]
+[ext_resource path="res://effects/whirlwinda.tres" type="Animation" id=21]
 
 [node name="Effects" type="Node2D"]
 
@@ -25,18 +32,25 @@ playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
 anims/Blade = ExtResource( 2 )
-anims/Boomerang0 = ExtResource( 3 )
-anims/Cut = ExtResource( 4 )
-anims/Fire = ExtResource( 5 )
-anims/Fires = ExtResource( 6 )
-anims/Ice = ExtResource( 7 )
-anims/Ices = ExtResource( 8 )
-anims/Slash = ExtResource( 9 )
-anims/Sword0 = ExtResource( 10 )
-anims/Sword1 = ExtResource( 11 )
-anims/Sword2 = ExtResource( 12 )
-anims/Thunder = ExtResource( 13 )
-anims/Wand0 = ExtResource( 14 )
+anims/Bomb = ExtResource( 3 )
+anims/Boomerang0 = ExtResource( 4 )
+anims/Cut = ExtResource( 5 )
+anims/Fire = ExtResource( 6 )
+anims/Fires = ExtResource( 7 )
+anims/Ice = ExtResource( 8 )
+anims/Ices = ExtResource( 9 )
+anims/Meteor = ExtResource( 10 )
+anims/Slash = ExtResource( 11 )
+anims/Slow = ExtResource( 12 )
+anims/Slows = ExtResource( 13 )
+anims/Speed = ExtResource( 14 )
+anims/Speeds = ExtResource( 15 )
+anims/Sword0 = ExtResource( 16 )
+anims/Sword1 = ExtResource( 17 )
+anims/Sword2 = ExtResource( 18 )
+anims/Thunder = ExtResource( 19 )
+anims/Wand0 = ExtResource( 20 )
+anims/Whirlwind = ExtResource( 21 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]

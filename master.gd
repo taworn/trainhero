@@ -291,28 +291,28 @@ var magic_dict = {
 			"mp": 2,
 			"time": 4,
 			"hint": "Slow down one enemy.",
-			"effect": {"battle": "one"},
+			"effect": {"animation": "Slow", "battle": "one"},
 		},
 		"slow_all": {
 			"name": "Slow All",
 			"mp": 4,
 			"time": 4,
 			"hint": "Slow down all enemies.",
-			"effect": {"battle": "all"},
+			"effect": {"animation": "Slows", "battle": "all"},
 		},
 		"speed": {
 			"name": "Speed",
 			"mp": 2,
 			"time": 4,
 			"hint": "Speed up one ally.",
-			"effect": {"speed": 1},
+			"effect": {"animation": "Speed", "speed": 1},
 		},
 		"speed_all": {
 			"name": "Haste",
 			"mp": 6,
 			"time": 4,
 			"hint": "Haste up all allies.",
-			"effect": {"all": 1, "speed": 1},
+			"effect": {"animation": "Speeds", "all": 1, "speed": 1},
 		},
 
 		# bomb
@@ -321,7 +321,7 @@ var magic_dict = {
 			"mp": 6,
 			"time": 8,
 			"hint": "Attack all enemies with bomb.",
-			"effect": {"battle": "all"},
+			"effect": {"animation": "Bomb", "battle": "all"},
 		},
 
 		# whirlwind
@@ -330,7 +330,7 @@ var magic_dict = {
 			"mp": 9,
 			"time": 8,
 			"hint": "Attack all enemies with whirlwind.",
-			"effect": {"battle": "all"},
+			"effect": {"animation": "Whirlwind", "battle": "all"},
 		},
 
 		# meteor
@@ -339,7 +339,7 @@ var magic_dict = {
 			"mp": 12,
 			"time": 15,
 			"hint": "Attack all enemies with meteor.",
-			"effect": {"battle": "all"},
+			"effect": {"animation": "Meteor", "battle": "all"},
 		},
 	},
 }

@@ -116,7 +116,7 @@ func restart_game():
 				"hp_max": 50,
 				"hp": 50,
 				"mp_max": 75,
-				"mp": 7,
+				"mp": 75,
 				"att": 8,
 				"mag": 0,
 				"def": 7,

@@ -1,28 +1,34 @@
-[gd_resource type="SampleLibrary" load_steps=12 format=1]
+[gd_resource type="SampleLibrary" load_steps=15 format=1]
 
 [ext_resource path="res://sounds/blade.wav" type="Sample" id=1]
-[ext_resource path="res://sounds/boomerang.wav" type="Sample" id=2]
-[ext_resource path="res://sounds/coin.wav" type="Sample" id=3]
-[ext_resource path="res://sounds/error.wav" type="Sample" id=4]
-[ext_resource path="res://sounds/fire.wav" type="Sample" id=5]
-[ext_resource path="res://sounds/heal.wav" type="Sample" id=6]
-[ext_resource path="res://sounds/ice.wav" type="Sample" id=7]
-[ext_resource path="res://sounds/save.wav" type="Sample" id=8]
-[ext_resource path="res://sounds/sword.wav" type="Sample" id=9]
-[ext_resource path="res://sounds/thunder.wav" type="Sample" id=10]
-[ext_resource path="res://sounds/wand.wav" type="Sample" id=11]
+[ext_resource path="res://sounds/bomb.wav" type="Sample" id=2]
+[ext_resource path="res://sounds/boomerang.wav" type="Sample" id=3]
+[ext_resource path="res://sounds/coin.wav" type="Sample" id=4]
+[ext_resource path="res://sounds/error.wav" type="Sample" id=5]
+[ext_resource path="res://sounds/fire.wav" type="Sample" id=6]
+[ext_resource path="res://sounds/heal.wav" type="Sample" id=7]
+[ext_resource path="res://sounds/ice.wav" type="Sample" id=8]
+[ext_resource path="res://sounds/save.wav" type="Sample" id=9]
+[ext_resource path="res://sounds/sword.wav" type="Sample" id=10]
+[ext_resource path="res://sounds/thunder.wav" type="Sample" id=11]
+[ext_resource path="res://sounds/time.wav" type="Sample" id=12]
+[ext_resource path="res://sounds/wand.wav" type="Sample" id=13]
+[ext_resource path="res://sounds/whirlwind.wav" type="Sample" id=14]
 
 [resource]
 
 samples/blade = { "db":0.0, "pitch":1.0, "sample":ExtResource( 1 ) }
-samples/boomerang = { "db":0.0, "pitch":1.0, "sample":ExtResource( 2 ) }
-samples/coin = { "db":0.0, "pitch":1.0, "sample":ExtResource( 3 ) }
-samples/error = { "db":0.0, "pitch":1.0, "sample":ExtResource( 4 ) }
-samples/fire = { "db":0.0, "pitch":1.0, "sample":ExtResource( 5 ) }
-samples/heal = { "db":0.0, "pitch":1.0, "sample":ExtResource( 6 ) }
-samples/ice = { "db":0.0, "pitch":1.0, "sample":ExtResource( 7 ) }
-samples/save = { "db":0.0, "pitch":1.0, "sample":ExtResource( 8 ) }
-samples/sword = { "db":0.0, "pitch":1.0, "sample":ExtResource( 9 ) }
-samples/thunder = { "db":0.0, "pitch":1.0, "sample":ExtResource( 10 ) }
-samples/wand = { "db":0.0, "pitch":1.0, "sample":ExtResource( 11 ) }
+samples/bomb = { "db":0.0, "pitch":1.0, "sample":ExtResource( 2 ) }
+samples/boomerang = { "db":0.0, "pitch":1.0, "sample":ExtResource( 3 ) }
+samples/coin = { "db":0.0, "pitch":1.0, "sample":ExtResource( 4 ) }
+samples/error = { "db":0.0, "pitch":1.0, "sample":ExtResource( 5 ) }
+samples/fire = { "db":0.0, "pitch":1.0, "sample":ExtResource( 6 ) }
+samples/heal = { "db":0.0, "pitch":1.0, "sample":ExtResource( 7 ) }
+samples/ice = { "db":0.0, "pitch":1.0, "sample":ExtResource( 8 ) }
+samples/save = { "db":0.0, "pitch":1.0, "sample":ExtResource( 9 ) }
+samples/sword = { "db":0.0, "pitch":1.0, "sample":ExtResource( 10 ) }
+samples/thunder = { "db":0.0, "pitch":1.0, "sample":ExtResource( 11 ) }
+samples/time = { "db":0.0, "pitch":1.0, "sample":ExtResource( 12 ) }
+samples/wand = { "db":0.0, "pitch":1.0, "sample":ExtResource( 13 ) }
+samples/whirlwind = { "db":0.0, "pitch":1.0, "sample":ExtResource( 14 ) }
 
