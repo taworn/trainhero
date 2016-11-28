@@ -418,10 +418,9 @@ func magic_use_one(player_id, id, player):
 	var used = false
 	if player.faint:
 		if effect.has("heal"):
-			if player.faint:
-				player.faint = false
-				player.hp = round(effect["heal"] * player.hp_max / 100)
-				used = true
+			player.faint = false
+			player.hp = round(effect["heal"] * player.hp_max / 100)
+			used = true
 	if !player.faint:
 		if effect.has("hp"):
 			if player.hp < player.hp_max:
@@ -447,10 +446,9 @@ func magic_use_all(player_id, id):
 		if player.avail:
 			if player.faint:
 				if effect.has("heal"):
-					if player.faint:
-						player.faint = false
-						player.hp = round(effect["heal"] * player.hp_max / 100)
-						used = true
+					player.faint = false
+					player.hp = round(effect["heal"] * player.hp_max / 100)
+					used = true
 			if !player.faint:
 				if effect.has("hp"):
 					if player.hp < player.hp_max:

@@ -119,14 +119,14 @@ var magic_dict = {
 			"mp": 3,
 			"time": 3,
 			"hint": "Cut one enemy.",
-			"effect": {"animation": "Cut", "battle": "one"},
+			"effect": {"animation": "Cut", "battle": "one", "power": [15, 1, 0, 1.5]},
 		},
 		"slash": {
 			"name": "Slash",
 			"mp": 3,
 			"time": 3,
 			"hint": "Slash multiple targets.",
-			"effect": {"animation": "Slash", "battle": "group"},
+			"effect": {"animation": "Slash", "battle": "group", "power": [10, 1, 0, 1.25]},
 		},
 		"warp": {
 			"name": "Warp Back",
@@ -140,14 +140,14 @@ var magic_dict = {
 			"mp": 7,
 			"time": 5,
 			"hint": "Lightning all enemies.",
-			"effect": {"animation": "Thunder", "battle": "all"},
+			"effect": {"animation": "Thunder", "battle": "all", "power": [75, 0, 0, 1.5]},
 		},
 		"heroblade": {
 			"name": "Hero Blade",
 			"mp": 9,
 			"time": 5,
 			"hint": "Attack one enemy with maximum power.",
-			"effect": {"animation": "Blade", "battle": "one"},
+			"effect": {"animation": "Blade", "battle": "one", "power": [0, 1.5, 0, 3], "element": 4},
 		},
 	},
 
@@ -259,28 +259,28 @@ var magic_dict = {
 			"mp": 3,
 			"time": 3,
 			"hint": "Attack one enemy with fire.",
-			"effect": {"animation": "Fire", "battle": "one"},
+			"effect": {"animation": "Fire", "battle": "one", "power": [10, 0, 1, 1.5], "element": 1},
 		},
 		"fire_spread": {
 			"name": "Fire Spread",
 			"mp": 5,
 			"time": 5,
 			"hint": "Attack group enemies with fire.",
-			"effect": {"animation": "Fires", "battle": "group"},
+			"effect": {"animation": "Fires", "battle": "group", "power": [10, 0, 1, 1.2], "element": 1},
 		},
 		"ice": {
 			"name": "Ice",
 			"mp": 3,
 			"time": 3,
 			"hint": "Attack one enemy with ice.",
-			"effect": {"animation": "Ice", "battle": "one"},
+			"effect": {"animation": "Ice", "battle": "one", "power": [10, 0, 1, 1.5], "element": 2},
 		},
 		"ice_spread": {
 			"name": "Ice Spread",
 			"mp": 5,
 			"time": 5,
 			"hint": "Attack group enemies with ice.",
-			"effect": {"animation": "Ices", "battle": "group"},
+			"effect": {"animation": "Ices", "battle": "group", "power": [10, 0, 1, 1.2], "element": 2},
 		},
 	},
 
@@ -291,14 +291,14 @@ var magic_dict = {
 			"mp": 2,
 			"time": 4,
 			"hint": "Slow down one enemy.",
-			"effect": {"animation": "Slow", "battle": "one"},
+			"effect": {"animation": "Slow", "battle": "one", "slow": 1},
 		},
 		"slow_all": {
 			"name": "Slow All",
 			"mp": 4,
 			"time": 4,
 			"hint": "Slow down all enemies.",
-			"effect": {"animation": "Slows", "battle": "all"},
+			"effect": {"animation": "Slows", "battle": "all", "slow": 1},
 		},
 		"speed": {
 			"name": "Speed",
@@ -321,7 +321,7 @@ var magic_dict = {
 			"mp": 6,
 			"time": 8,
 			"hint": "Attack all enemies with bomb.",
-			"effect": {"animation": "Bomb", "battle": "all"},
+			"effect": {"animation": "Bomb", "battle": "all", "power": [30, 0, 1, 1.5]},
 		},
 
 		# whirlwind
@@ -330,7 +330,7 @@ var magic_dict = {
 			"mp": 9,
 			"time": 8,
 			"hint": "Attack all enemies with whirlwind.",
-			"effect": {"animation": "Whirlwind", "battle": "all"},
+			"effect": {"animation": "Whirlwind", "battle": "all", "power": [50, 0, 1, 1.5]},
 		},
 
 		# meteor
@@ -339,7 +339,7 @@ var magic_dict = {
 			"mp": 12,
 			"time": 15,
 			"hint": "Attack all enemies with meteor.",
-			"effect": {"animation": "Meteor", "battle": "all"},
+			"effect": {"animation": "Meteor", "battle": "all", "power": [0, 0, 0, 4]},
 		},
 	},
 }
@@ -376,7 +376,7 @@ var equip_dict = {
 			"att": 50,
 			"mag": 0,
 			"hint": "A legendary sword, absorb HP/MP.",
-			"effect": {"animation": "Sword2", "absorb_hp": 3, "absorb_mp": 1},
+			"effect": {"animation": "Sword2", "absorb_hp": 3, "absorb_mp": 1, "element": 4},
 		},
 		"armor": {
 			"name": "Armor",
@@ -512,7 +512,7 @@ var equip_dict = {
 			"type": "accessory",
 			"def": 0,
 			"hint": "A fast MP regenerate ring.",
-			"effect": {"regen_mp": 8}
+			"effect": {"regen_hp": 1, "regen_mp": 8}
 		},
 	},
 }
