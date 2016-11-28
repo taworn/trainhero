@@ -7,25 +7,25 @@ var item_dict = {
 		"name": "Recover HP 25%",
 		"money": 10,
 		"hint": "Restore HP 25% to a player.",
-		"effect": {"hp": 25},
+		"effect": {"animation": "Heal", "hp": 25},
 	},
 	"recover_hp_50": {
 		"name": "Recover HP 50%",
 		"money": 100,
 		"hint": "Restore HP 50% to a player.",
-		"effect": {"hp": 50},
+		"effect": {"animation": "Heal", "hp": 50},
 	},
 	"recover_hp_75": {
 		"name": "Recover HP 75%",
 		"money": 1000,
 		"hint": "Restore HP 75% to a player.",
-		"effect": {"hp": 75},
+		"effect": {"animation": "Heal", "hp": 75},
 	},
 	"recover_hp_100": {
 		"name": "Recover HP 100%",
 		"money": 10000,
 		"hint": "Restore HP 100% to a player.",
-		"effect": {"hp": 100},
+		"effect": {"animation": "Heal", "hp": 100},
 	},
 
 	# restore MP
@@ -33,25 +33,25 @@ var item_dict = {
 		"name": "Recover MP 25%",
 		"money": 10,
 		"hint": "Restore MP 25% to a player.",
-		"effect": {"mp": 25},
+		"effect": {"animation": "Heal", "mp": 25},
 	},
 	"recover_mp_50": {
 		"name": "Recover MP 50%",
 		"money": 100,
 		"hint": "Restore MP 50% to a player.",
-		"effect": {"mp": 50},
+		"effect": {"animation": "Heal", "mp": 50},
 	},
 	"recover_mp_75": {
 		"name": "Recover MP 75%",
 		"money": 1000,
 		"hint": "Restore MP 75% to a player.",
-		"effect": {"mp": 75},
+		"effect": {"animation": "Heal", "mp": 75},
 	},
 	"recover_mp_100": {
 		"name": "Recover MP 100%",
 		"money": 10000,
 		"hint": "Restore MP 100% to a player.",
-		"effect": {"mp": 100},
+		"effect": {"animation": "Heal", "mp": 100},
 	},
 
 	# restore HP/MP
@@ -59,25 +59,25 @@ var item_dict = {
 		"name": "Recover HP/MP 25%",
 		"money": 30,
 		"hint": "Restore HP&MP 25% to a player.",
-		"effect": {"hp": 25, "mp": 25},
+		"effect": {"animation": "Heal", "hp": 25, "mp": 25},
 	},
 	"recover_hpmp_50": {
 		"name": "Recover HP/MP 50%",
 		"money": 300,
 		"hint": "Restore HP&MP 50% to a player.",
-		"effect": {"hp": 50, "mp": 50},
+		"effect": {"animation": "Heal", "hp": 50, "mp": 50},
 	},
 	"recover_hpmp_75": {
 		"name": "Recover HP/MP 75%",
 		"money": 3000,
 		"hint": "Restore HP&MP 75% to a player.",
-		"effect": {"hp": 75, "mp": 75},
+		"effect": {"animation": "Heal", "hp": 75, "mp": 75},
 	},
 	"recover_hpmp_100": {
 		"name": "Recover HP/MP 100%",
 		"money": 30000,
 		"hint": "Restore HP&MP 100% to a player.",
-		"effect": {"hp": 100, "mp": 100},
+		"effect": {"animation": "Heal", "hp": 100, "mp": 100},
 	},
 
 	# anti-
@@ -85,13 +85,13 @@ var item_dict = {
 		"name": "Antidote",
 		"money": 25,
 		"hint": "Remedy when a player poisoned.",
-		"effect": {"cure": 1},
+		"effect": {"animation": "Heal", "cure": 1},
 	},
 	"antiseptic": {
 		"name": "Antiseptic",
 		"money": 250,
 		"hint": "Remedy when a player pass out.",
-		"effect": {"heal": 25},
+		"effect": {"animation": "Heal", "heal": 25},
 	},
 }
 
@@ -158,28 +158,28 @@ var magic_dict = {
 			"mp": 2,
 			"time": 2,
 			"hint": "Restore HP 25% to a player.",
-			"effect": {"hp": 25},
+			"effect": {"animation": "Heal", "hp": 25},
 		},
 		"recover_hp_50": {
 			"name": "Recover HP 50%",
 			"mp": 4,
 			"time": 4,
 			"hint": "Restore HP 50% to a player.",
-			"effect": {"hp": 50},
+			"effect": {"animation": "Heal", "hp": 50},
 		},
 		"recover_hp_75": {
 			"name": "Recover HP 75%",
 			"mp": 6,
 			"time": 6,
 			"hint": "Restore HP 75% to a player.",
-			"effect": {"hp": 50},
+			"effect": {"animation": "Heal", "hp": 50},
 		},
 		"recover_hp_100": {
 			"name": "Recover HP 100%",
 			"mp": 8,
 			"time": 8,
 			"hint": "Restore HP 100% to a player.",
-			"effect": {"hp": 100},
+			"effect": {"animation": "Heal", "hp": 100},
 		},
 
 		# restore HP all
@@ -188,28 +188,28 @@ var magic_dict = {
 			"mp": 4,
 			"time": 4,
 			"hint": "Restore HP 25% to all players.",
-			"effect": {"all": 1, "hp": 25},
+			"effect": {"animation": "Heals", "all": 1, "hp": 25},
 		},
 		"recover_hp_50_all": {
 			"name": "Recover HP 50% All",
 			"mp": 6,
 			"time": 6,
 			"hint": "Restore HP 50% to all players.",
-			"effect": {"all": 1, "hp": 50},
+			"effect": {"animation": "Heals", "all": 1, "hp": 50},
 		},
 		"recover_hp_75_all": {
 			"name": "Recover HP 75% All",
 			"mp": 8,
 			"time": 8,
 			"hint": "Restore HP 75% to all players.",
-			"effect": {"all": 1, "hp": 75},
+			"effect": {"animation": "Heals", "all": 1, "hp": 75},
 		},
 		"recover_hp_100_all": {
 			"name": "Recover HP 100% All",
 			"mp": 10,
 			"time": 10,
 			"hint": "Restore HP 100% to all players.",
-			"effect": {"all": 1, "hp": 100},
+			"effect": {"animation": "Heals", "all": 1, "hp": 100},
 		},
 
 		# anti-
@@ -218,14 +218,14 @@ var magic_dict = {
 			"mp": 2,
 			"time": 2,
 			"hint": "Remedy when a player poisoned.",
-			"effect": {"cure": 1},
+			"effect": {"animation": "Heal", "cure": 1},
 		},
 		"antiseptic": {
 			"name": "Antiseptic",
 			"mp": 4,
 			"time": 4,
 			"hint": "Remedy when a player pass out.",
-			"effect": {"heal": 25},
+			"effect": {"animation": "Heal", "heal": 25},
 		},
 
 		# full recovery all
@@ -234,7 +234,7 @@ var magic_dict = {
 			"mp": 12,
 			"time": 12,
 			"hint": "Recover HP/Poison/Faint to all players.",
-			"effect": {"all": 1, "heal": 100, "cure": 1, "hp": 100},
+			"effect": {"animation": "Heals", "all": 1, "heal": 100, "cure": 1, "hp": 100},
 		},
 
 		# protect and shield
@@ -243,14 +243,14 @@ var magic_dict = {
 			"mp": 3,
 			"time": 3,
 			"hint": "Protect players with attacks.",
-			"effect": {"all": 1, "block": "protect"},
+			"effect": {"animation": "Protect", "all": 1, "block": "protect"},
 		},
 		"shield": {
 			"name": "Shield",
 			"mp": 3,
 			"time": 3,
 			"hint": "Protect players with magics.",
-			"effect": {"all": 1, "block": "shield"},
+			"effect": {"animation": "Protect", "all": 1, "block": "shield"},
 		},
 
 		# attack

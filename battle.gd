@@ -125,38 +125,36 @@ func _process(delta):
 		var action = player.data.action
 		if action.name == "attack":
 			print("action(%s): attack %s (time: %d)" % [player.data.name, action.target.data.name, action.take_time])
-			player.data.speed = TIME_LIMIT - player.data.spd2
-			wait = WAIT_ATTACK
-			attack()
+			begin_attack()
 			return
 		elif action.name == "magic":
 			if master.magic_dict[owner_id][action.magic].effect.has("battle"):
 				var battle = master.magic_dict[owner_id][action.magic].effect["battle"]
 				if battle == "one":
 					print("action(%s): attack magic %s to %s (time: %d)" % [player.data.name, action.magic, action.target.data.name, action.take_time])
-					player.data.speed = TIME_LIMIT - player.data.spd2
-					wait = WAIT_ATTACK
-					attack()
+					begin_attack()
 					return
 				elif battle == "group":
 					print("action(%s): attack magic %s to %s (time: %d)" % [player.data.name, action.magic, action.targets, action.take_time])
-					player.data.speed = TIME_LIMIT - player.data.spd2
-					wait = WAIT_ATTACK
-					attack()
+					begin_attack()
 					return
 				elif battle == "all":
 					print("action(%s): attack magic %s to all enemies (time: %d)" % [player.data.name, action.magic, action.take_time])
-					player.data.speed = TIME_LIMIT - player.data.spd2
-					wait = WAIT_ATTACK
-					attack()
+					begin_attack()
 					return
 			else:
 				if typeof(action.target) == TYPE_STRING:
 					print("action(%s): use magic %s to %s" % [player.data.name, action.magic, action.target])
+					begin_magic_powerup()
+					return
 				else:
 					print("action(%s): use magic %s to %s" % [player.data.name, action.magic, party[action.target].data.name])
+					begin_magic_powerup()
+					return
 		elif action.name == "item":
 			print("action(%s): use item %s on %s" % [player.data.name, action.item, party[action.target].data.name])
+			begin_item()
+			return
 		elif action.name == "wait":
 			print("action(%s): waiting..." % [player.data.name])
 		elif action.name == "runaway":
@@ -186,22 +184,26 @@ func _on_AnimationPlayer_finished():
 func _on_Player_finished():
 	var player = party[owner_id]
 	var action = player.data.action
-	# check if all miss
-	var dies = true
-	for i in action.enemies:
-		if !i.data.has("die"):
-			dies = false
-			break
-	if !dies:
-		# continue will normal flow
+	if !action.has("party"):
+		# check if all miss
+		var dies = true
 		for i in action.enemies:
-			if !i.is_hidden():
-				var damage = randi() % 1000  # use random for now
-				i.data.hp -= damage
-				i.data.damage.display("%d" % damage)
-				i.data.damage.play()
+			if !i.data.has("die"):
+				dies = false
+				break
+		if !dies:
+			# continue will normal flow
+			for i in action.enemies:
+				if !i.is_hidden():
+					var damage = randi() % 1000  # use random for now
+					i.data.hp -= damage
+					i.data.damage.display("%d" % damage)
+					i.data.damage.play()
+		else:
+			# continue next loop
+			party[owner_id].data.action = null
+			wait = WAIT_TURN
 	else:
-		# continue next loop
 		party[owner_id].data.action = null
 		wait = WAIT_TURN
 
@@ -279,8 +281,11 @@ func random_next_enemy():
 			return i
 	return null
 
-func attack():
+func begin_attack():
 	var player = party[owner_id]
+	player.data.speed = TIME_LIMIT - player.data.spd2
+	wait = WAIT_ATTACK
+
 	var action = player.data.action
 	var animation = null
 	if action.name == "attack":
@@ -314,6 +319,50 @@ func attack():
 		effect_pos = Vector2(global.half_screen_size.x, 250)
 		action.enemies = group
 	action.enemy_count = 0
+
+	effects.play(animation, effect_pos)
+
+func begin_magic_powerup():
+	var player = party[owner_id]
+	player.data.speed = TIME_LIMIT - player.data.spd2
+	wait = WAIT_ATTACK
+
+	var action = player.data.action
+	var animation = null
+	var magic_id = action.magic
+	animation = master.magic_dict[owner_id][magic_id].effect.animation
+	player.data.mp -= formulas.usage_mp(owner_id, magic_id)
+	player.update(owner_id)
+
+	var effect_pos
+	if typeof(action.target) == TYPE_INT:
+		var target = party[action.target]
+		var pos = target.get_pos()
+		effect_pos = Vector2(pos.x + 48, pos.y + 48)
+		action.party = [target]
+	else:
+		var pos = party[0].get_pos()
+		effect_pos = Vector2(global.half_screen_size.x, pos.y - 64)
+		action.party = [0, 1, 2]
+
+	effects.play(animation, effect_pos)
+
+func begin_item():
+	var player = party[owner_id]
+	player.data.speed = TIME_LIMIT - player.data.spd2
+	wait = WAIT_ATTACK
+
+	var action = player.data.action
+	var animation = null
+	var item_id = action.item
+	animation = master.item_dict[item_id].effect.animation
+	state.persist.items[item_id] -= 1
+
+	var effect_pos
+	var target = party[action.target]
+	var pos = target.get_pos()
+	effect_pos = Vector2(pos.x + 48, pos.y + 48)
+	action.party = [target]
 
 	effects.play(animation, effect_pos)
 
