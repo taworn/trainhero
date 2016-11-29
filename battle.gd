@@ -561,6 +561,7 @@ func ai(monster):
 	}
 	wait = WAIT_ACTIONING
 	monster_effects.play(animation, effect_pos)
+	monster.data.damage.blink()
 	helper.set_message("%s attack with %s to %s" % [monster.data.name, attack.name, player.data.name])
 
 func end_enemy_action():
