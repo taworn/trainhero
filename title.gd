@@ -16,6 +16,7 @@ var dialog_dict = {
 }
 
 func _ready():
+	print("ready")
 	menu = get_node("Menu")
 	menu.add_item("New Game", null)
 	for i in range(SAVE_COUNT):

@@ -11,7 +11,7 @@ func usage_mp(player_id, magic_id):
 
 func player_attack_monster(player_id, target):
 	var player = state.persist.players[player_id]
-	var attack = player.att + master.equip_dict[player_id][player.weapon].att + state.persist.level
+	var attack = round(player.att + master.equip_dict[player_id][player.weapon].att + state.persist.level)
 	return attack
 
 func player_magic_monster(player_id, magic_id, target):
@@ -23,6 +23,10 @@ func player_magic_monster(player_id, magic_id, target):
 	# [2] player mag
 	# [3] x level
 	# [4] element (optional)
-	var attack = power[0] + power[1] + power[2] + (power[3] * state.persist.level)
+	var attack = round(power[0] + (power[1] * player.att) + (power[2] * player.mag) + (power[3] * state.persist.level))
 	return attack
+
+func monster_attack_player(enemy, attack, player):
+	var power = round(enemy.data.att * attack.effect.power)
+	return power
 

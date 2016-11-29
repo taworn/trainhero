@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=1]
+
+[ext_resource path="res://effects/effects.gd" type="Script" id=1]
+[ext_resource path="res://effects/bitea.tres" type="Animation" id=2]
+[ext_resource path="res://effects/chargea.tres" type="Animation" id=3]
+[ext_resource path="res://effects/firea.tres" type="Animation" id=4]
+[ext_resource path="res://effects/icea.tres" type="Animation" id=5]
+[ext_resource path="res://effects/poisona.tres" type="Animation" id=6]
+
+[node name="Effects" type="Node2D"]
+
+script/script = ExtResource( 1 )
+
+[node name="Player" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/Bite = ExtResource( 2 )
+anims/Charge = ExtResource( 3 )
+anims/Fire = ExtResource( 4 )
+anims/Ice = ExtResource( 5 )
+anims/Poison = ExtResource( 6 )
+next/Charge = ""
+next/Poison = ""
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+

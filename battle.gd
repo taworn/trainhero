@@ -13,7 +13,9 @@ const WAIT_TURN = 0
 const WAIT_MENU = 1
 const WAIT_ACTION = 2
 const WAIT_ACTIONING = 3
-const WAIT_WIN = 4
+const WAIT_LOSS = 4
+const WAIT_WIN = 5
+const WAIT_FADE = 9
 
 var background = null         # background
 var party = []                # party of hero and heroines
@@ -23,18 +25,20 @@ var monsters_floor = []       # monsters on floor add to array
 var monsters_air = []         # monsters on air add to array
 var monsters = []             # monsters add to array
 
-var effects = null  # players attack or use magic
+var effects = null          # players attack or use magic
+var monster_effects = null  # monsters attack or use magic
 
-var menu = null
-var text_panel = null
-var text_label = null
-
+var menu = null       # menu
+var helper = null     # helper for miscellanous
+var music = null      # music player
 var sound = null      # sound sample
 var animation = null  # animation
 var after_effect = null
 
+# battle engine
 var time_cumulative = 0
 var owner_id = null
+var current_monster = null
 var wait = WAIT_TURN
 
 var map_to_background = {
@@ -58,15 +62,13 @@ func _ready():
 	get_node("Players/Loader").execute("res://enemies/groups/" + state.enemies_group_file + ".txt")
 	effects = get_node("Players/Effects")
 	effects.connect(self, "_on_Player_finished")
+	monster_effects = get_node("Players/Monster Effects")
+	monster_effects.connect(self, "_on_Monster_finished")
 
 	menu = get_node("UI/Menu")
-	text_panel = get_node("UI/PanelText")
-	text_panel.set_hidden(true)
-	text_label = text_panel.get_node("Text")
-
+	helper = get_node("UI/Helper")
+	music = get_node("MusicPlayer")
 	sound = get_node("SoundPlayer")
-
-	get_node("MusicPlayer").play()
 	animation = get_node("Effect/AnimationPlayer")
 	animation.connect("finished", self, "_on_AnimationPlayer_finished")
 	animation.get_node("../CanvasModulate").set_color(Color(0, 0, 0, 0))
@@ -114,6 +116,7 @@ func _ready():
 
 	if boss:
 		menu.disable_for_boss()
+	music.play()
 
 	set_process(true)
 
@@ -131,23 +134,40 @@ func _process(delta):
 		var player = party[owner_id]
 		var action = player.data.action
 		if action.name == "attack":
+			helper.set_message("%s attack %s" % [player.data.name, action.target.data.name])
 			begin_attack_or_magic()
 			return
 		elif action.name == "magic":
-			if master.magic_dict[owner_id][action.magic].effect.has("battle"):
+			var magic = master.magic_dict[owner_id][action.magic]
+			var message = null
+			if magic.effect.has("battle"):
+				if magic.effect["battle"] == "one":
+					message = "%s cast magic %s to %s" % [player.data.name, magic.name, action.target.data.name]
+				elif magic.effect["battle"] == "group":
+					message = "%s cast magic %s to all on %s" % [player.data.name, magic.name, action.targets]
+				else:
+					message = "%s cast magic %s to all" % [player.data.name, magic.name]
+				helper.set_message(message)
 				begin_attack_or_magic()
 				return
 			else:
+				if typeof(action.target) == TYPE_INT:
+					message = "%s cast magic %s to %s" % [player.data.name, magic.name, party[action.target].data.name]
+				else:
+					message = "%s cast magic %s to us all" % [player.data.name, magic.name]
+				helper.set_message(message)
 				begin_powerup()
 				return
 		elif action.name == "item":
+			var item = master.item_dict[action.item]
+			helper.set_message("%s use item %s to %s" % [player.data.name, item.name, party[action.target].data.name])
 			begin_powerup()
 			return
 		elif action.name == "wait":
-			print("action(%s): waiting..." % [player.data.name])
+			pass
 		elif action.name == "runaway":
-			print("action(%s): runaway, bye bye ^_^" % [player.data.name])
-			state.back()
+			helper.set_message("Runaway, bye bye ^_^")
+			quit()
 		player.data.speed = TIME_LIMIT - player.data.spd
 		player.data.action = null
 		wait = WAIT_TURN
@@ -155,8 +175,14 @@ func _process(delta):
 	elif wait == WAIT_ACTIONING:
 		pass
 
+	elif wait == WAIT_LOSS:
+		quit(true)
+
 	elif wait == WAIT_WIN:
-		state.back()
+		quit()
+
+	elif wait == WAIT_FADE:
+		pass
 
 	else:
 		time_cumulative += round(delta * 1000)
@@ -166,8 +192,10 @@ func _process(delta):
 
 func _on_AnimationPlayer_finished():
 	if after_effect != null:
-		after_effect = null
-		state.back()
+		if after_effect.has("gameover"):
+			state.gameover()
+		else:
+			state.back()
 
 func _on_Player_finished():
 	var player = party[owner_id]
@@ -219,22 +247,52 @@ func _on_Damage_finished():
 				after_kill_enemy(action)
 		end_action()
 
+func _on_Monster_finished():
+	var monster = current_monster
+	var action = monster.data.action
+	var player = action.player
+	var damage = formulas.monster_attack_player(monster, action.attack, player)
+	player.data.hp -= damage
+	if player.data.hp <= 0:
+		player.data.hp = 0
+		player.data.faint = true
+	player.update(player.data_id)
+	end_enemy_action()
+
+func quit(gameover = false):
+	if !gameover:
+		after_effect = {}
+	else:
+		after_effect = {"gameover": 1}
+	animation.set_current_animation("fade_out")
+	animation.play()
+	wait = WAIT_FADE
+
 func turn():
 	var player = check_party_turn()
 	if player != null:
-		var player_id = state.player_dict[player.data.name]
-		owner_id = player_id
+		owner_id = state.player_dict[player.data.name]
 		if player.data.action == null:
-			party[player_id].set_active(true)
-			menu.open(self, player_id)
-			wait = WAIT_MENU
+			if player.data.poison:
+				player.data.hp -= 1
+				if player.data.hp <= 0:
+					player.data.faint = true
+				player.update(owner_id)
+			if !player.data.faint:
+				party[owner_id].set_active(true)
+				menu.open(self, owner_id)
+				wait = WAIT_MENU
 		else:
 			wait = WAIT_ACTION
 		return
 
+	if check_monsters_win():
+		wait = WAIT_LOSS
+		return
+
 	var monster = check_monsters_turn()
 	if monster != null:
-		print("monster: ", monster.data.name)
+		ai(monster)
 		monster.data.speed = TIME_LIMIT - monster.data.spd
 		return
 
@@ -264,6 +322,12 @@ func check_party_turn():
 				return i
 	return null
 
+func check_party_win():
+	for i in monsters:
+		if !i.data.has("die"):
+			return false
+	return true
+
 func check_monsters_turn():
 	for i in monsters:
 		if !i.data.has("die"):
@@ -271,9 +335,9 @@ func check_monsters_turn():
 				return i
 	return null
 
-func check_party_win():
-	for i in monsters:
-		if !i.data.has("die"):
+func check_monsters_win():
+	for i in party:
+		if i.data.avail && !i.data.faint:
 			return false
 	return true
 
@@ -363,10 +427,11 @@ func begin_powerup():
 
 func end_action():
 	party[owner_id].data.action = null
-	if !check_party_win():
-		wait = WAIT_TURN
-	else:
+	helper.set_message()
+	if check_party_win():
 		wait = WAIT_WIN
+	else:
+		wait = WAIT_TURN
 
 func can_action_to_attack(action):
 	if action.name == "attack":
@@ -391,6 +456,30 @@ func action_to_support_attack(action, enemy):
 	var magic = master.magic_dict[owner_id][action.magic]
 	if magic.effect.has("slow"):
 		enemy.data.timeout["slow"] = TIME_SHIELD
+
+func action_to_powerup(action, player):
+	var effect
+	if action.has("magic"):
+		effect = master.magic_dict[owner_id][action.magic].effect
+	else:
+		effect = master.item_dict[action.item].effect
+	if player.data.faint:
+		if effect.has("heal"):
+			player.data.faint = false
+			player.data.hp = round(effect["heal"] * player.data.hp_max / 100)
+	if !player.data.faint:
+		if effect.has("hp"):
+			player.data.hp += round(effect["hp"] * player.data.hp_max / 100)
+			if player.data.hp > player.data.hp_max:
+				player.data.hp = player.data.hp_max
+		if effect.has("cure"):
+			player.data.poison = false
+		if effect.has("speed"):
+			player.data.timeout["speed"] = TIME_SPEED
+		if effect.has("protect"):
+			player.data.timeout["protect"] = TIME_PROTECT
+		if effect.has("shield"):
+			player.data.timeout["shield"] = TIME_SHIELD
 
 func after_kill_enemy(action):
 	var player = party[owner_id]
@@ -420,27 +509,64 @@ func after_select_menu(action):
 				player.data.mp = player.data.mp_max
 		player.update(owner_id)
 
-func action_to_powerup(action, player):
-	var effect
-	if action.has("magic"):
-		effect = master.magic_dict[owner_id][action.magic].effect
+func ai(monster):
+	var attack
+	var player
+	var player_id
+
+	# find which attack to choose
+	var sum = 0
+	for i in monster.data.attacks:
+		sum += monster.data.attacks[i]
+	randomize()
+	var random = randi() % sum
+	sum = 0
+	for i in monster.data.attacks:
+		sum += monster.data.attacks[i]
+		if random < sum:
+			attack = enemies.attacks[i]
+			break
+
+	# find which player to be attack
+	var targets = [0, 0, 0]
+	sum = 0
+	if party[0].data.avail && !party[0].data.faint:
+		targets[0] = 3
+		sum += targets[0]
+	if party[1].data.avail && !party[1].data.faint:
+		targets[1] = 1
+		sum += targets[1]
+	if party[2].data.avail && !party[2].data.faint:
+		targets[2] = 1
+		sum += targets[2]
+	randomize()
+	random = randi() % sum
+	sum = 0
+	for i in range(3):
+		sum += targets[i]
+		if party[i].data.avail && !party[i].data.faint:
+			if random < sum:
+				player_id = i
+				break
+	player = party[player_id]
+
+	# attack
+	var animation = attack.effect.animation
+	var pos = player.get_pos()
+	var effect_pos = Vector2(pos.x + 48, pos.y + 48)
+	current_monster = monster
+	current_monster.data.action = {
+		"attack": attack,
+		"player": player,
+	}
+	wait = WAIT_ACTIONING
+	monster_effects.play(animation, effect_pos)
+	helper.set_message("%s attack with %s to %s" % [monster.data.name, attack.name, player.data.name])
+
+func end_enemy_action():
+	helper.set_message()
+	if check_monsters_win():
+		wait = WAIT_LOSS
 	else:
-		effect = master.item_dict[action.item].effect
-	if player.data.faint:
-		if effect.has("heal"):
-			player.data.faint = false
-			player.data.hp = round(effect["heal"] * player.data.hp_max / 100)
-	if !player.data.faint:
-		if effect.has("hp"):
-			player.data.hp += round(effect["hp"] * player.data.hp_max / 100)
-			if player.data.hp > player.data.hp_max:
-				player.data.hp = player.data.hp_max
-		if effect.has("cure"):
-			player.data.poison = false
-		if effect.has("speed"):
-			player.data.timeout["speed"] = TIME_SPEED
-		if effect.has("protect"):
-			player.data.timeout["protect"] = TIME_PROTECT
-		if effect.has("shield"):
-			player.data.timeout["shield"] = TIME_SHIELD
+		wait = WAIT_TURN
 

@@ -20,9 +20,9 @@ var player_dict = {
 func restart_game():
 	var persist = {
 		# level, experience and gold
-		"level": 55,
-		"experience": 555555,
-		"gold": 55555,
+		"level": 0,
+		"experience": 0,
+		"gold": 0,
 
 		# players
 		"players": [
@@ -32,9 +32,9 @@ func restart_game():
 				"faint": false,
 				"poison": false,
 				"hp_max": 100,
-				"hp": 1,
+				"hp": 25,
 				"mp_max": 25,
-				"mp": 25,
+				"mp": 20,
 				"att": 10,
 				"mag": 0,
 				"def": 10,
@@ -68,13 +68,13 @@ func restart_game():
 				"faint": false,
 				"poison": true,
 				"hp_max": 75,
-				"hp": 30,
+				"hp": 18,
 				"mp_max": 50,
 				"mp": 49,
 				"att": 7,
 				"mag": 10,
 				"def": 8,
-				"spd": 11,
+				"spd": 10,
 				"weapon": "wand",
 				"armor": "robe",
 				"accessory": "amulet",
@@ -111,10 +111,10 @@ func restart_game():
 			{
 				"name": "Nadia",
 				"avail": true,
-				"faint": true,
+				"faint": false,
 				"poison": false,
 				"hp_max": 50,
-				"hp": 0,
+				"hp": 1,
 				"mp_max": 75,
 				"mp": 65,
 				"att": 8,
@@ -214,6 +214,9 @@ func load_game(filename):
 
 func back():
 	get_tree().change_scene("res://" + persist.map + ".tscn")
+
+func gameover():
+	get_tree().change_scene("res://gameover.tscn")
 
 func warp_to(x, y, map, retain_npcs):
 	if state.persist.ship.cruising:

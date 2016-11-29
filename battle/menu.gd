@@ -4,6 +4,9 @@ extends Container
 const FORMAT_MAGIC_STOCK = "%s (-%dMP)"
 const FORMAT_ITEM_STOCK = "%s x%d"
 
+const WAIT_IN_TIME = 5
+const RUN_IN_TIME = 10
+
 var deep_level = 0
 var battle = null
 var player_id = null
@@ -118,14 +121,14 @@ func _on_CommandList_item_activated(index):
 	elif index == 3:
 		result = {
 			"name": "wait",
-			"take_time": 5,
+			"take_time": WAIT_IN_TIME,
 		}
 		close()
 
 	elif index == 4:
 		result = {
 			"name": "runaway",
-			"take_time": 10,
+			"take_time": RUN_IN_TIME,
 		}
 		close()
 

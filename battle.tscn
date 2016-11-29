@@ -7,9 +7,9 @@
 [ext_resource path="res://party/heroine1.tres" type="SpriteFrames" id=5]
 [ext_resource path="res://battle/loader.tscn" type="PackedScene" id=6]
 [ext_resource path="res://effects/effects.tscn" type="PackedScene" id=7]
-[ext_resource path="res://battle/menu.tscn" type="PackedScene" id=8]
-[ext_resource path="res://miscs/panel_battle_background.tres" type="StyleBox" id=9]
-[ext_resource path="res://fonts/normal_menu.tres" type="DynamicFont" id=10]
+[ext_resource path="res://effects/monster_effects.tscn" type="PackedScene" id=8]
+[ext_resource path="res://battle/menu.tscn" type="PackedScene" id=9]
+[ext_resource path="res://battle/helper.tscn" type="PackedScene" id=10]
 [ext_resource path="res://musics/Final Fantasy 8 - The Man With The Machine Gun.ogg" type="AudioStream" id=11]
 [ext_resource path="res://sounds/sounds.tres" type="SampleLibrary" id=12]
 [ext_resource path="res://miscs/fade_in.tres" type="Animation" id=13]
@@ -78,6 +78,8 @@ frames = ExtResource( 5 )
 
 [node name="Effects" parent="Players" instance=ExtResource( 7 )]
 
+[node name="Monster Effects" parent="Players" instance=ExtResource( 8 )]
+
 [node name="UI" type="Container" parent="."]
 
 editor/display_folded = true
@@ -90,34 +92,9 @@ margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 0.0
 
-[node name="Menu" parent="UI" instance=ExtResource( 8 )]
+[node name="Menu" parent="UI" instance=ExtResource( 9 )]
 
-[node name="PanelText" type="Panel" parent="UI"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 256.0
-margin/top = 0.0
-margin/right = 1024.0
-margin/bottom = 128.0
-custom_styles/panel = ExtResource( 9 )
-
-[node name="Text" type="Label" parent="UI/PanelText"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 16.0
-margin/top = 16.0
-margin/right = 752.0
-margin/bottom = 112.0
-custom_fonts/font = ExtResource( 10 )
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+[node name="Helper" parent="UI" instance=ExtResource( 10 )]
 
 [node name="MusicPlayer" type="StreamPlayer" parent="."]
 

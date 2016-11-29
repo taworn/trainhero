@@ -9,6 +9,5 @@ var data = {
 	"mag": 10,
 	"def": 7,
 	"spd": 5,
-	"boss": 1,
 }
 
