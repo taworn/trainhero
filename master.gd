@@ -517,3 +517,56 @@ var equip_dict = {
 	},
 }
 
+var monster_attack_dict = {
+	"bite": {
+		"name": "Bite",
+		"effect": {"animation": "Bite", "power": [1, 0]},
+	},
+	"charge": {
+		"name": "Charge",
+		"effect": {"animation": "Charge", "power": [1.25, 0]},
+	},
+	"poison": {
+		"name": "Poison",
+		"effect": {"animation": "Poison", "power": [1.25, 0], "poison": 25},
+	},
+	"poisonhi": {
+		"name": "Poison Hi",
+		"effect": {"animation": "Poison", "power": [1.25, 0], "poison": 75},
+	},
+
+	"fire": {
+		"name": "Fire",
+		"effect": {"animation": "Fire", "power": [0, 1.25]},
+	},
+	"ice": {
+		"name": "Ice",
+		"effect": {"animation": "Ice", "power": [0, 1.25]},
+	},
+	"fires": {
+		"name": "Fire Spread",
+		"effect": {"animation": "Fires", "all": 1, "power": [0, 1.25]},
+	},
+	"ices": {
+		"name": "Ice Spread",
+		"effect": {"animation": "Ices", "all": 1, "power": [0, 1.25]},
+	},
+
+	"recover_hp_25": {
+		"name": "Recover HP 25%",
+		"effect": {"animation": "Heal", "hp": 25},
+	},
+	"recover_hp_50": {
+		"name": "Recover HP 50%",
+		"effect": {"animation": "Heal", "hp": 50},
+	},
+	"recover_hp_75": {
+		"name": "Recover HP 75%",
+		"effect": {"animation": "Heal", "hp": 75},
+	},
+	"recover_hp_100": {
+		"name": "Recover HP 100%",
+		"effect": {"animation": "Heal", "hp": 100},
+	},
+}
+

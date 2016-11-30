@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://effects/effects.gd" type="Script" id=1]
 [ext_resource path="res://effects/bitea.tres" type="Animation" id=2]
 [ext_resource path="res://effects/chargea.tres" type="Animation" id=3]
 [ext_resource path="res://effects/firea.tres" type="Animation" id=4]
-[ext_resource path="res://effects/icea.tres" type="Animation" id=5]
-[ext_resource path="res://effects/poisona.tres" type="Animation" id=6]
+[ext_resource path="res://effects/firesa.tres" type="Animation" id=5]
+[ext_resource path="res://effects/heala.tres" type="Animation" id=6]
+[ext_resource path="res://effects/icea.tres" type="Animation" id=7]
+[ext_resource path="res://effects/icesa.tres" type="Animation" id=8]
+[ext_resource path="res://effects/poisona.tres" type="Animation" id=9]
 
 [node name="Effects" type="Node2D"]
 
@@ -19,8 +22,11 @@ root/root = NodePath("..")
 anims/Bite = ExtResource( 2 )
 anims/Charge = ExtResource( 3 )
 anims/Fire = ExtResource( 4 )
-anims/Ice = ExtResource( 5 )
-anims/Poison = ExtResource( 6 )
+anims/Fires = ExtResource( 5 )
+anims/Heal = ExtResource( 6 )
+anims/Ice = ExtResource( 7 )
+anims/Ices = ExtResource( 8 )
+anims/Poison = ExtResource( 9 )
 next/Charge = ""
 next/Poison = ""
 playback/active = true

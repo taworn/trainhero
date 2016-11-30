@@ -18,12 +18,12 @@ const WAIT_WIN = 5
 const WAIT_FADE = 9
 
 var background = null         # background
-var party = []                # party of hero and heroines
 var monsters_on_floor = null  # monsters who on floor
 var monsters_on_air = null    # monsters who on air
-var monsters_floor = []       # monsters on floor add to array
-var monsters_air = []         # monsters on air add to array
-var monsters = []             # monsters add to array
+var monsters_floor = []       # monsters on floor add to list
+var monsters_air = []         # monsters on air add to list
+var monsters = []             # monsters add to list
+var party = []                # party of hero and heroines
 
 var effects = null          # players attack or use magic
 var monster_effects = null  # monsters attack or use magic
@@ -48,6 +48,9 @@ var map_to_background = {
 
 func _ready():
 	background = get_node("Background")
+	monsters_on_floor = get_node("Players/Monsters On Floor")
+	monsters_on_air = get_node("Players/Monsters On Air")
+	get_node("Players/Loader").execute("res://enemies/groups/" + state.enemies_group_file + ".txt")
 	party.append(get_node("Players/Party/Status0"))
 	party.append(get_node("Players/Party/Status1"))
 	party.append(get_node("Players/Party/Status2"))
@@ -57,13 +60,10 @@ func _ready():
 	party[0].set_active(false)
 	party[1].set_active(false)
 	party[2].set_active(false)
-	monsters_on_floor = get_node("Players/Monsters On Floor")
-	monsters_on_air = get_node("Players/Monsters On Air")
-	get_node("Players/Loader").execute("res://enemies/groups/" + state.enemies_group_file + ".txt")
 	effects = get_node("Players/Effects")
-	effects.connect(self, "_on_Player_finished")
+	effects.connect(self, "on_player_finished")
 	monster_effects = get_node("Players/Monster Effects")
-	monster_effects.connect(self, "_on_Monster_finished")
+	monster_effects.connect(self, "on_monster_finished")
 
 	menu = get_node("UI/Menu")
 	helper = get_node("UI/Helper")
@@ -107,12 +107,16 @@ func _ready():
 			boss = true
 		var template = load("res://battle/damage.tscn")
 		var damage = template.instance()
-		damage.attach(i, i.data.width, i.data.height, self, "_on_Damage_finished")
+		damage.attach(i, i.data.width, i.data.height, self, "on_monster_damage_finished")
 		i.data.damage = damage
 	for i in party:
 		i.data.timeout = {"speed": 0, "protect": 0, "shield": 0}
 		i.data.speed = TIME_LIMIT - i.data.spd
 		i.data.action = null
+		var template = load("res://battle/damage.tscn")
+		var damage = template.instance()
+		damage.attach(i, 96, 96, self, "on_hero_damage_finished")
+		i.data.damage = damage
 
 	if boss:
 		menu.disable_for_boss()
@@ -197,76 +201,15 @@ func _on_AnimationPlayer_finished():
 		else:
 			state.back()
 
-func _on_Player_finished():
-	var player = party[owner_id]
-	var action = player.data.action
-	if !action.has("party"):
-		# check if all miss
-		var dies = true
-		for i in action.enemies:
-			if !i.data.has("die"):
-				dies = false
-				break
-		if !dies:
-			# continue will normal flow
-			if can_action_to_attack(action):
-				for i in action.enemies:
-					if !i.is_hidden():
-						var damage = action_to_attack(action, i)
-						i.data.hp -= damage
-						i.data.damage.display("%d" % damage)
-						i.data.damage.play()
-			else:
-				# support magic, no attack to enemies
-				for i in action.enemies:
-					if !i.is_hidden():
-						action_to_support_attack(action, i)
-				end_action()
-		else:
-			# continue next loop
-			end_action()
-	else:
-		for i in action.party:
-			action_to_powerup(action, party[i])
-		party[0].update(0)
-		party[1].update(1)
-		party[2].update(2)
-		end_action()
-
-func _on_Damage_finished():
-	var player = party[owner_id]
-	var action = player.data.action
-	action.enemy_count += 1
-	if action.enemy_count >= live_count(action.enemies):
-		for i in action.enemies:
-			if !i.is_hidden():
-				if i.data.hp <= 0:
-					i.data.hp = 0
-					i.data.die = 1
-					i.set_hidden(true)
-				after_kill_enemy(action)
-		end_action()
-
-func _on_Monster_finished():
-	var monster = current_monster
-	var action = monster.data.action
-	var player = action.player
-	var damage = formulas.monster_attack_player(monster, action.attack, player)
-	player.data.hp -= damage
-	if player.data.hp <= 0:
-		player.data.hp = 0
-		player.data.faint = true
-	player.update(player.data_id)
-	end_enemy_action()
-
 func quit(gameover = false):
+	set_process(false)
+	wait = WAIT_FADE
 	if !gameover:
 		after_effect = {}
 	else:
 		after_effect = {"gameover": 1}
 	animation.set_current_animation("fade_out")
 	animation.play()
-	wait = WAIT_FADE
 
 func turn():
 	var player = check_party_turn()
@@ -425,13 +368,55 @@ func begin_powerup():
 
 	effects.play(animation, effect_pos)
 
-func end_action():
-	party[owner_id].data.action = null
-	helper.set_message()
-	if check_party_win():
-		wait = WAIT_WIN
+func on_player_finished():
+	var player = party[owner_id]
+	var action = player.data.action
+	if !action.has("party"):
+		# check if all miss
+		var dies = true
+		for i in action.enemies:
+			if !i.data.has("die"):
+				dies = false
+				break
+		if !dies:
+			# continue will normal flow
+			if can_action_to_attack(action):
+				for i in action.enemies:
+					if !i.is_hidden():
+						var damage = action_to_attack(action, i)
+						i.data.hp -= damage
+						i.data.damage.display("%d" % damage)
+						i.data.damage.play()
+			else:
+				# support magic, no attack to enemies
+				for i in action.enemies:
+					if !i.is_hidden():
+						action_to_support_attack(action, i)
+				end_action()
+		else:
+			# continue next loop
+			end_action()
 	else:
-		wait = WAIT_TURN
+		for i in action.party:
+			action_to_powerup(action, party[i])
+		party[0].update(0)
+		party[1].update(1)
+		party[2].update(2)
+		end_action()
+
+func on_monster_damage_finished():
+	var player = party[owner_id]
+	var action = player.data.action
+	action.enemy_count += 1
+	if action.enemy_count >= live_count(action.enemies):
+		for i in action.enemies:
+			if !i.is_hidden():
+				if i.data.hp <= 0:
+					i.data.hp = 0
+					i.data.die = 1
+					i.set_hidden(true)
+				after_kill_enemy(action)
+		end_action()
 
 func can_action_to_attack(action):
 	if action.name == "attack":
@@ -509,12 +494,17 @@ func after_select_menu(action):
 				player.data.mp = player.data.mp_max
 		player.update(owner_id)
 
-func ai(monster):
-	var attack
-	var player
-	var player_id
+func end_action():
+	party[owner_id].data.action = null
+	helper.set_message()
+	if check_party_win():
+		wait = WAIT_WIN
+	else:
+		wait = WAIT_TURN
 
+func ai(monster):
 	# find which attack to choose
+	var attack
 	var sum = 0
 	for i in monster.data.attacks:
 		sum += monster.data.attacks[i]
@@ -524,45 +514,119 @@ func ai(monster):
 	for i in monster.data.attacks:
 		sum += monster.data.attacks[i]
 		if random < sum:
-			attack = enemies.attacks[i]
+			attack = master.monster_attack_dict[i]
 			break
 
 	# find which player to be attack
-	var targets = [0, 0, 0]
-	sum = 0
-	if party[0].data.avail && !party[0].data.faint:
-		targets[0] = 3
-		sum += targets[0]
-	if party[1].data.avail && !party[1].data.faint:
-		targets[1] = 1
-		sum += targets[1]
-	if party[2].data.avail && !party[2].data.faint:
-		targets[2] = 1
-		sum += targets[2]
-	randomize()
-	random = randi() % sum
-	sum = 0
-	for i in range(3):
-		sum += targets[i]
-		if party[i].data.avail && !party[i].data.faint:
-			if random < sum:
-				player_id = i
-				break
-	player = party[player_id]
+	var player_id = null
+	var player = null
+	var friend = null
+	if attack.effect.has("power"):
+		if !attack.effect.has("all"):
+			var targets = [0, 0, 0]
+			sum = 0
+			if party[0].data.avail && !party[0].data.faint:
+				targets[0] = 3
+				sum += targets[0]
+			if party[1].data.avail && !party[1].data.faint:
+				targets[1] = 1
+				sum += targets[1]
+			if party[2].data.avail && !party[2].data.faint:
+				targets[2] = 1
+				sum += targets[2]
+			randomize()
+			random = randi() % sum
+			sum = 0
+			for i in range(3):
+				sum += targets[i]
+				if party[i].data.avail && !party[i].data.faint:
+					if random < sum:
+						player_id = i
+						break
+			player = party[player_id]
+		else:
+			player_id = null
+			player = null
+	else:
+		var monsters_left = []
+		for i in monsters:
+			if !i.data.has("die"):
+				monsters_left.append(i)
+		randomize()
+		random = randi() % monsters_left.size()
+		friend = monsters_left[random]
 
-	# attack
-	var animation = attack.effect.animation
-	var pos = player.get_pos()
-	var effect_pos = Vector2(pos.x + 48, pos.y + 48)
+	# keep monster in action
 	current_monster = monster
 	current_monster.data.action = {
 		"attack": attack,
 		"player": player,
+		"friend": friend,
 	}
+
+	# start action
+	var animation = attack.effect.animation
+	var effect_pos
+	if attack.effect.has("power"):
+		if player != null:
+			var pos = player.get_pos()
+			effect_pos = Vector2(pos.x + 48, pos.y + 48)
+			helper.set_message("%s attack with %s to %s" % [monster.data.name, attack.name, player.data.name])
+		else:
+			var pos = party[0].get_pos()
+			effect_pos = Vector2(global.half_screen_size.x, pos.y + 48)
+			helper.set_message("%s attack with %s to all" % [monster.data.name, attack.name])
+	else:
+		var pos = friend.get_pos()
+		var parent_pos = friend.get_parent().get_pos()
+		effect_pos = Vector2(parent_pos.x + pos.x + friend.data.width / 2, parent_pos.y + pos.y + friend.data.height / 2)
 	wait = WAIT_ACTIONING
 	monster_effects.play(animation, effect_pos)
 	monster.data.damage.blink()
-	helper.set_message("%s attack with %s to %s" % [monster.data.name, attack.name, player.data.name])
+
+func on_monster_finished():
+	var monster = current_monster
+	var action = monster.data.action
+	if action.attack.effect.has("power"):
+		if action.player != null:
+			action.players = []
+			action.players.append(action.player)
+		else:
+			action.players = party
+	
+		action.count = 0
+		for i in action.players:
+			if i.data.avail && !i.data.faint:
+				var damage = formulas.monster_attack_player(monster, action.attack, i)
+				i.data.hp -= damage
+				if action.attack.effect.has("poison"):
+					var percent = action.attack.effect["poison"]
+					var random = randi() % 100
+					if random < percent:
+						i.data.poison = true
+				i.data.damage.display("%d" % damage)
+				i.data.damage.play()
+				action.count += 1
+	else:
+		var friend = action.friend
+		if action.attack.effect.has("hp"):
+			if friend.data.hp < friend.data.hp_max:
+				friend.data.hp += round(action.attack.effect["hp"] * friend.data.hp_max / 100)
+				if friend.data.hp > friend.data.hp_max:
+					friend.data.hp = friend.data.hp_max
+		end_enemy_action()
+
+func on_hero_damage_finished():
+	var monster = current_monster
+	var action = monster.data.action
+	action.count -= 1
+	if action.count <= 0:
+		for i in action.players:
+			if i.data.hp <= 0:
+				i.data.hp = 0
+				i.data.faint = true
+			i.update(i.data_id)
+		end_enemy_action()
 
 func end_enemy_action():
 	helper.set_message()
