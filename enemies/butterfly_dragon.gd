@@ -17,5 +17,6 @@ var data = {
 		"fire": 1,
 		"ice": 1,
 	},
+	"on_air": 1,
 }
 

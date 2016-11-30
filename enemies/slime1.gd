@@ -13,6 +13,8 @@ var data = {
 	"spd": 6,
 	"exp": 4,
 	"gold": 4,
+	"items": {
+	},
 	"attacks": {
 		"bite": 1,
 		"charge": 1,

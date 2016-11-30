@@ -13,9 +13,14 @@ var data = {
 	"spd": 5,
 	"exp": 1,
 	"gold": 1,
+	"items": {
+		"recover_hp_25": 25,
+		"recover_hp_50": 10,
+	},
 	"attacks": {
 		"bite": 1,
-		"charge": 1,
+		"recover_hp_25": 2,
 	},
+	"on_air": 1,
 }
 

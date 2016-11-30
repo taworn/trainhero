@@ -39,6 +39,8 @@ var time_cumulative = 0
 var owner_id = null
 var current_monster = null
 var wait = WAIT_TURN
+var trigger_end = false
+var end_type
 
 var map_to_background = {
 	"Grass1": "forest",
@@ -123,6 +125,11 @@ func _ready():
 
 	set_process(true)
 
+func _input(event):
+	if Input.is_action_pressed("ui_accept") || Input.is_action_pressed("ui_cancel"):
+		set_process_input(false)
+		quit(end_type)
+
 func _process(delta):
 	if wait == WAIT_MENU:
 		if !menu.is_opened():
@@ -179,10 +186,18 @@ func _process(delta):
 		pass
 
 	elif wait == WAIT_LOSS:
-		quit(true)
+		if !trigger_end:
+			trigger_end = true
+			end_type = true
+			set_process_input(true)
+			helper.open_game_over()
 
 	elif wait == WAIT_WIN:
-		quit()
+		if !trigger_end:
+			trigger_end = true
+			end_type = false
+			set_process_input(true)
+			received_after_win()
 
 	elif wait == WAIT_FADE:
 		pass
@@ -692,4 +707,24 @@ func monster_attack_player(enemy, attack, player):
 		return 1
 	else:
 		return 0
+
+func received_after_win():
+	var e = 0
+	var g = 0
+	var receive_item_count = 0
+	for i in monsters:
+		e += i.data["exp"]
+		g += i.data["gold"]
+		if i.data.has("items"):
+			randomize()
+			for j in i.data["items"]:
+				var random = randi() % 100
+				if random < i.data["items"][j]:
+					if state.persist.items[j] < state.LIMIT_ITEMS:
+						state.persist.items[j] += 1
+						receive_item_count += 1
+	state.persist.experience += e
+	state.persist.gold += g
+
+	helper.open_win(receive_item_count)
 

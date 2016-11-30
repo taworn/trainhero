@@ -61,8 +61,4 @@ margin/bottom = 576.0
 
 text = "World"
 
-[node name="Effect" parent="."]
-
-editor/display_folded = true
-
 
