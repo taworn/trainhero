@@ -11,19 +11,19 @@ var item_dict = {
 	},
 	"recover_hp_50": {
 		"name": "Recover HP 50%",
-		"money": 100,
+		"money": 50,
 		"hint": "Restore HP 50% to a player.",
 		"effect": {"animation": "Heal", "hp": 50},
 	},
 	"recover_hp_75": {
 		"name": "Recover HP 75%",
-		"money": 1000,
+		"money": 250,
 		"hint": "Restore HP 75% to a player.",
 		"effect": {"animation": "Heal", "hp": 75},
 	},
 	"recover_hp_100": {
 		"name": "Recover HP 100%",
-		"money": 10000,
+		"money": 1000,
 		"hint": "Restore HP 100% to a player.",
 		"effect": {"animation": "Heal", "hp": 100},
 	},
@@ -37,19 +37,19 @@ var item_dict = {
 	},
 	"recover_mp_50": {
 		"name": "Recover MP 50%",
-		"money": 100,
+		"money": 50,
 		"hint": "Restore MP 50% to a player.",
 		"effect": {"animation": "Heal", "mp": 50},
 	},
 	"recover_mp_75": {
 		"name": "Recover MP 75%",
-		"money": 1000,
+		"money": 250,
 		"hint": "Restore MP 75% to a player.",
 		"effect": {"animation": "Heal", "mp": 75},
 	},
 	"recover_mp_100": {
 		"name": "Recover MP 100%",
-		"money": 10000,
+		"money": 1000,
 		"hint": "Restore MP 100% to a player.",
 		"effect": {"animation": "Heal", "mp": 100},
 	},
@@ -63,19 +63,19 @@ var item_dict = {
 	},
 	"recover_hpmp_50": {
 		"name": "Recover HP/MP 50%",
-		"money": 300,
+		"money": 150,
 		"hint": "Restore HP&MP 50% to a player.",
 		"effect": {"animation": "Heal", "hp": 50, "mp": 50},
 	},
 	"recover_hpmp_75": {
 		"name": "Recover HP/MP 75%",
-		"money": 3000,
+		"money": 750,
 		"hint": "Restore HP&MP 75% to a player.",
 		"effect": {"animation": "Heal", "hp": 75, "mp": 75},
 	},
 	"recover_hpmp_100": {
 		"name": "Recover HP/MP 100%",
-		"money": 30000,
+		"money": 3000,
 		"hint": "Restore HP&MP 100% to a player.",
 		"effect": {"animation": "Heal", "hp": 100, "mp": 100},
 	},
@@ -89,7 +89,7 @@ var item_dict = {
 	},
 	"antiseptic": {
 		"name": "Antiseptic",
-		"money": 250,
+		"money": 150,
 		"hint": "Remedy when a player pass out.",
 		"effect": {"animation": "Heal", "heal": 25},
 	},
@@ -156,28 +156,28 @@ var magic_dict = {
 		"recover_hp_25": {
 			"name": "Recover HP 25%",
 			"mp": 2,
-			"time": 2,
+			"time": 1,
 			"hint": "Restore HP 25% to a player.",
 			"effect": {"animation": "Heal", "hp": 25},
 		},
 		"recover_hp_50": {
 			"name": "Recover HP 50%",
 			"mp": 4,
-			"time": 4,
+			"time": 3,
 			"hint": "Restore HP 50% to a player.",
 			"effect": {"animation": "Heal", "hp": 50},
 		},
 		"recover_hp_75": {
 			"name": "Recover HP 75%",
 			"mp": 6,
-			"time": 6,
+			"time": 5,
 			"hint": "Restore HP 75% to a player.",
 			"effect": {"animation": "Heal", "hp": 50},
 		},
 		"recover_hp_100": {
 			"name": "Recover HP 100%",
 			"mp": 8,
-			"time": 8,
+			"time": 7,
 			"hint": "Restore HP 100% to a player.",
 			"effect": {"animation": "Heal", "hp": 100},
 		},
@@ -186,28 +186,28 @@ var magic_dict = {
 		"recover_hp_25_all": {
 			"name": "Recover HP 25% All",
 			"mp": 4,
-			"time": 4,
+			"time": 2,
 			"hint": "Restore HP 25% to all players.",
 			"effect": {"animation": "Heals", "all": 1, "hp": 25},
 		},
 		"recover_hp_50_all": {
 			"name": "Recover HP 50% All",
 			"mp": 6,
-			"time": 6,
+			"time": 4,
 			"hint": "Restore HP 50% to all players.",
 			"effect": {"animation": "Heals", "all": 1, "hp": 50},
 		},
 		"recover_hp_75_all": {
 			"name": "Recover HP 75% All",
 			"mp": 8,
-			"time": 8,
+			"time": 6,
 			"hint": "Restore HP 75% to all players.",
 			"effect": {"animation": "Heals", "all": 1, "hp": 75},
 		},
 		"recover_hp_100_all": {
 			"name": "Recover HP 100% All",
 			"mp": 10,
-			"time": 10,
+			"time": 8,
 			"hint": "Restore HP 100% to all players.",
 			"effect": {"animation": "Heals", "all": 1, "hp": 100},
 		},
@@ -222,8 +222,8 @@ var magic_dict = {
 		},
 		"antiseptic": {
 			"name": "Antiseptic",
-			"mp": 4,
-			"time": 4,
+			"mp": 5,
+			"time": 5,
 			"hint": "Remedy when a player pass out.",
 			"effect": {"animation": "Heal", "heal": 25},
 		},
@@ -237,20 +237,13 @@ var magic_dict = {
 			"effect": {"animation": "Heals", "all": 1, "heal": 100, "cure": 1, "hp": 100},
 		},
 
-		# protect and shield
+		# protect
 		"protect": {
 			"name": "Protect",
-			"mp": 3,
-			"time": 3,
+			"mp": 4,
+			"time": 4,
 			"hint": "Protect players with attacks.",
-			"effect": {"animation": "Protect", "all": 1, "block": "protect"},
-		},
-		"shield": {
-			"name": "Shield",
-			"mp": 3,
-			"time": 3,
-			"hint": "Protect players with magics.",
-			"effect": {"animation": "Protect", "all": 1, "block": "shield"},
+			"effect": {"animation": "Protect", "all": 1, "protect": 1},
 		},
 
 		# attack
@@ -289,13 +282,13 @@ var magic_dict = {
 		"slow": {
 			"name": "Slow",
 			"mp": 2,
-			"time": 4,
+			"time": 2,
 			"hint": "Slow down one enemy.",
 			"effect": {"animation": "Slow", "battle": "one", "slow": 1},
 		},
 		"slow_all": {
 			"name": "Slow All",
-			"mp": 4,
+			"mp": 6,
 			"time": 4,
 			"hint": "Slow down all enemies.",
 			"effect": {"animation": "Slows", "battle": "all", "slow": 1},
@@ -303,7 +296,7 @@ var magic_dict = {
 		"speed": {
 			"name": "Speed",
 			"mp": 2,
-			"time": 4,
+			"time": 2,
 			"hint": "Speed up one ally.",
 			"effect": {"animation": "Speed", "speed": 1},
 		},
@@ -328,7 +321,7 @@ var magic_dict = {
 		"wind": {
 			"name": "Whirlwind",
 			"mp": 9,
-			"time": 8,
+			"time": 9,
 			"hint": "Attack all enemies with whirlwind.",
 			"effect": {"animation": "Whirlwind", "battle": "all", "power": [50, 0, 1, 1.5]},
 		},
@@ -395,7 +388,7 @@ var equip_dict = {
 			"type": "armor",
 			"def": 30,
 			"hint": "A legendary armor, reduce damage 1/2.",
-			"effect": {"reduce_hp": 50, "reduce_mp": 50},
+			"effect": {"reduce": 50},
 		},
 		"shield": {
 			"name": "Shield",
@@ -461,8 +454,8 @@ var equip_dict = {
 			"name": "Miracle Robe",
 			"type": "armor",
 			"def": 25,
-			"hint": "A miracle robe, reduce magic damage 1/3.",
-			"effect": {"reduce_mp": 33},
+			"hint": "A miracle robe, reduce damage 1/3.",
+			"effect": {"reduce": 33},
 		},
 		"amulet": {
 			"name": "Amulet",
@@ -569,4 +562,12 @@ var monster_attack_dict = {
 		"effect": {"animation": "Heal", "hp": 100},
 	},
 }
+
+func usage_mp(player_id, magic_id):
+	var mp = master.magic_dict[player_id][magic_id].mp
+	var effect = master.equip_dict[player_id][state.persist.players[player_id].weapon].effect
+	if effect.has("usage_mp"):
+		var cut = ceil(mp * effect["usage_mp"] / 100)
+		mp -= cut
+	return mp
 

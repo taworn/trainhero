@@ -3,12 +3,19 @@ extends Node2D
 
 var data = {
 	"name": "Butterfly Dragon",
-	"hp": 20,
+	"hp_max": 25,
+	"hp": 25,
+	"mp_max": 0,
 	"mp": 0,
-	"att": 7,
-	"mag": 0,
-	"def": 7,
-	"spd": 8,
-	"on_air": 1,
+	"att": 0,
+	"mag": 5,
+	"def": 5,
+	"spd": 5,
+	"exp": 3,
+	"gold": 3,
+	"attacks": {
+		"fire": 1,
+		"ice": 1,
+	},
 }
 

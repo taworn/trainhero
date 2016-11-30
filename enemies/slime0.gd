@@ -3,8 +3,8 @@ extends Node2D
 
 var data = {
 	"name": "Slime",
-	"hp_max": 20,
-	"hp": 20,
+	"hp_max": 10,
+	"hp": 10,
 	"mp_max": 0,
 	"mp": 0,
 	"att": 10,
@@ -14,9 +14,8 @@ var data = {
 	"exp": 1,
 	"gold": 1,
 	"attacks": {
-		"fire": 1,
-		"fires": 1,
-		"ices": 1,
+		"bite": 1,
+		"charge": 1,
 	},
 }
 

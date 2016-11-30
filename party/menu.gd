@@ -155,7 +155,7 @@ func _on_MagicPlayerFromList_item_activated(index):
 	var player = state.persist.players[player_id]
 	magic_list.clear()
 	for i in player.magics:
-		magic_list.add_item(FORMAT_MAGIC_STOCK % [master.magic_dict[player_id][i].name, formulas.usage_mp(player_id, i)])
+		magic_list.add_item(FORMAT_MAGIC_STOCK % [master.magic_dict[player_id][i].name, master.usage_mp(player_id, i)])
 	magic_from_list.set_hidden(true)
 	magic_list.set_hidden(false)
 	magic_list.select(0)
@@ -351,6 +351,7 @@ func item_use(id, player):
 			if effect.has("heal"):
 				if player.faint:
 					player.faint = false
+					player.poison = false
 					player.hp = round(effect["heal"] * player.hp_max / 100)
 					used = true
 		if !player.faint:
@@ -374,7 +375,7 @@ func item_use(id, player):
 	return used
 
 func magic_check(player_id, id):
-	if state.persist.players[player_id].mp < formulas.usage_mp(player_id, id):
+	if state.persist.players[player_id].mp < master.usage_mp(player_id, id):
 		return false
 	var players = []
 	var effect = master.magic_dict[player_id][id].effect
@@ -419,6 +420,7 @@ func magic_use_one(player_id, id, player):
 	if player.faint:
 		if effect.has("heal"):
 			player.faint = false
+			player.poison = false
 			player.hp = round(effect["heal"] * player.hp_max / 100)
 			used = true
 	if !player.faint:
@@ -433,7 +435,7 @@ func magic_use_one(player_id, id, player):
 				player.poison = false
 				used = true
 	if used:
-		state.persist.players[player_id].mp -= formulas.usage_mp(player_id, id)
+		state.persist.players[player_id].mp -= master.usage_mp(player_id, id)
 		return true
 	else:
 		return false
@@ -447,6 +449,7 @@ func magic_use_all(player_id, id):
 			if player.faint:
 				if effect.has("heal"):
 					player.faint = false
+					player.poison = false
 					player.hp = round(effect["heal"] * player.hp_max / 100)
 					used = true
 			if !player.faint:
@@ -461,7 +464,7 @@ func magic_use_all(player_id, id):
 						player.poison = false
 						used = true
 	if used:
-		state.persist.players[player_id].mp -= formulas.usage_mp(player_id, id)
+		state.persist.players[player_id].mp -= master.usage_mp(player_id, id)
 		return true
 	else:
 		return false

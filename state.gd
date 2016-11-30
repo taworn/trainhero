@@ -91,7 +91,6 @@ func restart_game():
 					"antiseptic",
 					"recovery_all",
 					"protect",
-					"shield",
 					"fire",
 					"fire_spread",
 					"ice",

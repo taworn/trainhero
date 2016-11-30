@@ -7,7 +7,6 @@ const TIME_LIMIT = 32
 const TIME_SLOW = 64
 const TIME_SPEED = 64
 const TIME_PROTECT = 64
-const TIME_SHIELD = 64
 
 const WAIT_TURN = 0
 const WAIT_MENU = 1
@@ -110,7 +109,7 @@ func _ready():
 		damage.attach(i, i.data.width, i.data.height, self, "on_monster_damage_finished")
 		i.data.damage = damage
 	for i in party:
-		i.data.timeout = {"speed": 0, "protect": 0, "shield": 0}
+		i.data.timeout = {"speed": 0, "protect": 0}
 		i.data.speed = TIME_LIMIT - i.data.spd
 		i.data.action = null
 		var template = load("res://battle/damage.tscn")
@@ -255,8 +254,6 @@ func turn():
 				i.data.timeout.speed -= 1
 			if i.data.timeout.protect > 0:
 				i.data.timeout.protect -= 1
-			if i.data.timeout.shield > 0:
-				i.data.timeout.shield -= 1
 
 func check_party_turn():
 	for i in party:
@@ -310,7 +307,7 @@ func begin_attack_or_magic():
 	elif action.name == "magic":
 		var magic_id = action.magic
 		animation = master.magic_dict[owner_id][magic_id].effect.animation
-		player.data.mp -= formulas.usage_mp(owner_id, magic_id)
+		player.data.mp -= master.usage_mp(owner_id, magic_id)
 		player.update(owner_id)
 
 	var effect_pos
@@ -348,7 +345,7 @@ func begin_powerup():
 	if action.name == "magic":
 		var magic_id = action.magic
 		animation = master.magic_dict[owner_id][magic_id].effect.animation
-		player.data.mp -= formulas.usage_mp(owner_id, magic_id)
+		player.data.mp -= master.usage_mp(owner_id, magic_id)
 	else:
 		var item_id = action.item
 		animation = master.item_dict[item_id].effect.animation
@@ -429,18 +426,18 @@ func can_action_to_attack(action):
 
 func action_to_attack(action, enemy):
 	if action.name == "attack":
-		return formulas.player_attack_monster(owner_id, enemy)
+		return player_attack_monster(owner_id, enemy)
 	else:
 		var magic = master.magic_dict[owner_id][action.magic]
 		if magic.effect.has("power"):
-			return formulas.player_magic_monster(owner_id, action.magic, enemy)
+			return player_magic_monster(owner_id, action.magic, enemy)
 		else:
 			return 0
 
 func action_to_support_attack(action, enemy):
 	var magic = master.magic_dict[owner_id][action.magic]
 	if magic.effect.has("slow"):
-		enemy.data.timeout["slow"] = TIME_SHIELD
+		enemy.data.timeout["slow"] = TIME_SLOW
 
 func action_to_powerup(action, player):
 	var effect
@@ -451,6 +448,7 @@ func action_to_powerup(action, player):
 	if player.data.faint:
 		if effect.has("heal"):
 			player.data.faint = false
+			player.data.poison = false
 			player.data.hp = round(effect["heal"] * player.data.hp_max / 100)
 	if !player.data.faint:
 		if effect.has("hp"):
@@ -463,8 +461,6 @@ func action_to_powerup(action, player):
 			player.data.timeout["speed"] = TIME_SPEED
 		if effect.has("protect"):
 			player.data.timeout["protect"] = TIME_PROTECT
-		if effect.has("shield"):
-			player.data.timeout["shield"] = TIME_SHIELD
 
 func after_kill_enemy(action):
 	var player = party[owner_id]
@@ -593,17 +589,31 @@ func on_monster_finished():
 			action.players.append(action.player)
 		else:
 			action.players = party
-	
+
 		action.count = 0
 		for i in action.players:
 			if i.data.avail && !i.data.faint:
-				var damage = formulas.monster_attack_player(monster, action.attack, i)
-				i.data.hp -= damage
-				if action.attack.effect.has("poison"):
-					var percent = action.attack.effect["poison"]
-					var random = randi() % 100
-					if random < percent:
-						i.data.poison = true
+				var block = false
+				if master.equip_dict[i.data_id][i.data.accessory].has("effect"):
+					var effect = master.equip_dict[i.data_id][i.data.accessory].effect
+					if effect.has("block"):
+						var percent = effect.block
+						var random = randi() % 100
+						if random < percent:
+							block = true
+				var damage
+				if !block:
+					damage = monster_attack_player(monster, action.attack, i)
+					i.data.hp -= damage
+					if action.attack.effect.has("poison"):
+						var percent = action.attack.effect["poison"]
+						var random = randi() % 100
+						if random < percent:
+							i.data.poison = true
+					if i.data.timeout["protect"] > 0:
+						damage = ceil(damage / 2)
+				else:
+					damage = 0
 				i.data.damage.display("%d" % damage)
 				i.data.damage.play()
 				action.count += 1
@@ -634,4 +644,52 @@ func end_enemy_action():
 		wait = WAIT_LOSS
 	else:
 		wait = WAIT_TURN
+
+func player_attack_monster(player_id, target):
+	var player = state.persist.players[player_id]
+	var attack = round(player.att + master.equip_dict[player_id][player.weapon].att + state.persist.level)
+	var defense = target.data.def
+	var result = attack - defense
+	if result > 0:
+		return result
+	elif result > -10 && result <= 0:
+		return 1
+	else:
+		return 0
+
+func player_magic_monster(player_id, magic_id, target):
+	var player = state.persist.players[player_id]
+	var magic = master.magic_dict[player_id][magic_id]
+	var power = magic.effect.power
+	# [0] base power
+	# [1] player att
+	# [2] player mag
+	# [3] x level
+	# [4] element (optional)
+	var attack = round(power[0] + (power[1] * player.att) + (power[2] * player.mag) + (power[3] * state.persist.level))
+	var defense = target.data.def
+	var result = attack - defense
+	if result > 0:
+		return result
+	elif result > -10 && result <= 0:
+		return 1
+	else:
+		return 0
+
+func monster_attack_player(enemy, attack, player):
+	var power = round(enemy.data.att * attack.effect.power[0] + enemy.data.mag * attack.effect.power[1])
+	var defense = player.data.def
+	var result = power - defense
+	var armor = master.equip_dict[player.data_id][player.data.armor]
+	if armor.has("effect"):
+		if armor.effect.has("reduce"):
+			var percent = armor.effect.reduce
+			var value = ceil(result * percent / 100)
+			result -= value
+	if result > 0:
+		return result
+	elif result > -10 && result <= 0:
+		return 1
+	else:
+		return 0
 

@@ -102,7 +102,7 @@ func _on_CommandList_item_activated(index):
 	elif index == 1:
 		magic_list.clear()
 		for i in state.persist.players[player_id].magics:
-			magic_list.add_item(FORMAT_MAGIC_STOCK % [master.magic_dict[player_id][i].name, formulas.usage_mp(player_id, i)])
+			magic_list.add_item(FORMAT_MAGIC_STOCK % [master.magic_dict[player_id][i].name, master.usage_mp(player_id, i)])
 		magic_list.set_hidden(false)
 		magic_list.select(0)
 		magic_list.grab_focus()
@@ -135,7 +135,7 @@ func _on_CommandList_item_activated(index):
 func _on_MagicList_item_activated(index):
 	var id = state.persist.players[player_id].magics[index]
 	if master.magic_dict[player_id][id].effect.has("battle"):
-		if state.persist.players[player_id].mp < formulas.usage_mp(player_id, id):
+		if state.persist.players[player_id].mp < master.usage_mp(player_id, id):
 			battle.sound.play("error")
 			return
 		var battle = master.magic_dict[player_id][id].effect["battle"]
@@ -308,7 +308,7 @@ func item_check(id):
 	return players
 
 func magic_check(player_id, id):
-	if state.persist.players[player_id].mp < formulas.usage_mp(player_id, id):
+	if state.persist.players[player_id].mp < master.usage_mp(player_id, id):
 		return false
 	var players = []
 	var effect = master.magic_dict[player_id][id].effect
@@ -327,7 +327,7 @@ func magic_check(player_id, id):
 					if effect.has("cure"):
 						if player.poison:
 							can_use = true
-					if effect.has("block") || effect.has("speed"):
+					if effect.has("protect") || effect.has("speed"):
 						can_use = true
 				if can_use:
 					players.append(i)
@@ -347,7 +347,7 @@ func magic_check(player_id, id):
 					if effect.has("cure"):
 						if player.poison:
 							can_use = true
-					if effect.has("block") || effect.has("speed"):
+					if effect.has("protect") || effect.has("speed"):
 						can_use = true
 		return can_use
 
