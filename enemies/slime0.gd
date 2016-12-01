@@ -16,6 +16,10 @@ var data = {
 	"items": {
 		"recover_hp_25": 10,
 	},
+	"keys": [
+	],
+	"equips": [
+	],
 	"attacks": {
 		"bite": 1,
 	},

@@ -197,7 +197,7 @@ func _process(delta):
 			trigger_end = true
 			end_type = false
 			set_process_input(true)
-			received_after_win()
+			helper.received_after_win(monsters)
 
 	elif wait == WAIT_FADE:
 		pass
@@ -707,24 +707,4 @@ func monster_attack_player(enemy, attack, player):
 		return 1
 	else:
 		return 0
-
-func received_after_win():
-	var e = 0
-	var g = 0
-	var receive_item_count = 0
-	for i in monsters:
-		e += i.data["exp"]
-		g += i.data["gold"]
-		if i.data.has("items"):
-			randomize()
-			for j in i.data["items"]:
-				var random = randi() % 100
-				if random < i.data["items"][j]:
-					if state.persist.items[j] < state.LIMIT_ITEMS:
-						state.persist.items[j] += 1
-						receive_item_count += 1
-	state.persist.experience += e
-	state.persist.gold += g
-
-	helper.open_win(receive_item_count)
 

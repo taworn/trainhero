@@ -45,6 +45,9 @@ func restart_game():
 				"magics": [
 				],
 				"equips": [
+					"sword",
+					"armor",
+					"shield",
 				],
 			},
 			{
@@ -66,6 +69,9 @@ func restart_game():
 				"magics": [
 				],
 				"equips": [
+					"wand",
+					"robe",
+					"amulet",
 				],
 			},
 			{
@@ -87,6 +93,9 @@ func restart_game():
 				"magics": [
 				],
 				"equips": [
+					"boomerang",
+					"dress",
+					"ring",
 				],
 			},
 		],
@@ -109,8 +118,6 @@ func restart_game():
 			"antiseptic": 0,
 		},
 		"keys": [
-		],
-		"equipments": [
 		],
 		"treasures": {
 		},
