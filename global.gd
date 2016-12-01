@@ -60,6 +60,8 @@ var passable_walk_dict = {
 	"Tree1": 1,
 	"Town0": 1,
 	"Castle0": 1, "Castle1": 1, "Castle2": 1, "Castle3": 1,
+	"Mountain01": 1, "Mountain11": 1,
+	"Cave0": 1,
 	"Bed0": 1,
 }
 

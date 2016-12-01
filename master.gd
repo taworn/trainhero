@@ -417,7 +417,7 @@ var equip_dict = {
 		"wand": {
 			"name": "Wand",
 			"type": "weapon",
-			"att": 5,
+			"att": 8,
 			"mag": 10,
 			"hint": "A average wand.",
 			"effect": {"animation": "Wand0"},
@@ -460,7 +460,7 @@ var equip_dict = {
 		"amulet": {
 			"name": "Amulet",
 			"type": "accessory",
-			"def": 1,
+			"def": 2,
 			"hint": "An amulet with memory.",
 		},
 		"miracle_amulet": {
@@ -496,14 +496,14 @@ var equip_dict = {
 		"ring": {
 			"name": "Ring",
 			"type": "accessory",
-			"def": 0,
+			"def": 1,
 			"hint": "A MP regenerate ring.",
 			"effect": {"regen_mp": 4}
 		},
 		"void_ring": {
 			"name": "Void Ring",
 			"type": "accessory",
-			"def": 0,
+			"def": 1,
 			"hint": "A fast MP regenerate ring.",
 			"effect": {"regen_hp": 1, "regen_mp": 8}
 		},

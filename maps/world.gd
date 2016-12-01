@@ -12,18 +12,17 @@ var enemy_dict = {
 }
 
 var enemy_ship_dict = {
-	"fish0": 2,
-	"fish1": 1,
 }
 
 var enemy_zone_dict = {
 	"Island0": {
-		"slimes0": 1,
+		"w0000": 1,
 	}
 }
 
 var warp_dict = {
-	"Test0": {"x": 128, "y": 128, "map": "maps/test0"},
+	"Start Town": {"x": 128, "y": 128, "map": "maps/test0"},
+	"First Cave": {"x": 128, "y": 128, "map": "maps/test0"},
 }
 
 var shop_dict = {

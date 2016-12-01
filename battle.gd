@@ -693,7 +693,7 @@ func player_magic_monster(player_id, magic_id, target):
 
 func monster_attack_player(enemy, attack, player):
 	var power = round(enemy.data.att * attack.effect.power[0] + enemy.data.mag * attack.effect.power[1])
-	var defense = player.data.def
+	var defense = player.data.def + master.equip_dict[player.data_id][player.data.armor].def + master.equip_dict[player.data_id][player.data.accessory].def
 	var result = power - defense
 	var armor = master.equip_dict[player.data_id][player.data.armor]
 	if armor.has("effect"):

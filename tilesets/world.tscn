@@ -1,16 +1,24 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=20 format=1]
 
 [ext_resource path="res://tilesets/world/grass0.png" type="Texture" id=1]
 [ext_resource path="res://tilesets/world/grass1.png" type="Texture" id=2]
 [ext_resource path="res://tilesets/world/tree0.png" type="Texture" id=3]
 [ext_resource path="res://tilesets/world/tree1.png" type="Texture" id=4]
-[ext_resource path="res://tilesets/world/mountain0.png" type="Texture" id=5]
-[ext_resource path="res://tilesets/world/water0.png" type="Texture" id=6]
-[ext_resource path="res://tilesets/world/town0.png" type="Texture" id=7]
-[ext_resource path="res://tilesets/world/castle0.png" type="Texture" id=8]
-[ext_resource path="res://tilesets/world/castle1.png" type="Texture" id=9]
-[ext_resource path="res://tilesets/world/castle2.png" type="Texture" id=10]
-[ext_resource path="res://tilesets/world/castle3.png" type="Texture" id=11]
+[ext_resource path="res://tilesets/world/water0.png" type="Texture" id=5]
+[ext_resource path="res://tilesets/world/town0.png" type="Texture" id=6]
+[ext_resource path="res://tilesets/world/castle0.png" type="Texture" id=7]
+[ext_resource path="res://tilesets/world/castle1.png" type="Texture" id=8]
+[ext_resource path="res://tilesets/world/castle2.png" type="Texture" id=9]
+[ext_resource path="res://tilesets/world/castle3.png" type="Texture" id=10]
+[ext_resource path="res://tilesets/world/cave0.png" type="Texture" id=11]
+[ext_resource path="res://tilesets/world/mountain0.png" type="Texture" id=12]
+[ext_resource path="res://tilesets/world/mountain0/00.png" type="Texture" id=13]
+[ext_resource path="res://tilesets/world/mountain0/01.png" type="Texture" id=14]
+[ext_resource path="res://tilesets/world/mountain0/02.png" type="Texture" id=15]
+[ext_resource path="res://tilesets/world/mountain0/10.png" type="Texture" id=16]
+[ext_resource path="res://tilesets/world/mountain0/11.png" type="Texture" id=17]
+[ext_resource path="res://tilesets/world/mountain0/12.png" type="Texture" id=18]
+[ext_resource path="res://tilesets/world/mountain0/21.png" type="Texture" id=19]
 
 [node name="Node2D" type="Node2D"]
 
@@ -34,39 +42,80 @@ texture = ExtResource( 3 )
 transform/pos = Vector2( 224, 32 )
 texture = ExtResource( 4 )
 
-[node name="Mountain0" type="Sprite" parent="."]
-
-transform/pos = Vector2( 288, 32 )
-texture = ExtResource( 5 )
-
 [node name="Water0" type="Sprite" parent="."]
 
-transform/pos = Vector2( 32, 160 )
-texture = ExtResource( 6 )
+transform/pos = Vector2( 32, 96 )
+texture = ExtResource( 5 )
 
 [node name="Town0" type="Sprite" parent="."]
 
-transform/pos = Vector2( 96, 160 )
-texture = ExtResource( 7 )
+transform/pos = Vector2( 32, 224 )
+texture = ExtResource( 6 )
 
 [node name="Castle0" type="Sprite" parent="."]
 
 transform/pos = Vector2( 32, 288 )
-texture = ExtResource( 8 )
+texture = ExtResource( 7 )
 
 [node name="Castle1" type="Sprite" parent="."]
 
 transform/pos = Vector2( 96, 288 )
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Castle2" type="Sprite" parent="."]
 
 transform/pos = Vector2( 32, 352 )
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Castle3" type="Sprite" parent="."]
 
 transform/pos = Vector2( 96, 352 )
+texture = ExtResource( 10 )
+
+[node name="Cave0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 32, 480 )
 texture = ExtResource( 11 )
+
+[node name="Mountain0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 160, 480 )
+texture = ExtResource( 12 )
+
+[node name="Mountain00" type="Sprite" parent="."]
+
+transform/pos = Vector2( 224, 320 )
+transform/scale = Vector2( 1, 1 )
+texture = ExtResource( 13 )
+
+[node name="Mountain01" type="Sprite" parent="."]
+
+transform/pos = Vector2( 288, 320 )
+texture = ExtResource( 14 )
+
+[node name="Mountain02" type="Sprite" parent="."]
+
+transform/pos = Vector2( 352, 320 )
+texture = ExtResource( 15 )
+
+[node name="Mountain10" type="Sprite" parent="."]
+
+transform/pos = Vector2( 224, 256 )
+texture = ExtResource( 16 )
+
+[node name="Mountain11" type="Sprite" parent="."]
+
+transform/pos = Vector2( 288, 256 )
+texture = ExtResource( 17 )
+
+[node name="Mountain12" type="Sprite" parent="."]
+
+transform/pos = Vector2( 352, 256 )
+texture = ExtResource( 18 )
+
+[node name="Mountain21" type="Sprite" parent="."]
+
+transform/pos = Vector2( 288, 192 )
+texture = ExtResource( 19 )
 
 
