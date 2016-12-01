@@ -1,0 +1,108 @@
+[gd_scene load_steps=18 format=1]
+
+[ext_resource path="res://tilesets/world/grass0.png" type="Texture" id=1]
+[ext_resource path="res://tilesets/world/grass1.png" type="Texture" id=2]
+[ext_resource path="res://tilesets/world/tree0.png" type="Texture" id=3]
+[ext_resource path="res://tilesets/world/tree1.png" type="Texture" id=4]
+[ext_resource path="res://tilesets/world/water0.png" type="Texture" id=5]
+[ext_resource path="res://tilesets/town_and_castle/wall0.png" type="Texture" id=6]
+[ext_resource path="res://tilesets/town_and_castle/floor0.png" type="Texture" id=7]
+[ext_resource path="res://tilesets/town_and_castle/chair0.png" type="Texture" id=8]
+[ext_resource path="res://tilesets/town_and_castle/table0.png" type="Texture" id=9]
+[ext_resource path="res://tilesets/town_and_castle/table1.png" type="Texture" id=10]
+[ext_resource path="res://tilesets/town_and_castle/bed0.png" type="Texture" id=11]
+[ext_resource path="res://tilesets/town_and_castle/bed0_.png" type="Texture" id=12]
+[ext_resource path="res://tilesets/town_and_castle/bucket0.png" type="Texture" id=13]
+[ext_resource path="res://tilesets/town_and_castle/bucket1.png" type="Texture" id=14]
+[ext_resource path="res://tilesets/town_and_castle/stove0.png" type="Texture" id=15]
+[ext_resource path="res://tilesets/town_and_castle/cabinet0.png" type="Texture" id=16]
+[ext_resource path="res://tilesets/town_and_castle/cabinet1.png" type="Texture" id=17]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Grass0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 32, 32 )
+texture = ExtResource( 1 )
+
+[node name="Grass1" type="Sprite" parent="."]
+
+transform/pos = Vector2( 96, 32 )
+texture = ExtResource( 2 )
+
+[node name="Tree0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 160, 32 )
+texture = ExtResource( 3 )
+
+[node name="Tree1" type="Sprite" parent="."]
+
+transform/pos = Vector2( 224, 32 )
+texture = ExtResource( 4 )
+
+[node name="Water0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 32, 96 )
+texture = ExtResource( 5 )
+
+[node name="Wall0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 32, 160 )
+texture = ExtResource( 6 )
+
+[node name="Floor0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 32, 224 )
+texture = ExtResource( 7 )
+
+[node name="Chair0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 32, 288 )
+texture = ExtResource( 8 )
+
+[node name="Table0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 96, 288 )
+texture = ExtResource( 9 )
+
+[node name="Table1" type="Sprite" parent="."]
+
+transform/pos = Vector2( 160, 288 )
+texture = ExtResource( 10 )
+
+[node name="Bed0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 224, 288 )
+texture = ExtResource( 11 )
+
+[node name="Bed0_" type="Sprite" parent="."]
+
+transform/pos = Vector2( 288, 288 )
+texture = ExtResource( 12 )
+
+[node name="Bucket0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 32, 352 )
+texture = ExtResource( 13 )
+
+[node name="Bucket1" type="Sprite" parent="."]
+
+transform/pos = Vector2( 96, 352 )
+texture = ExtResource( 14 )
+
+[node name="Stove0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 160, 352 )
+texture = ExtResource( 15 )
+
+[node name="Cabinet0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 224, 352 )
+texture = ExtResource( 16 )
+
+[node name="Cabinet1" type="Sprite" parent="."]
+
+transform/pos = Vector2( 288, 352 )
+texture = ExtResource( 17 )
+
+

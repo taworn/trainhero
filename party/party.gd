@@ -118,8 +118,8 @@ func center_screen():
 			pos = ship.get_pos()
 		var cam_pos = Vector2(global.half_screen_size.x - pos.x - (global.STEP_X >> 1), global.half_screen_size.y - pos.y - (global.STEP_Y >> 1))
 		camera.set_pos(cam_pos)
-		if background != null:
-			background.set_pos(Vector2(cam_pos.x / 8, cam_pos.y / 32))
+		#if background != null:
+		#	background.set_pos(Vector2(cam_pos.x / 8, cam_pos.y / 32))
 
 func switch_to_hero():
 	state.persist.x = state.persist.ship.x

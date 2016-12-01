@@ -64,10 +64,9 @@ motion/mirroring = Vector2( 0, 0 )
 
 [node name="Camera" type="Node2D" parent="."]
 
-editor/display_folded = true
-
 [node name="TileMap" type="TileMap" parent="Camera"]
 
+editor/display_folded = true
 mode = 0
 tile_set = ExtResource( 1 )
 cell/size = Vector2( 64, 64 )
@@ -82,10 +81,12 @@ collision/bounce = 0.0
 collision/layers = 1
 collision/mask = 1
 occluder/light_mask = 1
-tile_data = IntArray( 0, 0, 1, 0, 2, 0, 65536, 0, 65537, 0, 65538, 0, 131072, 0, 131073, 0, 131074, 0 )
+tile_data = IntArray(  )
 __meta__ = { "_edit_lock_":true }
 
 [node name="Players" type="Node2D" parent="Camera/TileMap"]
+
+editor/display_folded = true
 
 [node name="Hero" parent="Camera/TileMap/Players" instance=ExtResource( 2 )]
 
@@ -99,14 +100,13 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 40.0
-margin/bottom = 40.0
+margin/right = 0.0
+margin/bottom = 0.0
 
 [node name="Party" parent="Camera/TileMap" instance=ExtResource( 4 )]
 
 [node name="UI" type="Container" parent="."]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -128,6 +128,7 @@ margin/top = 32.0
 margin/right = -992.0
 margin/bottom = 67.0
 custom_fonts/font = SubResource( 1 )
+text = "Noname"
 align = 1
 valign = 1
 percent_visible = 1.0
