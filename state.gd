@@ -7,6 +7,7 @@ var new = false  # is change scene or go back
 var scripting_continue = null  # has scripting cross scenes
 var enemies_group_file = ""
 var battle_background = ""
+var battle_boss = false
 
 # current persistence state
 var persist = restart_game()
@@ -187,8 +188,9 @@ func warp_to(x, y, map, retain_npcs):
 	print("warp to: map=", persist.map, " (", persist.x, ", ", persist.y, ")")
 	get_tree().change_scene("res://" + persist.map + ".tscn")
 
-func fight(battle, background):
+func fight(battle, background, boss):
 	enemies_group_file = battle
 	battle_background = background
+	battle_boss = boss
 	get_tree().change_scene("res://battle.tscn")
 

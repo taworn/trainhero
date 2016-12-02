@@ -91,7 +91,7 @@ func _on_AnimationPlayer_finished():
 		if after_effect.has("map"):
 			state.warp_to(after_effect.x, after_effect.y, after_effect.map, after_effect.retain_npcs)
 		elif after_effect.has("battle"):
-			state.fight(after_effect["battle"], after_effect["background"])
+			state.fight(after_effect["battle"], after_effect["background"], after_effect["boss"])
 		after_effect = null
 	else:
 		if state.scripting_continue != null:
@@ -282,9 +282,9 @@ func random_battle(dict, background):
 			open_battle(i, background)
 			return
 
-func open_battle(battle, background):
+func open_battle(battle, background, boss = false):
 	save_npcs()
-	after_effect = {"battle": battle, "background": background}
+	after_effect = {"battle": battle, "background": background, "boss": boss}
 	animation.set_current_animation("light")
 	animation.play()
 	paused = true

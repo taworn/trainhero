@@ -55,11 +55,9 @@ func received_after_win(monsters):
 			for j in i.data["equips"]:
 				for k in range(3):
 					if master.equip_dict[k].has(j):
-						print(j)
 						if !state.persist.players[k].equips.has(j):
 							state.persist.players[k].equips.append(j)
 							receive_equipment_count += 1
-							print("received ", j)
 
 	var message = ""
 	if receive_item_count > 0:

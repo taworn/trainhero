@@ -100,13 +100,10 @@ func _ready():
 		i += 1
 		monsters_air.append(child)
 		monsters.append(child)
-	var boss = false
 	for i in monsters:
 		i.data.timeout = {"slow": 0}
 		i.data.speed = TIME_LIMIT - i.data.spd
 		i.data.action = null
-		if i.data.has("boss"):
-			boss = true
 		var template = load("res://battle/damage.tscn")
 		var damage = template.instance()
 		damage.attach(i, i.data.width, i.data.height, self, "on_monster_damage_finished")
@@ -120,8 +117,10 @@ func _ready():
 		damage.attach(i, 96, 96, self, "on_hero_damage_finished")
 		i.data.damage = damage
 
-	if boss:
+	if state.battle_boss:
 		menu.disable_for_boss()
+		var audio = load("res://musics/Final Fantasy 3 - Boss Battle.ogg")
+		music.set_stream(audio)
 	music.play()
 
 	set_process(true)

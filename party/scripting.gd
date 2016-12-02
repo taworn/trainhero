@@ -166,6 +166,21 @@ func execute():
 				party.warp_to(null)
 			wait = WAIT_IDLE
 
+		elif d[0] == global.SCRIPT_HPMP_FULL:
+			for i in state.persist.players:
+				if i.avail && !i.faint:
+					i.hp = i.hp_max
+					i.mp = i.mp_max
+					i.poison = false
+			party.sound.play("heal")
+			wait = WAIT_IDLE
+
+		elif d[0] == global.SCRIPT_BE_FRIEND:
+			var index = state.player_dict[d[1]]
+			state.persist.players[index].avail = true
+			party.sound.play("friend")
+			wait = WAIT_IDLE
+
 		elif d[0] == global.SCRIPT_TITLE_VISIBLE:
 			panel_title.set_hidden(!d[1])
 			wait = WAIT_IDLE
@@ -189,17 +204,17 @@ func execute():
 
 		elif d[0] == global.SCRIPT_NPC_ACTION:
 			if d[1] == null:
-				with.set_face(party.check_face_to_hero())
+				with.set_action(party.check_face_to_hero())
 			else:
-				with.set_face(d[1])
+				with.set_action(d[1])
 			wait = WAIT_IDLE
 
 		elif d[0] == global.SCRIPT_NPC_ACTION_:
 			var npc = party.get_node("../Players/" + d[1])
 			if d[2] == null:
-				npc.set_face(party.check_face_to_hero())
+				npc.set_action(party.check_face_to_hero())
 			else:
-				npc.set_face(d[2])
+				npc.set_action(d[2])
 			wait = WAIT_IDLE
 
 		elif d[0] == global.SCRIPT_HERO_WALK:
@@ -236,7 +251,7 @@ func execute():
 
 		elif d[0] == global.SCRIPT_BATTLE:
 			state.scripting_continue = d[1]
-			party.open_battle(d[2], d[3])
+			party.open_battle(d[2], d[3], true)
 			wait = WAIT_IDLE
 
 		elif d[0] == global.SCRIPT_READ_QUEST:

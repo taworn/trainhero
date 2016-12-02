@@ -16,6 +16,8 @@ const TAG_WORLD = 2
 # scripting to use in dialogs
 const SCRIPT_OPEN_SHOP = 1
 const SCRIPT_OPEN_INN = 2
+const SCRIPT_HPMP_FULL = 3
+const SCRIPT_BE_FRIEND = 4
 const SCRIPT_TITLE_VISIBLE = 11
 const SCRIPT_TITLE_SET = 12
 const SCRIPT_HERO_ACTION = 21
@@ -63,7 +65,7 @@ var passable_walk_dict = {
 	"Castle0": 1, "Castle1": 1, "Castle2": 1, "Castle3": 1,
 	"Mountain01": 1, "Mountain11": 1,
 	"Cave0": 1,
-	"Floor0": 1, 
+	"Floor0": 1,
 	"Chair0": 1, "Bed0": 1,
 
 	"Floor1": 1,

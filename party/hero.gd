@@ -54,19 +54,19 @@ func get_face():
 
 func set_face(action):
 	if typeof(action) == TYPE_INT:
-			distance = null
-			if action == global.MOVE_DOWN:
-				distance = Vector2(0, global.STEP_Y)
-				animate.set_animation("down")
-			elif action == global.MOVE_LEFT:
-				distance = Vector2(-global.STEP_X, 0)
-				animate.set_animation("left")
-			elif action == global.MOVE_RIGHT:
-				distance = Vector2(global.STEP_X, 0)
-				animate.set_animation("right")
-			elif action == global.MOVE_UP:
-				distance = Vector2(0, -global.STEP_Y)
-				animate.set_animation("up")
+		distance = null
+		if action == global.MOVE_DOWN:
+			distance = Vector2(0, global.STEP_Y)
+			animate.set_animation("down")
+		elif action == global.MOVE_LEFT:
+			distance = Vector2(-global.STEP_X, 0)
+			animate.set_animation("left")
+		elif action == global.MOVE_RIGHT:
+			distance = Vector2(global.STEP_X, 0)
+			animate.set_animation("right")
+		elif action == global.MOVE_UP:
+			distance = Vector2(0, -global.STEP_Y)
+			animate.set_animation("up")
 	else:
 		animate.set_animation(action)
 	state.persist.face = animate.get_animation()
