@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://map.tscn" type="PackedScene" id=1]
 [ext_resource path="res://maps/start_town.gd" type="Script" id=2]
 [ext_resource path="res://tilesets/town_and_castle.tres" type="TileSet" id=3]
 [ext_resource path="res://miscs/door.tscn" type="PackedScene" id=4]
 [ext_resource path="res://npcs/male0.tscn" type="PackedScene" id=5]
+[ext_resource path="res://npcs/girl1.tscn" type="PackedScene" id=6]
 
 [node name="Root" instance=ExtResource( 1 )]
 
@@ -34,6 +35,10 @@ transform/pos = Vector2( 1088, 1216 )
 [node name="Male1" parent="Camera/TileMap/Players" instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 384, 1280 )
+
+[node name="Girl1" parent="Camera/TileMap/Players" instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 448, 1344 )
 
 [node name="Back" type="Control" parent="Camera/TileMap/Scripts"]
 
