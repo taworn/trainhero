@@ -22,7 +22,7 @@ var enemy_zone_dict = {
 
 var warp_dict = {
 	"Start Town": {"x": 192, "y": 1536, "map": "maps/start_town"},
-	"First Cave": {"x": 128, "y": 128, "map": "maps/test0"},
+	"First Cave": {"x": 128, "y": 1600, "map": "maps/first_cave_b1"},
 }
 
 var shop_dict = {

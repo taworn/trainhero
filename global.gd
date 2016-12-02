@@ -56,13 +56,19 @@ var half_screen_size = {
 # passable walking map
 var passable_walk_dict = {
 	"01": 1, "04": 1, "07": 1,
+
 	"Grass0": 1, "Grass1": 1,
 	"Tree1": 1,
 	"Town0": 1,
 	"Castle0": 1, "Castle1": 1, "Castle2": 1, "Castle3": 1,
 	"Mountain01": 1, "Mountain11": 1,
 	"Cave0": 1,
-	"Floor0": 1, "Chair0": 1, "Bed0": 1,
+	"Floor0": 1, 
+	"Chair0": 1, "Bed0": 1,
+
+	"Floor1": 1,
+	"StairDown": 1, "StairUp": 1,
+	"Gate0": 1,
 }
 
 # passable sailing map

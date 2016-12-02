@@ -31,7 +31,7 @@ Battle Scenes
  - online-convert.com - use to convert formats
  - gnu.org/software/freefont - provide free font
  - desktopnexus.com - for title image
- - spriters-resource.com - provide graphics, thank to daemoth, Shurlock, Tonberry2k, Ryan914, WaxPoetic, SmithyGCN
+ - spriters-resource.com - provide graphics, thank to daemoth, Shurlock, Tonberry2k, Ryan914, WaxPoetic, SmithyGCN, Alastair John Jack
  - sounds-resource.com - provide sounds, thank to daemoth
  - freesound.org - provide sounds
  - vgmusic.com - provide sounds and musics
