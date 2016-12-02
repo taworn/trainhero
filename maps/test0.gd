@@ -83,7 +83,7 @@ var dialog_dict = {
 	"Female1": [
 		"Want to sleep a night?",
 		"only 50G (press ESC to cancel)",
-		[global.SCRIPT_OPEN_INN, 555],
+		[global.SCRIPT_OPEN_INN, 5],
 		"Oh, sorry :(",
 	],
 	"Female2": [

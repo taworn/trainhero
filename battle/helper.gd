@@ -103,6 +103,6 @@ func received_after_win(monsters):
 					if !state.persist.players[i].magics.has(j):
 						state.persist.players[i].magics.append(j)
 		state.persist.level += 1
-	
+
 	open_win(message)
 
