@@ -132,7 +132,7 @@ var magic_dict = {
 			"name": "Warp Back",
 			"mp": 5,
 			"time": 3,
-			"hint": "Warp to last town or castle.",
+			"hint": "Warp to last before enter dungeon.",
 			"effect": {"warp": 1},
 		},
 		"thunder": {

@@ -4,9 +4,7 @@ extends Node2D
 var data = {
 	"name": "Chameleon Humanoid",
 	"hp_max": 50,
-	"hp": 1,
-	"mp_max": 0,
-	"mp": 0,
+	"hp": 50,
 	"att": 8,
 	"mag": 15,
 	"def": 5,

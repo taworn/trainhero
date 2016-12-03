@@ -5,8 +5,6 @@ var data = {
 	"name": "Slime",
 	"hp_max": 10,
 	"hp": 10,
-	"mp_max": 0,
-	"mp": 0,
 	"att": 10,
 	"mag": 0,
 	"def": 5,
@@ -16,10 +14,6 @@ var data = {
 	"items": {
 		"recover_hp_25": 10,
 	},
-	"keys": [
-	],
-	"equips": [
-	],
 	"attacks": {
 		"bite": 1,
 	},

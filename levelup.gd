@@ -12,14 +12,33 @@ var list = [
 		],
 	},
 	{"exp": 10},
-	{"exp": 15},
+	{"exp": 15,
+		1: [
+			"recover_hp_25",
+		],
+	},
 
 	# lv 6-10
 	{"exp": 20},
-	{"exp": 30},
+	{"exp": 30,
+		1: [
+			"fire",
+			"ice",
+		],
+	},
 	{"exp": 35},
 	{"exp": 40},
-	{"exp": 50},
+	{"exp": 50,
+		0: [
+			"warp",
+		],
+	},
+]
+
+var level_hpmp = [
+	{"hp_add": 3, "mp_add": 1},
+	{"hp_add": 2, "mp_add": 2},
+	{"hp_add": 1, "mp_add": 3},
 ]
 
 func exp_to_level(e):

@@ -95,6 +95,8 @@ func received_after_win(monsters):
 	while state.persist.level < lv:
 		print("level up :)")
 		for i in range(3):
+			state.persist.players[i].hp_max += levelup.level_hpmp[i].hp_add
+			state.persist.players[i].mp_max += levelup.level_hpmp[i].mp_add
 			if levelup.list[state.persist.level].has(i):
 				var magics = levelup.list[state.persist.level][i]
 				for j in magics:
