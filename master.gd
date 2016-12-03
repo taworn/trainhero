@@ -131,23 +131,22 @@ var magic_dict = {
 		"warp": {
 			"name": "Warp Back",
 			"mp": 5,
-			"time": 3,
 			"hint": "Warp to last before enter dungeon.",
 			"effect": {"warp": 1},
 		},
 		"thunder": {
 			"name": "Thunder",
 			"mp": 7,
-			"time": 5,
+			"time": 7,
 			"hint": "Lightning all enemies.",
 			"effect": {"animation": "Thunder", "battle": "all", "power": [75, 0, 0, 1.5]},
 		},
 		"heroblade": {
 			"name": "Hero Blade",
 			"mp": 9,
-			"time": 5,
+			"time": 9,
 			"hint": "Attack one enemy with maximum power.",
-			"effect": {"animation": "Blade", "battle": "one", "power": [0, 1.5, 0, 3], "element": 4},
+			"effect": {"animation": "Blade", "battle": "one", "power": [0, 1, 0, 3], "element": 4},
 		},
 	},
 
@@ -314,7 +313,7 @@ var magic_dict = {
 			"mp": 6,
 			"time": 8,
 			"hint": "Attack all enemies with bomb.",
-			"effect": {"animation": "Bomb", "battle": "all", "power": [30, 0, 1, 1.5]},
+			"effect": {"animation": "Bomb", "battle": "all", "power": [30, 0, 1, 1.3]},
 		},
 
 		# whirlwind
@@ -332,7 +331,7 @@ var magic_dict = {
 			"mp": 12,
 			"time": 15,
 			"hint": "Attack all enemies with meteor.",
-			"effect": {"animation": "Meteor", "battle": "all", "power": [0, 0, 0, 4]},
+			"effect": {"animation": "Meteor", "battle": "all", "power": [0, 0, 0, 3]},
 		},
 	},
 }
@@ -425,16 +424,16 @@ var equip_dict = {
 		"starwand": {
 			"name": "Star Wand",
 			"type": "weapon",
-			"att": 7,
-			"mag": 20,
+			"att": 12,
+			"mag": 16,
 			"hint": "A star wand with cut MP usage 1/4.",
 			"effect": {"animation": "Wand0", "usage_mp": 25},
 		},
 		"miraclewand": {
 			"name": "Miracle Wand",
 			"type": "weapon",
-			"att": 10,
-			"mag": 30,
+			"att": 16,
+			"mag": 25,
 			"hint": "A miracle wand with cut MP usage 1/2.",
 			"effect": {"animation": "Wand0", "usage_mp": 50},
 		},
@@ -447,13 +446,13 @@ var equip_dict = {
 		"starrobe": {
 			"name": "Star Robe",
 			"type": "armor",
-			"def": 10,
+			"def": 12,
 			"hint": "A good robe.",
 		},
 		"miraclerobe": {
 			"name": "Miracle Robe",
 			"type": "armor",
-			"def": 25,
+			"def": 24,
 			"hint": "A miracle robe, reduce damage 1/3.",
 			"effect": {"reduce": 33},
 		},
@@ -466,7 +465,7 @@ var equip_dict = {
 		"miracle_amulet": {
 			"name": "Miracle Amulet",
 			"type": "accessory",
-			"def": 1,
+			"def": 4,
 			"hint": "A miracle amulet with walk restore MP.",
 			"effect": {"walk_mp": 1}
 		},
@@ -476,7 +475,7 @@ var equip_dict = {
 		"boomerang": {
 			"name": "Boomerang",
 			"type": "weapon",
-			"att": 16,
+			"att": 30,
 			"mag": 0,
 			"hint": "A nifty boomerang.",
 			"effect": {"animation": "Boomerang0"},
@@ -490,7 +489,7 @@ var equip_dict = {
 		"dark_dress": {
 			"name": "Dark Dress",
 			"type": "armor",
-			"def": 10,
+			"def": 20,
 			"hint": "A black dress.",
 		},
 		"ring": {
@@ -503,7 +502,7 @@ var equip_dict = {
 		"void_ring": {
 			"name": "Void Ring",
 			"type": "accessory",
-			"def": 1,
+			"def": 2,
 			"hint": "A fast MP regenerate ring.",
 			"effect": {"regen_hp": 1, "regen_mp": 8}
 		},
@@ -521,11 +520,11 @@ var monster_attack_dict = {
 	},
 	"poison": {
 		"name": "Poison",
-		"effect": {"animation": "Poison", "power": [1.25, 0], "poison": 25},
+		"effect": {"animation": "Poison", "power": [1, 0], "poison": 25},
 	},
 	"poisonhi": {
 		"name": "Poison Hi",
-		"effect": {"animation": "Poison", "power": [1.25, 0], "poison": 75},
+		"effect": {"animation": "Poison", "power": [1, 0], "poison": 75},
 	},
 
 	"fire": {
@@ -538,11 +537,11 @@ var monster_attack_dict = {
 	},
 	"fires": {
 		"name": "Fire Spread",
-		"effect": {"animation": "Fires", "all": 1, "power": [0, 1.25]},
+		"effect": {"animation": "Fires", "all": 1, "power": [0, 1]},
 	},
 	"ices": {
 		"name": "Ice Spread",
-		"effect": {"animation": "Ices", "all": 1, "power": [0, 1.25]},
+		"effect": {"animation": "Ices", "all": 1, "power": [0, 1]},
 	},
 
 	"recover_hp_25": {

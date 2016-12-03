@@ -681,7 +681,7 @@ func player_magic_monster(player_id, magic_id, target):
 	# [2] player mag
 	# [3] x level
 	# [4] element (optional)
-	var attack = round(power[0] + (power[1] * player.att) + (power[2] * player.mag) + (power[3] * state.persist.level))
+	var attack = round(power[0] + (power[1] * (player.att + master.equip_dict[player_id][player.weapon].att)) + (power[2] * (player.mag + master.equip_dict[player_id][player.weapon].mag)) + (power[3] * state.persist.level))
 	var defense = target.data.def
 	var result = attack - defense
 	if result > 0:

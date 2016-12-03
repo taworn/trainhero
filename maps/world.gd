@@ -17,7 +17,11 @@ var enemy_ship_dict = {
 var enemy_zone_dict = {
 	"Island0": {
 		"w0000": 1,
-	}
+	},
+	"Island1": {
+		"w0100": 1,
+		"w0101": 1,
+	},
 }
 
 var warp_dict = {
