@@ -28,17 +28,17 @@ var treasure_dict = {
 var dialog_dict = {
 	"START": [
 		[global.SCRIPT_NO_CANCEL],
-		[global.SCRIPT_READ_QUEST, "Chameleon"],
+		[global.SCRIPT_READ_QUEST, "Deranger"],
 		[global.SCRIPT_CONTINUE_IF],
-		[global.SCRIPT_NPC_HIDDEN, "Chameleon"],
+		[global.SCRIPT_NPC_HIDDEN, "Deranger"],
 		[global.SCRIPT_NPC_HIDDEN, "Rydia"],
 	],
 	"Win": [
 		[global.SCRIPT_NO_CANCEL],
-		[global.SCRIPT_TITLE_SET, "Chameleon"],
+		[global.SCRIPT_TITLE_SET, "Deranger"],
 		"Aarrrgh...",
-		[global.SCRIPT_WRITE_QUEST, "Chameleon"],
-		[global.SCRIPT_NPC_HIDDEN, "Chameleon"],
+		[global.SCRIPT_WRITE_QUEST, "Deranger"],
+		[global.SCRIPT_NPC_HIDDEN, "Deranger"],
 		[global.SCRIPT_TITLE_SET, 0],
 		"Huh...",
 		[global.SCRIPT_HERO_ACTION, "down"],
@@ -54,7 +54,7 @@ var dialog_dict = {
 		[global.SCRIPT_NPC_HIDDEN, "Rydia"],
 		[global.SCRIPT_BE_FRIEND, "Rydia"],
 	],
-	"Chameleon": [
+	"Deranger": [
 		[global.SCRIPT_NO_CANCEL],
 		"You will die!",
 		[global.SCRIPT_BATTLE, "Win", "d0099", "Floor1"],
