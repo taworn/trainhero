@@ -10,6 +10,7 @@ var tag = global.TAG_NO_DUNGEON
 var warp_dict = {
 	"Back0": {"x": 2048, "y": 896, "map": "maps/world"},
 	"Back1": {"x": 2048, "y": 896, "map": "maps/world"},
+	"To F1": {"x": 896, "y": 1152, "map": "maps/north_castle_f1"},
 }
 
 var shop_dict = {

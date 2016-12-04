@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=1]
+[gd_scene load_steps=41 format=1]
 
 [ext_resource path="res://tilesets/world/grass0.png" type="Texture" id=1]
 [ext_resource path="res://tilesets/world/grass1.png" type="Texture" id=2]
@@ -8,21 +8,38 @@
 [ext_resource path="res://tilesets/town_and_castle/wall0.png" type="Texture" id=6]
 [ext_resource path="res://tilesets/town_and_castle/wall1.png" type="Texture" id=7]
 [ext_resource path="res://tilesets/town_and_castle/wall2.png" type="Texture" id=8]
-[ext_resource path="res://tilesets/town_and_castle/floor0.png" type="Texture" id=9]
-[ext_resource path="res://tilesets/town_and_castle/chair0.png" type="Texture" id=10]
-[ext_resource path="res://tilesets/town_and_castle/table0.png" type="Texture" id=11]
-[ext_resource path="res://tilesets/town_and_castle/table1.png" type="Texture" id=12]
-[ext_resource path="res://tilesets/town_and_castle/table2.png" type="Texture" id=13]
-[ext_resource path="res://tilesets/town_and_castle/bed0.png" type="Texture" id=14]
-[ext_resource path="res://tilesets/town_and_castle/bed0_.png" type="Texture" id=15]
-[ext_resource path="res://tilesets/town_and_castle/bucket0.png" type="Texture" id=16]
-[ext_resource path="res://tilesets/town_and_castle/bucket1.png" type="Texture" id=17]
-[ext_resource path="res://tilesets/town_and_castle/stove0.png" type="Texture" id=18]
-[ext_resource path="res://tilesets/town_and_castle/cabinet0.png" type="Texture" id=19]
-[ext_resource path="res://tilesets/town_and_castle/cabinet1.png" type="Texture" id=20]
-[ext_resource path="res://tilesets/town_and_castle/pillar0.png" type="Texture" id=21]
-[ext_resource path="res://tilesets/town_and_castle/pillar1.png" type="Texture" id=22]
-[ext_resource path="res://tilesets/town_and_castle/burlap0.png" type="Texture" id=23]
+[ext_resource path="res://tilesets/town_and_castle/wall3.png" type="Texture" id=9]
+[ext_resource path="res://tilesets/town_and_castle/board0.png" type="Texture" id=10]
+[ext_resource path="res://tilesets/town_and_castle/board1.png" type="Texture" id=11]
+[ext_resource path="res://tilesets/town_and_castle/board2.png" type="Texture" id=12]
+[ext_resource path="res://tilesets/town_and_castle/floor0.png" type="Texture" id=13]
+[ext_resource path="res://tilesets/town_and_castle/chair0.png" type="Texture" id=14]
+[ext_resource path="res://tilesets/town_and_castle/table0.png" type="Texture" id=15]
+[ext_resource path="res://tilesets/town_and_castle/table1.png" type="Texture" id=16]
+[ext_resource path="res://tilesets/town_and_castle/table2.png" type="Texture" id=17]
+[ext_resource path="res://tilesets/town_and_castle/bed0.png" type="Texture" id=18]
+[ext_resource path="res://tilesets/town_and_castle/bed0_.png" type="Texture" id=19]
+[ext_resource path="res://tilesets/town_and_castle/stairdown0.png" type="Texture" id=20]
+[ext_resource path="res://tilesets/town_and_castle/stairup0.png" type="Texture" id=21]
+[ext_resource path="res://tilesets/town_and_castle/bucket0.png" type="Texture" id=22]
+[ext_resource path="res://tilesets/town_and_castle/bucket1.png" type="Texture" id=23]
+[ext_resource path="res://tilesets/town_and_castle/stove0.png" type="Texture" id=24]
+[ext_resource path="res://tilesets/town_and_castle/cabinet0.png" type="Texture" id=25]
+[ext_resource path="res://tilesets/town_and_castle/cabinet1.png" type="Texture" id=26]
+[ext_resource path="res://tilesets/town_and_castle/pillar0.png" type="Texture" id=27]
+[ext_resource path="res://tilesets/town_and_castle/pillar1.png" type="Texture" id=28]
+[ext_resource path="res://tilesets/town_and_castle/statue0.png" type="Texture" id=29]
+[ext_resource path="res://tilesets/town_and_castle/statue1.png" type="Texture" id=30]
+[ext_resource path="res://tilesets/town_and_castle/burlap0.png" type="Texture" id=31]
+[ext_resource path="res://tilesets/town_and_castle/decor0.png" type="Texture" id=32]
+[ext_resource path="res://tilesets/town_and_castle/biggate0.png" type="Texture" id=33]
+[ext_resource path="res://tilesets/town_and_castle/biggate1.png" type="Texture" id=34]
+[ext_resource path="res://tilesets/town_and_castle/biggate2.png" type="Texture" id=35]
+[ext_resource path="res://tilesets/town_and_castle/biggate3.png" type="Texture" id=36]
+[ext_resource path="res://tilesets/town_and_castle/bigbench0.png" type="Texture" id=37]
+[ext_resource path="res://tilesets/town_and_castle/bigbench1.png" type="Texture" id=38]
+[ext_resource path="res://tilesets/town_and_castle/bigbench2.png" type="Texture" id=39]
+[ext_resource path="res://tilesets/town_and_castle/bigbench3.png" type="Texture" id=40]
 
 [node name="Node2D" type="Node2D"]
 
@@ -66,79 +83,164 @@ texture = ExtResource( 7 )
 transform/pos = Vector2( 160, 160 )
 texture = ExtResource( 8 )
 
+[node name="Wall3" type="Sprite" parent="."]
+
+transform/pos = Vector2( 224, 160 )
+texture = ExtResource( 9 )
+
+[node name="Board0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 288, 160 )
+texture = ExtResource( 10 )
+
+[node name="Board1" type="Sprite" parent="."]
+
+transform/pos = Vector2( 352, 160 )
+texture = ExtResource( 11 )
+
+[node name="Board2" type="Sprite" parent="."]
+
+transform/pos = Vector2( 416, 160 )
+texture = ExtResource( 12 )
+
 [node name="Floor0" type="Sprite" parent="."]
 
 transform/pos = Vector2( 32, 224 )
-texture = ExtResource( 9 )
+texture = ExtResource( 13 )
 
 [node name="Chair0" type="Sprite" parent="."]
 
 transform/pos = Vector2( 32, 288 )
-texture = ExtResource( 10 )
+texture = ExtResource( 14 )
 
 [node name="Table0" type="Sprite" parent="."]
 
 transform/pos = Vector2( 96, 288 )
-texture = ExtResource( 11 )
+texture = ExtResource( 15 )
 
 [node name="Table1" type="Sprite" parent="."]
 
 transform/pos = Vector2( 160, 288 )
-texture = ExtResource( 12 )
+texture = ExtResource( 16 )
 
 [node name="Table2" type="Sprite" parent="."]
 
 transform/pos = Vector2( 224, 288 )
-texture = ExtResource( 13 )
+texture = ExtResource( 17 )
 
 [node name="Bed0" type="Sprite" parent="."]
 
 transform/pos = Vector2( 96, 224 )
-texture = ExtResource( 14 )
+texture = ExtResource( 18 )
 
 [node name="Bed0_" type="Sprite" parent="."]
 
 transform/pos = Vector2( 160, 224 )
-texture = ExtResource( 15 )
+texture = ExtResource( 19 )
+
+[node name="StairDown0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 224, 224 )
+texture = ExtResource( 20 )
+
+[node name="StairUp0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 288, 224 )
+texture = ExtResource( 21 )
 
 [node name="Bucket0" type="Sprite" parent="."]
 
 transform/pos = Vector2( 32, 352 )
-texture = ExtResource( 16 )
+texture = ExtResource( 22 )
 
 [node name="Bucket1" type="Sprite" parent="."]
 
 transform/pos = Vector2( 96, 352 )
-texture = ExtResource( 17 )
+texture = ExtResource( 23 )
 
 [node name="Stove0" type="Sprite" parent="."]
 
 transform/pos = Vector2( 160, 352 )
-texture = ExtResource( 18 )
+texture = ExtResource( 24 )
 
 [node name="Cabinet0" type="Sprite" parent="."]
 
 transform/pos = Vector2( 224, 352 )
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="Cabinet1" type="Sprite" parent="."]
 
 transform/pos = Vector2( 288, 352 )
-texture = ExtResource( 20 )
+texture = ExtResource( 26 )
 
 [node name="Pillar0" type="Sprite" parent="."]
 
 transform/pos = Vector2( 352, 352 )
-texture = ExtResource( 21 )
+texture = ExtResource( 27 )
 
 [node name="Pillar1" type="Sprite" parent="."]
 
 transform/pos = Vector2( 416, 352 )
-texture = ExtResource( 22 )
+texture = ExtResource( 28 )
+
+[node name="Statue0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 480, 352 )
+texture = ExtResource( 29 )
+
+[node name="Statue1" type="Sprite" parent="."]
+
+transform/pos = Vector2( 544, 352 )
+texture = ExtResource( 30 )
 
 [node name="Burlap0" type="Sprite" parent="."]
 
-transform/pos = Vector2( 224, 160 )
-texture = ExtResource( 23 )
+transform/pos = Vector2( 352, 416 )
+texture = ExtResource( 31 )
+
+[node name="Decor0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 416, 416 )
+texture = ExtResource( 32 )
+
+[node name="BigGate0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 32, 416 )
+texture = ExtResource( 33 )
+
+[node name="BigGate1" type="Sprite" parent="."]
+
+transform/pos = Vector2( 96, 416 )
+texture = ExtResource( 34 )
+
+[node name="BigGate2" type="Sprite" parent="."]
+
+transform/pos = Vector2( 32, 480 )
+texture = ExtResource( 35 )
+
+[node name="BigGate3" type="Sprite" parent="."]
+
+transform/pos = Vector2( 96, 480 )
+texture = ExtResource( 36 )
+
+[node name="BigBench0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 160, 416 )
+texture = ExtResource( 37 )
+
+[node name="BigBench1" type="Sprite" parent="."]
+
+transform/pos = Vector2( 224, 416 )
+texture = ExtResource( 38 )
+
+[node name="BigBench2" type="Sprite" parent="."]
+
+transform/pos = Vector2( 288, 416 )
+texture = ExtResource( 39 )
+
+[node name="BigBench3" type="Sprite" parent="."]
+
+transform/pos = Vector2( 160, 480 )
+texture = ExtResource( 40 )
 
 

@@ -1,28 +1,45 @@
-[gd_resource type="TileSet" load_steps=24 format=1]
+[gd_resource type="TileSet" load_steps=41 format=1]
 
 [ext_resource path="res://tilesets/world/grass0.png" type="Texture" id=1]
 [ext_resource path="res://tilesets/world/grass1.png" type="Texture" id=2]
-[ext_resource path="res://tilesets/town_and_castle/bed0.png" type="Texture" id=3]
-[ext_resource path="res://tilesets/town_and_castle/bed0_.png" type="Texture" id=4]
-[ext_resource path="res://tilesets/town_and_castle/bucket0.png" type="Texture" id=5]
-[ext_resource path="res://tilesets/town_and_castle/bucket1.png" type="Texture" id=6]
-[ext_resource path="res://tilesets/town_and_castle/stove0.png" type="Texture" id=7]
-[ext_resource path="res://tilesets/town_and_castle/cabinet0.png" type="Texture" id=8]
-[ext_resource path="res://tilesets/town_and_castle/cabinet1.png" type="Texture" id=9]
-[ext_resource path="res://tilesets/town_and_castle/wall1.png" type="Texture" id=10]
-[ext_resource path="res://tilesets/town_and_castle/wall2.png" type="Texture" id=11]
-[ext_resource path="res://tilesets/town_and_castle/table2.png" type="Texture" id=12]
+[ext_resource path="res://tilesets/town_and_castle/floor0.png" type="Texture" id=3]
+[ext_resource path="res://tilesets/town_and_castle/chair0.png" type="Texture" id=4]
+[ext_resource path="res://tilesets/town_and_castle/table0.png" type="Texture" id=5]
+[ext_resource path="res://tilesets/town_and_castle/table1.png" type="Texture" id=6]
+[ext_resource path="res://tilesets/town_and_castle/table2.png" type="Texture" id=7]
+[ext_resource path="res://tilesets/town_and_castle/bed0.png" type="Texture" id=8]
+[ext_resource path="res://tilesets/town_and_castle/bed0_.png" type="Texture" id=9]
+[ext_resource path="res://tilesets/town_and_castle/stairdown0.png" type="Texture" id=10]
+[ext_resource path="res://tilesets/town_and_castle/stairup0.png" type="Texture" id=11]
+[ext_resource path="res://tilesets/town_and_castle/bucket0.png" type="Texture" id=12]
 [ext_resource path="res://tilesets/world/tree0.png" type="Texture" id=13]
-[ext_resource path="res://tilesets/town_and_castle/pillar0.png" type="Texture" id=14]
-[ext_resource path="res://tilesets/town_and_castle/pillar1.png" type="Texture" id=15]
-[ext_resource path="res://tilesets/town_and_castle/burlap0.png" type="Texture" id=16]
-[ext_resource path="res://tilesets/world/tree1.png" type="Texture" id=17]
-[ext_resource path="res://tilesets/world/water0.png" type="Texture" id=18]
-[ext_resource path="res://tilesets/town_and_castle/wall0.png" type="Texture" id=19]
-[ext_resource path="res://tilesets/town_and_castle/floor0.png" type="Texture" id=20]
-[ext_resource path="res://tilesets/town_and_castle/chair0.png" type="Texture" id=21]
-[ext_resource path="res://tilesets/town_and_castle/table0.png" type="Texture" id=22]
-[ext_resource path="res://tilesets/town_and_castle/table1.png" type="Texture" id=23]
+[ext_resource path="res://tilesets/town_and_castle/bucket1.png" type="Texture" id=14]
+[ext_resource path="res://tilesets/town_and_castle/stove0.png" type="Texture" id=15]
+[ext_resource path="res://tilesets/town_and_castle/cabinet0.png" type="Texture" id=16]
+[ext_resource path="res://tilesets/town_and_castle/cabinet1.png" type="Texture" id=17]
+[ext_resource path="res://tilesets/town_and_castle/pillar0.png" type="Texture" id=18]
+[ext_resource path="res://tilesets/town_and_castle/pillar1.png" type="Texture" id=19]
+[ext_resource path="res://tilesets/town_and_castle/statue0.png" type="Texture" id=20]
+[ext_resource path="res://tilesets/town_and_castle/statue1.png" type="Texture" id=21]
+[ext_resource path="res://tilesets/town_and_castle/burlap0.png" type="Texture" id=22]
+[ext_resource path="res://tilesets/town_and_castle/biggate0.png" type="Texture" id=23]
+[ext_resource path="res://tilesets/world/tree1.png" type="Texture" id=24]
+[ext_resource path="res://tilesets/town_and_castle/biggate1.png" type="Texture" id=25]
+[ext_resource path="res://tilesets/town_and_castle/biggate2.png" type="Texture" id=26]
+[ext_resource path="res://tilesets/town_and_castle/biggate3.png" type="Texture" id=27]
+[ext_resource path="res://tilesets/town_and_castle/bigbench0.png" type="Texture" id=28]
+[ext_resource path="res://tilesets/town_and_castle/bigbench1.png" type="Texture" id=29]
+[ext_resource path="res://tilesets/town_and_castle/bigbench2.png" type="Texture" id=30]
+[ext_resource path="res://tilesets/town_and_castle/bigbench3.png" type="Texture" id=31]
+[ext_resource path="res://tilesets/town_and_castle/board1.png" type="Texture" id=32]
+[ext_resource path="res://tilesets/town_and_castle/board2.png" type="Texture" id=33]
+[ext_resource path="res://tilesets/town_and_castle/decor0.png" type="Texture" id=34]
+[ext_resource path="res://tilesets/world/water0.png" type="Texture" id=35]
+[ext_resource path="res://tilesets/town_and_castle/wall0.png" type="Texture" id=36]
+[ext_resource path="res://tilesets/town_and_castle/wall1.png" type="Texture" id=37]
+[ext_resource path="res://tilesets/town_and_castle/wall2.png" type="Texture" id=38]
+[ext_resource path="res://tilesets/town_and_castle/wall3.png" type="Texture" id=39]
+[ext_resource path="res://tilesets/town_and_castle/board0.png" type="Texture" id=40]
 
 [resource]
 
@@ -51,7 +68,7 @@
 2/shape_offset = Vector2( 0, 0 )
 2/shapes = [  ]
 3/name = "Tree1"
-3/texture = ExtResource( 17 )
+3/texture = ExtResource( 24 )
 3/tex_offset = Vector2( 0, 0 )
 3/region = Rect2( 0, 0, 64, 64 )
 3/occluder_offset = Vector2( 32, 32 )
@@ -59,7 +76,7 @@
 3/shape_offset = Vector2( 0, 0 )
 3/shapes = [  ]
 4/name = "Water0"
-4/texture = ExtResource( 18 )
+4/texture = ExtResource( 35 )
 4/tex_offset = Vector2( 0, 0 )
 4/region = Rect2( 0, 0, 64, 64 )
 4/occluder_offset = Vector2( 32, 32 )
@@ -67,46 +84,46 @@
 4/shape_offset = Vector2( 0, 0 )
 4/shapes = [  ]
 5/name = "Wall0"
-5/texture = ExtResource( 19 )
+5/texture = ExtResource( 36 )
 5/tex_offset = Vector2( 0, 0 )
 5/region = Rect2( 0, 0, 64, 64 )
 5/occluder_offset = Vector2( 32, 32 )
 5/navigation_offset = Vector2( 32, 32 )
 5/shape_offset = Vector2( 0, 0 )
 5/shapes = [  ]
-6/name = "Floor0"
-6/texture = ExtResource( 20 )
+6/name = "Wall1"
+6/texture = ExtResource( 37 )
 6/tex_offset = Vector2( 0, 0 )
 6/region = Rect2( 0, 0, 64, 64 )
 6/occluder_offset = Vector2( 32, 32 )
 6/navigation_offset = Vector2( 32, 32 )
 6/shape_offset = Vector2( 0, 0 )
 6/shapes = [  ]
-7/name = "Chair0"
-7/texture = ExtResource( 21 )
+7/name = "Wall2"
+7/texture = ExtResource( 38 )
 7/tex_offset = Vector2( 0, 0 )
 7/region = Rect2( 0, 0, 64, 64 )
 7/occluder_offset = Vector2( 32, 32 )
 7/navigation_offset = Vector2( 32, 32 )
 7/shape_offset = Vector2( 0, 0 )
 7/shapes = [  ]
-8/name = "Table0"
-8/texture = ExtResource( 22 )
+8/name = "Wall3"
+8/texture = ExtResource( 39 )
 8/tex_offset = Vector2( 0, 0 )
 8/region = Rect2( 0, 0, 64, 64 )
 8/occluder_offset = Vector2( 32, 32 )
 8/navigation_offset = Vector2( 32, 32 )
 8/shape_offset = Vector2( 0, 0 )
 8/shapes = [  ]
-9/name = "Table1"
-9/texture = ExtResource( 23 )
+9/name = "Board0"
+9/texture = ExtResource( 40 )
 9/tex_offset = Vector2( 0, 0 )
 9/region = Rect2( 0, 0, 64, 64 )
 9/occluder_offset = Vector2( 32, 32 )
 9/navigation_offset = Vector2( 32, 32 )
 9/shape_offset = Vector2( 0, 0 )
 9/shapes = [  ]
-10/name = "Bed0"
+10/name = "Floor0"
 10/texture = ExtResource( 3 )
 10/tex_offset = Vector2( 0, 0 )
 10/region = Rect2( 0, 0, 64, 64 )
@@ -114,7 +131,7 @@
 10/navigation_offset = Vector2( 32, 32 )
 10/shape_offset = Vector2( 0, 0 )
 10/shapes = [  ]
-11/name = "Bed0_"
+11/name = "Chair0"
 11/texture = ExtResource( 4 )
 11/tex_offset = Vector2( 0, 0 )
 11/region = Rect2( 0, 0, 64, 64 )
@@ -122,7 +139,7 @@
 11/navigation_offset = Vector2( 32, 32 )
 11/shape_offset = Vector2( 0, 0 )
 11/shapes = [  ]
-12/name = "Bucket0"
+12/name = "Table0"
 12/texture = ExtResource( 5 )
 12/tex_offset = Vector2( 0, 0 )
 12/region = Rect2( 0, 0, 64, 64 )
@@ -130,7 +147,7 @@
 12/navigation_offset = Vector2( 32, 32 )
 12/shape_offset = Vector2( 0, 0 )
 12/shapes = [  ]
-13/name = "Bucket1"
+13/name = "Table1"
 13/texture = ExtResource( 6 )
 13/tex_offset = Vector2( 0, 0 )
 13/region = Rect2( 0, 0, 64, 64 )
@@ -138,7 +155,7 @@
 13/navigation_offset = Vector2( 32, 32 )
 13/shape_offset = Vector2( 0, 0 )
 13/shapes = [  ]
-14/name = "Stove0"
+14/name = "Table2"
 14/texture = ExtResource( 7 )
 14/tex_offset = Vector2( 0, 0 )
 14/region = Rect2( 0, 0, 64, 64 )
@@ -146,7 +163,7 @@
 14/navigation_offset = Vector2( 32, 32 )
 14/shape_offset = Vector2( 0, 0 )
 14/shapes = [  ]
-15/name = "Cabinet0"
+15/name = "Bed0"
 15/texture = ExtResource( 8 )
 15/tex_offset = Vector2( 0, 0 )
 15/region = Rect2( 0, 0, 64, 64 )
@@ -154,7 +171,7 @@
 15/navigation_offset = Vector2( 32, 32 )
 15/shape_offset = Vector2( 0, 0 )
 15/shapes = [  ]
-16/name = "Cabinet1"
+16/name = "Bed0_"
 16/texture = ExtResource( 9 )
 16/tex_offset = Vector2( 0, 0 )
 16/region = Rect2( 0, 0, 64, 64 )
@@ -162,7 +179,7 @@
 16/navigation_offset = Vector2( 32, 32 )
 16/shape_offset = Vector2( 0, 0 )
 16/shapes = [  ]
-17/name = "Wall1"
+17/name = "StairDown0"
 17/texture = ExtResource( 10 )
 17/tex_offset = Vector2( 0, 0 )
 17/region = Rect2( 0, 0, 64, 64 )
@@ -170,7 +187,7 @@
 17/navigation_offset = Vector2( 32, 32 )
 17/shape_offset = Vector2( 0, 0 )
 17/shapes = [  ]
-18/name = "Wall2"
+18/name = "StairUp0"
 18/texture = ExtResource( 11 )
 18/tex_offset = Vector2( 0, 0 )
 18/region = Rect2( 0, 0, 64, 64 )
@@ -178,7 +195,7 @@
 18/navigation_offset = Vector2( 32, 32 )
 18/shape_offset = Vector2( 0, 0 )
 18/shapes = [  ]
-19/name = "Table2"
+19/name = "Bucket0"
 19/texture = ExtResource( 12 )
 19/tex_offset = Vector2( 0, 0 )
 19/region = Rect2( 0, 0, 64, 64 )
@@ -186,7 +203,7 @@
 19/navigation_offset = Vector2( 32, 32 )
 19/shape_offset = Vector2( 0, 0 )
 19/shapes = [  ]
-20/name = "Pillar0"
+20/name = "Bucket1"
 20/texture = ExtResource( 14 )
 20/tex_offset = Vector2( 0, 0 )
 20/region = Rect2( 0, 0, 64, 64 )
@@ -194,7 +211,7 @@
 20/navigation_offset = Vector2( 32, 32 )
 20/shape_offset = Vector2( 0, 0 )
 20/shapes = [  ]
-21/name = "Pillar1"
+21/name = "Stove0"
 21/texture = ExtResource( 15 )
 21/tex_offset = Vector2( 0, 0 )
 21/region = Rect2( 0, 0, 64, 64 )
@@ -202,7 +219,7 @@
 21/navigation_offset = Vector2( 32, 32 )
 21/shape_offset = Vector2( 0, 0 )
 21/shapes = [  ]
-22/name = "Burlap0"
+22/name = "Cabinet0"
 22/texture = ExtResource( 16 )
 22/tex_offset = Vector2( 0, 0 )
 22/region = Rect2( 0, 0, 64, 64 )
@@ -210,4 +227,140 @@
 22/navigation_offset = Vector2( 32, 32 )
 22/shape_offset = Vector2( 0, 0 )
 22/shapes = [  ]
+23/name = "Cabinet1"
+23/texture = ExtResource( 17 )
+23/tex_offset = Vector2( 0, 0 )
+23/region = Rect2( 0, 0, 64, 64 )
+23/occluder_offset = Vector2( 32, 32 )
+23/navigation_offset = Vector2( 32, 32 )
+23/shape_offset = Vector2( 0, 0 )
+23/shapes = [  ]
+24/name = "Pillar0"
+24/texture = ExtResource( 18 )
+24/tex_offset = Vector2( 0, 0 )
+24/region = Rect2( 0, 0, 64, 64 )
+24/occluder_offset = Vector2( 32, 32 )
+24/navigation_offset = Vector2( 32, 32 )
+24/shape_offset = Vector2( 0, 0 )
+24/shapes = [  ]
+25/name = "Pillar1"
+25/texture = ExtResource( 19 )
+25/tex_offset = Vector2( 0, 0 )
+25/region = Rect2( 0, 0, 64, 64 )
+25/occluder_offset = Vector2( 32, 32 )
+25/navigation_offset = Vector2( 32, 32 )
+25/shape_offset = Vector2( 0, 0 )
+25/shapes = [  ]
+26/name = "Statue0"
+26/texture = ExtResource( 20 )
+26/tex_offset = Vector2( 0, 0 )
+26/region = Rect2( 0, 0, 64, 64 )
+26/occluder_offset = Vector2( 32, 32 )
+26/navigation_offset = Vector2( 32, 32 )
+26/shape_offset = Vector2( 0, 0 )
+26/shapes = [  ]
+27/name = "Statue1"
+27/texture = ExtResource( 21 )
+27/tex_offset = Vector2( 0, 0 )
+27/region = Rect2( 0, 0, 64, 64 )
+27/occluder_offset = Vector2( 32, 32 )
+27/navigation_offset = Vector2( 32, 32 )
+27/shape_offset = Vector2( 0, 0 )
+27/shapes = [  ]
+28/name = "Burlap0"
+28/texture = ExtResource( 22 )
+28/tex_offset = Vector2( 0, 0 )
+28/region = Rect2( 0, 0, 64, 64 )
+28/occluder_offset = Vector2( 32, 32 )
+28/navigation_offset = Vector2( 32, 32 )
+28/shape_offset = Vector2( 0, 0 )
+28/shapes = [  ]
+29/name = "BigGate0"
+29/texture = ExtResource( 23 )
+29/tex_offset = Vector2( 0, 0 )
+29/region = Rect2( 0, 0, 64, 64 )
+29/occluder_offset = Vector2( 32, 32 )
+29/navigation_offset = Vector2( 32, 32 )
+29/shape_offset = Vector2( 0, 0 )
+29/shapes = [  ]
+30/name = "BigGate1"
+30/texture = ExtResource( 25 )
+30/tex_offset = Vector2( 0, 0 )
+30/region = Rect2( 0, 0, 64, 64 )
+30/occluder_offset = Vector2( 32, 32 )
+30/navigation_offset = Vector2( 32, 32 )
+30/shape_offset = Vector2( 0, 0 )
+30/shapes = [  ]
+31/name = "BigGate2"
+31/texture = ExtResource( 26 )
+31/tex_offset = Vector2( 0, 0 )
+31/region = Rect2( 0, 0, 64, 64 )
+31/occluder_offset = Vector2( 32, 32 )
+31/navigation_offset = Vector2( 32, 32 )
+31/shape_offset = Vector2( 0, 0 )
+31/shapes = [  ]
+32/name = "BigGate3"
+32/texture = ExtResource( 27 )
+32/tex_offset = Vector2( 0, 0 )
+32/region = Rect2( 0, 0, 64, 64 )
+32/occluder_offset = Vector2( 32, 32 )
+32/navigation_offset = Vector2( 32, 32 )
+32/shape_offset = Vector2( 0, 0 )
+32/shapes = [  ]
+33/name = "BigBench0"
+33/texture = ExtResource( 28 )
+33/tex_offset = Vector2( 0, 0 )
+33/region = Rect2( 0, 0, 64, 64 )
+33/occluder_offset = Vector2( 32, 32 )
+33/navigation_offset = Vector2( 32, 32 )
+33/shape_offset = Vector2( 0, 0 )
+33/shapes = [  ]
+34/name = "BigBench1"
+34/texture = ExtResource( 29 )
+34/tex_offset = Vector2( 0, 0 )
+34/region = Rect2( 0, 0, 64, 64 )
+34/occluder_offset = Vector2( 32, 32 )
+34/navigation_offset = Vector2( 32, 32 )
+34/shape_offset = Vector2( 0, 0 )
+34/shapes = [  ]
+35/name = "BigBench2"
+35/texture = ExtResource( 30 )
+35/tex_offset = Vector2( 0, 0 )
+35/region = Rect2( 0, 0, 64, 64 )
+35/occluder_offset = Vector2( 32, 32 )
+35/navigation_offset = Vector2( 32, 32 )
+35/shape_offset = Vector2( 0, 0 )
+35/shapes = [  ]
+36/name = "BigBench3"
+36/texture = ExtResource( 31 )
+36/tex_offset = Vector2( 0, 0 )
+36/region = Rect2( 0, 0, 64, 64 )
+36/occluder_offset = Vector2( 32, 32 )
+36/navigation_offset = Vector2( 32, 32 )
+36/shape_offset = Vector2( 0, 0 )
+36/shapes = [  ]
+37/name = "Board1"
+37/texture = ExtResource( 32 )
+37/tex_offset = Vector2( 0, 0 )
+37/region = Rect2( 0, 0, 64, 64 )
+37/occluder_offset = Vector2( 32, 32 )
+37/navigation_offset = Vector2( 32, 32 )
+37/shape_offset = Vector2( 0, 0 )
+37/shapes = [  ]
+38/name = "Board2"
+38/texture = ExtResource( 33 )
+38/tex_offset = Vector2( 0, 0 )
+38/region = Rect2( 0, 0, 64, 64 )
+38/occluder_offset = Vector2( 32, 32 )
+38/navigation_offset = Vector2( 32, 32 )
+38/shape_offset = Vector2( 0, 0 )
+38/shapes = [  ]
+39/name = "Decor0"
+39/texture = ExtResource( 34 )
+39/tex_offset = Vector2( 0, 0 )
+39/region = Rect2( 0, 0, 64, 64 )
+39/occluder_offset = Vector2( 32, 32 )
+39/navigation_offset = Vector2( 32, 32 )
+39/shape_offset = Vector2( 0, 0 )
+39/shapes = [  ]
 
