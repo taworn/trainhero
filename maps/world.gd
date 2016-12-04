@@ -6,7 +6,7 @@ func _ready():
 	get_node("Camera/TileMap/Party").set_current_scene(self)
 
 var tag = global.TAG_WORLD
-var rect = Rect2(0, 0, 2560, 2240)
+var rect = Rect2(0, 0, 6144, 5120)
 
 var enemy_dict = {
 }
