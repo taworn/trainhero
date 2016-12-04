@@ -97,9 +97,10 @@ func _on_AnimationPlayer_finished():
 		if state.scripting_continue != null:
 			var source = state.scripting_continue
 			state.scripting_continue = null
-			var dialog
-			dialog = scene.dialog_dict[source]
-			scripting.open_floor(self, dialog)
+			if scene.dialog_dict.has(source):
+				var dialog
+				dialog = scene.dialog_dict[source]
+				scripting.open_floor(self, dialog)
 
 func key_pressed():
 	var scene_name = get_node("../../../UI/SceneName")

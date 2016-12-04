@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://map.tscn" type="PackedScene" id=1]
 [ext_resource path="res://maps/north_castle_f2.gd" type="Script" id=2]
 [ext_resource path="res://tilesets/town_and_castle.tres" type="TileSet" id=3]
 [ext_resource path="res://npcs/king.tscn" type="PackedScene" id=4]
+[ext_resource path="res://npcs/soldier1.tscn" type="PackedScene" id=5]
+[ext_resource path="res://npcs/soldier0.tscn" type="PackedScene" id=6]
 
 [node name="Root" instance=ExtResource( 1 )]
 
@@ -22,6 +24,22 @@ editor/display_folded = false
 [node name="King" parent="Camera/TileMap/Players" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 640, 384 )
+
+[node name="Soldier 1" parent="Camera/TileMap/Players" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 512, 448 )
+
+[node name="Soldier 2" parent="Camera/TileMap/Players" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 768, 448 )
+
+[node name="Soldier 3" parent="Camera/TileMap/Players" instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 512, 640 )
+
+[node name="Soldier 4" parent="Camera/TileMap/Players" instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 768, 640 )
 
 [node name="To F1" type="Control" parent="Camera/TileMap/Scripts"]
 

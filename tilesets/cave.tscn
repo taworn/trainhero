@@ -1,152 +1,96 @@
-[gd_scene load_steps=22 format=1]
+[gd_scene load_steps=14 format=1]
 
-[ext_resource path="res://tilesets/cave/00.png" type="Texture" id=1]
-[ext_resource path="res://tilesets/cave/01.png" type="Texture" id=2]
-[ext_resource path="res://tilesets/cave/02.png" type="Texture" id=3]
-[ext_resource path="res://tilesets/cave/11.png" type="Texture" id=4]
-[ext_resource path="res://tilesets/cave/20.png" type="Texture" id=5]
-[ext_resource path="res://tilesets/cave/21.png" type="Texture" id=6]
-[ext_resource path="res://tilesets/cave/22.png" type="Texture" id=7]
-[ext_resource path="res://tilesets/cave/30.png" type="Texture" id=8]
-[ext_resource path="res://tilesets/cave/31.png" type="Texture" id=9]
-[ext_resource path="res://tilesets/cave/32.png" type="Texture" id=10]
-[ext_resource path="res://tilesets/cave/40.png" type="Texture" id=11]
-[ext_resource path="res://tilesets/cave/41.png" type="Texture" id=12]
-[ext_resource path="res://tilesets/cave/42.png" type="Texture" id=13]
-[ext_resource path="res://tilesets/cave/wall0.png" type="Texture" id=14]
-[ext_resource path="res://tilesets/cave/wall1.png" type="Texture" id=15]
-[ext_resource path="res://tilesets/cave/obstacle0.png" type="Texture" id=16]
-[ext_resource path="res://tilesets/cave/stair_u.png" type="Texture" id=17]
-[ext_resource path="res://tilesets/cave/stair_d.png" type="Texture" id=18]
-[ext_resource path="res://tilesets/cave/door0.png" type="Texture" id=19]
-[ext_resource path="res://tilesets/cave/floor1.png" type="Texture" id=20]
-[ext_resource path="res://tilesets/cave/water0.png" type="Texture" id=21]
+[ext_resource path="res://tilesets/world/grass0.png" type="Texture" id=1]
+[ext_resource path="res://tilesets/world/grass1.png" type="Texture" id=2]
+[ext_resource path="res://tilesets/world/tree0.png" type="Texture" id=3]
+[ext_resource path="res://tilesets/world/tree1.png" type="Texture" id=4]
+[ext_resource path="res://tilesets/world/water0.png" type="Texture" id=5]
+[ext_resource path="res://tilesets/cave/wall0.png" type="Texture" id=6]
+[ext_resource path="res://tilesets/cave/wall1.png" type="Texture" id=7]
+[ext_resource path="res://tilesets/cave/floor1.png" type="Texture" id=8]
+[ext_resource path="res://tilesets/cave/stairdown1.png" type="Texture" id=9]
+[ext_resource path="res://tilesets/cave/stairup1.png" type="Texture" id=10]
+[ext_resource path="res://tilesets/cave/door0.png" type="Texture" id=11]
+[ext_resource path="res://tilesets/cave/obstacle0.png" type="Texture" id=12]
+[ext_resource path="res://tilesets/cave/obstacle1.png" type="Texture" id=13]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Wall00" type="Sprite" parent="."]
+[node name="Grass0" type="Sprite" parent="."]
 
-transform/pos = Vector2( 0, 256 )
 texture = ExtResource( 1 )
 centered = false
 
-[node name="Wall01" type="Sprite" parent="."]
+[node name="Grass1" type="Sprite" parent="."]
 
-transform/pos = Vector2( 64, 256 )
+transform/pos = Vector2( 64, 0 )
 texture = ExtResource( 2 )
 centered = false
 
-[node name="Wall02" type="Sprite" parent="."]
+[node name="Tree0" type="Sprite" parent="."]
 
-transform/pos = Vector2( 128, 256 )
+transform/pos = Vector2( 128, 0 )
 texture = ExtResource( 3 )
 centered = false
 
-[node name="Wall11" type="Sprite" parent="."]
+[node name="Tree1" type="Sprite" parent="."]
 
-transform/pos = Vector2( 64, 192 )
+transform/pos = Vector2( 192, 0 )
 texture = ExtResource( 4 )
-centered = false
-
-[node name="Wall20" type="Sprite" parent="."]
-
-transform/pos = Vector2( 0, 128 )
-texture = ExtResource( 5 )
-centered = false
-
-[node name="Wall21" type="Sprite" parent="."]
-
-transform/pos = Vector2( 64, 128 )
-texture = ExtResource( 6 )
-centered = false
-
-[node name="Wall22" type="Sprite" parent="."]
-
-transform/pos = Vector2( 128, 128 )
-texture = ExtResource( 7 )
-centered = false
-
-[node name="Wall30" type="Sprite" parent="."]
-
-transform/pos = Vector2( 0, 64 )
-texture = ExtResource( 8 )
-centered = false
-
-[node name="Wall31" type="Sprite" parent="."]
-
-transform/pos = Vector2( 64, 64 )
-texture = ExtResource( 9 )
-centered = false
-
-[node name="Wall32" type="Sprite" parent="."]
-
-transform/pos = Vector2( 128, 64 )
-texture = ExtResource( 10 )
-centered = false
-
-[node name="Wall40" type="Sprite" parent="."]
-
-texture = ExtResource( 11 )
-centered = false
-
-[node name="Wall41" type="Sprite" parent="."]
-
-transform/pos = Vector2( 64, 0 )
-texture = ExtResource( 12 )
-centered = false
-
-[node name="Wall42" type="Sprite" parent="."]
-
-transform/pos = Vector2( 128, 0 )
-texture = ExtResource( 13 )
-centered = false
-
-[node name="Wall0" type="Sprite" parent="."]
-
-transform/pos = Vector2( 0, 320 )
-texture = ExtResource( 14 )
-centered = false
-
-[node name="Wall1" type="Sprite" parent="."]
-
-transform/pos = Vector2( 64, 320 )
-texture = ExtResource( 15 )
-centered = false
-
-[node name="Obstacle0" type="Sprite" parent="."]
-
-transform/pos = Vector2( 128, 320 )
-texture = ExtResource( 16 )
-centered = false
-
-[node name="StairUp" type="Sprite" parent="."]
-
-transform/pos = Vector2( 0, 384 )
-texture = ExtResource( 17 )
-centered = false
-
-[node name="StairDown" type="Sprite" parent="."]
-
-transform/pos = Vector2( 64, 384 )
-texture = ExtResource( 18 )
-centered = false
-
-[node name="Gate0" type="Sprite" parent="."]
-
-transform/pos = Vector2( 128, 384 )
-texture = ExtResource( 19 )
-centered = false
-
-[node name="Floor1" type="Sprite" parent="."]
-
-transform/pos = Vector2( 0, 448 )
-texture = ExtResource( 20 )
 centered = false
 
 [node name="Water0" type="Sprite" parent="."]
 
-transform/pos = Vector2( 0, 512 )
-texture = ExtResource( 21 )
+transform/pos = Vector2( 0, 64 )
+texture = ExtResource( 5 )
+centered = false
+
+[node name="Wall0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 0, 128 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="Wall1" type="Sprite" parent="."]
+
+transform/pos = Vector2( 64, 128 )
+texture = ExtResource( 7 )
+centered = false
+
+[node name="Floor1" type="Sprite" parent="."]
+
+transform/pos = Vector2( 0, 192 )
+texture = ExtResource( 8 )
+centered = false
+
+[node name="StairDown1" type="Sprite" parent="."]
+
+transform/pos = Vector2( 64, 192 )
+texture = ExtResource( 9 )
+centered = false
+
+[node name="StairUp1" type="Sprite" parent="."]
+
+transform/pos = Vector2( 128, 192 )
+texture = ExtResource( 10 )
+centered = false
+
+[node name="Gate0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 192, 192 )
+texture = ExtResource( 11 )
+centered = false
+
+[node name="Obstacle0" type="Sprite" parent="."]
+
+transform/pos = Vector2( 0, 256 )
+texture = ExtResource( 12 )
+centered = false
+
+[node name="Obstacle1" type="Sprite" parent="."]
+
+transform/pos = Vector2( 64, 256 )
+texture = ExtResource( 13 )
 centered = false
 
 

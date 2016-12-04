@@ -29,11 +29,21 @@ var shop_dict = {
 
 var door_dict = {
 	"Door1": 1,
+	"Door2": 1,
 }
 
 var treasure_dict = {
 }
 
 var dialog_dict = {
+	"Female Merchant": [
+		"Good day",
+		[global.SCRIPT_OPEN_SHOP],
+	],
+	"Innkeeper": [
+		"Cost 15 G per night, need a rest?\n(Press ESC/Cancel to cancel)",
+		[global.SCRIPT_OPEN_INN, 15],
+		"Oh, sorry, you not have enough gold.",
+	],
 }
 

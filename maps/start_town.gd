@@ -39,7 +39,7 @@ var dialog_dict = {
 		"For start game, this place will be free.",
 		"Need a rest? (Press ESC/Cancel to cancel)",
 		[global.SCRIPT_OPEN_INN, 0],
-		"Oh, sorry, you have not enough gold.",
+		"Oh, sorry, you not have enough gold.",
 	],
 	"Villager Girl 1": [
 		"It's a beautiful scenery.",
