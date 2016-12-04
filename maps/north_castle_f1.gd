@@ -22,5 +22,12 @@ var treasure_dict = {
 }
 
 var dialog_dict = {
+	"Soldier 1": ["You can pass."],
+	"Soldier 2": ["You can pass."],
+	"Soldier 3": ["You can pass."],
+	"Soldier 4": ["You can pass."],
+
+	"Oldwoman": ["The king is polite."],
+	"Oldman": ["Be quite in the king room."],
 }
 

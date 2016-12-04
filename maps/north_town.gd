@@ -45,5 +45,15 @@ var dialog_dict = {
 		[global.SCRIPT_OPEN_INN, 15],
 		"Oh, sorry, you not have enough gold.",
 	],
+
+	"Villager Male 1": ["I love a woman..."],
+	"Villager Female 1": ["I love a man..."],
+	"Soldier 1": ["You can pass."],
+	"Soldier 2": ["You can pass."],
+	"Soldier 3": ["Walking is exercise."],
+	"Villager Male 2": ["It's hard to open new shop here."],
+	"Villager Female 2": ["This town is peaceful."],
+	"Villager Boy 1": ["It is fun."],
+	"Villager Girl 2": ["Let's play."],
 }
 

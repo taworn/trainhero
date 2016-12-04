@@ -13,6 +13,7 @@ func reset():
 func random():
 	if roll <= 0:
 		roll = 0
+		roll = 1
 		plus = 1
 		return false
 	else:

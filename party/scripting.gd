@@ -264,6 +264,16 @@ func execute():
 				quest_read = 1
 			wait = WAIT_IDLE
 
+		elif d[0] == global.SCRIPT_READ_QUEST_:
+			if !state.persist.quests.has(d[1]):
+				state.persist.quests[d[1]] = []
+			var array = state.persist.quests[d[1]]
+			if !array.has(d[2]):
+				quest_read = null
+			else:
+				quest_read = 1
+			wait = WAIT_IDLE
+
 		elif d[0] == global.SCRIPT_WRITE_QUEST:
 			if !state.persist.quests.has(state.persist.map):
 				state.persist.quests[state.persist.map] = []

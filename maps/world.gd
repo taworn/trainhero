@@ -29,6 +29,8 @@ var warp_dict = {
 	"First Cave": {"x": 0, "y": 2304, "map": "maps/first_cave_b1"},
 	"First Cave Back": {"x": 512, "y": 64, "map": "maps/first_cave_b2"},
 	"North Town": {"x": 320, "y": 640, "map": "maps/north_town"},
+	"North Gateway": {"x": 384, "y": 640, "map": "maps/north_gateway"},
+	"North Gateway Back": {"x": 384, "y": 1216, "map": "maps/north_gateway"},
 }
 
 var shop_dict = {

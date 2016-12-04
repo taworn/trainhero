@@ -21,5 +21,19 @@ var treasure_dict = {
 }
 
 var dialog_dict = {
+	"King": [
+		[global.SCRIPT_READ_QUEST_, "maps/xxx", "Deranger"],
+		[global.SCRIPT_IF_ELSE, "King Before"],
+		[global.SCRIPT_WRITE_QUEST, "King Pass Order"],
+		"I order the guards to let you pass.",
+	],
+	"King Before": [
+		"Make yourself at home.",
+	],
+
+	"Soldier 1": ["Respect the king."],
+	"Soldier 2": ["Respect the king."],
+	"Soldier 3": ["Respect the king."],
+	"Soldier 4": ["Respect the king."],
 }
 

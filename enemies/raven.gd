@@ -5,7 +5,7 @@ var data = {
 	"name": "Raven",
 	"hp_max": 15,
 	"hp": 15,
-	"att": 15,
+	"att": 14,
 	"mag": 0,
 	"def": 5,
 	"spd": 5,

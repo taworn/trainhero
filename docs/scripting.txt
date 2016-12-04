@@ -1,0 +1,93 @@
+This document the scripting module.
+
+
+SCRIPT_OPEN_SHOP - Open shop
+	Use same key in variable shop_dict to open shop.
+
+
+SCRIPT_OPEN_INN - Open inn
+	Parameter 1: gold to consume
+
+
+SCRIPT_HPMP_FULL - Set HP/MP full, and without poison
+
+
+SCRIPT_BE_FRIEND - Make a friend
+
+
+SCRIPT_TITLE_VISIBLE - Set title to visible or hide
+	Parameter 1: true to visible, false to hidden
+
+
+SCRIPT_TITLE_SET - Set title to text
+	Parameter 1: if it is integer, 0 = hero, 1 = current talk with hero, otherwise, it is string and use it as plain text
+
+
+SCRIPT_HERO_ACTION - Set hero action (just turn to face)
+	Parameter 1: direction to set face: "down", "left", "right", "up"
+
+
+SCRIPT_NPC_ACTION - Set NPC action (just turn to face)
+	Parameter 1: direction to set face: "down", "left", "right", "up", or null to set face to hero
+
+
+SCRIPT_NPC_ACTION_ - Set NPC action (just turn to face)
+	Parameter 1: name of NPC
+	Parameter 2: direction to set face: "down", "left", "right", "up"
+
+
+SCRIPT_HERO_WALK - Walk hero one step
+	Parameter 1: direction to walk: MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT or MOVE_UP
+
+
+SCRIPT_NPC_WALK - Walk NPC one step
+	Parameter 1: speed, in milliseconds
+	Parameter 2: direction to walk: MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT or MOVE_UP
+
+
+SCRIPT_NPC_WALK_ - Walk NPC one step
+	Parameter 1: name of NPC
+	Parameter 2: speed, in milliseconds
+	Parameter 3: direction to walk: MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT or MOVE_UP
+
+
+SCRIPT_NPC_HIDDEN - Set NPC to hidden
+	Parameter 1: name of NPC
+
+
+SCRIPT_HIDDEN_SCRIPT - Set script to hidden (to disable)
+	Parameter 1: name of scripting
+
+
+SCRIPT_NO_CANCEL - Make this script not cancelable
+
+
+SCRIPT_BATTLE - Open battle
+	Parameter 1: name of script to run after win
+	Parameter 2: enemy group to load
+	Parameter 3: tile map to set background
+
+
+SCRIPT_READ_QUEST - Read quest
+	Parameter 1: key name
+	Look up key in persist.quests[persist.map].  This will be use in IF statement.
+
+
+SCRIPT_READ_QUEST_ - Read quest in difference map
+	Parameter 1: map name
+	Parameter 2: key name
+	Look up key in persist.quests[map name].  This will be use in IF statement.
+
+
+SCRIPT_WRITE_QUEST - Write quest
+	Parameter 1: key name
+	Write value 1 in persist.quests[persist.map].
+
+
+SCRIPT_CONTINUE_IF - Continue if evaluation is true
+
+
+SCRIPT_IF_ELSE - Continue if evaluation is true, otherwise, it branch another script.
+	Parameter 1: name of script if evaluation is false
+
+

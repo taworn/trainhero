@@ -31,9 +31,10 @@ const SCRIPT_HIDDEN_SCRIPT = 31
 const SCRIPT_NO_CANCEL = 32
 const SCRIPT_BATTLE = 41
 const SCRIPT_READ_QUEST = 51
-const SCRIPT_WRITE_QUEST = 52
-const SCRIPT_CONTINUE_IF = 53
-const SCRIPT_IF_ELSE = 54
+const SCRIPT_READ_QUEST_ = 52
+const SCRIPT_WRITE_QUEST = 53
+const SCRIPT_CONTINUE_IF = 54
+const SCRIPT_IF_ELSE = 55
 
 # move in direction
 const MOVE_DOWN = 1
@@ -63,7 +64,7 @@ var passable_walk_dict = {
 	"Tree1": 1,
 	"Town0": 1,
 	"Castle0": 1, "Castle1": 1, "Castle2": 1, "Castle3": 1,
-	"Mountain01": 1, "Mountain11": 1,
+	"Mountain01": 1, "Mountain04": 1, "Mountain11": 1,
 	"Cave0": 1,
 
 	"Floor0": 1, "Floor1": 1,
