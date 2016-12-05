@@ -147,4 +147,20 @@
 15/navigation_offset = Vector2( 0, 0 )
 15/shape_offset = Vector2( 0, 0 )
 15/shapes = [  ]
+16/name = "Grass2"
+16/texture = ExtResource( 1 )
+16/tex_offset = Vector2( 0, 0 )
+16/region = Rect2( 0, 0, 64, 64 )
+16/occluder_offset = Vector2( 0, 0 )
+16/navigation_offset = Vector2( 0, 0 )
+16/shape_offset = Vector2( 0, 0 )
+16/shapes = [  ]
+17/name = "Grass3"
+17/texture = ExtResource( 2 )
+17/tex_offset = Vector2( 0, 0 )
+17/region = Rect2( 0, 0, 64, 64 )
+17/occluder_offset = Vector2( 0, 0 )
+17/navigation_offset = Vector2( 0, 0 )
+17/shape_offset = Vector2( 0, 0 )
+17/shapes = [  ]
 

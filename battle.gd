@@ -44,8 +44,12 @@ var end_type
 
 var map_to_background = {
 	"Grass1": "forest",
+	"Grass2": "mountain",
+	"Grass3": "mountain",
+	"Stair1": "mountain",
 	"Tree1": "forest",
 	"Floor1": "cave",
+	"Sand0": "sand",
 }
 
 func _ready():

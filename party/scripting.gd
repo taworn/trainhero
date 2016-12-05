@@ -122,7 +122,7 @@ func open_hidden(party, source):
 
 func open_treasure(party, with, pickup_items):
 	base_open(party)
-	dialog = ["%s found" % pickup_items]
+	dialog = [pickup_items]
 	panel_title.set_hidden(true)
 	execute()
 

@@ -30,6 +30,18 @@ transform/pos = Vector2( 64, 0 )
 texture = ExtResource( 2 )
 centered = false
 
+[node name="Grass2" type="Sprite" parent="."]
+
+transform/pos = Vector2( 320, 0 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Grass3" type="Sprite" parent="."]
+
+transform/pos = Vector2( 384, 0 )
+texture = ExtResource( 2 )
+centered = false
+
 [node name="Tree0" type="Sprite" parent="."]
 
 transform/pos = Vector2( 128, 0 )

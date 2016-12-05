@@ -22,6 +22,9 @@ var enemy_zone_dict = {
 		"w0100": 1,
 		"w0101": 1,
 	},
+	"Island2": {
+		"w0200": 1,
+	},
 }
 
 var warp_dict = {

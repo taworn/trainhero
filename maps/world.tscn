@@ -103,7 +103,6 @@ transform/pos = Vector2( 224, 32 )
 
 [node name="Battle Zones" type="Control" parent="Camera/TileMap"]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -134,6 +133,17 @@ margin/left = 1280.0
 margin/top = 384.0
 margin/right = 2944.0
 margin/bottom = 1536.0
+
+[node name="Island2" type="Control" parent="Camera/TileMap/Battle Zones"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 2944.0
+margin/top = 512.0
+margin/right = 4864.0
+margin/bottom = 1984.0
 
 [node name="UI" parent="."]
 

@@ -182,13 +182,8 @@ func check_box(child):
 		array.append(child.get_name())
 		child.set_opened()
 		if scene.treasure_dict.has(child.get_name()):
-			var list = scene.treasure_dict[child.get_name()]
-			var s = ""
-			for i in list:
-				state.persist.keys.append(i)
-				if s != "":
-					s += ", "
-				s += i
+			var assets = scene.treasure_dict[child.get_name()]
+			var s = child.pickup(assets)
 			scripting.open_treasure(self, child, s)
 
 func after_walk(name):

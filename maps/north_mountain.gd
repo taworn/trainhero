@@ -24,6 +24,19 @@ var door_dict = {
 }
 
 var treasure_dict = {
+	"Treasure1": {
+		"items": [
+			"recover_hp_100",
+			"recover_mp_100",
+			"recover_hpmp_50",
+		],
+		"keys": [
+		],
+		"equips": [
+			"paladin_armor",
+			"paladin_shield",
+		],
+	},
 }
 
 var dialog_dict = {
@@ -32,9 +45,9 @@ var dialog_dict = {
 		[global.SCRIPT_READ_QUEST, "Nadia Friend"],
 		[global.SCRIPT_CONTINUE_IF],
 		[global.SCRIPT_NPC_HIDDEN, "Nadia"],
-		[global.SCRIPT_READ_QUEST, "xxx"],
+		[global.SCRIPT_READ_QUEST, "Devil Wiz"],
 		[global.SCRIPT_CONTINUE_IF],
-		[global.SCRIPT_NPC_HIDDEN, "xxx"],
+		[global.SCRIPT_NPC_HIDDEN, "Devil Wiz"],
 	],
 	"Nadia": [
 		[global.SCRIPT_NO_CANCEL],
@@ -44,6 +57,18 @@ var dialog_dict = {
 		[global.SCRIPT_NPC_HIDDEN, "Nadia"],
 		[global.SCRIPT_BE_FRIEND, "Nadia"],
 		[global.SCRIPT_WRITE_QUEST, "Nadia Friend"],
+	],
+	"Devil Wiz": [
+		[global.SCRIPT_NO_CANCEL],
+		"You will all dies!",
+		[global.SCRIPT_BATTLE, "Win", "d0199", "Grass0"],
+	],
+	"Win": [
+		[global.SCRIPT_NO_CANCEL],
+		[global.SCRIPT_TITLE_SET, "Devil Wiz"],
+		"Aarrrgh...",
+		[global.SCRIPT_WRITE_QUEST, "Devil Wiz"],
+		[global.SCRIPT_NPC_HIDDEN, "Devil Wiz"],
 	],
 }
 
