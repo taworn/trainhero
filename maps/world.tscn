@@ -20,10 +20,6 @@ transform/pos = Vector2( 832, 320 )
 
 transform/pos = Vector2( 512, 512 )
 
-[node name="Scripts" parent="Camera/TileMap"]
-
-editor/display_folded = true
-
 [node name="Start Town" type="Control" parent="Camera/TileMap/Scripts"]
 
 focus/ignore_mouse = false

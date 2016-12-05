@@ -64,10 +64,10 @@ var passable_walk_dict = {
 	"Tree1": 1,
 	"Town0": 1,
 	"Castle0": 1, "Castle1": 1, "Castle2": 1, "Castle3": 1,
-	"Mountain01": 1, "Mountain04": 1, "Mountain11": 1,
+	"Mountain01": 1, "Mountain04": 1, "Mountain11": 1, "Mountain14": 1,
 	"Cave0": 1,
 
-	"Floor0": 1, "Floor1": 1,
+	"Floor0": 1, "Floor1": 1, "Stair0": 1, "Stair1": 1,
 	"StairDown0": 1, "StairUp0": 1,
 	"StairDown1": 1, "StairUp1": 1,
 	"Chair0": 1, "Bed0": 1,

@@ -31,6 +31,7 @@ var warp_dict = {
 	"North Town": {"x": 320, "y": 640, "map": "maps/north_town"},
 	"North Gateway": {"x": 384, "y": 640, "map": "maps/north_gateway"},
 	"North Gateway Back": {"x": 384, "y": 1216, "map": "maps/north_gateway"},
+	"North Mountain": {"x": 512, "y": 2688, "map": "maps/north_mountain"},
 }
 
 var shop_dict = {
