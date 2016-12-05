@@ -195,7 +195,7 @@ func _on_MagicPlayerToList_item_activated(index):
 	var player = state.persist.players[state.player_dict[name]]
 	var selected = magic_list.get_selected_items()
 	var id = state.persist.players[player_id].magics[selected[0]]
-	if !master.magic_dict[index][id].effect.has("warp"):
+	if !master.magic_dict[player_id][id].effect.has("warp"):
 		if magic_use_one(player_id, id, player):
 			party.sound.play("heal")
 			refresh()

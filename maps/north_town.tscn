@@ -74,7 +74,7 @@ transform/pos = Vector2( 1408, 320 )
 [node name="Villager Oldwoman 1" parent="Camera/TileMap/Players" instance=ExtResource( 8 )]
 
 editor/display_folded = true
-transform/pos = Vector2( 1152, 320 )
+transform/pos = Vector2( 1152, 384 )
 
 [node name="SameTile" type="Node" parent="Camera/TileMap/Players/Villager Oldwoman 1"]
 

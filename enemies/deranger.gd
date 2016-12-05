@@ -9,7 +9,7 @@ var data = {
 	"mag": 15,
 	"def": 5,
 	"spd": 7,
-	"exp": 75,
+	"exp": 100,
 	"gold": 100,
 	"items": {
 	},
