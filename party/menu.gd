@@ -194,11 +194,20 @@ func _on_MagicPlayerToList_item_activated(index):
 	var name = magic_to_list.get_item_text(index)
 	var player = state.persist.players[state.player_dict[name]]
 	var selected = magic_list.get_selected_items()
-	if magic_use_one(player_id, state.persist.players[player_id].magics[selected[0]], player):
-		party.sound.play("heal")
-		refresh()
+	var id = state.persist.players[player_id].magics[selected[0]]
+	if !master.magic_dict[index][id].effect.has("warp"):
+		if magic_use_one(player_id, id, player):
+			party.sound.play("heal")
+			refresh()
+		else:
+			party.sound.play("error")
 	else:
-		party.sound.play("error")
+		if party.scene.tag == global.TAG_DUNGEON:
+			state.persist.players[player_id].mp -= master.usage_mp(player_id, id)
+			party.warp_back()
+			close()
+		else:
+			party.sound.play("error")
 
 func _on_EquipPlayerList_item_activated(index):
 	var name = equip_player_list.get_item_text(index)
@@ -380,22 +389,25 @@ func magic_check(player_id, id):
 	var players = []
 	var effect = master.magic_dict[player_id][id].effect
 	if !effect.has("all"):
-		for i in range(3):
-			var can_use = false
-			var player = state.persist.players[i]
-			if player.avail:
-				if player.faint:
-					if effect.has("heal"):
-						can_use = true
-				if !player.faint:
-					if effect.has("hp"):
-						if player.hp < player.hp_max:
+		if !effect.has("warp"):
+			for i in range(3):
+				var can_use = false
+				var player = state.persist.players[i]
+				if player.avail:
+					if player.faint:
+						if effect.has("heal"):
 							can_use = true
-					if effect.has("cure"):
-						if player.poison:
-							can_use = true
-				if can_use:
-					players.append(i)
+					if !player.faint:
+						if effect.has("hp"):
+							if player.hp < player.hp_max:
+								can_use = true
+						if effect.has("cure"):
+							if player.poison:
+								can_use = true
+					if can_use:
+						players.append(i)
+		else:
+			players.append(0)
 		return players
 	else:
 		var can_use = false

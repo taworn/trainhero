@@ -41,8 +41,8 @@ var list = [
 	{"exp": 210},
 	{"exp": 220},
 	{"exp": 230, 1: ["recovery_all"]},
-	{"exp": 240},
-	{"exp": 250, 0: ["heroblade"], 2: ["meteor"]},
+	{"exp": 240, 2: ["meteor"]},
+	{"exp": 250, 0: ["heroblade"]},
 ]
 
 var level_hpmp = [

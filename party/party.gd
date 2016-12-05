@@ -245,6 +245,16 @@ func detect_battle_zone():
 	return null
 
 func warp_to(name):
+	if scene.tag == global.TAG_WORLD && !state.persist.ship.cruising:
+		var pos = hero.get_pos()
+		state.persist["warp_point"] = {
+			"x": pos.x,
+			"y": pos.y,
+			"map": state.persist.map,
+		}
+	else:
+		state.persist["warp_point"] = null
+
 	if name != null:
 		var data = scene.warp_dict[name]
 		var pos = global.normalize(Vector2(data.x, data.y))
@@ -262,6 +272,17 @@ func warp_to(name):
 			"map": state.persist.map,
 			"retain_npcs": true,
 		}
+	animation.set_current_animation("fade_out")
+	animation.play()
+	paused = true
+
+func warp_back():
+	after_effect = {
+		"x": state.persist.warp_point.x,
+		"y": state.persist.warp_point.y,
+		"map": state.persist.warp_point.map,
+		"retain_npcs": false,
+	}
 	animation.set_current_animation("fade_out")
 	animation.play()
 	paused = true

@@ -9,6 +9,8 @@ var tag = global.TAG_DUNGEON
 
 var enemy_dict = {
 	"d0100": 1,
+	"d0101": 1,
+	"d0102": 1,
 }
 
 var warp_dict = {
