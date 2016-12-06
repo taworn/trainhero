@@ -1,14 +1,16 @@
-[gd_scene load_steps=10 format=1]
+[gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://effects/effects.gd" type="Script" id=1]
-[ext_resource path="res://effects/bitea.tres" type="Animation" id=2]
-[ext_resource path="res://effects/chargea.tres" type="Animation" id=3]
-[ext_resource path="res://effects/firea.tres" type="Animation" id=4]
-[ext_resource path="res://effects/firesa.tres" type="Animation" id=5]
-[ext_resource path="res://effects/heala.tres" type="Animation" id=6]
-[ext_resource path="res://effects/icea.tres" type="Animation" id=7]
-[ext_resource path="res://effects/icesa.tres" type="Animation" id=8]
-[ext_resource path="res://effects/poisona.tres" type="Animation" id=9]
+[ext_resource path="res://effects/basha.tres" type="Animation" id=2]
+[ext_resource path="res://effects/bitea.tres" type="Animation" id=3]
+[ext_resource path="res://effects/chargea.tres" type="Animation" id=4]
+[ext_resource path="res://effects/clawa.tres" type="Animation" id=5]
+[ext_resource path="res://effects/firea.tres" type="Animation" id=6]
+[ext_resource path="res://effects/firesa.tres" type="Animation" id=7]
+[ext_resource path="res://effects/heala.tres" type="Animation" id=8]
+[ext_resource path="res://effects/icea.tres" type="Animation" id=9]
+[ext_resource path="res://effects/icesa.tres" type="Animation" id=10]
+[ext_resource path="res://effects/poisona.tres" type="Animation" id=11]
 
 [node name="Effects" type="Node2D"]
 
@@ -19,14 +21,16 @@ script/script = ExtResource( 1 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/Bite = ExtResource( 2 )
-anims/Charge = ExtResource( 3 )
-anims/Fire = ExtResource( 4 )
-anims/Fires = ExtResource( 5 )
-anims/Heal = ExtResource( 6 )
-anims/Ice = ExtResource( 7 )
-anims/Ices = ExtResource( 8 )
-anims/Poison = ExtResource( 9 )
+anims/Bash = ExtResource( 2 )
+anims/Bite = ExtResource( 3 )
+anims/Charge = ExtResource( 4 )
+anims/Claw = ExtResource( 5 )
+anims/Fire = ExtResource( 6 )
+anims/Fires = ExtResource( 7 )
+anims/Heal = ExtResource( 8 )
+anims/Ice = ExtResource( 9 )
+anims/Ices = ExtResource( 10 )
+anims/Poison = ExtResource( 11 )
 next/Charge = ""
 next/Poison = ""
 playback/active = true

@@ -514,6 +514,14 @@ var monster_attack_dict = {
 		"name": "Bite",
 		"effect": {"animation": "Bite", "power": [1, 0]},
 	},
+	"bash": {
+		"name": "Bash",
+		"effect": {"animation": "Bash", "power": [1.3, 0]},
+	},
+	"claw": {
+		"name": "Claw",
+		"effect": {"animation": "Claw", "power": [1.1, 0]},
+	},
 	"charge": {
 		"name": "Charge",
 		"effect": {"animation": "Charge", "power": [1.25, 0]},
