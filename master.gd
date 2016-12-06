@@ -497,14 +497,14 @@ var equip_dict = {
 			"type": "accessory",
 			"def": 1,
 			"hint": "A MP regenerate ring.",
-			"effect": {"regen_mp": 4}
+			"effect": {"regen_hp": 1, "regen_mp": 1}
 		},
 		"void_ring": {
 			"name": "Void Ring",
 			"type": "accessory",
 			"def": 2,
 			"hint": "A fast MP regenerate ring.",
-			"effect": {"regen_hp": 1, "regen_mp": 8}
+			"effect": {"regen_hp": 1, "regen_mp": 4}
 		},
 	},
 }

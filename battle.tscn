@@ -29,7 +29,7 @@ script/script = ExtResource( 1 )
 
 [node name="Background" type="Sprite" parent="."]
 
-transform/scale = Vector2( 4.26667, 4.26667 )
+transform/scale = Vector2( 4.4, 4.4 )
 texture = ExtResource( 2 )
 centered = false
 

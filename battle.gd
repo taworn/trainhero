@@ -49,6 +49,7 @@ var map_to_background = {
 	"Stair1": "mountain",
 	"Tree1": "forest",
 	"Floor1": "cave",
+	"Floor2": "cavefire",
 	"Sand0": "sand",
 }
 
