@@ -29,6 +29,8 @@ var enemy_zone_dict = {
 		"w0203": 1,
 	},
 	"Island3": {
+		"w0300": 1,
+		"w0301": 1,
 	},
 }
 

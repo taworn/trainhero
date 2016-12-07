@@ -51,6 +51,7 @@ var map_to_background = {
 	"Floor1": "cave",
 	"Floor2": "cavefire",
 	"Sand0": "sand",
+	"Snow0": "snow",
 }
 
 func _ready():
