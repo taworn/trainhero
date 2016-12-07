@@ -42,7 +42,7 @@ var warp_dict = {
 	"North Mountain": {"x": 512, "y": 2688, "map": "maps/north_mountain"},
 	"Cave Fire": {"x": 512, "y": 576, "map": "maps/cave_fire_b1"},
 	"Waterway Back": {"x": 2048, "y": 1408, "map": "maps/waterway"},
-	"Port": {"x": 512, "y": 512, "map": "maps/port"},
+	"Port": {"x": 320, "y": 1088, "map": "maps/port"},
 	"Ice Tower F1": {"x": 512, "y": 512, "map": "maps/ice_tower_f1"},
 }
 

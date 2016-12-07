@@ -133,8 +133,8 @@ func restart_game():
 		"ship": {
 			"cruising": false,
 			"map": "maps/world",
-			"x": 576,
-			"y": 448,
+			"x": 4928,
+			"y": 3392,
 			"face": "down",
 		},
 

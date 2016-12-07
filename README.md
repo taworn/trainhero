@@ -37,6 +37,7 @@ Battle Scenes
  - vgmusic.com - provide sounds and musics
  - ffmusic.ffshrine.org - Final Fantasy Music & Video Game, provide sounds
  - woodus.com/den/music - Dragon's Den, provide sounds
+ - realmofdarkness.net/dq - provide tile images
  - Nobuo Uematsu - Final Fantasy artist
  - Koichi Sugiyama - Dragon Quest artist
  - Final Fantasy and Dragon Quest to made me to be a programmer :)
