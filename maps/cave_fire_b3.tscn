@@ -21,6 +21,7 @@ editor/display_folded = false
 
 [node name="Leon Head" parent="Camera/TileMap/Players" instance=ExtResource( 4 )]
 
+editor/display_folded = true
 transform/pos = Vector2( 0, 1344 )
 
 [node name="Scripting" type="Node" parent="Camera/TileMap/Players/Leon Head"]

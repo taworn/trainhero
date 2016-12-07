@@ -466,6 +466,12 @@ var equip_dict = {
 			"def": 2,
 			"hint": "An amulet with memory.",
 		},
+		"star_amulet": {
+			"name": "Star Amulet",
+			"type": "accessory",
+			"def": 3,
+			"hint": "An amulet with better protect.",
+		},
 		"miracle_amulet": {
 			"name": "Miracle Amulet",
 			"type": "accessory",

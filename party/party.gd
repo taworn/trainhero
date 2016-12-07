@@ -247,8 +247,6 @@ func warp_to(name):
 			"y": pos.y,
 			"map": state.persist.map,
 		}
-	else:
-		state.persist["warp_point"] = null
 
 	if name != null:
 		var data = scene.warp_dict[name]

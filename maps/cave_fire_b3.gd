@@ -15,7 +15,7 @@ var enemy_dict = {
 
 var warp_dict = {
 	"To B2": {"x": 192, "y": 1216, "map": "maps/cave_fire_b2"},
-	"Next": {"x": 0, "y": 0, "map": "maps/cave_underwater"},
+	"Next": {"x": 1088, "y": 512, "map": "maps/waterway"},
 }
 
 var shop_dict = {
