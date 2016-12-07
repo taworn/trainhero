@@ -1,6 +1,10 @@
 
 extends Node
 
+const ELEMENT_FIRE = 1
+const ELEMENT_ICE = 2
+const ELEMENT_SPECIAL = 4
+
 var item_dict = {
 	# restore HP
 	"recover_hp_25": {
@@ -251,28 +255,28 @@ var magic_dict = {
 			"mp": 3,
 			"time": 3,
 			"hint": "Attack one enemy with fire.",
-			"effect": {"animation": "Fire", "battle": "one", "power": [10, 0, 1, 1.5], "element": 1},
+			"effect": {"animation": "Fire", "battle": "one", "power": [10, 0, 1, 1.5], "element": ELEMENT_FIRE},
 		},
 		"fire_spread": {
 			"name": "Fire Spread",
 			"mp": 5,
 			"time": 5,
 			"hint": "Attack group enemies with fire.",
-			"effect": {"animation": "Fires", "battle": "group", "power": [10, 0, 1, 1.2], "element": 1},
+			"effect": {"animation": "Fires", "battle": "group", "power": [10, 0, 1, 1.2], "element": ELEMENT_FIRE},
 		},
 		"ice": {
 			"name": "Ice",
 			"mp": 3,
 			"time": 3,
 			"hint": "Attack one enemy with ice.",
-			"effect": {"animation": "Ice", "battle": "one", "power": [10, 0, 1, 1.5], "element": 2},
+			"effect": {"animation": "Ice", "battle": "one", "power": [10, 0, 1, 1.5], "element": ELEMENT_ICE},
 		},
 		"ice_spread": {
 			"name": "Ice Spread",
 			"mp": 5,
 			"time": 5,
 			"hint": "Attack group enemies with ice.",
-			"effect": {"animation": "Ices", "battle": "group", "power": [10, 0, 1, 1.2], "element": 2},
+			"effect": {"animation": "Ices", "battle": "group", "power": [10, 0, 1, 1.2], "element": ELEMENT_ICE},
 		},
 	},
 
@@ -426,8 +430,8 @@ var equip_dict = {
 			"type": "weapon",
 			"att": 12,
 			"mag": 16,
-			"hint": "A star wand with cut MP usage 1/4.",
-			"effect": {"animation": "Wand0", "usage_mp": 25},
+			"hint": "A star wand good with magic.",
+			"effect": {"animation": "Wand0"},
 		},
 		"miraclewand": {
 			"name": "Miracle Wand",
@@ -525,6 +529,10 @@ var monster_attack_dict = {
 	"charge": {
 		"name": "Charge",
 		"effect": {"animation": "Charge", "power": [1.25, 0]},
+	},
+	"sword": {
+		"name": "Sword",
+		"effect": {"animation": "Sword3", "power": [1, 0]},
 	},
 	"poison": {
 		"name": "Poison",

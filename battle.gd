@@ -689,6 +689,22 @@ func player_magic_monster(player_id, magic_id, target):
 	var attack = round(power[0] + (power[1] * (player.att + master.equip_dict[player_id][player.weapon].att)) + (power[2] * (player.mag + master.equip_dict[player_id][player.weapon].mag)) + (power[3] * state.persist.level))
 	var defense = target.data.def
 	var result = attack - defense
+
+	if target.data.has("element"):
+		var target_element = target.data["element"]
+		if target_element == master.ELEMENT_FIRE:
+			if magic.effect.has("element"):
+				if magic.effect["element"] == master.ELEMENT_FIRE:
+					result = 0
+				elif magic.effect["element"] == master.ELEMENT_ICE:
+					result += round(result / 2)
+		elif target_element == master.ELEMENT_ICE:
+			if magic.effect.has("element"):
+				if magic.effect["element"] == master.ELEMENT_ICE:
+					result = 0
+				elif magic.effect["element"] == master.ELEMENT_FIRE:
+					result += round(result / 2)
+
 	if result > 0:
 		return result
 	elif result > -10 && result <= 0:

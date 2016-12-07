@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=13 format=1]
 
 [ext_resource path="res://effects/effects.gd" type="Script" id=1]
 [ext_resource path="res://effects/basha.tres" type="Animation" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://effects/icea.tres" type="Animation" id=9]
 [ext_resource path="res://effects/icesa.tres" type="Animation" id=10]
 [ext_resource path="res://effects/poisona.tres" type="Animation" id=11]
+[ext_resource path="res://effects/sword3a.tres" type="Animation" id=12]
 
 [node name="Effects" type="Node2D"]
 
@@ -31,6 +32,7 @@ anims/Heal = ExtResource( 8 )
 anims/Ice = ExtResource( 9 )
 anims/Ices = ExtResource( 10 )
 anims/Poison = ExtResource( 11 )
+anims/Sword3 = ExtResource( 12 )
 next/Charge = ""
 next/Poison = ""
 playback/active = true
