@@ -51,6 +51,7 @@ var warp_dict = {
 	"Waterway Back": {"x": 2048, "y": 1408, "map": "maps/waterway"},
 	"Port": {"x": 320, "y": 1088, "map": "maps/port"},
 	"Ice Tower F1": {"x": 1088, "y": 1664, "map": "maps/ice_tower_f1"},
+	"South Castle F1": {"x": 640, "y": 1920, "map": "maps/south_castle_f1"},
 }
 
 var shop_dict = {

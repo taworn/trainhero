@@ -75,6 +75,7 @@ var passable_walk_dict = {
 	"StairDown1": 1, "StairUp1": 1,
 	"StairDown2": 1, "StairUp2": 1,
 	"StairDown3": 1, "StairUp3": 1,
+	"Bridge0": 1, "Bridge1": 1,
 	"Chair0": 1, "Bed0": 1,
 	"Gate0": 1, "BigGate2": 1, "BigGate3": 1,
 	"Decor0": 1,

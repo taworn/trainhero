@@ -145,6 +145,17 @@ margin/top = 3968.0
 margin/right = 4480.0
 margin/bottom = 4032.0
 
+[node name="South Castle F1" type="Control" parent="Camera/TileMap/Scripts"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 896.0
+margin/top = 2304.0
+margin/right = 1024.0
+margin/bottom = 2432.0
+
 [node name="Party" parent="Camera/TileMap"]
 
 transform/pos = Vector2( 224, 32 )

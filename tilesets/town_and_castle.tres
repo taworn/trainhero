@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=42 format=1]
+[gd_resource type="TileSet" load_steps=45 format=1]
 
 [ext_resource path="res://tilesets/world/grass0.png" type="Texture" id=1]
 [ext_resource path="res://tilesets/world/grass1.png" type="Texture" id=2]
@@ -36,11 +36,14 @@
 [ext_resource path="res://tilesets/town_and_castle/decor0.png" type="Texture" id=34]
 [ext_resource path="res://tilesets/world/water0.png" type="Texture" id=35]
 [ext_resource path="res://tilesets/world/snow0.png" type="Texture" id=36]
-[ext_resource path="res://tilesets/town_and_castle/wall0.png" type="Texture" id=37]
-[ext_resource path="res://tilesets/town_and_castle/wall1.png" type="Texture" id=38]
-[ext_resource path="res://tilesets/town_and_castle/wall2.png" type="Texture" id=39]
-[ext_resource path="res://tilesets/town_and_castle/wall3.png" type="Texture" id=40]
-[ext_resource path="res://tilesets/town_and_castle/board0.png" type="Texture" id=41]
+[ext_resource path="res://tilesets/town_and_castle/bridge0.png" type="Texture" id=37]
+[ext_resource path="res://tilesets/cave/sky0.png" type="Texture" id=38]
+[ext_resource path="res://tilesets/town_and_castle/bridge1.png" type="Texture" id=39]
+[ext_resource path="res://tilesets/town_and_castle/wall0.png" type="Texture" id=40]
+[ext_resource path="res://tilesets/town_and_castle/wall1.png" type="Texture" id=41]
+[ext_resource path="res://tilesets/town_and_castle/wall2.png" type="Texture" id=42]
+[ext_resource path="res://tilesets/town_and_castle/wall3.png" type="Texture" id=43]
+[ext_resource path="res://tilesets/town_and_castle/board0.png" type="Texture" id=44]
 
 [resource]
 
@@ -85,7 +88,7 @@
 4/shape_offset = Vector2( 0, 0 )
 4/shapes = [  ]
 5/name = "Wall0"
-5/texture = ExtResource( 37 )
+5/texture = ExtResource( 40 )
 5/tex_offset = Vector2( 0, 0 )
 5/region = Rect2( 0, 0, 64, 64 )
 5/occluder_offset = Vector2( 32, 32 )
@@ -93,7 +96,7 @@
 5/shape_offset = Vector2( 0, 0 )
 5/shapes = [  ]
 6/name = "Wall1"
-6/texture = ExtResource( 38 )
+6/texture = ExtResource( 41 )
 6/tex_offset = Vector2( 0, 0 )
 6/region = Rect2( 0, 0, 64, 64 )
 6/occluder_offset = Vector2( 32, 32 )
@@ -101,7 +104,7 @@
 6/shape_offset = Vector2( 0, 0 )
 6/shapes = [  ]
 7/name = "Wall2"
-7/texture = ExtResource( 39 )
+7/texture = ExtResource( 42 )
 7/tex_offset = Vector2( 0, 0 )
 7/region = Rect2( 0, 0, 64, 64 )
 7/occluder_offset = Vector2( 32, 32 )
@@ -109,7 +112,7 @@
 7/shape_offset = Vector2( 0, 0 )
 7/shapes = [  ]
 8/name = "Wall3"
-8/texture = ExtResource( 40 )
+8/texture = ExtResource( 43 )
 8/tex_offset = Vector2( 0, 0 )
 8/region = Rect2( 0, 0, 64, 64 )
 8/occluder_offset = Vector2( 32, 32 )
@@ -117,7 +120,7 @@
 8/shape_offset = Vector2( 0, 0 )
 8/shapes = [  ]
 9/name = "Board0"
-9/texture = ExtResource( 41 )
+9/texture = ExtResource( 44 )
 9/tex_offset = Vector2( 0, 0 )
 9/region = Rect2( 0, 0, 64, 64 )
 9/occluder_offset = Vector2( 32, 32 )
@@ -372,4 +375,28 @@
 40/navigation_offset = Vector2( 32, 32 )
 40/shape_offset = Vector2( 0, 0 )
 40/shapes = [  ]
+41/name = "Bridge0"
+41/texture = ExtResource( 37 )
+41/tex_offset = Vector2( 0, 0 )
+41/region = Rect2( 0, 0, 64, 64 )
+41/occluder_offset = Vector2( 32, 32 )
+41/navigation_offset = Vector2( 32, 32 )
+41/shape_offset = Vector2( 0, 0 )
+41/shapes = [  ]
+42/name = "Sky0"
+42/texture = ExtResource( 38 )
+42/tex_offset = Vector2( 0, 0 )
+42/region = Rect2( 0, 0, 64, 64 )
+42/occluder_offset = Vector2( 32, 32 )
+42/navigation_offset = Vector2( 32, 32 )
+42/shape_offset = Vector2( 0, 0 )
+42/shapes = [  ]
+43/name = "Bridge1"
+43/texture = ExtResource( 39 )
+43/tex_offset = Vector2( 0, 0 )
+43/region = Rect2( 0, 0, 64, 64 )
+43/occluder_offset = Vector2( 32, 32 )
+43/navigation_offset = Vector2( 32, 32 )
+43/shape_offset = Vector2( 0, 0 )
+43/shapes = [  ]
 
