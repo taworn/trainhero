@@ -542,11 +542,11 @@ var monster_attack_dict = {
 	},
 	"poison": {
 		"name": "Poison",
-		"effect": {"animation": "Poison", "power": [1, 0], "poison": 25},
+		"effect": {"animation": "Poison", "power": [1, 0], "poison": 30},
 	},
 	"poisonhi": {
 		"name": "Poison Hi",
-		"effect": {"animation": "Poison", "power": [1, 0], "poison": 75},
+		"effect": {"animation": "Poison", "power": [1, 0], "poison": 60},
 	},
 
 	"fire": {

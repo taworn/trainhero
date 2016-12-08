@@ -50,6 +50,7 @@ var map_to_background = {
 	"Tree1": "forest",
 	"Floor1": "cave",
 	"Floor2": "cavefire",
+	"Floor3": "icetower",
 	"Sand0": "sand",
 	"Snow0": "snow",
 }

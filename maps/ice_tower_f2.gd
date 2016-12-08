@@ -15,8 +15,8 @@ var enemy_dict = {
 }
 
 var warp_dict = {
-	"Back": {"x": 4416, "y": 3968, "map": "maps/world"},
-	"To F2": {"x": 1600, "y": 576, "map": "maps/ice_tower_f2"},
+	"To F1": {"x": 1600, "y": 576, "map": "maps/ice_tower_f1"},
+	"To F3": {"x": 1600, "y": 576, "map": "maps/ice_tower_f3"},
 }
 
 var shop_dict = {

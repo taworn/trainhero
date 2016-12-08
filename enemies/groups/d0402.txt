@@ -1,0 +1,5 @@
+mummy
+ghoul
+ghoul,1
+mummy
+mummy,1
