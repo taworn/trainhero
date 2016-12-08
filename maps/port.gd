@@ -43,7 +43,7 @@ var treasure_dict = {
 
 var dialog_dict = {
 	"Ship Owner": [
-		[global.SCRIPT_READ_QUEST_, "maps/ice_tower_f?", "???"],
+		[global.SCRIPT_READ_QUEST_, "maps/ice_tower_f5", "Voodoo Man"],
 		[global.SCRIPT_IF_ELSE, "Ship Owner Before"],
 		"I will give this ship for you.",
 		[global.SCRIPT_NPC_WALK, 500, global.MOVE_UP],
