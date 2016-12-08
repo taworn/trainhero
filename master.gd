@@ -502,6 +502,12 @@ var equip_dict = {
 			"def": 20,
 			"hint": "A black dress.",
 		},
+		"void_dress": {
+			"name": "Void Dress",
+			"type": "armor",
+			"def": 28,
+			"hint": "A black dress.",
+		},
 		"ring": {
 			"name": "Ring",
 			"type": "accessory",
@@ -514,7 +520,7 @@ var equip_dict = {
 			"type": "accessory",
 			"def": 2,
 			"hint": "A fast MP regenerate ring.",
-			"effect": {"regen_hp": 1, "regen_mp": 4}
+			"effect": {"regen_hp": 2, "regen_mp": 4}
 		},
 	},
 }

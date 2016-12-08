@@ -12,6 +12,11 @@ var enemy_dict = {
 }
 
 var enemy_ship_dict = {
+	"w1000": 1,
+	"w1001": 1,
+	"w1002": 1,
+	"w1003": 1,
+	"w1004": 1,
 }
 
 var enemy_zone_dict = {
