@@ -150,7 +150,7 @@ var magic_dict = {
 			"mp": 9,
 			"time": 9,
 			"hint": "Attack one enemy with maximum power.",
-			"effect": {"animation": "Blade", "battle": "one", "power": [0, 1, 0, 3], "element": 4},
+			"effect": {"animation": "Blade", "battle": "one", "power": [0, 1, 0, 3], "element": ELEMENT_SPECIAL},
 		},
 	},
 
@@ -372,7 +372,7 @@ var equip_dict = {
 			"att": 50,
 			"mag": 0,
 			"hint": "A legendary sword, absorb HP/MP.",
-			"effect": {"animation": "Sword2", "absorb_hp": 3, "absorb_mp": 1, "element": 4},
+			"effect": {"animation": "Sword2", "absorb_hp": 3, "absorb_mp": 1, "element": ELEMENT_SPECIAL},
 		},
 		"armor": {
 			"name": "Armor",

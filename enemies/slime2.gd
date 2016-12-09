@@ -2,21 +2,22 @@
 extends Node2D
 
 var data = {
-	"name": "Red Slime",
+	"name": "Metalime",
 	"hp_max": 50,
 	"hp": 50,
-	"att": 32,
+	"att": 36,
 	"mag": 0,
-	"def": 10,
+	"def": 50,
 	"spd": 5,
-	"exp": 30,
-	"gold": 30,
+	"exp": 100,
+	"gold": 100,
 	"items": {
-		"recover_hp_50": 10,
+		"recover_hp_75": 10,
 	},
 	"attacks": {
 		"bite": 1,
 		"charge": 1,
 	},
+	"element": master.ELEMENT_SPECIAL,
 }
 

@@ -694,7 +694,10 @@ func player_magic_monster(player_id, magic_id, target):
 
 	if target.data.has("element"):
 		var target_element = target.data["element"]
-		if target_element == master.ELEMENT_FIRE:
+		if target_element == master.ELEMENT_SPECIAL:
+			if !magic.effect.has("element") || magic.effect["element"] != master.ELEMENT_SPECIAL:
+				result = 0
+		elif target_element == master.ELEMENT_FIRE:
 			if magic.effect.has("element"):
 				if magic.effect["element"] == master.ELEMENT_FIRE:
 					result = 0
