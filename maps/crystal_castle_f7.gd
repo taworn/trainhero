@@ -11,6 +11,7 @@ var enemy_dict = {
 }
 
 var warp_dict = {
+	"To F6": {"x": 1216, "y": 1664, "map": "maps/crystal_castle_f6"},
 }
 
 var shop_dict = {

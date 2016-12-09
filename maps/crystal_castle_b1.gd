@@ -11,7 +11,7 @@ var enemy_dict = {
 }
 
 var warp_dict = {
-	"Back": {"x": 2880, "y": 3136, "map": "maps/crystal_castle_f1"},
+	"Back": {"x": 960, "y": 768, "map": "maps/crystal_castle_f1"},
 }
 
 var shop_dict = {
@@ -21,6 +21,17 @@ var door_dict = {
 }
 
 var treasure_dict = {
+	"Treasure1": {
+		"items": [
+			"recover_hpmp_100",
+			"antiseptic",
+		],
+		"keys": [
+		],
+		"equips": [
+			"miraclewand",
+		],
+	},
 }
 
 var dialog_dict = {

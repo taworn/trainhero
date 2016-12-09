@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://map.tscn" type="PackedScene" id=1]
 [ext_resource path="res://maps/crystal_castle_b1.gd" type="Script" id=2]
 [ext_resource path="res://tilesets/town_and_castle.tres" type="TileSet" id=3]
+[ext_resource path="res://miscs/treasure.tscn" type="PackedScene" id=4]
 
 [node name="Root" instance=ExtResource( 1 )]
 
@@ -10,8 +11,28 @@ script/script = ExtResource( 2 )
 
 [node name="TileMap" parent="Camera"]
 
+editor/display_folded = false
 tile_set = ExtResource( 3 )
 tile_data = IntArray( 196612, 45, 196613, 45, 196614, 45, 196615, 45, 196616, 45, 196617, 45, 196618, 45, 196619, 45, 262148, 45, 262149, 46, 262150, 46, 262151, 46, 262152, 46, 262153, 46, 262154, 46, 262155, 45, 327684, 45, 327685, 44, 327686, 44, 327687, 44, 327688, 44, 327689, 39, 327690, 39, 327691, 45, 393220, 45, 393221, 44, 393222, 44, 393223, 44, 393224, 44, 393225, 39, 393226, 18, 393227, 45, 458756, 45, 458757, 44, 458758, 44, 458759, 44, 458760, 44, 458761, 39, 458762, 39, 458763, 45, 524292, 45, 524293, 45, 524294, 45, 524295, 45, 524296, 45, 524297, 45, 524298, 45, 524299, 45, 589828, 46, 589829, 46, 589830, 46, 589831, 46, 589832, 46, 589833, 46, 589834, 46, 589835, 46 )
+
+[node name="Players" parent="Camera/TileMap"]
+
+editor/display_folded = false
+
+[node name="Treasure1" parent="Camera/TileMap/Players" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 320, 384 )
+
+[node name="Back" type="Control" parent="Camera/TileMap/Scripts"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 640.0
+margin/top = 384.0
+margin/right = 704.0
+margin/bottom = 448.0
 
 [node name="UI" parent="."]
 
