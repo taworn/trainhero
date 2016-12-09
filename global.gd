@@ -79,6 +79,8 @@ var passable_walk_dict = {
 	"Chair0": 1, "Bed0": 1,
 	"Gate0": 1, "BigGate2": 1, "BigGate3": 1,
 	"Decor0": 1,
+
+	"CrystalEnter": 1, "Floor8": 1,
 }
 
 # passable sailing map

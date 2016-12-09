@@ -63,7 +63,7 @@ var warp_dict = {
 	"A House In A Forest": {"x": 384, "y": 1216, "map": "maps/house_in_forest"},
 	"Passageway": {"x": 512, "y": 640, "map": "maps/passageway"},
 	"Passageway Back": {"x": 512, "y": 1664, "map": "maps/passageway"},
-	"Crystal Castle F1": {"x": 0, "y": 0, "map": "maps/crystal_castle_f1"},
+	"Crystal Castle F1": {"x": 1216, "y": 1858, "map": "maps/crystal_castle_f1"},
 }
 
 var shop_dict = {
