@@ -3,17 +3,16 @@ extends Node2D
 
 var data = {
 	"name": "Slime Red",
-	"hp_max": 40,
-	"hp": 40,
-	"mp_max": 0,
-	"mp": 0,
-	"att": 10,
+	"hp_max": 50,
+	"hp": 50,
+	"att": 32,
 	"mag": 0,
-	"def": 7,
-	"spd": 6,
-	"exp": 4,
-	"gold": 4,
+	"def": 10,
+	"spd": 5,
+	"exp": 30,
+	"gold": 30,
 	"items": {
+		"recover_hp_50": 10,
 	},
 	"attacks": {
 		"bite": 1,

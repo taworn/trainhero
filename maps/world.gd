@@ -37,6 +37,14 @@ var enemy_zone_dict = {
 		"w0300": 1,
 		"w0301": 1,
 	},
+	"Island4": {
+		"w0400": 1,
+		"w0401": 1,
+	},
+	"Island5": {
+		"w0500": 2,
+		"w0501": 1,
+	},
 }
 
 var warp_dict = {
@@ -52,12 +60,16 @@ var warp_dict = {
 	"Port": {"x": 320, "y": 1088, "map": "maps/port"},
 	"Ice Tower F1": {"x": 1088, "y": 1664, "map": "maps/ice_tower_f1"},
 	"South Castle F1": {"x": 640, "y": 1920, "map": "maps/south_castle_f1"},
+	"A House In A Forest": {"x": 384, "y": 1216, "map": "maps/house_in_forest"},
+	"Passageway": {"x": 512, "y": 640, "map": "maps/passageway"},
+	"Passageway Back": {"x": 512, "y": 1664, "map": "maps/passageway"},
 }
 
 var shop_dict = {
 }
 
 var door_dict = {
+	"Alpha Door": "Alpha Key",
 }
 
 var treasure_dict = {

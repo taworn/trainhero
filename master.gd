@@ -506,7 +506,8 @@ var equip_dict = {
 			"name": "Void Dress",
 			"type": "armor",
 			"def": 28,
-			"hint": "A black dress.",
+			"hint": "A void dress, regenerate HP.",
+			"effect": {"regen_hp": 2}
 		},
 		"ring": {
 			"name": "Ring",
