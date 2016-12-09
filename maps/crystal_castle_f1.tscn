@@ -19,7 +19,7 @@ tile_data = IntArray( 65537, 47, 65538, 47, 65539, 47, 65540, 47, 65541, 47, 655
 
 editor/display_folded = false
 
-[node name="Monster0" parent="Camera/TileMap/Players" instance=ExtResource( 4 )]
+[node name="Guardian Captain" parent="Camera/TileMap/Players" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 1216, 960 )
 

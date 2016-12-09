@@ -8,6 +8,7 @@ func _ready():
 var tag = global.TAG_DUNGEON
 
 var enemy_dict = {
+	"d0600": 1,
 }
 
 var warp_dict = {
@@ -26,5 +27,24 @@ var treasure_dict = {
 }
 
 var dialog_dict = {
+	"START": [
+		[global.SCRIPT_NO_CANCEL],
+		[global.SCRIPT_READ_QUEST, "Guardian Captain"],
+		[global.SCRIPT_CONTINUE_IF],
+		[global.SCRIPT_NPC_HIDDEN, "Guardian Captain"],
+	],
+	"Win": [
+		[global.SCRIPT_NO_CANCEL],
+		[global.SCRIPT_TITLE_SET, "Guardian Captain"],
+		"Aarrrgh...",
+		[global.SCRIPT_WRITE_QUEST, "Guardian Captain"],
+		[global.SCRIPT_NPC_HIDDEN, "Guardian Captain"],
+	],
+	"Guardian Captain": [
+		[global.SCRIPT_NO_CANCEL],
+		[global.SCRIPT_NPC_ACTION, "down"],
+		"You die!!!",
+		[global.SCRIPT_BATTLE, "Win", "d0690", "Floor8"],
+	],
 }
 

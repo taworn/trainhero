@@ -8,6 +8,7 @@ func _ready():
 var tag = global.TAG_DUNGEON
 
 var enemy_dict = {
+	"d0600": 1,
 }
 
 var warp_dict = {
