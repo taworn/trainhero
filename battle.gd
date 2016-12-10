@@ -629,14 +629,14 @@ func on_monster_finished():
 				var damage
 				if !block:
 					damage = monster_attack_player(monster, action.attack, i)
+					if i.data.timeout["protect"] > 0:
+						damage = ceil(damage / 2)
 					i.data.hp -= damage
 					if action.attack.effect.has("poison"):
 						var percent = action.attack.effect["poison"]
 						var random = randi() % 100
 						if random < percent:
 							i.data.poison = true
-					if i.data.timeout["protect"] > 0:
-						damage = ceil(damage / 2)
 				else:
 					damage = 0
 				i.data.damage.display("%d" % damage)
