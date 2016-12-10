@@ -22,6 +22,7 @@ var shop_dict = {
 }
 
 var door_dict = {
+	"Beta Door": "Beta Key",
 }
 
 var treasure_dict = {

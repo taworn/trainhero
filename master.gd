@@ -573,6 +573,11 @@ var monster_attack_dict = {
 		"effect": {"animation": "Ices", "all": 1, "power": [0, 1]},
 	},
 
+	"meteor": {
+		"name": "Meteor",
+		"effect": {"animation": "Meteor", "all": 1, "power": [0, 1.25]},
+	},
+
 	"recover_hp_25": {
 		"name": "Recover HP 25%",
 		"effect": {"animation": "Heal", "hp": 25},
