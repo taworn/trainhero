@@ -27,18 +27,17 @@ var treasure_dict = {
 var dialog_dict = {
 	"START": [
 		[global.SCRIPT_NO_CANCEL],
-		[global.SCRIPT_READ_QUEST, "Skel Dragon"],
+		[global.SCRIPT_READ_QUEST, "Hydra"],
 		[global.SCRIPT_CONTINUE_IF],
-		[global.SCRIPT_NPC_HIDDEN, "Skel Dragon"],
+		[global.SCRIPT_NPC_HIDDEN, "Hydra"],
 	],
 	"Win": [
 		[global.SCRIPT_NO_CANCEL],
-		[global.SCRIPT_TITLE_SET, "Skel Dragon"],
-		"...",
-		[global.SCRIPT_WRITE_QUEST, "Skel Dragon"],
-		[global.SCRIPT_NPC_HIDDEN, "Skel Dragon"],
+		[global.SCRIPT_WRITE_QUEST, "Hydra"],
+		[global.SCRIPT_NPC_HIDDEN, "Hydra"],
+		"You received the Hero Sword, equip it. :)",
 	],
-	"Skel Dragon": [
+	"Hydra": [
 		[global.SCRIPT_NO_CANCEL],
 		[global.SCRIPT_NPC_ACTION, "down"],
 		"DIE DIE DIE !!!",
