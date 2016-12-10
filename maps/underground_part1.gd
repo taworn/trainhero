@@ -43,9 +43,5 @@ var dialog_dict = {
 		"DIE DIE DIE !!!",
 		[global.SCRIPT_BATTLE, "Win", "d0790", "Floor1"],
 	],
-	"Recover": [
-		[global.SCRIPT_HPMP_FULL],
-		"HP/MP recover :)",
-	],
 }
 

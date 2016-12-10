@@ -55,6 +55,7 @@ var map_to_background = {
 	"Snow0": "snow",
 	"Floor8": "crystal",
 	"Decor0": "crystal",
+	"Floor9": "final",
 }
 
 func _ready():

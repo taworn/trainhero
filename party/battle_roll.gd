@@ -12,13 +12,13 @@ func reset():
 
 func random():
 	if roll <= 0:
-		roll = 0
+		#roll = 0
 		roll = 1
 		plus = 1
 		return false
 	else:
 		var i = randi() % 100
-		print(roll, "-", i)
+		#print(roll, "-", i)
 		if i > roll:
 			roll += plus
 			plus += 1

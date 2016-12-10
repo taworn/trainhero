@@ -577,6 +577,10 @@ var monster_attack_dict = {
 		"name": "Meteor",
 		"effect": {"animation": "Meteor", "all": 1, "power": [0, 1.25]},
 	},
+	"dark_meteor": {
+		"name": "Dark Meteor",
+		"effect": {"animation": "Darkmeteor", "all": 1, "power": [0, 1.5]},
+	},
 
 	"recover_hp_25": {
 		"name": "Recover HP 25%",

@@ -295,3 +295,7 @@ func execute():
 					dialog = []
 			wait = WAIT_IDLE
 
+		elif d[0] == global.SCRIPT_THE_END:
+			get_tree().change_scene("res://the_end.tscn")
+			wait = WAIT_IDLE
+

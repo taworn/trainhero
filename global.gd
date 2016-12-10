@@ -35,6 +35,7 @@ const SCRIPT_READ_QUEST_ = 52
 const SCRIPT_WRITE_QUEST = 53
 const SCRIPT_CONTINUE_IF = 54
 const SCRIPT_IF_ELSE = 55
+const SCRIPT_THE_END = 99
 
 # move in direction
 const MOVE_DOWN = 1

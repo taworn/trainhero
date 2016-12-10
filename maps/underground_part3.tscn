@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://map.tscn" type="PackedScene" id=1]
 [ext_resource path="res://maps/underground_part3.gd" type="Script" id=2]
 [ext_resource path="res://tilesets/cave.tres" type="TileSet" id=3]
+[ext_resource path="res://npcs/boss0.tscn" type="PackedScene" id=4]
 
 [node name="Root" instance=ExtResource( 1 )]
 
@@ -13,6 +14,14 @@ script/script = ExtResource( 2 )
 editor/display_folded = false
 tile_set = ExtResource( 3 )
 tile_data = IntArray( 589841, 7, 655376, 7, 655377, 7, 655378, 7, 720912, 11, 720913, 7, 720914, 12, 786447, 12, 786448, 7, 786449, 7, 786450, 7, 786451, 12, 851983, 12, 851984, 7, 851985, 7, 851986, 7, 851987, 7, 917518, 7, 917519, 7, 917520, 7, 917521, 7, 917522, 7, 917523, 7, 917524, 12, 983053, 5, 983054, 5, 983055, 5, 983056, 7, 983057, 9, 983058, 7, 983059, 5, 983060, 5, 983061, 5, 1048588, 5, 1048589, 5, 1048590, 5, 1048591, 5, 1048592, 5, 1048593, 7, 1048594, 5, 1048595, 5, 1048596, 5, 1048597, 5, 1048598, 5, 1114123, 5, 1114124, 5, 1114125, 5, 1114126, 5, 1114127, 5, 1114128, 5, 1114129, 5, 1114130, 5, 1114131, 5, 1114132, 5, 1114133, 5, 1114134, 5, 1114135, 5, 1179659, 5, 1179660, 5, 1179661, 5, 1179662, 5, 1179663, 5, 1179664, 5, 1179665, 5, 1179666, 5, 1179667, 5, 1179668, 5, 1179669, 5, 1179670, 5, 1179671, 5, 1245195, 6, 1245196, 5, 1245197, 5, 1245198, 5, 1245199, 5, 1245200, 5, 1245201, 5, 1245202, 5, 1245203, 5, 1245204, 5, 1245205, 5, 1245206, 5, 1245207, 6, 1310732, 6, 1310733, 5, 1310734, 5, 1310735, 5, 1310736, 5, 1310737, 5, 1310738, 5, 1310739, 5, 1310740, 5, 1310741, 5, 1310742, 6, 1376269, 6, 1376270, 6, 1376271, 6, 1376272, 6, 1376273, 6, 1376274, 6, 1376275, 6, 1376276, 6, 1376277, 6 )
+
+[node name="Players" parent="Camera/TileMap"]
+
+editor/display_folded = false
+
+[node name="The Dark Lord" parent="Camera/TileMap/Players" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 1088, 704 )
 
 [node name="Back" type="Control" parent="Camera/TileMap/Scripts"]
 
