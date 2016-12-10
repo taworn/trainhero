@@ -39,10 +39,6 @@ frames = ExtResource( 6 )
 
 transform/pos = Vector2( 1088, 320 )
 
-[node name="Scripts" parent="Camera/TileMap"]
-
-editor/display_folded = true
-
 [node name="Back" type="Control" parent="Camera/TileMap/Scripts"]
 
 focus/ignore_mouse = false
@@ -64,6 +60,17 @@ margin/left = 512.0
 margin/top = 1664.0
 margin/right = 576.0
 margin/bottom = 1728.0
+
+[node name="To Part1" type="Control" parent="Camera/TileMap/Scripts"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 1088.0
+margin/top = 192.0
+margin/right = 1152.0
+margin/bottom = 256.0
 
 [node name="Recover" type="Control" parent="Camera/TileMap/Scripts"]
 
