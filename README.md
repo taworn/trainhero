@@ -19,6 +19,35 @@ Battle Scenes
  - key Enter to accept
  - key ESC to cancel
 
+**Spoils**
+
+ - Goto First Cave, get Rydia alongwith Long Sword
+ - Goto North Mountain, get Paladin Armor and Paladin Shield
+ - Goto North Castle, talk to the king, get Pass Order
+ - Goto the desert, find Cave Fire
+ - For 1st basement, get Star Robe and Dark Dress
+ - For 3st, kill boss and get Star Wand
+ - For Waterway, kill boss and get Star Amulet
+ - Goto Ice Tower, kill boss and get Miracle Robe
+ - Goto the Port, talk with Ship Owner, get the ship
+ - Use Ship and goto South Castle, stock items
+ - Go south-east of South Castle, you will find a house
+ - Talk with An Old Man and get pass to Passageway, along with Void Dress
+ - On Passageway, win the Dragon and get the Dragon Sword
+ - Go down in Passageway, you will find exit
+ - Enter Crystal Castle, get Miracle Wand, Void Ring and Miracle Amulet
+ - Kill boss on Crystal Castle F7, you get Hero Armor and with key
+ - Go back to Passageway, open the door and open the chest, you get Hero Sheild
+ - Go next and you will find Hydra, kill it and you get Hero Sword
+ - Go through next and you finally found the last boss
+ - The final boss can only damage with normal attack or using Hero Blade
+ - After kill final boss, it is end
+
+**Known Bugs**
+
+ - When you save, their is a chance that it is crash and this bug kill save, too.
+   This bug is found with Run program without open it, using Godot Engine 2.1, not known about other version.
+
 **Usage**
 
  - godotengine.org - Godot Engine
