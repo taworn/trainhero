@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://tilesets/world.tres" type="TileSet" id=1]
 [ext_resource path="res://party/hero.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://sounds/sounds.tres" type="SampleLibrary" id=10]
 [ext_resource path="res://miscs/fade_in.tres" type="Animation" id=11]
 [ext_resource path="res://miscs/fade_out.tres" type="Animation" id=12]
+[ext_resource path="res://controller.tscn" type="PackedScene" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -196,5 +197,7 @@ autoplay = "fade_in"
 [node name="CanvasModulate" type="CanvasModulate" parent="Effect"]
 
 color = Color( 1, 1, 1, 1 )
+
+[node name="Controller" parent="." instance=ExtResource( 13 )]
 
 

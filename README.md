@@ -22,7 +22,7 @@ Battle Scenes
 **Spoils**
 
  - Goto First Cave, get Rydia alongwith Long Sword
- - Goto North Mountain, get Paladin Armor and Paladin Shield
+ - Goto North Mountain, get Nadia, kill boss and get Paladin Armor and Paladin Shield
  - Goto North Castle, talk to the king, get Pass Order
  - Goto the desert, find Cave Fire
  - For 1st basement, get Star Robe and Dark Dress
@@ -47,6 +47,7 @@ Battle Scenes
 
  - When you save, their is a chance that it is crash and this bug kill save, too.
    This bug is found with Run program without open it, using Godot Engine 2.1, not known about other version.
+ - When Export to Android, it's has virtual controller but it still buggy. T_T
 
 **Usage**
 

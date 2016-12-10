@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://gameover.gd" type="Script" id=1]
 [ext_resource path="res://fonts/FreeSerifBold.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://party/hero/faint.png" type="Texture" id=3]
 [ext_resource path="res://miscs/fade_in.tres" type="Animation" id=4]
 [ext_resource path="res://miscs/fade_out.tres" type="Animation" id=5]
+[ext_resource path="res://controller.tscn" type="PackedScene" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -72,6 +73,8 @@ autoplay = "fade_in"
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 
 color = Color( 1, 1, 1, 1 )
+
+[node name="Controller" parent="." instance=ExtResource( 6 )]
 
 [connection signal="finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_finished"]
 

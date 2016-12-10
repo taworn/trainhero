@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://battle.gd" type="Script" id=1]
 [ext_resource path="res://backgrounds/grass.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://sounds/sounds.tres" type="SampleLibrary" id=12]
 [ext_resource path="res://miscs/fade_in.tres" type="Animation" id=13]
 [ext_resource path="res://miscs/fade_out.tres" type="Animation" id=14]
+[ext_resource path="res://controller.tscn" type="PackedScene" id=15]
 
 [node name="Battle" type="Container"]
 
@@ -144,6 +145,8 @@ autoplay = "fade_in"
 
 transform/scale = Vector2( 1e-05, 1e-05 )
 color = Color( 1, 1, 1, 1 )
+
+[node name="Controller" parent="." instance=ExtResource( 15 )]
 
 [connection signal="finished" from="Effect/AnimationPlayer" to="." method="_on_AnimationPlayer_finished"]
 

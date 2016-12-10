@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://title.gd" type="Script" id=1]
 [ext_resource path="res://title.jpg" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://musics/Final Fantasy 4 - Prelude.ogg" type="AudioStream" id=11]
 [ext_resource path="res://miscs/fade_in.tres" type="Animation" id=12]
 [ext_resource path="res://miscs/fade_out.tres" type="Animation" id=13]
+[ext_resource path="res://controller.tscn" type="PackedScene" id=14]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -169,6 +170,8 @@ autoplay = "fade_in"
 [node name="CanvasModulate" type="CanvasModulate" parent="Effect"]
 
 color = Color( 1, 1, 1, 1 )
+
+[node name="Controller" parent="." instance=ExtResource( 14 )]
 
 [connection signal="item_activated" from="Menu" to="." method="_on_Menu_item_activated"]
 

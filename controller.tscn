@@ -1,0 +1,86 @@
+[gd_scene load_steps=6 format=1]
+
+[ext_resource path="res://controller/u.png" type="Texture" id=1]
+[ext_resource path="res://controller/l.png" type="Texture" id=2]
+[ext_resource path="res://controller/r.png" type="Texture" id=3]
+[ext_resource path="res://controller/d.png" type="Texture" id=4]
+[ext_resource path="res://controller/a.png" type="Texture" id=5]
+
+[node name="Controller" type="Container"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+
+[node name="Up" type="TouchScreenButton" parent="."]
+
+transform/pos = Vector2( 100, 340 )
+transform/scale = Vector2( 1.5, 1.5 )
+normal = ExtResource( 1 )
+pressed = null
+bitmask = null
+passby_press = false
+action = "ui_up"
+visibility_mode = 1
+
+[node name="Left" type="TouchScreenButton" parent="."]
+
+transform/pos = Vector2( 16, 424 )
+transform/scale = Vector2( 1.5, 1.5 )
+normal = ExtResource( 2 )
+pressed = null
+bitmask = null
+passby_press = false
+action = "ui_left"
+visibility_mode = 1
+
+[node name="Right" type="TouchScreenButton" parent="."]
+
+transform/pos = Vector2( 184, 424 )
+transform/scale = Vector2( 1.5, 1.5 )
+normal = ExtResource( 3 )
+pressed = null
+bitmask = null
+passby_press = false
+action = "ui_right"
+visibility_mode = 1
+
+[node name="Down" type="TouchScreenButton" parent="."]
+
+transform/pos = Vector2( 100, 508 )
+transform/scale = Vector2( 1.5, 1.5 )
+normal = ExtResource( 4 )
+pressed = null
+bitmask = null
+passby_press = false
+action = "ui_down"
+visibility_mode = 1
+
+[node name="B" type="TouchScreenButton" parent="."]
+
+transform/pos = Vector2( 760, 424 )
+transform/scale = Vector2( 2, 2 )
+normal = ExtResource( 5 )
+pressed = null
+bitmask = null
+passby_press = false
+action = "ui_cancel"
+visibility_mode = 1
+
+[node name="A" type="TouchScreenButton" parent="."]
+
+transform/pos = Vector2( 892, 424 )
+transform/scale = Vector2( 2, 2 )
+normal = ExtResource( 5 )
+pressed = null
+bitmask = null
+passby_press = false
+action = "ui_accept"
+visibility_mode = 1
+
+
